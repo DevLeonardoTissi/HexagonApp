@@ -1,5 +1,7 @@
 [versions]
 agp = "8.3.2"
+coilCompose = "2.6.0"
+firebaseBom = "32.8.1"
 koinAndroidxCompose = "3.5.6"
 kotlin = "1.9.0"
 coreKtx = "1.10.1"
@@ -12,12 +14,18 @@ composeBom = "2023.08.00"
 roomCompiler = "2.6.1"
 roomRuntime = "2.6.1"
 ksp = "1.9.10-1.0.13"
+googleServices = "4.4.1"
+crashlytics = "2.9.9"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomCompiler" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomRuntime" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
+coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
+firebase-crashlytics = {module = "com.google.firebase:firebase-crashlytics"}
+google-firebase-analytics = {module = "com.google.firebase:firebase-analytics"}
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -36,5 +44,7 @@ koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", versi
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp"}
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+googleServices = { id = "com.google.gms.google-services", version.ref = "googleServices" }
+crashlytics = {id = "com.google.firebase.crashlytics" , version.ref = "crashlytics"}
 

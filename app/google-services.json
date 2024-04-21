@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1016117471536",
+    "project_id": "hexagonapp-49f8d",
+    "storage_bucket": "hexagonapp-49f8d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1016117471536:android:568b6af09eac224d6c00f5",
+        "android_client_info": {
+          "package_name": "br.com.leonardo.hexagonapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBP0t-DUhL6aQ74KI0NLiP0scGTx3wAH38"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

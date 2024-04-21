@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.googleServices)
+    alias(libs.plugins.crashlytics)
 }
 
 android {
@@ -52,6 +54,10 @@ android {
 
 dependencies {
 
+    implementation(libs.coil.compose)
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.google.firebase.analytics)
+    implementation(libs.firebase.crashlytics)
     implementation(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
