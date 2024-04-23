@@ -55,6 +55,8 @@ android {
 dependencies {
 
     implementation(libs.coil.compose)
+    implementation(libs.androidx.lifecycle.runtime.compose)
+
     implementation(platform(libs.firebase.bom))
     implementation(libs.google.firebase.analytics)
     implementation(libs.firebase.crashlytics)

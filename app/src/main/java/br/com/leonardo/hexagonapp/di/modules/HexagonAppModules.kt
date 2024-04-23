@@ -5,6 +5,8 @@ import androidx.room.Room
 import br.com.leonardo.hexagonapp.database.AppDatabase
 import br.com.leonardo.hexagonapp.database.dao.PersonalProfileDao
 import br.com.leonardo.hexagonapp.repository.PersonalProfileRepository
+import br.com.leonardo.hexagonapp.ui.screens.home.HomeScreenViewModel
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 private const val DATABASE_NAME = "hexagonApp.db"
@@ -26,5 +28,5 @@ val repositoryModule = module {
 }
 
 val viewModelModule = module {
-
+    viewModel  { HomeScreenViewModel(get<PersonalProfileRepository>()) }
 }
