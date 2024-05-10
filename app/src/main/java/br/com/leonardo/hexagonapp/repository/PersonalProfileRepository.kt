@@ -5,17 +5,14 @@ import br.com.leonardo.hexagonapp.model.PersonalProfile
 
 class PersonalProfileRepository(private val dao: PersonalProfileDao) {
 
-    fun getInactives() = dao.getInactives()
+    fun getInactive() = dao.getInactive()
 
     fun getActives() = dao.getActives()
 
-    fun getByCpf(cpf: String) = dao.getByCpf(cpf = cpf)
+    suspend fun getById(id: String) = dao.getById(id = id)
 
-    suspend fun active(cpf: String) = dao.active(cpf = cpf)
-
-    suspend fun inactive(cpf: String) = dao.inactive(cpf = cpf)
-
-    suspend fun add(personalProfile: PersonalProfile) = dao.add(personalProfile = personalProfile)
+    suspend fun insert(personalProfile: PersonalProfile) =
+        dao.insert(personalProfile = personalProfile)
 
     suspend fun remove(personalProfile: PersonalProfile) =
         dao.remove(personalProfile = personalProfile)

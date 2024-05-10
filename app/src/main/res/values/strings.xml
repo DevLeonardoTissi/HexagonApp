@@ -1,3 +1,62 @@
 <resources>
     <string name="app_name">HexagonApp</string>
+
+    <!-- Main -->
+    <string name = "iconCloseForCloseMenuDrawer">Close drawer</string>"
+    <string name = "iconHomeForNavigateToHomeScreenMenuDrawer">Home Screen</string>"
+    <string name = "iconAddForNavigateToFormScreenMenuDrawer">Form Screen</string>"
+    <string name = "iconForNavigateToInactiveScreenMenuDrawer">Inactive Screen</string>"
+    <string name = "iconAddForNavigateToFormFloatingButton">Form Screen</string>"
+    <string name = "iconMoreForInfoAndConfiguration">More - Configuration</string>"
+    <string name = "iconListForOpenMenuDrawer">Open drawer</string>"
+    <string name = "iconBackForNavigateUp">navigate to back</string>"
+
+        <!--- Drawer menu items -->
+        <string name="menuDrawerHomeOption">Principal</string>
+        <string name="menuDrawerInsertOption">Adicionar</string>
+        <string name="menuDrawerInactiveOption">Inativos</string>
+
+        <string name="topAppBarActiveTitle">Ativos</string>
+        <string name="topAppBarFormTitle">Formulário</string>
+        <string name="topAppBarInactiveTitle">Inativos</string>
+
+        <!--- Bottom sheet dialog settings -->
+        <string name="bottomSheetSettingsTitle">Configurações</string>
+        <string name="bottomSheetSettingsSwitchDarkModeLabel">Modo Noturno</string>
+
+    <!-- Form -->
+    <string name="updatePhotoDescriptionButton">Update Photo</string>
+    <string name="userProfileDescription">User profile</string>
+
+    <string name="profileIcon">Profile icon</string>
+    <string name="inputNameLabel">Digite seu nome</string>
+    <string name="inputNamePlaceHolder">Digite seu nome</string>
+
+    <string name="cpfIcon">Doc icon</string>
+    <string name="inputCpfLabel">Digite seu CPF</string>
+    <string name="inputCpfPlaceHolder">Digite seu CPF</string>
+
+    <string name="locationIcon">Location icon</string>
+    <string name="inputLocationLabel">Digite sua cidade</string>
+    <string name="inputLocationPlaceHolder">Digite sua cidade</string>
+
+    <string name="dateIcon">date icon</string>
+    <string name="inputDateOfBirthLabel">Data de nascimento</string>
+    <string name="inputDateOfBirthPlaceHolder">Data de nascimento</string>
+
+    <string name="switchOptionActiveProfileDescription">Ativo:</string>
+
+    <string name="saveIconButton">Save button</string>
+
+    <string name="titleAlertDialogConfirm">Confirmar</string>
+    <string name="textAlertDialogConfirm">Confirma a adição?</string>
+
+    <string name="dataPickerConfirmButtonText">Selecionar data</string>
+
+
+    <!-- Common -->
+    <string name="commonOk">OK</string>
+    <string name="commonConfirm">Confirmar</string>
+    <string name="commonDismiss">Cancelar</string>
+
 </resources>

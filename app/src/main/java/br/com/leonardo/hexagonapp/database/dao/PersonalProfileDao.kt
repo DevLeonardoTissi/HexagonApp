@@ -12,22 +12,16 @@ import kotlinx.coroutines.flow.Flow
 interface PersonalProfileDao {
 
     @Query("SELECT * FROM PersonalProfile WHERE active = 0")
-    fun getInactives(): Flow<List<PersonalProfile>>
+    fun getInactive(): Flow<List<PersonalProfile>>
 
     @Query("SELECT * FROM PersonalProfile WHERE active = 1")
     fun getActives(): Flow<List<PersonalProfile>>
 
-    @Query("SELECT * FROM PersonalProfile WHERE cpf = :cpf")
-    fun getByCpf(cpf: String): Flow<PersonalProfile>
-
-    @Query("UPDATE PersonalProfile SET active = 1 WHERE cpf = :cpf")
-    suspend fun active(cpf: String)
-
-    @Query("UPDATE PersonalProfile SET active = 0 WHERE cpf = :cpf")
-    suspend fun inactive(cpf: String)
+    @Query("SELECT * FROM PersonalProfile WHERE id = :id")
+    suspend fun getById(id: String): PersonalProfile
 
     @Insert(onConflict = REPLACE)
-    suspend fun add(personalProfile: PersonalProfile)
+    suspend fun insert(personalProfile: PersonalProfile)
 
     @Delete
     suspend fun remove(personalProfile: PersonalProfile)

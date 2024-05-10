@@ -2,17 +2,16 @@ package br.com.leonardo.hexagonapp.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.util.UUID
 
 @Entity
-class PersonalProfile(
-
+data class PersonalProfile(
     @PrimaryKey
+    val id: String = UUID.randomUUID().toString(),
     val cpf: String,
-    val name: String,
+    var name: String,
     val city: String,
     val dateOfBirth: String,
-    val active: Boolean? = true,
-    val photo: String? = null,
-
-    ) {
-}
+    val active: Boolean = true,
+    val photo: String? = null
+)

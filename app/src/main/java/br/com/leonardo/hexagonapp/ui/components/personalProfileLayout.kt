@@ -18,30 +18,30 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 
 @Composable
 fun PersonalProfileLayout(
+    id: String,
     name: String,
-    city: String,
     dateOfBirth: String,
-    cpf: String,
-    active: Boolean,
     photo: String?,
-    onClickItem: () -> Unit
+    cpf: String,
+    onClickItem: (profileId: String) -> Unit
 ) {
 
     Surface(
         shape = RoundedCornerShape(15.dp),
         shadowElevation = 4.dp,
-        modifier = Modifier.padding(15.dp),
-        onClick = onClickItem
+        modifier = Modifier.padding(15.dp).background(Color.White),
+        onClick = { onClickItem(id) }
     ) {
         Column(
 
             modifier = Modifier
                 .fillMaxWidth()
-                .height(100.dp)
+                .height(150.dp)
                 .background(Color.Blue), verticalArrangement = Arrangement.Center
         ) {
             Row(
@@ -52,7 +52,7 @@ fun PersonalProfileLayout(
                 MyAsyncImage(
                     model = photo,
                     description = "",
-                    modifier = Modifier.size(100.dp),
+                    modifier = Modifier.size(150.dp),
                     contentScale = ContentScale.Crop
                 )
 
@@ -63,7 +63,10 @@ fun PersonalProfileLayout(
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
+
                     Text(
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis,
                         text = name,
                         textAlign = TextAlign.Center,
                         modifier = Modifier.fillMaxWidth(),
@@ -71,24 +74,13 @@ fun PersonalProfileLayout(
                     )
 
                     Text(
-                        text = cpf,
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier.fillMaxWidth(),
-                        color = Color.Black
-                    )
-                    Text(
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis,
                         text = dateOfBirth,
                         textAlign = TextAlign.Center,
                         modifier = Modifier.fillMaxWidth(),
                         color = Color.Black
                     )
-                    Text(
-                        text = city,
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier.fillMaxWidth(),
-                        color = Color.Black
-                    )
-
 
                 }
 

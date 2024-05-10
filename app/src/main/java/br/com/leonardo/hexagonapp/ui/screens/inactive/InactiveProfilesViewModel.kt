@@ -1,6 +1,5 @@
-package br.com.leonardo.hexagonapp.ui.screens.home
+package br.com.leonardo.hexagonapp.ui.screens.inactive
 
-import android.provider.ContactsContract
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.leonardo.hexagonapp.model.PersonalProfile
@@ -10,12 +9,12 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class HomeScreenViewModel(private val repository: PersonalProfileRepository) : ViewModel() {
+class InactiveProfilesViewModel(private val repository: PersonalProfileRepository) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(HomeScreenUiState())
+    private val _uiState = MutableStateFlow(InactiveProfilesUiState())
     val uiState = _uiState.asStateFlow()
 
-    fun remove(profile : PersonalProfile){
+    fun remove(profile: PersonalProfile) {
         viewModelScope.launch {
             repository.remove(profile)
         }
@@ -23,9 +22,9 @@ class HomeScreenViewModel(private val repository: PersonalProfileRepository) : V
 
     init {
         viewModelScope.launch {
-            repository.getActives().collect { activesList ->
+            repository.getInactive().collect { inactiveList ->
                 _uiState.update { currentState ->
-                    currentState.copy(activesList = activesList)
+                    currentState.copy(inactiveList = inactiveList)
                 }
             }
         }
