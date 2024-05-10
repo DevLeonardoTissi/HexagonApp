@@ -16,7 +16,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.modifier.modifierLocalMapOf
 import br.com.leonardo.hexagonapp.model.PersonalProfile
 
 @OptIn(ExperimentalMaterial3Api::class)
