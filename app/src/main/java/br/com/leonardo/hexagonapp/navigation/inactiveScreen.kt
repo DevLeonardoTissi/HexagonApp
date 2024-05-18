@@ -20,7 +20,7 @@ fun NavGraphBuilder.inactiveScreen(navController: NavController) {
         val uiState: InactiveProfilesUiState by viewModel.uiState.collectAsState()
 
         InactiveScreen(uiState = uiState, onClickItem = { id ->
-            navController.navigateToForm(id)
+            navController.navigateToEdit(id)
         }, onDelete = { profile ->
             viewModel.remove(profile)
         })

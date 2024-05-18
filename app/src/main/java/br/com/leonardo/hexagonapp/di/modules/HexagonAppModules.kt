@@ -37,7 +37,7 @@ val repositoryModule = module {
 
 val viewModelModule = module {
     viewModel { HomeScreenViewModel(get<PersonalProfileRepository>()) }
-    viewModel { PersonalProfileFormViewModel(get<PersonalProfileRepository>()) }
+    viewModel { PersonalProfileFormViewModel(get<PersonalProfileRepository>(), get()) }
     viewModel { InactiveProfilesViewModel(get<PersonalProfileRepository>()) }
     viewModel { AppViewModel(get<SettingsRepository>()) }
 }

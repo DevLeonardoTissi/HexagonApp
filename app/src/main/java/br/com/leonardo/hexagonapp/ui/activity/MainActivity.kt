@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.AddCircle
@@ -57,6 +59,7 @@ import br.com.leonardo.hexagonapp.navigation.HexagonAppNavHost
 import br.com.leonardo.hexagonapp.navigation.formRoute
 import br.com.leonardo.hexagonapp.navigation.homeRoute
 import br.com.leonardo.hexagonapp.navigation.inactiveRoute
+import br.com.leonardo.hexagonapp.navigation.navigateToEdit
 import br.com.leonardo.hexagonapp.navigation.navigateToForm
 import br.com.leonardo.hexagonapp.navigation.navigateToHome
 import br.com.leonardo.hexagonapp.navigation.navigateToInactive
@@ -79,7 +82,6 @@ class MainActivity : ComponentActivity() {
             val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
             val coroutineScope = rememberCoroutineScope()
             val openBottomSheetInfoAndConfig = remember { mutableStateOf(false) }
-
 
             fun toggleDrawer() {
                 coroutineScope.launch {
@@ -110,7 +112,7 @@ class MainActivity : ComponentActivity() {
             if (openBottomSheetInfoAndConfig.value) {
                 ModalBottomSheetMore(
                     onDismissRequest = { openBottomSheetInfoAndConfig.value = false },
-                    setting = settings, onNewSettings = {newSetting->
+                    setting = settings, onNewSettings = { newSetting ->
                         appViewModel.updateSettings(newSetting)
                     }
                 )
@@ -161,7 +163,7 @@ class MainActivity : ComponentActivity() {
                                 label = { Text(getString(R.string.menuDrawerInsertOption)) },
                                 selected = isFormScreen(),
                                 onClick = {
-                                    navController.navigateToForm(null)
+                                    navController.navigateToForm()
                                     toggleDrawer()
                                 })
 
@@ -183,7 +185,7 @@ class MainActivity : ComponentActivity() {
                     }, drawerState = drawerState) {
                         Scaffold(floatingActionButton = {
                             if (isHomeScreen()) {
-                                FloatingActionButton(onClick = { navController.navigateToForm(null) }) {
+                                FloatingActionButton(onClick = { navController.navigateToForm() }) {
                                     Icon(
                                         Icons.Default.Add,
                                         contentDescription = getString(R.string.iconAddForNavigateToFormFloatingButton)
@@ -228,12 +230,12 @@ class MainActivity : ComponentActivity() {
                                     }) {
                                         if (isHomeScreen()) {
                                             Icon(
-                                                Icons.Default.List,
+                                                Icons.AutoMirrored.Filled.List,
                                                 contentDescription = getString(R.string.iconListForOpenMenuDrawer)
                                             )
                                         } else {
                                             Icon(
-                                                Icons.Default.ArrowBack,
+                                                Icons.AutoMirrored.Filled.ArrowBack,
                                                 contentDescription = getString(R.string.iconBackForNavigateUp)
                                             )
                                         }

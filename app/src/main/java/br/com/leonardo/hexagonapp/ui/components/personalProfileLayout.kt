@@ -34,7 +34,7 @@ fun PersonalProfileLayout(
     Surface(
         shape = RoundedCornerShape(15.dp),
         shadowElevation = 4.dp,
-        modifier = Modifier.padding(15.dp).background(Color.White),
+        modifier = Modifier.padding(15.dp),
         onClick = { onClickItem(id) }
     ) {
         Column(
@@ -81,15 +81,8 @@ fun PersonalProfileLayout(
                         modifier = Modifier.fillMaxWidth(),
                         color = Color.Black
                     )
-
                 }
-
-
             }
-
-
         }
     }
-
-
 }

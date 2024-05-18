@@ -67,8 +67,7 @@ fun PersonalProfileFormScreen(
     uiState: PersonalProfileFormUiState, navController: NavController
 ) {
     val context = LocalContext.current
-    var showDatePickerDialog by remember { mutableStateOf(false) }
-    var showConfirmDialog by remember { mutableStateOf(false) }
+
     val datePickerState = rememberDatePickerState()
     val focusManager = LocalFocusManager.current
     val name = uiState.name
@@ -186,7 +185,7 @@ fun PersonalProfileFormScreen(
                 .padding(10.dp)
                 .onFocusEvent {
                     if (it.isFocused) {
-                        showDatePickerDialog = true
+                        uiState.onShowDatePickerDialog(true)
                         focusManager.clearFocus(force = true)
                     }
                 },
@@ -217,7 +216,7 @@ fun PersonalProfileFormScreen(
         Spacer(modifier = Modifier.height(20.dp))
 
         Button(
-            onClick = { showConfirmDialog = true }, modifier = Modifier
+            onClick = { uiState.onShowConfirmDialog(true) }, modifier = Modifier
                 .width(100.dp)
                 .height(50.dp)
         ) {
@@ -230,25 +229,25 @@ fun PersonalProfileFormScreen(
         Spacer(modifier = Modifier.height(50.dp))
     }
 
-    if (showConfirmDialog) {
+    if (uiState.showConfirmDialog) {
         AnimatedAlertDialogWithConfirmButton(
             onConfirmation = {
                 if (name.isNotBlank() || cpf.isNotBlank() || city.isNotBlank() || dateOfBirth.isNotBlank()) {
                     uiState.onSave()
                     navController.popBackStack()
-                    showConfirmDialog = false
+                    uiState.onShowConfirmDialog(false)
                 }
             },
-            onDismissRequest = { showConfirmDialog = false },
+            onDismissRequest = { uiState.onShowConfirmDialog(false) },
             rawRes = R.raw.android,
             text = context.getString(R.string.textAlertDialogConfirm),
             title = context.getString(R.string.titleAlertDialogConfirm)
         )
     }
 
-    if (showDatePickerDialog) {
+    if (uiState.showDatePickerDialog) {
         DatePickerDialog(
-            onDismissRequest = { showDatePickerDialog = false },
+            onDismissRequest = { uiState.onShowDatePickerDialog(false) },
             confirmButton = {
                 Button(
                     onClick = {
@@ -256,7 +255,7 @@ fun PersonalProfileFormScreen(
                             .selectedDateMillis?.let { millis ->
                                 uiState.onDateOfBirthChanged(millis.toString())
                             }
-                        showDatePickerDialog = false
+                        uiState.onShowDatePickerDialog(false)
                     }) {
                     Text(text = context.getString(R.string.dataPickerConfirmButtonText))
                 }

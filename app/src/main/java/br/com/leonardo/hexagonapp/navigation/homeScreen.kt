@@ -20,7 +20,7 @@ fun NavGraphBuilder.homeScreen(navController: NavController) {
         val uiState: HomeScreenUiState by viewModel.uiState.collectAsState()
 
         HomeScreen(uiState = uiState, onClickItem = { id ->
-            navController.navigateToForm(id)
+            navController.navigateToEdit(id)
         }, onDelete = { viewModel.remove(it) })
     }
 }

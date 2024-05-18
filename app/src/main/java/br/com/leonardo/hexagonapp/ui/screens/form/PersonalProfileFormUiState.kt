@@ -16,5 +16,9 @@ data class PersonalProfileFormUiState(
     val onDateOfBirthChanged: (String) -> Unit = {},
     val onPhotoChanged: (String) -> Unit = {},
     val onActiveChanged: (Boolean) -> Unit = {},
-    val onSave: () -> Unit = {}
+    val onSave: () -> Unit = {},
+    var showDatePickerDialog : Boolean = false,
+    val onShowDatePickerDialog: (Boolean) -> Unit = {},
+    var showConfirmDialog  : Boolean = false,
+    val onShowConfirmDialog: (Boolean) -> Unit = {},
 )

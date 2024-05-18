@@ -1,6 +1,5 @@
 package br.com.leonardo.hexagonapp.ui.screens.home
 
-import android.provider.ContactsContract
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.leonardo.hexagonapp.model.PersonalProfile

@@ -20,6 +20,10 @@
         <string name="topAppBarFormTitle">Formulário</string>
         <string name="topAppBarInactiveTitle">Inativos</string>
 
+    <!--- Personal Profile List -->
+    <string name="swipeToDismissBoxIconDescriptionDelete">Remover</string>
+    <string name="swipeToDismissBoxLabelDelete">Remover</string>
+
         <!--- Bottom sheet dialog settings -->
         <string name="bottomSheetSettingsTitle">Configurações</string>
         <string name="bottomSheetSettingsSwitchDarkModeLabel">Modo Noturno</string>
