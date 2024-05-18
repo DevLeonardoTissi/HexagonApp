@@ -39,10 +39,6 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -54,7 +50,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import br.com.leonardo.hexagonapp.R
 import br.com.leonardo.hexagonapp.ui.DEFAULT_IMAGE_URL
 import br.com.leonardo.hexagonapp.ui.components.AnimatedAlertDialogWithConfirmButton
@@ -64,7 +59,7 @@ import br.com.leonardo.hexagonapp.ui.components.SearchTextField
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PersonalProfileFormScreen(
-    uiState: PersonalProfileFormUiState, navController: NavController
+    uiState: PersonalProfileFormUiState, onPopBackStack: () -> Unit
 ) {
     val context = LocalContext.current
 
@@ -234,7 +229,7 @@ fun PersonalProfileFormScreen(
             onConfirmation = {
                 if (name.isNotBlank() || cpf.isNotBlank() || city.isNotBlank() || dateOfBirth.isNotBlank()) {
                     uiState.onSave()
-                    navController.popBackStack()
+                    onPopBackStack()
                     uiState.onShowConfirmDialog(false)
                 }
             },

@@ -25,7 +25,9 @@ fun NavGraphBuilder.formScreen(navController: NavController) {
             parameters = { parametersOf(id) }
         )
         val uiState: PersonalProfileFormUiState by viewModel.uiState.collectAsState()
-        PersonalProfileFormScreen(uiState = uiState, navController = navController)
+        PersonalProfileFormScreen(uiState = uiState, onPopBackStack = {
+                navController.navigateUp()
+        })
     }
 }
 

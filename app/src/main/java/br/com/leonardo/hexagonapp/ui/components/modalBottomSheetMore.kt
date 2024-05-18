@@ -20,7 +20,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.leonardo.hexagonapp.R
-import br.com.leonardo.hexagonapp.model.Settings
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
@@ -31,8 +30,8 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 @Composable
 fun ModalBottomSheetMore(
     onDismissRequest: () -> Unit,
-    setting: Settings,
-    onNewSettings: (newSettings: Settings) -> Unit
+    isDarkMode:Boolean,
+    onDarkModeChange: (Boolean) -> Unit
 ) {
     ModalBottomSheet(
         onDismissRequest = { onDismissRequest() }
@@ -86,7 +85,7 @@ fun ModalBottomSheetMore(
                     textAlign = TextAlign.Center,
                     fontSize = 16.sp
                 )
-                Switch(checked = setting.darkMode, onCheckedChange = { onNewSettings(Settings(darkMode = it)) })
+                Switch(checked = isDarkMode, onCheckedChange = { onDarkModeChange(it) })
             }
         }
     }

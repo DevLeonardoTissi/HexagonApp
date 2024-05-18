@@ -39,8 +39,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -48,11 +48,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import br.com.leonardo.hexagonapp.R
-import br.com.leonardo.hexagonapp.model.Settings
 import br.com.leonardo.hexagonapp.navigation.HexagonAppNavHost
 import br.com.leonardo.hexagonapp.navigation.formRoute
 import br.com.leonardo.hexagonapp.navigation.homeRoute
@@ -73,12 +71,12 @@ class MainActivity : ComponentActivity() {
         setContent {
 
             val appViewModel: AppViewModel = koinViewModel()
-            val settings by appViewModel.settings.collectAsStateWithLifecycle(Settings())
+            val appUiState by appViewModel.uiState.collectAsState()
+
             val navController = rememberNavController()
             val backStackEntryState by navController.currentBackStackEntryAsState()
             val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
             val coroutineScope = rememberCoroutineScope()
-            val openBottomSheetInfoAndConfig = remember { mutableStateOf(false) }
 
             fun toggleDrawer() {
                 coroutineScope.launch {
@@ -87,8 +85,7 @@ class MainActivity : ComponentActivity() {
             }
 
             fun isHomeScreen() = backStackEntryState?.destination?.route == homeRoute
-            fun isFormScreen() =
-                backStackEntryState?.destination?.route?.contains(formRoute) == true
+            fun isFormScreen() = backStackEntryState?.destination?.route?.contains(formRoute) == true
 
             fun isInactiveScreen() = backStackEntryState?.destination?.route == inactiveRoute
 
@@ -106,17 +103,21 @@ class MainActivity : ComponentActivity() {
                 }
             }
 
-            if (openBottomSheetInfoAndConfig.value) {
+            if (appUiState.showBottomSheetDialogInfoAndConfig) {
                 ModalBottomSheetMore(
-                    onDismissRequest = { openBottomSheetInfoAndConfig.value = false },
-                    setting = settings, onNewSettings = { newSetting ->
-                        appViewModel.updateSettings(newSetting)
+                    onDismissRequest = { appUiState.onShowBottomSheetDialogInfoAndConfig(false) },
+                    isDarkMode = appUiState.isDarkMode, onDarkModeChange = { isDarkMode ->
+                        appUiState.onDarkModeChange(isDarkMode)
                     }
                 )
             }
 
             val snackBarHost = remember { SnackbarHostState() }
-            HexagonAppTheme(darkTheme = settings.darkMode) {
+
+
+
+
+            HexagonAppTheme(darkTheme = appUiState.isDarkMode) {
                 Surface {
                     ModalNavigationDrawer(drawerContent = {
                         ModalDrawerSheet {
@@ -208,7 +209,7 @@ class MainActivity : ComponentActivity() {
                                 ),
                                 actions = {
                                     IconButton(onClick = {
-                                        openBottomSheetInfoAndConfig.value = true
+                                        appUiState.onShowBottomSheetDialogInfoAndConfig(true)
                                     }) {
                                         Icon(
                                             Icons.Default.MoreVert,
