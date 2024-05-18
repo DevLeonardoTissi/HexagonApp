@@ -16,16 +16,14 @@ import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.AddCircle
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.CenterAlignedTopAppBar
-import androidx.compose.material3.Divider
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -59,7 +57,6 @@ import br.com.leonardo.hexagonapp.navigation.HexagonAppNavHost
 import br.com.leonardo.hexagonapp.navigation.formRoute
 import br.com.leonardo.hexagonapp.navigation.homeRoute
 import br.com.leonardo.hexagonapp.navigation.inactiveRoute
-import br.com.leonardo.hexagonapp.navigation.navigateToEdit
 import br.com.leonardo.hexagonapp.navigation.navigateToForm
 import br.com.leonardo.hexagonapp.navigation.navigateToHome
 import br.com.leonardo.hexagonapp.navigation.navigateToInactive
@@ -137,7 +134,7 @@ class MainActivity : ComponentActivity() {
                                     )
                                 }
                             }
-                            Divider()
+                            HorizontalDivider()
                             Spacer(modifier = Modifier.height(20.dp))
                             NavigationDrawerItem(
                                 icon = {

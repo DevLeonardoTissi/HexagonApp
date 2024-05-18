@@ -4,7 +4,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import br.com.leonardo.hexagonapp.ui.screens.home.HomeScreen
 import br.com.leonardo.hexagonapp.ui.screens.home.HomeScreenUiState
@@ -25,6 +24,11 @@ fun NavGraphBuilder.homeScreen(navController: NavController) {
     }
 }
 
-fun NavController.navigateToHome(navOptions: NavOptions? = null) {
-    navigate(homeRoute, navOptions)
+fun NavController.navigateToHome() {
+    navigate(homeRoute){
+        popUpTo(homeRoute){
+            inclusive = true
+        }
+        launchSingleTop = true
+    }
 }
