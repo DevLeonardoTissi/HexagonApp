@@ -61,6 +61,7 @@ import br.com.leonardo.hexagonapp.navigation.navigateToInactive
 import br.com.leonardo.hexagonapp.ui.APP_NAME
 import br.com.leonardo.hexagonapp.ui.components.ModalBottomSheetMore
 import br.com.leonardo.hexagonapp.ui.theme.HexagonAppTheme
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
@@ -75,14 +76,28 @@ class MainActivity : ComponentActivity() {
 
             val navController = rememberNavController()
             val backStackEntryState by navController.currentBackStackEntryAsState()
-            val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+//            val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
             val coroutineScope = rememberCoroutineScope()
 
-            fun toggleDrawer() {
+
+            fun toogleDrawer(){
                 coroutineScope.launch {
-                    if (drawerState.isOpen) drawerState.close() else drawerState.open()
+                    if(appUiState.drawerState.isOpen){
+                        appUiState.drawerState.close()
+                    }else {
+                        appUiState.drawerState.open()
+                    }
                 }
+
             }
+
+//            fun toggleDrawer() {
+//                coroutineScope.launch {
+//                    if (drawerState.isOpen) drawerState.close() else drawerState.open()
+//                }
+
+
+//            }
 
             fun isHomeScreen() = backStackEntryState?.destination?.route == homeRoute
             fun isFormScreen() = backStackEntryState?.destination?.route?.contains(formRoute) == true
@@ -127,7 +142,7 @@ class MainActivity : ComponentActivity() {
                                 horizontalArrangement = Arrangement.SpaceBetween
                             ) {
                                 Text(APP_NAME, modifier = Modifier.padding(16.dp))
-                                IconButton(onClick = { toggleDrawer() }
+                                IconButton(onClick = { toogleDrawer() }
                                 ) {
                                     Icon(
                                         Icons.Default.Close,
@@ -148,7 +163,7 @@ class MainActivity : ComponentActivity() {
                                 selected = isHomeScreen(),
                                 onClick = {
                                     navController.navigateToHome()
-                                    toggleDrawer()
+                                    toogleDrawer()
                                 })
 
                             NavigationDrawerItem(
@@ -162,7 +177,7 @@ class MainActivity : ComponentActivity() {
                                 selected = isFormScreen(),
                                 onClick = {
                                     navController.navigateToForm()
-                                    toggleDrawer()
+                                    toogleDrawer()
                                 })
 
                             NavigationDrawerItem(
@@ -177,10 +192,10 @@ class MainActivity : ComponentActivity() {
                                 selected = isInactiveScreen(),
                                 onClick = {
                                     navController.navigateToInactive()
-                                    toggleDrawer()
+                                    toogleDrawer()
                                 })
                         }
-                    }, drawerState = drawerState) {
+                    }, drawerState = appUiState.drawerState) {
                         Scaffold(floatingActionButton = {
                             if (isHomeScreen()) {
                                 FloatingActionButton(onClick = { navController.navigateToForm() }) {
@@ -221,7 +236,7 @@ class MainActivity : ComponentActivity() {
                                     IconButton(onClick = {
 
                                         if (isHomeScreen()) {
-                                            toggleDrawer()
+                                            toogleDrawer()
                                         } else {
                                             navController.navigateUp()
                                         }
