@@ -20,6 +20,7 @@ fun NavGraphBuilder.formScreen(navController: NavController) {
         val id = navArgument(profileIdArgument){
             nullable = true
         }
+
         val viewModel: PersonalProfileFormViewModel = koinViewModel<PersonalProfileFormViewModel>(
             parameters = { parametersOf(id) }
         )
