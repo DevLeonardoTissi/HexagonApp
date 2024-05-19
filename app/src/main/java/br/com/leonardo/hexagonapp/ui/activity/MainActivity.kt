@@ -18,6 +18,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -31,6 +32,7 @@ import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.NavigationDrawerItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Snackbar
+import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
@@ -85,11 +87,11 @@ class MainActivity : ComponentActivity() {
                 }
             }
 
-//            fun showSnackbar(){
-//                coroutineScope.launch {
-//                    snackBarHost.showSnackbar("Info and Configuration", duration = SnackbarDuration.Short)
-//                }
-//            }
+            fun showSnackbar(){
+                coroutineScope.launch {
+                    snackBarHost.showSnackbar("Para deletar, arraste para o lado", duration = SnackbarDuration.Short)
+                }
+            }
 
             fun topAppBarTitle(): String {
                 return if (appUiState.isFormScreen) {
@@ -173,6 +175,22 @@ class MainActivity : ComponentActivity() {
                                 selected = appUiState.isInactiveScreen,
                                 onClick = {
                                     navController.navigateToInactive()
+                                    updateDrawer()
+                                })
+
+                            Spacer(modifier = Modifier.weight(1f))
+
+                            NavigationDrawerItem(
+                                icon = {
+                                    Icon(
+                                        Icons.Default.Info,
+                                        contentDescription = getString(R.string.iconForHelpMenuDrawer)
+                                    )
+                                },
+                                label = { Text(getString(R.string.menuDrawerHelpOption)) },
+                                selected = false,
+                                onClick = {
+                                    showSnackbar()
                                     updateDrawer()
                                 })
                         }

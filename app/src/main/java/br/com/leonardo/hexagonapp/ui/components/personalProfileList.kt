@@ -99,7 +99,6 @@ fun PersonalProfileList(
                                                 contentDescription = context.getString(R.string.swipeToDismissBoxIconDescriptionDelete),
                                                 modifier = Modifier
                                                     .align(Alignment.CenterHorizontally)
-
                                             )
                                         }
                                     }
