@@ -64,6 +64,7 @@ fun PersonalProfileList(
                 LazyColumn {
                     items(list, key = { it.id }) { profile ->
                         val swipeToDismissBoxState = rememberSwipeToDismissBoxState()
+
                         LaunchedEffect(swipeToDismissBoxState.currentValue) {
                             if (swipeToDismissBoxState.currentValue === SwipeToDismissBoxValue.EndToStart) {
                                 onDelete(profile)
