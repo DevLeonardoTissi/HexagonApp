@@ -18,8 +18,7 @@ data class AppUiState(
     val isHomeScreen: Boolean = currentRoute == homeRoute,
     val isFormScreen: Boolean = currentRoute == formRoute,
     val isInactiveScreen: Boolean = currentRoute == inactiveRoute,
-
-    ) {
+) {
     suspend fun updateDrawer() {
         if (drawerState.isClosed) {
             drawerState.open()
