@@ -87,9 +87,12 @@ class MainActivity : ComponentActivity() {
                 }
             }
 
-            fun showSnackbar(){
+            fun showSnackBar() {
                 coroutineScope.launch {
-                    snackBarHost.showSnackbar("Para deletar, arraste para o lado", duration = SnackbarDuration.Short)
+                    snackBarHost.showSnackbar(
+                        getString(R.string.snackBarHelpMessage),
+                        duration = SnackbarDuration.Short
+                    )
                 }
             }
 
@@ -190,7 +193,7 @@ class MainActivity : ComponentActivity() {
                                 label = { Text(getString(R.string.menuDrawerHelpOption)) },
                                 selected = false,
                                 onClick = {
-                                    showSnackbar()
+                                    showSnackBar()
                                     updateDrawer()
                                 })
                         }

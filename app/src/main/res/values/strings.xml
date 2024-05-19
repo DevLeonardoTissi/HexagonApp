@@ -12,6 +12,9 @@
     <string name = "iconListForOpenMenuDrawer">Open drawer</string>"
     <string name = "iconBackForNavigateUp">navigate to back</string>"
 
+        <!-- SnackbarHelp -->
+        <string name="snackBarHelpMessage">Arraste para o lado para deletar\n👈</string>
+
         <!--- Drawer menu items -->
         <string name="menuDrawerHomeOption">Principal</string>
         <string name="menuDrawerInsertOption">Adicionar</string>
