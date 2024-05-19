@@ -9,7 +9,7 @@ data class PersonalProfile(
     @PrimaryKey
     val id: String = UUID.randomUUID().toString(),
     val cpf: String,
-    var name: String,
+    val name: String,
     val city: String,
     val dateOfBirth: String,
     val active: Boolean = true,
