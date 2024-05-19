@@ -20,7 +20,6 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.CenterAlignedTopAppBar
-import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.HorizontalDivider
@@ -37,8 +36,8 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -48,20 +47,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import br.com.leonardo.hexagonapp.R
 import br.com.leonardo.hexagonapp.navigation.HexagonAppNavHost
-import br.com.leonardo.hexagonapp.navigation.formRoute
-import br.com.leonardo.hexagonapp.navigation.homeRoute
-import br.com.leonardo.hexagonapp.navigation.inactiveRoute
 import br.com.leonardo.hexagonapp.navigation.navigateToForm
 import br.com.leonardo.hexagonapp.navigation.navigateToHome
 import br.com.leonardo.hexagonapp.navigation.navigateToInactive
 import br.com.leonardo.hexagonapp.ui.APP_NAME
 import br.com.leonardo.hexagonapp.ui.components.ModalBottomSheetMore
 import br.com.leonardo.hexagonapp.ui.theme.HexagonAppTheme
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
@@ -73,64 +67,52 @@ class MainActivity : ComponentActivity() {
 
             val appViewModel: AppViewModel = koinViewModel()
             val appUiState by appViewModel.uiState.collectAsState()
-
             val navController = rememberNavController()
-            val backStackEntryState by navController.currentBackStackEntryAsState()
-//            val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
             val coroutineScope = rememberCoroutineScope()
+            val snackBarHost = remember { SnackbarHostState() }
 
-
-            fun toogleDrawer(){
-                coroutineScope.launch {
-                    if(appUiState.drawerState.isOpen){
-                        appUiState.drawerState.close()
-                    }else {
-                        appUiState.drawerState.open()
+            LaunchedEffect(navController) {
+                navController.addOnDestinationChangedListener { _, destination, _ ->
+                    destination.route?.let {
+                        appUiState.onCurrentRouteChange(it)
                     }
                 }
-
             }
 
-//            fun toggleDrawer() {
+            fun updateDrawer() {
+                coroutineScope.launch {
+                    appUiState.updateDrawer()
+                }
+            }
+
+//            fun showSnackbar(){
 //                coroutineScope.launch {
-//                    if (drawerState.isOpen) drawerState.close() else drawerState.open()
+//                    snackBarHost.showSnackbar("Info and Configuration", duration = SnackbarDuration.Short)
 //                }
-
-
 //            }
 
-            fun isHomeScreen() = backStackEntryState?.destination?.route == homeRoute
-            fun isFormScreen() = backStackEntryState?.destination?.route?.contains(formRoute) == true
-
-            fun isInactiveScreen() = backStackEntryState?.destination?.route == inactiveRoute
-
             fun topAppBarTitle(): String {
-                return when (backStackEntryState?.destination?.route) {
-                    homeRoute -> getString(R.string.topAppBarActiveTitle)
-                    inactiveRoute -> getString(R.string.topAppBarInactiveTitle)
-                    else -> {
-                        if (backStackEntryState?.destination?.route?.contains(formRoute) == true) {
-                            getString(R.string.topAppBarFormTitle)
-                        } else {
-                            getString(R.string.topAppBarActiveTitle)
-                        }
-                    }
+                return if (appUiState.isFormScreen) {
+                    getString(R.string.topAppBarFormTitle)
+                } else if (appUiState.isInactiveScreen) {
+                    getString(R.string.topAppBarInactiveTitle)
+                } else {
+                    getString(R.string.topAppBarActiveTitle)
                 }
             }
 
             if (appUiState.showBottomSheetDialogInfoAndConfig) {
                 ModalBottomSheetMore(
-                    onDismissRequest = { appUiState.onShowBottomSheetDialogInfoAndConfig(false) },
+                    onDismissRequest = {
+                        appUiState.changeVisibilityBottomSheetDialogInfoAndConfig(
+                            false
+                        )
+                    },
                     isDarkMode = appUiState.isDarkMode, onDarkModeChange = { isDarkMode ->
                         appUiState.onDarkModeChange(isDarkMode)
                     }
                 )
             }
-
-            val snackBarHost = remember { SnackbarHostState() }
-
-
-
 
             HexagonAppTheme(darkTheme = appUiState.isDarkMode) {
                 Surface {
@@ -142,7 +124,7 @@ class MainActivity : ComponentActivity() {
                                 horizontalArrangement = Arrangement.SpaceBetween
                             ) {
                                 Text(APP_NAME, modifier = Modifier.padding(16.dp))
-                                IconButton(onClick = { toogleDrawer() }
+                                IconButton(onClick = { updateDrawer() }
                                 ) {
                                     Icon(
                                         Icons.Default.Close,
@@ -160,10 +142,10 @@ class MainActivity : ComponentActivity() {
                                     )
                                 },
                                 label = { Text(getString(R.string.menuDrawerHomeOption)) },
-                                selected = isHomeScreen(),
+                                selected = appUiState.isHomeScreen,
                                 onClick = {
                                     navController.navigateToHome()
-                                    toogleDrawer()
+                                    updateDrawer()
                                 })
 
                             NavigationDrawerItem(
@@ -174,30 +156,30 @@ class MainActivity : ComponentActivity() {
                                     )
                                 },
                                 label = { Text(getString(R.string.menuDrawerInsertOption)) },
-                                selected = isFormScreen(),
+                                selected = appUiState.isFormScreen,
                                 onClick = {
                                     navController.navigateToForm()
-                                    toogleDrawer()
+                                    updateDrawer()
                                 })
 
                             NavigationDrawerItem(
                                 icon = {
                                     Icon(
                                         Icons.Default.AccountCircle,
-
                                         contentDescription = getString(R.string.iconForNavigateToInactiveScreenMenuDrawer)
                                     )
                                 },
                                 label = { Text(getString(R.string.menuDrawerInactiveOption)) },
-                                selected = isInactiveScreen(),
+                                selected = appUiState.isInactiveScreen,
                                 onClick = {
                                     navController.navigateToInactive()
-                                    toogleDrawer()
+                                    updateDrawer()
                                 })
                         }
                     }, drawerState = appUiState.drawerState) {
+
                         Scaffold(floatingActionButton = {
-                            if (isHomeScreen()) {
+                            if (appUiState.showAddFloatingActionButton) {
                                 FloatingActionButton(onClick = { navController.navigateToForm() }) {
                                     Icon(
                                         Icons.Default.Add,
@@ -224,7 +206,9 @@ class MainActivity : ComponentActivity() {
                                 ),
                                 actions = {
                                     IconButton(onClick = {
-                                        appUiState.onShowBottomSheetDialogInfoAndConfig(true)
+                                        appUiState.changeVisibilityBottomSheetDialogInfoAndConfig(
+                                            true
+                                        )
                                     }) {
                                         Icon(
                                             Icons.Default.MoreVert,
@@ -235,13 +219,13 @@ class MainActivity : ComponentActivity() {
                                 navigationIcon = {
                                     IconButton(onClick = {
 
-                                        if (isHomeScreen()) {
-                                            toogleDrawer()
+                                        if (appUiState.isHomeScreen) {
+                                            updateDrawer()
                                         } else {
                                             navController.navigateUp()
                                         }
                                     }) {
-                                        if (isHomeScreen()) {
+                                        if (appUiState.isHomeScreen) {
                                             Icon(
                                                 Icons.AutoMirrored.Filled.List,
                                                 contentDescription = getString(R.string.iconListForOpenMenuDrawer)

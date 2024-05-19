@@ -2,8 +2,10 @@ package br.com.leonardo.hexagonapp.ui.activity
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import br.com.leonardo.hexagonapp.di.modules.viewModelModule
 import br.com.leonardo.hexagonapp.model.Settings
+import br.com.leonardo.hexagonapp.navigation.formRoute
+import br.com.leonardo.hexagonapp.navigation.homeRoute
+import br.com.leonardo.hexagonapp.navigation.inactiveRoute
 import br.com.leonardo.hexagonapp.repository.SettingsRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,19 +20,9 @@ class AppViewModel(private val repository: SettingsRepository) : ViewModel() {
     private val _uiState = MutableStateFlow(AppUiState())
     val uiState = _uiState.asStateFlow()
 
-    private fun updateSettings(settings: Settings) {
+    private fun toggleDarkMode(darkMode: Boolean) {
         viewModelScope.launch {
-            repository.updateSettings(settings)
-        }
-    }
-
-    private fun updateDrawer(){
-        viewModelScope.launch {
-            if (_uiState.value.drawerState.isOpen) {
-                _uiState.value.drawerState.close()
-            } else {
-                _uiState.value.drawerState.open()
-            }
+            repository.updateSettings(Settings(darkMode = darkMode))
         }
     }
 
@@ -41,17 +33,21 @@ class AppViewModel(private val repository: SettingsRepository) : ViewModel() {
                     currentState.copy(
                         isDarkMode = settings.darkMode,
                         onDarkModeChange = { isDarkMode ->
-                            updateSettings(Settings(darkMode = isDarkMode))
+                            toggleDarkMode(isDarkMode)
                         },
-                        onShowBottomSheetDialogInfoAndConfig = { showBottomSheetDialogInfoAndConfig ->
+                        changeVisibilityBottomSheetDialogInfoAndConfig = { showBottomSheetDialogInfoAndConfig ->
                             _uiState.value =
                                 _uiState.value.copy(showBottomSheetDialogInfoAndConfig = showBottomSheetDialogInfoAndConfig)
                         },
-                        updateDrawer = {
-                                updateDrawer()
-
-
-                        }
+                        onCurrentRouteChange = { route ->
+                            _uiState.value = _uiState.value.copy(
+                                currentRoute = route,
+                                isHomeScreen = route == homeRoute,
+                                isFormScreen = route.contains(formRoute) ,
+                                isInactiveScreen = route == inactiveRoute,
+                                showAddFloatingActionButton = route == homeRoute
+                            )
+                        },
                     )
                 }
             }

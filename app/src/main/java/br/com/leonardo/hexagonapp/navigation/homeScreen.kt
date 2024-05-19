@@ -20,13 +20,15 @@ fun NavGraphBuilder.homeScreen(navController: NavController) {
 
         HomeScreen(uiState = uiState, onClickItem = { id ->
             navController.navigateToEdit(id)
-        }, onDelete = { viewModel.remove(it) })
+        }, onDelete = { profile ->
+            viewModel.remove(profile)
+        })
     }
 }
 
 fun NavController.navigateToHome() {
-    navigate(homeRoute){
-        popUpTo(homeRoute){
+    navigate(homeRoute) {
+        popUpTo(homeRoute) {
             inclusive = true
         }
         launchSingleTop = true
