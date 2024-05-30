@@ -2,6 +2,9 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
 
+    //New compose compile plugin
+    alias(libs.plugins.compose.compiler)
+
     //KSP - processor
     alias(libs.plugins.ksp)
 
@@ -48,9 +51,6 @@ android {
     buildFeatures {
         compose = true
     }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
-    }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -88,6 +88,11 @@ dependencies {
 
     //Material design
     implementation(libs.androidx.material3)
+
+    //Retrofit + Converter + Logging interceptor
+    implementation (libs.retrofit)
+    implementation (libs.converter.moshi)
+    implementation(libs.logging.interceptor)
 
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.core.ktx)
