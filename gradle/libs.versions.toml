@@ -1,4 +1,6 @@
 [versions]
+
+#Android gradle plugin
 agp = "8.3.2"
 
 
@@ -94,6 +96,7 @@ androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-man
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 
 [plugins]
+#Android gradle plugin
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 
 #Kotlin
