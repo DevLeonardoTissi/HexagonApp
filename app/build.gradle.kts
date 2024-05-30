@@ -1,8 +1,14 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+
+    //KSP - processor
     alias(libs.plugins.ksp)
+
+    //Google services
     alias(libs.plugins.googleServices)
+
+    //Firebase crashlytics
     alias(libs.plugins.crashlytics)
 }
 
@@ -54,17 +60,36 @@ android {
 
 dependencies {
 
+    //Navigation for compose
     implementation(libs.androidx.navigation.compose)
+
+    //Coil for compose
     implementation(libs.coil.compose)
-    implementation(libs.androidx.lifecycle.runtime.compose)
+
+    //Lottie animation for compose
     implementation(libs.lottie.compose)
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.google.firebase.analytics)
-    implementation(libs.firebase.crashlytics)
+
+    //Room database
     implementation(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
+
+    //koin for compose
     implementation(libs.koin.androidx.compose)
+
+    //Firebase DOM
+    implementation(platform(libs.firebase.bom))
+
+    //Google analytics
+    implementation(libs.google.firebase.analytics)
+
+    //Firebase crashlytics
+    implementation(libs.firebase.crashlytics)
+
+    //Material design
+    implementation(libs.androidx.material3)
+
+    implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -72,7 +97,7 @@ dependencies {
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.androidx.material3)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

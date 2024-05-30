@@ -1,9 +1,41 @@
 [versions]
 agp = "8.3.2"
-coilCompose = "2.6.0"
+
+
+#Firebase DOM
 firebaseBom = "32.8.1"
+
+#Navigation for compose
+navigationCompose = "2.7.7"
+
+#Coil for compose
+coilCompose = "2.6.0"
+
+#KSP Processor
+ksp = "1.9.10-1.0.13"
+
+#Lottie animation for compose
+lottieCompose = "6.1.0"
+
+#Google service
+googleServices = "4.4.1"
+
+#Room compile - Runtime
+roomCompiler = "2.6.1"
+roomRuntime = "2.6.1"
+
+#Firebase Crashlytics
+crashlytics = "2.9.9"
+
+#Koin
 koinAndroidxCompose = "3.5.6"
+
+#Material design 3
+material3Android = "1.2.1"
+
+#kotlin
 kotlin = "1.9.0"
+
 coreKtx = "1.10.1"
 junit = "4.13.2"
 junitVersion = "1.1.5"
@@ -12,26 +44,42 @@ lifecycleRuntimeCompose = "2.7.0"
 lifecycleRuntimeKtx = "2.6.1"
 activityCompose = "1.7.0"
 composeBom = "2023.08.00"
-lottieCompose = "6.1.0"
-navigationCompose = "2.7.7"
-roomCompiler = "2.6.1"
-roomRuntime = "2.6.1"
-ksp = "1.9.10-1.0.13"
-googleServices = "4.4.1"
-crashlytics = "2.9.9"
-material3Android = "1.2.1"
+
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycleRuntimeCompose" }
-androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
+
+#Room Database
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomCompiler" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomRuntime" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
+
+#NAVIGATION
+androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
+
+#COIL
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
-firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
+
+#Firebase Crashlytics
 firebase-crashlytics = {module = "com.google.firebase:firebase-crashlytics"}
+
+#Firebase DOM
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
+
+#Google Analytics
 google-firebase-analytics = {module = "com.google.firebase:firebase-analytics"}
+
+#Lootie Animation
+lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottieCompose" }
+
+#Koin
+koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koinAndroidxCompose" }
+
+#Material design 3
+androidx-material3 = { group = "androidx.compose.material3", name = "material3" , version.ref= "material3Android" }
+
+
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -44,14 +92,19 @@ androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
-androidx-material3 = { group = "androidx.compose.material3", name = "material3" , version.ref= "material3Android" }
-koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koinAndroidxCompose" }
-lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottieCompose" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
+
+#Kotlin
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+
+#KSP - Processor
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+
+#Google services
 googleServices = { id = "com.google.gms.google-services", version.ref = "googleServices" }
+
+#Firebase crashlytics
 crashlytics = {id = "com.google.firebase.crashlytics" , version.ref = "crashlytics"}
 
