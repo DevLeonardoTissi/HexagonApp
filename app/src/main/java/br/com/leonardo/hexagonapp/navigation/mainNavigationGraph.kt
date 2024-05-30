@@ -7,7 +7,8 @@ import androidx.navigation.navigation
 internal const val mainGraphRoute = "main"
 
 fun NavGraphBuilder.mainNavigationGraph(navController: NavController) {
-    navigation(startDestination = homeRoute, route = mainGraphRoute) {
+    navigation(startDestination = splashScreenRoute, route = mainGraphRoute) {
+        splashScreen()
         homeScreen(navController)
         formScreen(navController)
         inactiveScreen(navController)

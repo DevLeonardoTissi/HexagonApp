@@ -58,6 +58,7 @@ import br.com.leonardo.hexagonapp.navigation.navigateToInactive
 import br.com.leonardo.hexagonapp.ui.APP_NAME
 import br.com.leonardo.hexagonapp.ui.components.ModalBottomSheetMore
 import br.com.leonardo.hexagonapp.ui.theme.HexagonAppTheme
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
@@ -93,6 +94,13 @@ class MainActivity : ComponentActivity() {
                         getString(R.string.snackBarHelpMessage),
                         duration = SnackbarDuration.Short
                     )
+                }
+            }
+
+            LaunchedEffect(appUiState.loadingSettings) {
+                if(!appUiState.loadingSettings){
+                    delay(3000)
+                    navController.navigateToHome()
                 }
             }
 
