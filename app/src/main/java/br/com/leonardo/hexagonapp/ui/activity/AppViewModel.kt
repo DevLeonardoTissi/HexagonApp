@@ -3,6 +3,7 @@ package br.com.leonardo.hexagonapp.ui.activity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.leonardo.hexagonapp.model.Settings
+import br.com.leonardo.hexagonapp.navigation.devProfileRoute
 import br.com.leonardo.hexagonapp.navigation.formRoute
 import br.com.leonardo.hexagonapp.navigation.homeRoute
 import br.com.leonardo.hexagonapp.navigation.inactiveRoute
@@ -46,6 +47,7 @@ class AppViewModel(private val repository: SettingsRepository) : ViewModel() {
                                 isHomeScreen = route == homeRoute,
                                 isFormScreen = route.contains(formRoute) ,
                                 isInactiveScreen = route == inactiveRoute,
+                                isDevProfileScreen = route == devProfileRoute,
                                 showAddFloatingActionButton = route == homeRoute
                             )
                         }

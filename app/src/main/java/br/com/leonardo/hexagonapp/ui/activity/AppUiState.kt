@@ -2,6 +2,7 @@ package br.com.leonardo.hexagonapp.ui.activity
 
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.DrawerValue
+import br.com.leonardo.hexagonapp.navigation.devProfileRoute
 import br.com.leonardo.hexagonapp.navigation.formRoute
 import br.com.leonardo.hexagonapp.navigation.homeRoute
 import br.com.leonardo.hexagonapp.navigation.inactiveRoute
@@ -17,6 +18,7 @@ data class AppUiState(
     val onCurrentRouteChange: (String) -> Unit = {},
     val isHomeScreen: Boolean = currentRoute == homeRoute,
     val isFormScreen: Boolean = currentRoute == formRoute,
+    val isDevProfileScreen: Boolean = currentRoute == devProfileRoute,
     val isInactiveScreen: Boolean = currentRoute == inactiveRoute,
     val loadingSettings: Boolean = true,
 ) {

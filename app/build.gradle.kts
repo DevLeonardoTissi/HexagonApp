@@ -91,7 +91,7 @@ dependencies {
 
     //Retrofit + Converter + Logging interceptor
     implementation (libs.retrofit)
-    implementation (libs.converter.moshi)
+    implementation(libs.converter.gson)
     implementation(libs.logging.interceptor)
 
     implementation(libs.androidx.lifecycle.runtime.compose)
@@ -102,6 +102,7 @@ dependencies {
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
+
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

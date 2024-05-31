@@ -12,5 +12,6 @@ fun NavGraphBuilder.mainNavigationGraph(navController: NavController) {
         homeScreen(navController)
         formScreen(navController)
         inactiveScreen(navController)
+        devProfileScreen(navController)
     }
 }

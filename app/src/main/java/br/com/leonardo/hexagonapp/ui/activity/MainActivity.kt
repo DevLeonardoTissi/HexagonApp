@@ -17,6 +17,7 @@ import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.MoreVert
@@ -52,6 +53,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
 import br.com.leonardo.hexagonapp.R
 import br.com.leonardo.hexagonapp.navigation.HexagonAppNavHost
+import br.com.leonardo.hexagonapp.navigation.navigateToDevProfile
 import br.com.leonardo.hexagonapp.navigation.navigateToForm
 import br.com.leonardo.hexagonapp.navigation.navigateToHome
 import br.com.leonardo.hexagonapp.navigation.navigateToInactive
@@ -109,6 +111,8 @@ class MainActivity : ComponentActivity() {
                     getString(R.string.topAppBarFormTitle)
                 } else if (appUiState.isInactiveScreen) {
                     getString(R.string.topAppBarInactiveTitle)
+                } else if(appUiState.isDevProfileScreen){
+                    getString(R.string.topAppBarDevProfileTitle)
                 } else {
                     getString(R.string.topAppBarActiveTitle)
                 }
@@ -186,6 +190,20 @@ class MainActivity : ComponentActivity() {
                                 selected = appUiState.isInactiveScreen,
                                 onClick = {
                                     navController.navigateToInactive()
+                                    updateDrawer()
+                                })
+
+                            NavigationDrawerItem(
+                                icon = {
+                                    Icon(
+                                        Icons.Default.Face,
+                                        contentDescription = getString(R.string.iconForNavigateToDevProfileScreenMenuDrawer)
+                                    )
+                                },
+                                label = { Text(getString(R.string.menuDrawerDevProfileOption)) },
+                                selected = appUiState.isDevProfileScreen,
+                                onClick = {
+                                    navController.navigateToDevProfile()
                                     updateDrawer()
                                 })
 

@@ -4,10 +4,11 @@ import android.content.Context
 import androidx.room.Room
 import br.com.leonardo.hexagonapp.database.AppDatabase
 import br.com.leonardo.hexagonapp.database.DatabaseSettingsCallback
-import br.com.leonardo.hexagonapp.repository.PersonalProfileRepository
 import br.com.leonardo.hexagonapp.repository.GithubUserRepository
+import br.com.leonardo.hexagonapp.repository.PersonalProfileRepository
 import br.com.leonardo.hexagonapp.repository.SettingsRepository
 import br.com.leonardo.hexagonapp.ui.activity.AppViewModel
+import br.com.leonardo.hexagonapp.ui.screens.devProfile.DevProfileViewModel
 import br.com.leonardo.hexagonapp.ui.screens.form.PersonalProfileFormViewModel
 import br.com.leonardo.hexagonapp.ui.screens.home.HomeScreenViewModel
 import br.com.leonardo.hexagonapp.ui.screens.inactive.InactiveProfilesViewModel
@@ -18,7 +19,7 @@ import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 
 private const val DATABASE_NAME = "hexagonApp.db"
 private const val GITHUB_API_BASE_URL = "https://api.github.com/users/"
@@ -47,7 +48,7 @@ val retrofitModule = module {
     single {
         Retrofit.Builder()
             .baseUrl(GITHUB_API_BASE_URL)
-            .addConverterFactory(MoshiConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
     }
@@ -66,4 +67,6 @@ val viewModelModule = module {
     viewModelOf(::PersonalProfileFormViewModel)
     viewModelOf(::InactiveProfilesViewModel)
     viewModelOf(::AppViewModel)
+    viewModelOf(::DevProfileViewModel)
+
 }

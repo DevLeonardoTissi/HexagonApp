@@ -6,6 +6,7 @@
     <string name = "iconHomeForNavigateToHomeScreenMenuDrawer">Home Screen</string>"
     <string name = "iconAddForNavigateToFormScreenMenuDrawer">Form Screen</string>"
     <string name = "iconForNavigateToInactiveScreenMenuDrawer">Inactive Screen</string>"
+    <string name = "iconForNavigateToDevProfileScreenMenuDrawer">Dev Profile Screen</string>"
     <string name = "iconForHelpMenuDrawer">Help</string>"
     <string name = "iconAddForNavigateToFormFloatingButton">Form Screen</string>"
     <string name = "iconMoreForInfoAndConfiguration">More - Configuration</string>"
@@ -19,9 +20,11 @@
         <string name="menuDrawerHomeOption">Principal</string>
         <string name="menuDrawerInsertOption">Adicionar</string>
         <string name="menuDrawerInactiveOption">Inativos</string>
+        <string name="menuDrawerDevProfileOption">Perfil do desenvolvedor</string>
         <string name="menuDrawerHelpOption">Ajuda</string>
 
         <string name="topAppBarActiveTitle">Ativos</string>
+        <string name="topAppBarDevProfileTitle">Desenvolvedor</string>
         <string name="topAppBarFormTitle">Formulário</string>
         <string name="topAppBarInactiveTitle">Inativos</string>
 
