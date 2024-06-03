@@ -33,7 +33,6 @@ class AppViewModel(private val repository: SettingsRepository) : ViewModel() {
                 _uiState.update { currentState ->
                     currentState.copy(
                         isDarkMode = settings.darkMode,
-                        loadingSettings = false,
                         onDarkModeChange = { isDarkMode ->
                             toggleDarkMode(isDarkMode)
                         },

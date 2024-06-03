@@ -28,7 +28,7 @@ fun NavGraphBuilder.homeScreen(navController: NavController) {
 
 fun NavController.navigateToHome() {
     navigate(homeRoute) {
-        popUpTo(splashScreenRoute) {
+        popUpTo(homeRoute) {
             inclusive = true
         }
         launchSingleTop = true

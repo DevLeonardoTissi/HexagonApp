@@ -50,6 +50,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.rememberNavController
 import br.com.leonardo.hexagonapp.R
 import br.com.leonardo.hexagonapp.navigation.HexagonAppNavHost
@@ -60,7 +61,6 @@ import br.com.leonardo.hexagonapp.navigation.navigateToInactive
 import br.com.leonardo.hexagonapp.ui.APP_NAME
 import br.com.leonardo.hexagonapp.ui.components.ModalBottomSheetMore
 import br.com.leonardo.hexagonapp.ui.theme.HexagonAppTheme
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
@@ -68,6 +68,7 @@ class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        installSplashScreen()
         setContent {
 
             val appViewModel: AppViewModel = koinViewModel()
@@ -96,13 +97,6 @@ class MainActivity : ComponentActivity() {
                         getString(R.string.snackBarHelpMessage),
                         duration = SnackbarDuration.Short
                     )
-                }
-            }
-
-            LaunchedEffect(appUiState.loadingSettings) {
-                if(!appUiState.loadingSettings){
-                    delay(3000)
-                    navController.navigateToHome()
                 }
             }
 
