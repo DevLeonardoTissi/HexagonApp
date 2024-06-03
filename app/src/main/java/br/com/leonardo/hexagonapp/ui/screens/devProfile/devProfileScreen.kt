@@ -29,11 +29,13 @@ import br.com.leonardo.hexagonapp.ui.components.TypewriterText
 @Composable
 fun DevProfileScreen(uiState: DevProfileUiState) {
 
-    val color by animateColorAsState(targetValue = if(uiState.loadingInfo){
-        Color.Red
-    } else {
-        Color.Black
-    })
+    val color by animateColorAsState(
+        targetValue = if (uiState.loadingInfo) {
+            Color.Red
+        } else {
+            Color.Black
+        }, label = ""
+    )
 
     if (uiState.loadingInfo) {
         Box(
