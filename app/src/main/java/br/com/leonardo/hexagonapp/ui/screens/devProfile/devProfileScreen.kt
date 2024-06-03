@@ -1,14 +1,12 @@
 package br.com.leonardo.hexagonapp.ui.screens.devProfile
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
@@ -22,7 +20,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import br.com.leonardo.hexagonapp.ui.components.MyAsyncImage
 import br.com.leonardo.hexagonapp.ui.components.TypewriterText
@@ -40,10 +37,11 @@ fun DevProfileScreen(uiState: DevProfileUiState) {
                 verticalArrangement = Arrangement.Center
             ) {
                 CircularProgressIndicator()
-                Spacer(modifier = Modifier.height(16.dp)) // Espaçamento entre o CircularProgressIndicator e o TypewriterText
+                Spacer(modifier = Modifier.height(16.dp))
                 TypewriterText(texts = listOf("Carregando"))
             }
         }
+
     } else {
 
         Column(
@@ -53,37 +51,27 @@ fun DevProfileScreen(uiState: DevProfileUiState) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            Box(
+            MyAsyncImage(
+                model = uiState.userProfile.avatar_url,
+                description = "",
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .background(Color.Blue)
-            ) {
-                MyAsyncImage(
-                    model = uiState.userProfile.avatar_url,
-                    description = "",
-                    modifier = Modifier
-                        .size(200.dp)
-                        .offset(y = 50.dp)
-                        .clip(shape = CircleShape)
-                        .align(Alignment.BottomCenter)
-                        .border(
-                            BorderStroke(
-                                2.dp,
-                                brush = Brush.verticalGradient(
-                                    listOf(
-                                        Color.White,
-                                        Color.Blue
-                                    )
+                    .size(200.dp)
+                    .offset(y = 50.dp)
+                    .clip(shape = CircleShape)
+                    .border(
+                        BorderStroke(
+                            2.dp,
+                            brush = Brush.verticalGradient(
+                                listOf(
+                                    Color.White,
+                                    Color.Blue
                                 )
-                            ), CircleShape
-                        ),
-                    contentScale = ContentScale.Crop
-                )
-
-            }
+                            )
+                        ), CircleShape
+                    )
+            )
         }
 
     }
-
 
 }

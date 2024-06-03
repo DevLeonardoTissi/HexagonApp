@@ -16,7 +16,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -52,8 +51,7 @@ fun PersonalProfileLayout(
                 MyAsyncImage(
                     model = photo,
                     description = "",
-                    modifier = Modifier.size(150.dp),
-                    contentScale = ContentScale.Crop
+                    modifier = Modifier.size(150.dp)
                 )
 
                 Column(

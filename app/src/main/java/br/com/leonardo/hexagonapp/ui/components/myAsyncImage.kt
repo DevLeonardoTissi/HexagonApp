@@ -12,10 +12,9 @@ fun MyAsyncImage(
     model: String?,
     description: String?,
     modifier: Modifier,
-    contentScale: ContentScale
 ) {
     AsyncImage(
-        model = model, contentDescription = description, contentScale = contentScale,
+        model = model, contentDescription = description, contentScale = ContentScale.Crop,
         error = painterResource(id = R.drawable.error),
         placeholder = painterResource(id = R.drawable.profile), modifier = modifier,
     )
