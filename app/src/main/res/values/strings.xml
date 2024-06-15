@@ -66,6 +66,15 @@
     <string name="dataPickerConfirmButtonText">Selecionar data</string>
 
 
+    <!-- Dev Profile Screen -->
+    <string name="loadingMessagingText">Carregando...</string>
+    <string name="errorMessagingText">Erro ao carregar informações</string>
+    <string name="buttonRetryLoadUserInfoText">Tentar novamente</string>
+    <string name="buttonRetryLoadUserInfoIconDescription">Icon refresh</string>
+    <string name="repositoriesTitle">repositórios</string>
+    <string name="repositoryURItext">Ver repositório</string>
+
+
     <!-- Common -->
     <string name="commonOk">OK</string>
     <string name="commonConfirm">Confirmar</string>

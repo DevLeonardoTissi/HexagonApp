@@ -97,6 +97,9 @@ dependencies {
     //Splash screen
     implementation(libs.androidx.core.splashscreen)
 
+    //Browser
+    implementation(libs.androidx.browser)
+
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

@@ -105,7 +105,7 @@ class MainActivity : ComponentActivity() {
                     getString(R.string.topAppBarFormTitle)
                 } else if (appUiState.isInactiveScreen) {
                     getString(R.string.topAppBarInactiveTitle)
-                } else if(appUiState.isDevProfileScreen){
+                } else if (appUiState.isDevProfileScreen) {
                     getString(R.string.topAppBarDevProfileTitle)
                 } else {
                     getString(R.string.topAppBarActiveTitle)

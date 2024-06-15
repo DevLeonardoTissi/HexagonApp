@@ -3,6 +3,8 @@
 #Android gradle plugin
 agp = "8.4.1"
 
+#Browser
+browser = "1.8.0"
 
 #Firebase DOM
 firebaseBom = "33.0.0"
@@ -58,6 +60,9 @@ composeBom = "2024.05.00"
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycleRuntimeCompose" }
+
+#Browser
+androidx-browser = { module = "androidx.browser:browser", version.ref = "browser" }
 
 #Room Database
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomCompiler" }

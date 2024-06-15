@@ -11,6 +11,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.delay
@@ -36,7 +37,7 @@ fun TypewriterText(
                         startIndex = 0,
                         endIndex = charIndex + 1,
                     )
-                delay(160)
+                delay(80)
             }
             textIndex = (textIndex + 1) % texts.size
             delay(1000)
@@ -45,8 +46,9 @@ fun TypewriterText(
 
     Text(
         text = textToDisplay,
-        fontSize = 24.sp,
-        fontWeight = FontWeight.Bold,
+        fontSize = 18.sp,
+        fontWeight = FontWeight.Light,
+        textAlign = TextAlign.Center,
         modifier = Modifier.padding(16.dp)
     )
 }
