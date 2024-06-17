@@ -47,6 +47,9 @@ loggingInterceptor = "4.12.0"
 #SplashScreen
 coreSplashscreen = "1.0.1"
 
+#Google Fonts
+uiTextGoogleFonts = "1.6.8"
+
 coreKtx = "1.13.1"
 junit = "4.13.2"
 junitVersion = "1.1.5"
@@ -55,6 +58,7 @@ lifecycleRuntimeCompose = "2.8.1"
 lifecycleRuntimeKtx = "2.8.1"
 activityCompose = "1.9.0"
 composeBom = "2024.05.00"
+
 
 
 [libraries]
@@ -101,6 +105,9 @@ converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref
 #SplashScreen
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
 
+#Google Fonts
+androidx-ui-text-google-fonts = { group = "androidx.compose.ui", name = "ui-text-google-fonts", version.ref = "uiTextGoogleFonts" }
+
 
 
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -115,6 +122,7 @@ androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+
 
 
 

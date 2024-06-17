@@ -32,6 +32,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import br.com.leonardo.hexagonapp.R
 import br.com.leonardo.hexagonapp.model.PersonalProfile
+import br.com.leonardo.hexagonapp.ui.theme.customRed
 import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -79,7 +80,7 @@ fun PersonalProfileList(
                                     Box(
                                         modifier = Modifier
                                             .padding(16.dp)
-                                            .background(Color.Red, RoundedCornerShape(16.dp))
+                                            .background(customRed, RoundedCornerShape(16.dp))
                                             .fillMaxSize()
 
                                     ) {

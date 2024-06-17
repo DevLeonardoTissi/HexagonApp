@@ -59,6 +59,7 @@ import br.com.leonardo.hexagonapp.navigation.navigateToForm
 import br.com.leonardo.hexagonapp.navigation.navigateToHome
 import br.com.leonardo.hexagonapp.navigation.navigateToInactive
 import br.com.leonardo.hexagonapp.ui.APP_NAME
+import br.com.leonardo.hexagonapp.ui.components.IconSecondaryColor
 import br.com.leonardo.hexagonapp.ui.components.ModalBottomSheetMore
 import br.com.leonardo.hexagonapp.ui.theme.HexagonAppTheme
 import kotlinx.coroutines.launch
@@ -143,12 +144,12 @@ class MainActivity : ComponentActivity() {
                                     )
                                 }
                             }
-                            HorizontalDivider()
+                            HorizontalDivider(color = MaterialTheme.colorScheme.primary)
                             Spacer(modifier = Modifier.height(20.dp))
                             NavigationDrawerItem(
                                 icon = {
-                                    Icon(
-                                        Icons.Default.Home,
+                                    IconSecondaryColor(
+                                        imageVector = Icons.Default.Home,
                                         contentDescription = getString(R.string.iconHomeForNavigateToHomeScreenMenuDrawer)
                                     )
                                 },
@@ -161,7 +162,7 @@ class MainActivity : ComponentActivity() {
 
                             NavigationDrawerItem(
                                 icon = {
-                                    Icon(
+                                    IconSecondaryColor(
                                         Icons.Default.AddCircle,
                                         contentDescription = getString(R.string.iconAddForNavigateToFormScreenMenuDrawer)
                                     )
@@ -175,7 +176,7 @@ class MainActivity : ComponentActivity() {
 
                             NavigationDrawerItem(
                                 icon = {
-                                    Icon(
+                                    IconSecondaryColor(
                                         Icons.Default.AccountCircle,
                                         contentDescription = getString(R.string.iconForNavigateToInactiveScreenMenuDrawer)
                                     )
@@ -189,7 +190,7 @@ class MainActivity : ComponentActivity() {
 
                             NavigationDrawerItem(
                                 icon = {
-                                    Icon(
+                                    IconSecondaryColor(
                                         Icons.Default.Face,
                                         contentDescription = getString(R.string.iconForNavigateToDevProfileScreenMenuDrawer)
                                     )
@@ -205,7 +206,7 @@ class MainActivity : ComponentActivity() {
 
                             NavigationDrawerItem(
                                 icon = {
-                                    Icon(
+                                    IconSecondaryColor(
                                         Icons.Default.Info,
                                         contentDescription = getString(R.string.iconForHelpMenuDrawer)
                                     )

@@ -69,6 +69,9 @@ dependencies {
     //Lottie animation for compose
     implementation(libs.lottie.compose)
 
+    //Google fonts
+    implementation(libs.androidx.ui.text.google.fonts)
+
     //Room database
     implementation(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)
