@@ -73,6 +73,7 @@
     <string name="buttonRetryLoadUserInfoIconDescription">Icon refresh</string>
     <string name="repositoriesTitle">repositórios</string>
     <string name="repositoryURItext">Ver repositório</string>
+    <string name="devProfileImageDescription">Foto do desenvolvdedor</string>
 
     <!--- PersonalProfileLayout -->
     <string name="personalProfileImageDescription">user Photo</string>

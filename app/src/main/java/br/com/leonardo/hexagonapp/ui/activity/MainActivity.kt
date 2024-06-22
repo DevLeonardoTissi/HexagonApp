@@ -71,7 +71,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         installSplashScreen()
         setContent {
-
             val appViewModel: AppViewModel = koinViewModel()
             val appUiState by appViewModel.uiState.collectAsState()
             val navController = rememberNavController()
@@ -102,15 +101,14 @@ class MainActivity : ComponentActivity() {
             }
 
             fun topAppBarTitle(): String {
-                return if (appUiState.isFormScreen) {
-                    getString(R.string.topAppBarFormTitle)
-                } else if (appUiState.isInactiveScreen) {
-                    getString(R.string.topAppBarInactiveTitle)
-                } else if (appUiState.isDevProfileScreen) {
-                    getString(R.string.topAppBarDevProfileTitle)
-                } else {
-                    getString(R.string.topAppBarActiveTitle)
+                val titleResId = when {
+                    appUiState.isFormScreen -> R.string.topAppBarFormTitle
+                    appUiState.isInactiveScreen -> R.string.topAppBarInactiveTitle
+                    appUiState.isDevProfileScreen -> R.string.topAppBarDevProfileTitle
+                    appUiState.isHomeScreen -> R.string.topAppBarActiveTitle
+                    else -> R.string.app_name
                 }
+                return getString(titleResId)
             }
 
             if (appUiState.showBottomSheetDialogInfoAndConfig) {

@@ -8,5 +8,4 @@ class GitHubProfileInfo(
     val location: String? = null,
     val bio: String? = null,
     val public_repos: Int? = null,
-) {
-}
+)

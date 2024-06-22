@@ -113,7 +113,7 @@ fun DevProfileScreen(uiState: DevProfileUiState) {
 
                 MyAsyncImage(
                     model = uiState.userProfile.avatar_url,
-                    description = "",
+                    description = context.getString(R.string.devProfileImageDescription),
                     modifier = Modifier
                         .size(200.dp)
                         .offset(y = 50.dp)
@@ -155,6 +155,8 @@ fun DevProfileScreen(uiState: DevProfileUiState) {
                                 ) {
                                     Text(
                                         text = repositories.name,
+                                        maxLines = 1,
+                                        overflow = TextOverflow.Ellipsis,
                                         color = MaterialTheme.colorScheme.secondary,
                                         modifier = Modifier.padding(8.dp)
                                     )
