@@ -30,7 +30,7 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 @Composable
 fun ModalBottomSheetMore(
     onDismissRequest: () -> Unit,
-    isDarkMode:Boolean,
+    isDarkMode: Boolean,
     onDarkModeChange: (Boolean) -> Unit
 ) {
     ModalBottomSheet(
@@ -44,8 +44,6 @@ fun ModalBottomSheetMore(
                 .fillMaxWidth()
                 .padding(16.dp), horizontalAlignment = Alignment.CenterHorizontally
         ) {
-
-
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -58,8 +56,8 @@ fun ModalBottomSheetMore(
                     text = context.getString(R.string.bottomSheetSettingsTitle),
                     modifier = Modifier.padding(16.dp),
                     textAlign = TextAlign.Center,
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 22.sp,
+                    fontWeight = FontWeight.Bold,
                 )
 
                 LottieAnimation(
@@ -69,7 +67,6 @@ fun ModalBottomSheetMore(
                 )
             }
 
-
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -78,12 +75,11 @@ fun ModalBottomSheetMore(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
 
-
                 Text(
                     text = context.getString(R.string.bottomSheetSettingsSwitchDarkModeLabel),
                     modifier = Modifier.padding(16.dp),
                     textAlign = TextAlign.Center,
-                    fontSize = 16.sp
+                    fontSize = 18.sp
                 )
                 Switch(checked = isDarkMode, onCheckedChange = { onDarkModeChange(it) })
             }

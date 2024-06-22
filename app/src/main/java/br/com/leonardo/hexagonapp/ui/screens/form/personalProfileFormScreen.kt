@@ -35,6 +35,7 @@ import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDatePickerState
@@ -102,7 +103,7 @@ fun PersonalProfileFormScreen(
                     .align(Alignment.BottomCenter)
                     .offset(y = 50.dp, x = 50.dp)
                     .size(50.dp)
-                    .background(color = Color.Cyan, shape = CircleShape)
+                    .background(color = MaterialTheme.colorScheme.primary, shape = CircleShape)
 
                     .border(
                         BorderStroke(
@@ -117,7 +118,6 @@ fun PersonalProfileFormScreen(
                     tint = Color.White
                 )
             }
-
         }
 
         Spacer(modifier = Modifier.height(80.dp))
@@ -125,18 +125,21 @@ fun PersonalProfileFormScreen(
         SearchTextField(
             iconDescription = context.getString(R.string.profileIcon),
             modifier = Modifier
+                .fillMaxWidth()
                 .height(80.dp)
                 .padding(10.dp),
             labelText = context.getString(R.string.inputNameLabel),
             placeholderText = context.getString(R.string.inputNamePlaceHolder),
             onSearchChange = { uiState.onNameChanged(it) },
             icon = Icons.Default.Person,
-            searchText = name
+            searchText = name,
+            inError = uiState.fieldNameError
         )
 
         SearchTextField(
             iconDescription = context.getString(R.string.cpfIcon),
             modifier = Modifier
+                .fillMaxWidth()
                 .height(80.dp)
                 .padding(10.dp),
             labelText = context.getString(R.string.inputCpfLabel),
@@ -144,24 +147,28 @@ fun PersonalProfileFormScreen(
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             onSearchChange = { uiState.onCpfChanged(it) },
             icon = Icons.Default.Lock,
-            searchText = cpf
+            searchText = cpf,
+            inError = uiState.fieldCPFError
         )
 
         SearchTextField(
             iconDescription = context.getString(R.string.locationIcon),
             modifier = Modifier
+                .fillMaxWidth()
                 .height(80.dp)
                 .padding(10.dp),
             labelText = context.getString(R.string.inputLocationLabel),
             placeholderText = context.getString(R.string.inputLocationPlaceHolder),
             onSearchChange = { uiState.onCityChanged(it) },
             icon = Icons.Default.LocationOn,
-            searchText = city
+            searchText = city,
+            inError = uiState.fieldCityError
         )
 
         SearchTextField(
             iconDescription = context.getString(R.string.dateIcon),
             modifier = Modifier
+                .fillMaxWidth()
                 .height(80.dp)
                 .padding(10.dp)
                 .onFocusEvent {
@@ -175,7 +182,8 @@ fun PersonalProfileFormScreen(
             onSearchChange = { },
             icon = Icons.Default.DateRange,
             searchText = dateOfBirth,
-            readonly = true
+            readonly = true,
+            inError = uiState.fieldDateOfBirthError
         )
 
         Row(
@@ -191,13 +199,12 @@ fun PersonalProfileFormScreen(
             Switch(checked = active, onCheckedChange = {
                 uiState.onActiveChanged(it)
             })
-
         }
 
         Spacer(modifier = Modifier.height(20.dp))
 
         Button(
-            onClick = { uiState.onShowConfirmDialog(true) }, modifier = Modifier
+            onClick = { uiState.checkFields() }, modifier = Modifier
                 .width(100.dp)
                 .height(50.dp)
         ) {
@@ -213,11 +220,10 @@ fun PersonalProfileFormScreen(
     if (uiState.showConfirmDialog) {
         AnimatedAlertDialogWithConfirmButton(
             onConfirmation = {
-                if (name.isNotBlank() || cpf.isNotBlank() || city.isNotBlank() || dateOfBirth.isNotBlank()) {
-                    uiState.onSave()
-                    onPopBackStack()
-                    uiState.onShowConfirmDialog(false)
-                }
+                uiState.onSave()
+                uiState.onShowConfirmDialog(false)
+                onPopBackStack()
+
             },
             onDismissRequest = { uiState.onShowConfirmDialog(false) },
             rawRes = R.raw.android,
@@ -234,7 +240,7 @@ fun PersonalProfileFormScreen(
                     onClick = {
                         datePickerState
                             .selectedDateMillis?.let { millis ->
-                                uiState.onDateOfBirthChanged(millis.toString())
+                                uiState.onDateOfBirthChanged(millis)
                             }
                         uiState.onShowDatePickerDialog(false)
                     }) {
@@ -244,5 +250,4 @@ fun PersonalProfileFormScreen(
             DatePicker(state = datePickerState)
         }
     }
-
 }

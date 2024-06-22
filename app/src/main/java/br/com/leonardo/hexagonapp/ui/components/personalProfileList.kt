@@ -99,7 +99,7 @@ fun PersonalProfileList(
                                                 Icons.Default.Delete,
                                                 contentDescription = context.getString(R.string.swipeToDismissBoxIconDescriptionDelete),
                                                 modifier = Modifier
-                                                    .align(Alignment.CenterHorizontally)
+                                                    .align(Alignment.CenterHorizontally), tint = Color.White
                                             )
                                         }
                                     }

@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import br.com.leonardo.hexagonapp.model.PersonalProfile
 import br.com.leonardo.hexagonapp.navigation.profileIdArgument
 import br.com.leonardo.hexagonapp.repository.PersonalProfileRepository
+import br.com.leonardo.hexagonapp.utils.extensions.toBrazilianDateFormat
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -34,7 +35,8 @@ class PersonalProfileFormViewModel(
                     _uiState.value = _uiState.value.copy(city = city)
                 },
                 onDateOfBirthChanged = { dateOfBirth ->
-                    _uiState.value = _uiState.value.copy(dateOfBirth = dateOfBirth)
+                    _uiState.value =
+                        _uiState.value.copy(dateOfBirth = dateOfBirth.toBrazilianDateFormat())
                 },
                 onPhotoChanged = { photo ->
                     _uiState.value = _uiState.value.copy(photo = photo)
@@ -50,7 +52,25 @@ class PersonalProfileFormViewModel(
                 },
                 onShowConfirmDialog = {
                     _uiState.value = _uiState.value.copy(showConfirmDialog = it)
+                },
+                onFieldNameErrorChanged = {
+                    _uiState.value = _uiState.value.copy(fieldNameError = it)
+                },
+                onFieldCPFErrorChanged = {
+                    _uiState.value = _uiState.value.copy(fieldCPFError = it)
+                },
+                onFieldCityErrorChanged = {
+                    _uiState.value = _uiState.value.copy(fieldCityError = it)
+                },
+                onFieldDateOfBirthErrorChanged = {
+                    _uiState.value = _uiState.value.copy(fieldDateOfBirthError = it)
+                },
+                checkFields = {
+                    if (checkFields()) {
+                        _uiState.value.onShowConfirmDialog(true)
+                    }
                 }
+
             )
         }
 
@@ -72,6 +92,44 @@ class PersonalProfileFormViewModel(
                 active = personalProfile.active
             )
         }
+    }
+
+
+    private fun checkFields(): Boolean {
+        val fieldsToCheck = listOf(
+            Pair(uiState.value.name.isBlank()) { isError: Boolean ->
+                _uiState.value.onFieldNameErrorChanged(
+                    isError
+                )
+            },
+            Pair(uiState.value.cpf.isBlank()) { isError: Boolean ->
+                _uiState.value.onFieldCPFErrorChanged(
+                    isError
+                )
+            },
+            Pair(uiState.value.city.isBlank()) { isError: Boolean ->
+                _uiState.value.onFieldCityErrorChanged(
+                    isError
+                )
+            },
+            Pair(uiState.value.dateOfBirth.isBlank()) { isError: Boolean ->
+                _uiState.value.onFieldDateOfBirthErrorChanged(
+                    isError
+                )
+            }
+        )
+
+        var allOk = true
+
+        fieldsToCheck.forEach { (isBlank, setError) ->
+            if (isBlank) {
+                setError(true)
+                allOk = false
+            } else {
+                setError(false)
+            }
+        }
+        return allOk
     }
 
     private fun insert() {

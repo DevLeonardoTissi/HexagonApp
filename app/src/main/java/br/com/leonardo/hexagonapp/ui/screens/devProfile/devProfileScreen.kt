@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
@@ -19,13 +20,14 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -34,9 +36,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.leonardo.hexagonapp.R
@@ -122,8 +123,8 @@ fun DevProfileScreen(uiState: DevProfileUiState) {
                                 2.dp,
                                 brush = Brush.verticalGradient(
                                     listOf(
-                                        Color.White,
-                                        Color.Cyan
+                                        MaterialTheme.colorScheme.secondaryContainer,
+                                        MaterialTheme.colorScheme.secondary
                                     )
                                 )
                             ), CircleShape
@@ -136,7 +137,7 @@ fun DevProfileScreen(uiState: DevProfileUiState) {
                 LazyRow {
                     items(uiState.repositories) { repositories ->
                         Surface(
-                            color = Color.Black,
+                            color = MaterialTheme.colorScheme.primary,
                             shape = RoundedCornerShape(15.dp),
                             shadowElevation = 4.dp,
                             modifier = Modifier.padding(15.dp),
@@ -146,15 +147,40 @@ fun DevProfileScreen(uiState: DevProfileUiState) {
                                     modifier = Modifier
                                         .width(300.dp)
                                         .height(250.dp)
-                                        .background(Color.Blue)
+                                        .background(MaterialTheme.colorScheme.primaryContainer)
                                         .padding(10.dp),
-                                    verticalArrangement = Arrangement.Center
+                                    verticalArrangement = Arrangement.Center,
+                                    horizontalAlignment = Alignment.CenterHorizontally
+
                                 ) {
-                                    Text(text = repositories.name)
-                                    Text(text = repositories.description)
-                                    ClickableText(text = AnnotatedString(context.getString(R.string.repositoryURItext))) {
-                                        goToUri(repositories.html_url, context)
+                                    Text(
+                                        text = repositories.name,
+                                        color = MaterialTheme.colorScheme.secondary,
+                                        modifier = Modifier.padding(8.dp)
+                                    )
+                                    HorizontalDivider(color = MaterialTheme.colorScheme.primary)
+                                    Spacer(modifier = Modifier.height(20.dp))
+                                    Column(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .height(100.dp),
+                                        verticalArrangement = Arrangement.Center,
+                                        horizontalAlignment = Alignment.CenterHorizontally
+                                    ) {
+                                        Text(
+                                            text = repositories.description,
+                                            color = MaterialTheme.colorScheme.secondary,
+                                            maxLines = 4,
+                                            overflow = TextOverflow.Ellipsis
+                                        )
                                     }
+                                    Spacer(modifier = Modifier.height(20.dp))
+                                    Button(onClick = { goToUri(repositories.html_url, context) }) {
+                                        Text(text = context.getString(R.string.repositoryURItext))
+                                    }
+//                                    ClickableText(text = AnnotatedString(context.getString(R.string.repositoryURItext))) {
+//                                        goToUri(repositories.html_url, context)
+//                                    }
                                 }
                             }
                         }
