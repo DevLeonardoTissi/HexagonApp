@@ -20,6 +20,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.leonardo.hexagonapp.R
+import br.com.leonardo.hexagonapp.ui.theme.HexagonAppTheme
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
@@ -33,55 +34,57 @@ fun ModalBottomSheetMore(
     isDarkMode: Boolean,
     onDarkModeChange: (Boolean) -> Unit
 ) {
-    ModalBottomSheet(
-        onDismissRequest = { onDismissRequest() }
-    ) {
-        val composition by rememberLottieComposition(spec = LottieCompositionSpec.RawRes(R.raw.settings))
-        val context = LocalContext.current
-
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp), horizontalAlignment = Alignment.CenterHorizontally
+    HexagonAppTheme {
+        ModalBottomSheet(
+            onDismissRequest = { onDismissRequest() }
         ) {
-            Row(
+            val composition by rememberLottieComposition(spec = LottieCompositionSpec.RawRes(R.raw.settings))
+            val context = LocalContext.current
+
+            Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
+                    .padding(16.dp), horizontalAlignment = Alignment.CenterHorizontally
             ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
 
-                Text(
-                    text = context.getString(R.string.bottomSheetSettingsTitle),
-                    modifier = Modifier.padding(16.dp),
-                    textAlign = TextAlign.Center,
-                    fontSize = 22.sp,
-                    fontWeight = FontWeight.Bold,
-                )
+                    Text(
+                        text = context.getString(R.string.bottomSheetSettingsTitle),
+                        modifier = Modifier.padding(16.dp),
+                        textAlign = TextAlign.Center,
+                        fontSize = 22.sp,
+                        fontWeight = FontWeight.Bold,
+                    )
 
-                LottieAnimation(
-                    composition = composition,
-                    iterations = LottieConstants.IterateForever,
-                    modifier = Modifier.size(50.dp)
-                )
-            }
+                    LottieAnimation(
+                        composition = composition,
+                        iterations = LottieConstants.IterateForever,
+                        modifier = Modifier.size(50.dp)
+                    )
+                }
 
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
 
-                Text(
-                    text = context.getString(R.string.bottomSheetSettingsSwitchDarkModeLabel),
-                    modifier = Modifier.padding(16.dp),
-                    textAlign = TextAlign.Center,
-                    fontSize = 18.sp
-                )
-                Switch(checked = isDarkMode, onCheckedChange = { onDarkModeChange(it) })
+                    Text(
+                        text = context.getString(R.string.bottomSheetSettingsSwitchDarkModeLabel),
+                        modifier = Modifier.padding(16.dp),
+                        textAlign = TextAlign.Center,
+                        fontSize = 18.sp
+                    )
+                    Switch(checked = isDarkMode, onCheckedChange = { onDarkModeChange(it) })
+                }
             }
         }
     }

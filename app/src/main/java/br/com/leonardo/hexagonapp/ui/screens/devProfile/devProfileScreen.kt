@@ -111,78 +111,90 @@ fun DevProfileScreen(uiState: DevProfileUiState) {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
 
-                MyAsyncImage(
-                    model = uiState.userProfile.avatar_url,
-                    description = context.getString(R.string.devProfileImageDescription),
-                    modifier = Modifier
-                        .size(200.dp)
-                        .offset(y = 50.dp)
-                        .clip(shape = CircleShape)
-                        .border(
-                            BorderStroke(
-                                2.dp,
-                                brush = Brush.verticalGradient(
-                                    listOf(
-                                        MaterialTheme.colorScheme.secondaryContainer,
-                                        MaterialTheme.colorScheme.secondary
+                uiState.userProfile?.let { userProfile ->
+                    MyAsyncImage(
+                        model = userProfile.avatar_url,
+                        description = context.getString(R.string.devProfileImageDescription),
+                        modifier = Modifier
+                            .size(200.dp)
+                            .offset(y = 50.dp)
+                            .clip(shape = CircleShape)
+                            .border(
+                                BorderStroke(
+                                    2.dp,
+                                    brush = Brush.verticalGradient(
+                                        listOf(
+                                            MaterialTheme.colorScheme.secondaryContainer,
+                                            MaterialTheme.colorScheme.secondary
+                                        )
                                     )
-                                )
-                            ), CircleShape
-                        )
-                )
+                                ), CircleShape
+                            )
+                    )
+                }
+
 
                 Spacer(modifier = Modifier.height(100.dp))
-
                 Text(text = context.getString(R.string.repositoriesTitle), fontSize = 20.sp)
                 LazyRow {
-                    items(uiState.repositories) { repositories ->
-                        Surface(
-                            color = MaterialTheme.colorScheme.primary,
-                            shape = RoundedCornerShape(15.dp),
-                            shadowElevation = 4.dp,
-                            modifier = Modifier.padding(15.dp),
-                        ) {
-                            Row(modifier = Modifier.padding(start = 15.dp)) {
-                                Column(
-                                    modifier = Modifier
-                                        .width(300.dp)
-                                        .height(250.dp)
-                                        .background(MaterialTheme.colorScheme.primaryContainer)
-                                        .padding(10.dp),
-                                    verticalArrangement = Arrangement.Center,
-                                    horizontalAlignment = Alignment.CenterHorizontally
-
-                                ) {
-                                    Text(
-                                        text = repositories.name,
-                                        maxLines = 1,
-                                        overflow = TextOverflow.Ellipsis,
-                                        color = MaterialTheme.colorScheme.secondary,
-                                        modifier = Modifier.padding(8.dp)
-                                    )
-                                    HorizontalDivider(color = MaterialTheme.colorScheme.primary)
-                                    Spacer(modifier = Modifier.height(20.dp))
+                    uiState.repositories?.let { repositoriesNonNull ->
+                        items(repositoriesNonNull) { repository ->
+                            Surface(
+                                color = MaterialTheme.colorScheme.primary,
+                                shape = RoundedCornerShape(15.dp),
+                                shadowElevation = 4.dp,
+                                modifier = Modifier.padding(15.dp),
+                            ) {
+                                Row(modifier = Modifier.padding(start = 15.dp)) {
                                     Column(
                                         modifier = Modifier
-                                            .fillMaxWidth()
-                                            .height(100.dp),
+                                            .width(300.dp)
+                                            .height(250.dp)
+                                            .background(MaterialTheme.colorScheme.primaryContainer)
+                                            .padding(10.dp),
                                         verticalArrangement = Arrangement.Center,
                                         horizontalAlignment = Alignment.CenterHorizontally
+
                                     ) {
-                                        Text(
-                                            text = repositories.description,
-                                            color = MaterialTheme.colorScheme.secondary,
-                                            maxLines = 4,
-                                            overflow = TextOverflow.Ellipsis
-                                        )
-                                    }
-                                    Spacer(modifier = Modifier.height(20.dp))
-                                    Button(onClick = { goToUri(repositories.html_url, context) }) {
-                                        Text(text = context.getString(R.string.repositoryURItext))
-                                    }
+
+                                        repository.name?.let {
+                                            Text(
+                                                text = it,
+                                                maxLines = 1,
+                                                overflow = TextOverflow.Ellipsis,
+                                                color = MaterialTheme.colorScheme.secondary,
+                                                modifier = Modifier.padding(8.dp)
+                                            )
+                                        }
+
+                                        HorizontalDivider(color = MaterialTheme.colorScheme.primary)
+                                        Spacer(modifier = Modifier.height(20.dp))
+                                        Column(
+                                            modifier = Modifier
+                                                .fillMaxWidth()
+                                                .height(100.dp),
+                                            verticalArrangement = Arrangement.Center,
+                                            horizontalAlignment = Alignment.CenterHorizontally
+                                        ) {
+                                            repository.description?.let {
+                                                Text(
+                                                    text = it,
+                                                    color = MaterialTheme.colorScheme.secondary,
+                                                    maxLines = 4,
+                                                    overflow = TextOverflow.Ellipsis
+                                                )
+                                            }
+                                        }
+                                        Spacer(modifier = Modifier.height(20.dp))
+                                        repository.html_url?.let {
+                                            Button(onClick = { goToUri(it, context) }) {
+                                                Text(text = context.getString(R.string.repositoryURItext))
+                                            }
+                                        }
 //                                    ClickableText(text = AnnotatedString(context.getString(R.string.repositoryURItext))) {
 //                                        goToUri(repositories.html_url, context)
 //                                    }
+                                    }
                                 }
                             }
                         }

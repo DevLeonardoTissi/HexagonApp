@@ -10,9 +10,8 @@ class GithubRepositoryInfoResponse(
 
     val gitHubRepositoryInfo: GithubRepositoryInfo
         get() = GithubRepositoryInfo(
-            name = name ?: "",
-            html_url= html_url?: "",
-            description = description?: ""
-
+            name = name,
+            html_url = html_url,
+            description = description
         )
 }

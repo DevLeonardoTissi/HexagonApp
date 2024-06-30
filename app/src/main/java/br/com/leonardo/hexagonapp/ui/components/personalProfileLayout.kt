@@ -56,7 +56,7 @@ fun PersonalProfileLayout(
                     .fillMaxHeight()
                     .background(Color.Gray), verticalAlignment = Alignment.CenterVertically
             ) {
-                MyAsyncImage(
+                SubComposeAsyncImage(
                     model = photo,
                     description = context.getString(R.string.personalProfileImageDescription),
                     modifier = Modifier.size(150.dp)

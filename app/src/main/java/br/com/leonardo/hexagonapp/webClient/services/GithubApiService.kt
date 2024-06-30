@@ -7,8 +7,8 @@ import retrofit2.http.GET
 interface GithubApiService {
 
     @GET("devleonardotissi")
-    suspend fun getUserProfileInfo(): GitHubProfileInfoResponse
+    suspend fun getUserProfileInfo(): GitHubProfileInfoResponse?
 
     @GET("devleonardotissi/repos?sort=created&direction=desc")
-    suspend fun getUserRepositoriesInfo(): List<GithubRepositoryInfoResponse>
+    suspend fun getUserRepositoriesInfo(): List<GithubRepositoryInfoResponse>?
 }
