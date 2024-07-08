@@ -50,10 +50,9 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import br.com.leonardo.hexagonapp.R
-import br.com.leonardo.hexagonapp.ui.DEFAULT_IMAGE_URL
 import br.com.leonardo.hexagonapp.ui.components.AnimatedAlertDialogWithConfirmButton
-import br.com.leonardo.hexagonapp.ui.components.MyAsyncImage
 import br.com.leonardo.hexagonapp.ui.components.SearchTextField
+import br.com.leonardo.hexagonapp.ui.components.SubComposeAsyncImage
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -61,15 +60,8 @@ fun PersonalProfileFormScreen(
     uiState: PersonalProfileFormUiState, onPopBackStack: () -> Unit
 ) {
     val context = LocalContext.current
-
     val datePickerState = rememberDatePickerState()
     val focusManager = LocalFocusManager.current
-    val name = uiState.name
-    val cpf = uiState.cpf
-    val city = uiState.city
-    val dateOfBirth = uiState.dateOfBirth
-    val photo = uiState.photo
-    val active = uiState.active
     val pickMedia =
         rememberLauncherForActivityResult(contract = ActivityResultContracts.PickVisualMedia()) { uri ->
             uri?.let { file ->
@@ -85,15 +77,20 @@ fun PersonalProfileFormScreen(
     ) {
 
         Box(modifier = Modifier.fillMaxWidth()) {
-
-            MyAsyncImage(
-                model = if (photo.isNullOrBlank()) DEFAULT_IMAGE_URL else uiState.photo,
+            SubComposeAsyncImage(
+                model = uiState.photo,
                 description = context.getString(R.string.userProfileDescription),
                 modifier = Modifier
                     .size(200.dp)
                     .offset(y = 50.dp)
                     .clip(shape = CircleShape)
                     .align(Alignment.BottomCenter)
+                    .border(
+                        BorderStroke(
+                            2.dp,
+                            color = MaterialTheme.colorScheme.primary
+                        ), CircleShape
+                    )
             )
 
             IconButton(
@@ -104,7 +101,6 @@ fun PersonalProfileFormScreen(
                     .offset(y = 50.dp, x = 50.dp)
                     .size(50.dp)
                     .background(color = MaterialTheme.colorScheme.primary, shape = CircleShape)
-
                     .border(
                         BorderStroke(
                             2.dp,
@@ -132,7 +128,7 @@ fun PersonalProfileFormScreen(
             placeholderText = context.getString(R.string.inputNamePlaceHolder),
             onSearchChange = { uiState.onNameChanged(it) },
             icon = Icons.Default.Person,
-            searchText = name,
+            searchText = uiState.name,
             inError = uiState.fieldNameError
         )
 
@@ -147,7 +143,7 @@ fun PersonalProfileFormScreen(
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             onSearchChange = { uiState.onCpfChanged(it) },
             icon = Icons.Default.Lock,
-            searchText = cpf,
+            searchText = uiState.cpf,
             inError = uiState.fieldCPFError
         )
 
@@ -161,7 +157,7 @@ fun PersonalProfileFormScreen(
             placeholderText = context.getString(R.string.inputLocationPlaceHolder),
             onSearchChange = { uiState.onCityChanged(it) },
             icon = Icons.Default.LocationOn,
-            searchText = city,
+            searchText = uiState.city,
             inError = uiState.fieldCityError
         )
 
@@ -181,7 +177,7 @@ fun PersonalProfileFormScreen(
             placeholderText = context.getString(R.string.inputDateOfBirthPlaceHolder),
             onSearchChange = { },
             icon = Icons.Default.DateRange,
-            searchText = dateOfBirth,
+            searchText = uiState.dateOfBirth,
             readonly = true,
             inError = uiState.fieldDateOfBirthError
         )
@@ -196,7 +192,7 @@ fun PersonalProfileFormScreen(
 
             Text(text = context.getString(R.string.switchOptionActiveProfileDescription))
             Spacer(modifier = Modifier.width(20.dp))
-            Switch(checked = active, onCheckedChange = {
+            Switch(checked = uiState.active, onCheckedChange = {
                 uiState.onActiveChanged(it)
             })
         }

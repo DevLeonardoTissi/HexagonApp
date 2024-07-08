@@ -26,7 +26,7 @@ fun SubComposeAsyncImage(
     modifier: Modifier,
 ) {
     SubcomposeAsyncImage(
-        model = model,
+        model = if(model.isNullOrBlank()) R.drawable.placeholder else model,
         contentDescription = description,
         loading = {
             val composition by rememberLottieComposition(spec = LottieCompositionSpec.RawRes(R.raw.load))

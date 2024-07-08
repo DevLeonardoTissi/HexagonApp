@@ -41,7 +41,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.leonardo.hexagonapp.R
-import br.com.leonardo.hexagonapp.ui.components.MyAsyncImage
+import br.com.leonardo.hexagonapp.ui.components.SubComposeAsyncImage
 import br.com.leonardo.hexagonapp.ui.components.TypewriterText
 import br.com.leonardo.hexagonapp.utils.DevUiProfileState
 import br.com.leonardo.hexagonapp.utils.goToUri
@@ -112,7 +112,7 @@ fun DevProfileScreen(uiState: DevProfileUiState) {
             ) {
 
                 uiState.userProfile?.let { userProfile ->
-                    MyAsyncImage(
+                    SubComposeAsyncImage(
                         model = userProfile.avatar_url,
                         description = context.getString(R.string.devProfileImageDescription),
                         modifier = Modifier
