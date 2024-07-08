@@ -1,11 +1,9 @@
 package br.com.leonardo.hexagonapp.ui.activity
 
+
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.DrawerValue
-import br.com.leonardo.hexagonapp.navigation.devProfileRoute
-import br.com.leonardo.hexagonapp.navigation.formRoute
-import br.com.leonardo.hexagonapp.navigation.homeRoute
-import br.com.leonardo.hexagonapp.navigation.inactiveRoute
+import br.com.leonardo.hexagonapp.utils.AppRoute
 
 data class AppUiState(
     val isDarkMode: Boolean = false,
@@ -14,12 +12,8 @@ data class AppUiState(
     val changeVisibilityBottomSheetDialogInfoAndConfig: (Boolean) -> Unit = {},
     var drawerState: DrawerState = DrawerState(DrawerValue.Closed),
     var showAddFloatingActionButton: Boolean = true,
-    var currentRoute: String = homeRoute,
+    var currentRoute: AppRoute = AppRoute.Home,
     val onCurrentRouteChange: (String) -> Unit = {},
-    val isHomeScreen: Boolean = currentRoute == homeRoute,
-    val isFormScreen: Boolean = currentRoute == formRoute,
-    val isDevProfileScreen: Boolean = currentRoute == devProfileRoute,
-    val isInactiveScreen: Boolean = currentRoute == inactiveRoute,
 ) {
     suspend fun updateDrawer() {
         if (drawerState.isClosed) {
@@ -28,5 +22,15 @@ data class AppUiState(
             drawerState.close()
         }
     }
+    companion object {
+        const val devProfileRoute = "DevProfileRoute"
+        const val homeRoute = "HomeRoute"
+        const val inactiveRoute = "InactiveRoute"
+        const val formRoute = "FormRoute"
+    }
 
+    fun isHomeScreen():Boolean = currentRoute == AppRoute.Home
+    fun isFormScreen():Boolean = currentRoute == AppRoute.Form
+    fun isInactiveScreen():Boolean = currentRoute == AppRoute.Inactive
+    fun isDevProfileScreen():Boolean = currentRoute == AppRoute.DevProfile
 }

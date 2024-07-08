@@ -4,7 +4,6 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.leonardo.hexagonapp.model.PersonalProfile
-import br.com.leonardo.hexagonapp.navigation.profileIdArgument
 import br.com.leonardo.hexagonapp.repository.PersonalProfileRepository
 import br.com.leonardo.hexagonapp.utils.extensions.toBrazilianDateFormat
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,7 +19,7 @@ class PersonalProfileFormViewModel(
 
     private val _uiState = MutableStateFlow(PersonalProfileFormUiState())
     val uiState = _uiState.asStateFlow()
-    private val id: String? = savedStateHandle[profileIdArgument]
+    private val id: String? = savedStateHandle["profileId"]
 
     init {
         _uiState.update { currentState ->

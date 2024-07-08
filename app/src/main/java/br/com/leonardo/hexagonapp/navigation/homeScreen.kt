@@ -8,29 +8,23 @@ import androidx.navigation.compose.composable
 import br.com.leonardo.hexagonapp.ui.screens.home.HomeScreen
 import br.com.leonardo.hexagonapp.ui.screens.home.HomeScreenUiState
 import br.com.leonardo.hexagonapp.ui.screens.home.HomeScreenViewModel
+import kotlinx.serialization.Serializable
 import org.koin.androidx.compose.koinViewModel
 
-internal const val homeRoute = "home"
+@Serializable
+object HomeRoute
 
 fun NavGraphBuilder.homeScreen(navController: NavController) {
-    composable(homeRoute) {
+    composable<HomeRoute>{
 
         val viewModel: HomeScreenViewModel = koinViewModel()
         val uiState: HomeScreenUiState by viewModel.uiState.collectAsState()
 
         HomeScreen(uiState = uiState, onClickItem = { id ->
-            navController.navigateToEdit(id)
+            navController.navigate(FormRoute(id))
         }, onDelete = { profile ->
             viewModel.remove(profile)
         })
     }
 }
 
-fun NavController.navigateToHome() {
-    navigate(homeRoute) {
-        popUpTo(homeRoute) {
-            inclusive = true
-        }
-        launchSingleTop = true
-    }
-}

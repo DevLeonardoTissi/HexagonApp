@@ -52,16 +52,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navOptions
 import br.com.leonardo.hexagonapp.R
+import br.com.leonardo.hexagonapp.navigation.DevProfileRoute
+import br.com.leonardo.hexagonapp.navigation.FormRoute
 import br.com.leonardo.hexagonapp.navigation.HexagonAppNavHost
-import br.com.leonardo.hexagonapp.navigation.navigateToDevProfile
-import br.com.leonardo.hexagonapp.navigation.navigateToForm
-import br.com.leonardo.hexagonapp.navigation.navigateToHome
-import br.com.leonardo.hexagonapp.navigation.navigateToInactive
+import br.com.leonardo.hexagonapp.navigation.HomeRoute
+import br.com.leonardo.hexagonapp.navigation.InactiveRoute
 import br.com.leonardo.hexagonapp.ui.APP_NAME
 import br.com.leonardo.hexagonapp.ui.components.IconSecondaryColor
 import br.com.leonardo.hexagonapp.ui.components.ModalBottomSheetMore
 import br.com.leonardo.hexagonapp.ui.theme.HexagonAppTheme
+import br.com.leonardo.hexagonapp.utils.AppRoute
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
@@ -101,12 +103,11 @@ class MainActivity : ComponentActivity() {
             }
 
             fun topAppBarTitle(): String {
-                val titleResId = when {
-                    appUiState.isFormScreen -> R.string.topAppBarFormTitle
-                    appUiState.isInactiveScreen -> R.string.topAppBarInactiveTitle
-                    appUiState.isDevProfileScreen -> R.string.topAppBarDevProfileTitle
-                    appUiState.isHomeScreen -> R.string.topAppBarActiveTitle
-                    else -> R.string.app_name
+                val titleResId = when (appUiState.currentRoute) {
+                    AppRoute.Form -> R.string.topAppBarFormTitle
+                    AppRoute.Inactive -> R.string.topAppBarInactiveTitle
+                    AppRoute.DevProfile -> R.string.topAppBarDevProfileTitle
+                    AppRoute.Home -> R.string.topAppBarActiveTitle
                 }
                 return getString(titleResId)
             }
@@ -152,9 +153,16 @@ class MainActivity : ComponentActivity() {
                                     )
                                 },
                                 label = { Text(getString(R.string.menuDrawerHomeOption)) },
-                                selected = appUiState.isHomeScreen,
+                                selected = appUiState.isHomeScreen(),
                                 onClick = {
-                                    navController.navigateToHome()
+                                    navController.navigate(HomeRoute, navOptions {
+                                        popUpTo(
+                                            HomeRoute
+                                        ) {
+                                            inclusive = true
+                                        }
+                                        launchSingleTop = true
+                                    })
                                     updateDrawer()
                                 })
 
@@ -166,9 +174,9 @@ class MainActivity : ComponentActivity() {
                                     )
                                 },
                                 label = { Text(getString(R.string.menuDrawerInsertOption)) },
-                                selected = appUiState.isFormScreen,
+                                selected = appUiState.isFormScreen(),
                                 onClick = {
-                                    navController.navigateToForm()
+                                    navController.navigate(FormRoute())
                                     updateDrawer()
                                 })
 
@@ -180,9 +188,9 @@ class MainActivity : ComponentActivity() {
                                     )
                                 },
                                 label = { Text(getString(R.string.menuDrawerInactiveOption)) },
-                                selected = appUiState.isInactiveScreen,
+                                selected = appUiState.isInactiveScreen(),
                                 onClick = {
-                                    navController.navigateToInactive()
+                                    navController.navigate(InactiveRoute)
                                     updateDrawer()
                                 })
 
@@ -194,9 +202,9 @@ class MainActivity : ComponentActivity() {
                                     )
                                 },
                                 label = { Text(getString(R.string.menuDrawerDevProfileOption)) },
-                                selected = appUiState.isDevProfileScreen,
+                                selected = appUiState.isDevProfileScreen(),
                                 onClick = {
-                                    navController.navigateToDevProfile()
+                                    navController.navigate(DevProfileRoute)
                                     updateDrawer()
                                 })
 
@@ -220,7 +228,7 @@ class MainActivity : ComponentActivity() {
 
                         Scaffold(floatingActionButton = {
                             if (appUiState.showAddFloatingActionButton) {
-                                FloatingActionButton(onClick = { navController.navigateToForm() }) {
+                                FloatingActionButton(onClick = { navController.navigate(FormRoute()) }) {
                                     Icon(
                                         Icons.Default.Add,
                                         contentDescription = getString(R.string.iconAddForNavigateToFormFloatingButton)
@@ -259,13 +267,13 @@ class MainActivity : ComponentActivity() {
                                 navigationIcon = {
                                     IconButton(onClick = {
 
-                                        if (appUiState.isHomeScreen) {
+                                        if (appUiState.isHomeScreen()) {
                                             updateDrawer()
                                         } else {
                                             navController.navigateUp()
                                         }
                                     }) {
-                                        if (appUiState.isHomeScreen) {
+                                        if (appUiState.isHomeScreen()) {
                                             Icon(
                                                 Icons.AutoMirrored.Filled.List,
                                                 contentDescription = getString(R.string.iconListForOpenMenuDrawer)

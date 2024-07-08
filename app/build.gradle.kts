@@ -13,6 +13,9 @@ plugins {
 
     //Firebase crashlytics
     alias(libs.plugins.crashlytics)
+
+    //Kotlin Serialization (for navigation version)
+    kotlin("plugin.serialization") version "2.0.0"
 }
 
 android {
@@ -59,6 +62,9 @@ android {
 }
 
 dependencies {
+
+    //Kotlin Serialization (for navigation version)
+    implementation(libs.kotlinx.serialization.json)
 
     //Navigation for compose
     implementation(libs.androidx.navigation.compose)

@@ -3,14 +3,16 @@ package br.com.leonardo.hexagonapp.navigation
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.navigation
+import kotlinx.serialization.Serializable
 
-internal const val mainGraphRoute = "main"
+@Serializable
+object MainGraph
 
 fun NavGraphBuilder.mainNavigationGraph(navController: NavController) {
-    navigation(startDestination = homeRoute, route = mainGraphRoute) {
+    navigation<MainGraph>(startDestination = HomeRoute) {
         homeScreen(navController)
         formScreen(navController)
         inactiveScreen(navController)
-        devProfileScreen(navController)
+        devProfileScreen()
     }
 }

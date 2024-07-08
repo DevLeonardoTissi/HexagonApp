@@ -10,7 +10,10 @@ browser = "1.8.0"
 firebaseBom = "33.0.0"
 
 #Navigation for compose
-navigationCompose = "2.7.7"
+navigationCompose = "2.8.0-beta04"
+
+#Kotlin Serialization
+kotlinxSerializationJson = "1.7.1"
 
 #Coil for compose
 coilCompose = "2.6.0"
@@ -75,6 +78,9 @@ androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "
 
 #NAVIGATION
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
+
+#Kotlin Serialization (for navigation version)
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 
 #COIL
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }

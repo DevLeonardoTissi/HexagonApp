@@ -6,7 +6,7 @@ import androidx.navigation.compose.NavHost
 
 @Composable
 fun HexagonAppNavHost(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = mainGraphRoute) {
+    NavHost(navController = navController, startDestination = MainGraph) {
         mainNavigationGraph(navController)
     }
 }
