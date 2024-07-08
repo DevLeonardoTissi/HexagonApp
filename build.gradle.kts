@@ -14,4 +14,5 @@ plugins {
 
     //Firebase crashlytics
     alias(libs.plugins.crashlytics) apply false
+    alias(libs.plugins.android.library) apply false
 }

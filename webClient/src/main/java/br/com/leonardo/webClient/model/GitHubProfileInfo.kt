@@ -1,4 +1,4 @@
-package br.com.leonardo.hexagonapp.model
+package br.com.leonardo.webClient.model
 
 class GitHubProfileInfo(
     val avatar_url: String? = null,

@@ -1,8 +1,8 @@
-package br.com.leonardo.hexagonapp.repository
+package br.com.leonardo.webClient.repository
 
-import br.com.leonardo.hexagonapp.model.GitHubProfileInfo
-import br.com.leonardo.hexagonapp.model.GithubRepositoryInfo
-import br.com.leonardo.hexagonapp.webClient.services.GithubApiService
+import br.com.leonardo.webClient.model.GitHubProfileInfo
+import br.com.leonardo.webClient.model.GithubRepositoryInfo
+import br.com.leonardo.webClient.services.GithubApiService
 
 class GithubUserRepository(private val githubProfileService: GithubApiService) {
 

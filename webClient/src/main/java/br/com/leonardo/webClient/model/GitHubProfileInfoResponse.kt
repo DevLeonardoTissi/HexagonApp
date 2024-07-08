@@ -1,6 +1,4 @@
-package br.com.leonardo.hexagonapp.webClient.model
-
-import br.com.leonardo.hexagonapp.model.GitHubProfileInfo
+package br.com.leonardo.webClient.model
 
 class GitHubProfileInfoResponse(
     private val avatar_url: String?,

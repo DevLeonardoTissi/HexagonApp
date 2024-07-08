@@ -1,6 +1,4 @@
-package br.com.leonardo.hexagonapp.webClient.model
-
-import br.com.leonardo.hexagonapp.model.GithubRepositoryInfo
+package br.com.leonardo.webClient.model
 
 class GithubRepositoryInfoResponse(
     private val name: String?,

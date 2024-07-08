@@ -63,6 +63,9 @@ android {
 
 dependencies {
 
+    //webClient module
+    implementation(project(":webClient"))
+
     //Kotlin Serialization (for navigation version)
     implementation(libs.kotlinx.serialization.json)
 
@@ -97,11 +100,6 @@ dependencies {
 
     //Material design
     implementation(libs.androidx.material3)
-
-    //Retrofit + Converter + Logging interceptor
-    implementation(libs.retrofit)
-    implementation(libs.converter.gson)
-    implementation(libs.logging.interceptor)
 
     //Splash screen
     implementation(libs.androidx.core.splashscreen)

@@ -17,5 +17,4 @@ class PersonalProfileRepository(private val dao: PersonalProfileDao) {
     suspend fun remove(personalProfile: PersonalProfile) =
         dao.remove(personalProfile = personalProfile)
 
-
 }

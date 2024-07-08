@@ -1,4 +1,4 @@
-package br.com.leonardo.hexagonapp.model
+package br.com.leonardo.webClient.model
 
 class GithubRepositoryInfo(
     val name: String? = null,

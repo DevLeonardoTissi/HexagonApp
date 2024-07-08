@@ -2,7 +2,7 @@ package br.com.leonardo.hexagonapp.ui.screens.devProfile
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import br.com.leonardo.hexagonapp.repository.GithubUserRepository
+import br.com.leonardo.webClient.repository.GithubUserRepository
 import br.com.leonardo.hexagonapp.utils.DevUiProfileState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

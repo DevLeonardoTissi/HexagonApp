@@ -21,3 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "HexagonApp"
 include(":app")
+include(":webClient")
