@@ -3,8 +3,8 @@ package br.com.leonardo.hexagonapp.ui.screens.form
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import br.com.leonardo.hexagonapp.model.PersonalProfile
-import br.com.leonardo.hexagonapp.repository.PersonalProfileRepository
+import br.com.leonardo.localData.model.PersonalProfile
+import br.com.leonardo.localData.repository.PersonalProfileRepository
 import br.com.leonardo.hexagonapp.utils.extensions.toBrazilianDateFormat
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

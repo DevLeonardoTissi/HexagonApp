@@ -1,11 +1,11 @@
-package br.com.leonardo.hexagonapp.database.dao
+package br.com.leonardo.localData.database.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy.Companion.REPLACE
 import androidx.room.Query
-import br.com.leonardo.hexagonapp.model.PersonalProfile
+import br.com.leonardo.localData.model.PersonalProfile
 import kotlinx.coroutines.flow.Flow
 
 @Dao

@@ -64,8 +64,8 @@ fun PersonalProfileFormScreen(
     val focusManager = LocalFocusManager.current
     val pickMedia =
         rememberLauncherForActivityResult(contract = ActivityResultContracts.PickVisualMedia()) { uri ->
-            uri?.let { file ->
-                uiState.onPhotoChanged(file.toString())
+            uri?.let {
+                uiState.onPhotoChanged(it.toString())
             }
         }
 

@@ -1,4 +1,4 @@
-package br.com.leonardo.hexagonapp.model
+package br.com.leonardo.localData.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

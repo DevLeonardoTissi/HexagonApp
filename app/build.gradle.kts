@@ -5,9 +5,6 @@ plugins {
     //New compose compile plugin
     alias(libs.plugins.compose.compiler)
 
-    //KSP - processor
-    alias(libs.plugins.ksp)
-
     //Google services
     alias(libs.plugins.googleServices)
 
@@ -66,6 +63,9 @@ dependencies {
     //webClient module
     implementation(project(":webClient"))
 
+    //localData module
+    implementation(project(":localData"))
+
     //Kotlin Serialization (for navigation version)
     implementation(libs.kotlinx.serialization.json)
 
@@ -80,11 +80,6 @@ dependencies {
 
     //Google fonts
     implementation(libs.androidx.ui.text.google.fonts)
-
-    //Room database
-    implementation(libs.androidx.room.runtime)
-    ksp(libs.androidx.room.compiler)
-    implementation(libs.androidx.room.ktx)
 
     //koin for compose
     implementation(libs.koin.androidx.compose)

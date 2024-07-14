@@ -1,7 +1,7 @@
-package br.com.leonardo.hexagonapp.repository
+package br.com.leonardo.localData.repository
 
-import br.com.leonardo.hexagonapp.database.dao.PersonalProfileDao
-import br.com.leonardo.hexagonapp.model.PersonalProfile
+import br.com.leonardo.localData.database.dao.PersonalProfileDao
+import br.com.leonardo.localData.model.PersonalProfile
 
 class PersonalProfileRepository(private val dao: PersonalProfileDao) {
 

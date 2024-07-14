@@ -1,7 +1,7 @@
 package br.com.leonardo.hexagonapp.ui.screens.inactive
 
 import androidx.compose.runtime.Composable
-import br.com.leonardo.hexagonapp.model.PersonalProfile
+import br.com.leonardo.localData.model.PersonalProfile
 import br.com.leonardo.hexagonapp.ui.components.PersonalProfileList
 
 @Composable

@@ -1,10 +1,10 @@
-package br.com.leonardo.hexagonapp.database.dao
+package br.com.leonardo.localData.database.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import br.com.leonardo.hexagonapp.model.Settings
+import br.com.leonardo.localData.model.Settings
 import kotlinx.coroutines.flow.Flow
 
 @Dao

@@ -1,4 +1,4 @@
-package br.com.leonardo.hexagonapp.database
+package br.com.leonardo.localData.database
 
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
