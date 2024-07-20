@@ -20,6 +20,8 @@ import kotlin.test.assertNotNull
 class WebClientRequisitionsTest : KoinTest {
 
     private val GITHUB_API_BASE_URL = "https://api.github.com/users/"
+    private val DEVELOPER_NAME = "Leonardo Tissi"
+
     private val webClientRepositoryModule = module {
         val client = OkHttpClient.Builder()
             .addInterceptor(HttpLoggingInterceptor().apply {
@@ -54,7 +56,7 @@ class WebClientRequisitionsTest : KoinTest {
     fun `must return true because the project developer has a specific name`() = runTest {
         val repository by inject<GithubUserRepository>()
         val profileInfo = repository.getUserProfileInfo()
-        assertEquals("Leonardo Tissi", profileInfo?.name)
+        assertEquals(DEVELOPER_NAME, profileInfo?.name)
     }
 
     @Test
