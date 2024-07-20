@@ -40,6 +40,15 @@ dependencies {
     //koin for compose
     implementation(libs.koin.androidx.compose)
 
+    //koin tests
+    testImplementation(libs.koin.test)
+    testImplementation(libs.koin.test.junit4)
+
+    //Kotlin coroutines tests
+    testImplementation (libs.kotlinx.coroutines.test)
+
+    testImplementation("io.mockk:mockk:1.13.12")
+
     //Room database
     implementation(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)

@@ -37,6 +37,12 @@ crashlytics = "3.0.1"
 #Koin
 koinAndroidxCompose = "3.5.6"
 
+#koin test
+koinTest = "3.5.6"
+
+#Kotlin coroutines test
+kotlinxCoroutinesTest = "1.9.0-RC"
+
 #Material design 3
 material3Android = "1.2.1"
 
@@ -101,6 +107,14 @@ lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "
 
 #Koin
 koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koinAndroidxCompose" }
+
+#koin tests
+koin-test = { module = "io.insert-koin:koin-test", version.ref = "koinTest" }
+koin-test-junit4 = { module = "io.insert-koin:koin-test-junit4", version.ref = "koinTest" }
+
+#Kotlin coroutines test
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTest" }
+
 
 #Material design 3
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" , version.ref= "material3Android" }
