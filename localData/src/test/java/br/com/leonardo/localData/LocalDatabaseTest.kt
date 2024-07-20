@@ -21,7 +21,7 @@ import org.koin.test.inject
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 
-class LocalDatabaseTest  : KoinTest{
+class LocalDatabaseTest : KoinTest {
 
     private val localDataRepositoryModule = module {
         single {
@@ -45,20 +45,20 @@ class LocalDatabaseTest  : KoinTest{
     }
 
     @Test
-    fun `must return true because the initial settings were set when creating the database`() = runTest{
-        val repository by inject <SettingsRepository>()
-        assertNotNull(repository.searchSettings())
-    }
+    fun `must return true because the initial settings were set when creating the database`() =
+        runTest {
+            val repository by inject<SettingsRepository>()
+            assertNotNull(repository.searchSettings())
+        }
 
     @Test
-    fun `muust return true`() = runTest{
-        val repository by inject <SettingsRepository>()
-        repository.updateSettings(Settings(1,true))
+    fun `muust return true`() = runTest {
+        val repository by inject<SettingsRepository>()
+        repository.updateSettings(Settings(1, true))
 
         val currentSettings = repository.searchSettings()
         assertEquals(true, currentSettings.first().darkMode)
     }
-
 
 
 }
