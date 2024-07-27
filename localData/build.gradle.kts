@@ -13,7 +13,7 @@ android {
     defaultConfig {
         minSdk = 28
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "br.com.leonardo.localData.InstrumentationTestRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
 
@@ -46,8 +46,6 @@ dependencies {
 
     //Kotlin coroutines tests
     testImplementation (libs.kotlinx.coroutines.test)
-
-    testImplementation("io.mockk:mockk:1.13.12")
 
     //Room database
     implementation(libs.androidx.room.runtime)
