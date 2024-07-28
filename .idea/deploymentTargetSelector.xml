@@ -16,13 +16,13 @@
       <SelectionState runConfigName="InstrumentedLocalDatabaseTest">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="search()">
+      <SelectionState runConfigName="test_b_verifySettingsAfterChanges()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="verifySettingsAfterChanges()">
+      <SelectionState runConfigName="test_c_userProfileShouldBeCorrectlyCreated()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="searchDefaultSettings()">
+      <SelectionState runConfigName="test_d_()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>

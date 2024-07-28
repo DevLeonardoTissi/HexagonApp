@@ -13,7 +13,7 @@ android {
     defaultConfig {
         minSdk = 28
 
-        testInstrumentationRunner = "br.com.leonardo.localData.InstrumentationTestRunner"
+        testInstrumentationRunner = "br.com.leonardo.localData.DatabaseInstrumentationTestRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
 
