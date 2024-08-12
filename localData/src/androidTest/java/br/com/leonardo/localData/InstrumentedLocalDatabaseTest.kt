@@ -88,5 +88,4 @@ class InstrumentedLocalDatabaseTest : KoinComponent {
         assertEquals("TestInactive", currentInactivesProfiles.first().first().name)
     }
 
-
 }

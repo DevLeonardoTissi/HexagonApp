@@ -1,7 +1,7 @@
 package br.com.leonardo.webClient.di.modules
 
 import br.com.leonardo.webClient.repository.GithubUserRepository
-import br.com.leonardo.webClient.repository.GithubUserRepositoryImpl
+import br.com.leonardo.webClient.repository.impl.GithubUserRepositoryImpl
 import br.com.leonardo.webClient.services.GithubApiService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -26,5 +26,5 @@ val webClientRepositoryModule = module {
             .build()
     }
     single { get<Retrofit>().create(GithubApiService::class.java) }
-    single<GithubUserRepository>{GithubUserRepositoryImpl(get())}
+    single<GithubUserRepository>{ GithubUserRepositoryImpl(get()) }
 }

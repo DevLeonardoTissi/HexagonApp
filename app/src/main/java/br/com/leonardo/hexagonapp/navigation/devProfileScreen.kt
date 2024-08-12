@@ -13,8 +13,6 @@ import org.koin.androidx.compose.koinViewModel
 @Serializable
 object DevProfileRoute
 
-
-
 fun NavGraphBuilder.devProfileScreen() {
     composable<DevProfileRoute> {
         val viewModel: DevProfileViewModel = koinViewModel()

@@ -1,9 +1,11 @@
-package br.com.leonardo.localData.repository
+package br.com.leonardo.localData.repository.impl
 
 import br.com.leonardo.localData.database.dao.PersonalProfileDao
 import br.com.leonardo.localData.model.PersonalProfile
+import br.com.leonardo.localData.repository.PersonalProfileRepository
 
-class PersonalProfileRepositoryImpl(private val dao: PersonalProfileDao) : PersonalProfileRepository {
+class PersonalProfileRepositoryImpl(private val dao: PersonalProfileDao) :
+    PersonalProfileRepository {
 
     override fun getInactive() = dao.getInactive()
 

@@ -1,7 +1,7 @@
 package br.com.leonardo.webClient
 
 import br.com.leonardo.webClient.repository.GithubUserRepository
-import br.com.leonardo.webClient.repository.GithubUserRepositoryImpl
+import br.com.leonardo.webClient.repository.impl.GithubUserRepositoryImpl
 import br.com.leonardo.webClient.services.GithubApiService
 import kotlinx.coroutines.test.runTest
 import okhttp3.OkHttpClient
@@ -37,7 +37,7 @@ class WebClientRequisitionsTest : KoinTest {
                 .build()
         }
         single { get<Retrofit>().create(GithubApiService::class.java) }
-        single<GithubUserRepository>{GithubUserRepositoryImpl(get())}
+        single<GithubUserRepository>{ GithubUserRepositoryImpl(get()) }
     }
 
     @get:Rule
