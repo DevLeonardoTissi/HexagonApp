@@ -1,10 +1,12 @@
 package br.com.leonardo.localData.repository
 
-import br.com.leonardo.localData.database.dao.SettingsDAO
 import br.com.leonardo.localData.model.Settings
+import kotlinx.coroutines.flow.Flow
 
-class SettingsRepository(private val dao: SettingsDAO) {
-    fun searchSettings() = dao.searchSettings()
-    suspend fun updateSettings(settings: Settings) = dao.updateSettings(settings)
+interface SettingsRepository {
+
+    fun searchSettings(): Flow<Settings>
+
+    suspend fun updateSettings(settings: Settings)
 
 }

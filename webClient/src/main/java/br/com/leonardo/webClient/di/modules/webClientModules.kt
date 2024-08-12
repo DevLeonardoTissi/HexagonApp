@@ -1,10 +1,10 @@
 package br.com.leonardo.webClient.di.modules
 
 import br.com.leonardo.webClient.repository.GithubUserRepository
+import br.com.leonardo.webClient.repository.GithubUserRepositoryImpl
 import br.com.leonardo.webClient.services.GithubApiService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -26,5 +26,5 @@ val webClientRepositoryModule = module {
             .build()
     }
     single { get<Retrofit>().create(GithubApiService::class.java) }
-    singleOf(::GithubUserRepository)
+    single<GithubUserRepository>{GithubUserRepositoryImpl(get())}
 }

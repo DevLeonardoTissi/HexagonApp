@@ -1,13 +1,13 @@
 package br.com.leonardo.webClient
 
 import br.com.leonardo.webClient.repository.GithubUserRepository
+import br.com.leonardo.webClient.repository.GithubUserRepositoryImpl
 import br.com.leonardo.webClient.services.GithubApiService
 import kotlinx.coroutines.test.runTest
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.junit.Rule
 import org.junit.Test
-import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 import org.koin.test.KoinTest
 import org.koin.test.KoinTestRule
@@ -37,7 +37,7 @@ class WebClientRequisitionsTest : KoinTest {
                 .build()
         }
         single { get<Retrofit>().create(GithubApiService::class.java) }
-        singleOf(::GithubUserRepository)
+        single<GithubUserRepository>{GithubUserRepositoryImpl(get())}
     }
 
     @get:Rule

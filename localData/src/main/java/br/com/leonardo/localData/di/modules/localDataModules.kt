@@ -5,8 +5,9 @@ import androidx.room.Room
 import br.com.leonardo.localData.database.AppDatabase
 import br.com.leonardo.localData.database.DatabaseSettingsCallback
 import br.com.leonardo.localData.repository.PersonalProfileRepository
+import br.com.leonardo.localData.repository.PersonalProfileRepositoryImpl
 import br.com.leonardo.localData.repository.SettingsRepository
-import org.koin.core.module.dsl.singleOf
+import br.com.leonardo.localData.repository.SettingsRepositoryImpl
 import org.koin.dsl.module
 
 private const val DATABASE_NAME = "hexagonApp.db"
@@ -22,7 +23,7 @@ val localDataRepositoryModule = module {
 
     single { get<AppDatabase>().personalProfileDao }
     single { get<AppDatabase>().settingsDao }
+    single<PersonalProfileRepository>{ PersonalProfileRepositoryImpl(get()) }
+    single<SettingsRepository> { SettingsRepositoryImpl(get()) }
 
-    singleOf(::SettingsRepository)
-    singleOf(::PersonalProfileRepository)
 }

@@ -2,12 +2,12 @@ package br.com.leonardo.hexagonapp.ui.activity
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import br.com.leonardo.localData.model.Settings
-import br.com.leonardo.localData.repository.SettingsRepository
 import br.com.leonardo.hexagonapp.ui.activity.AppUiState.Companion.formRoute
 import br.com.leonardo.hexagonapp.ui.activity.AppUiState.Companion.homeRoute
 import br.com.leonardo.hexagonapp.ui.activity.AppUiState.Companion.inactiveRoute
 import br.com.leonardo.hexagonapp.utils.AppRoute
+import br.com.leonardo.localData.model.Settings
+import br.com.leonardo.localData.repository.SettingsRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

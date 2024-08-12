@@ -1,20 +1,19 @@
 package br.com.leonardo.localData.repository
 
-import br.com.leonardo.localData.database.dao.PersonalProfileDao
 import br.com.leonardo.localData.model.PersonalProfile
+import kotlinx.coroutines.flow.Flow
 
-class PersonalProfileRepository(private val dao: PersonalProfileDao) {
+interface PersonalProfileRepository {
 
-    fun getInactive() = dao.getInactive()
+    fun getInactive() : Flow<List<PersonalProfile>>
 
-    fun getActives() = dao.getActives()
+    fun getActives() : Flow<List<PersonalProfile>>
 
-    suspend fun getById(id: String) = dao.getById(id = id)
+    suspend fun getById(id: String) : PersonalProfile
 
-    suspend fun insert(personalProfile: PersonalProfile) =
-        dao.insert(personalProfile = personalProfile)
+    suspend fun insert(personalProfile: PersonalProfile)
 
-    suspend fun remove(personalProfile: PersonalProfile) =
-        dao.remove(personalProfile = personalProfile)
+    suspend fun remove(personalProfile: PersonalProfile)
 
 }
+
