@@ -1,4 +1,4 @@
-package br.com.leonardo.hexagonapp
+package br.com.leonardo.hexagonapp.ui
 
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.collectAsState
@@ -38,7 +38,7 @@ class FormScreenTest {
                     PersonalProfileFormScreen(
                         uiState = uiState
                     ) {
-
+                            //TODO
                     }
                 }
             }
