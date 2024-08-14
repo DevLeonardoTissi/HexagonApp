@@ -38,7 +38,7 @@ class FormScreenTest {
                     PersonalProfileFormScreen(
                         uiState = uiState
                     ) {
-                            //TODO
+                            Unit
                     }
                 }
             }
