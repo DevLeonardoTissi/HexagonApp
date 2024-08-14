@@ -16,13 +16,13 @@
       <SelectionState runConfigName="InstrumentedLocalDatabaseTest">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="test_b_verifySettingsAfterChanges()">
+      <SelectionState runConfigName="FormScreenTest">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="test_c_userProfileShouldBeCorrectlyCreated()">
+      <SelectionState runConfigName="form()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="test_d_()">
+      <SelectionState runConfigName="checkingIfUiIsRespectingTheCreatedState()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>

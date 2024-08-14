@@ -47,6 +47,8 @@ import androidx.compose.ui.focus.onFocusEvent
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import br.com.leonardo.hexagonapp.R
@@ -190,11 +192,17 @@ fun PersonalProfileFormScreen(
             horizontalArrangement = Arrangement.Center
         ) {
 
-            Text(text = context.getString(R.string.switchOptionActiveProfileDescription))
+            Text(text = context.getString(R.string.switchOptionActiveProfileLabelDescription))
             Spacer(modifier = Modifier.width(20.dp))
-            Switch(checked = uiState.active, onCheckedChange = {
-                uiState.onActiveChanged(it)
-            })
+            Switch(
+                checked = uiState.active,
+                onCheckedChange = {
+                    uiState.onActiveChanged(it)
+                },
+                modifier = Modifier.semantics {
+                    contentDescription =
+                        context.getString(R.string.switchOptionActiveProfileDescription)
+                })
         }
 
         Spacer(modifier = Modifier.height(20.dp))

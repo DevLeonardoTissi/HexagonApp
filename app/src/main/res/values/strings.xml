@@ -56,7 +56,8 @@
     <string name="inputDateOfBirthLabel">Data de nascimento</string>
     <string name="inputDateOfBirthPlaceHolder">Data de nascimento</string>
 
-    <string name="switchOptionActiveProfileDescription">Ativo:</string>
+    <string name="switchOptionActiveProfileLabelDescription">Ativo:</string>
+    <string name="switchOptionActiveProfileDescription">Active switch</string>
 
     <string name="saveIconButton">Save button</string>
 
