@@ -111,6 +111,9 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
 
+    //Navigation Test
+    androidTestImplementation (libs.androidx.navigation.testing)
+
 
 
 

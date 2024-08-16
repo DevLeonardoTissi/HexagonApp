@@ -8,7 +8,7 @@
     <string name = "iconForNavigateToInactiveScreenMenuDrawer">Inactive Screen</string>"
     <string name = "iconForNavigateToDevProfileScreenMenuDrawer">Dev Profile Screen</string>"
     <string name = "iconForHelpMenuDrawer">Help</string>"
-    <string name = "iconAddForNavigateToFormFloatingButton">Form Screen</string>"
+    <string name = "iconAddForNavigateToFormFloatingButton">add button to form screen</string>"
     <string name = "iconMoreForInfoAndConfiguration">More - Configuration</string>"
     <string name = "iconListForOpenMenuDrawer">Open drawer</string>"
     <string name = "iconBackForNavigateUp">navigate to back</string>"

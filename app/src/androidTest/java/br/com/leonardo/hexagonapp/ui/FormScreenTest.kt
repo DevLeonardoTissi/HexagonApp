@@ -7,10 +7,12 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.hasClickAction
 import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.hasText
+import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
+import br.com.leonardo.hexagonapp.ui.activity.MainActivity
 import br.com.leonardo.hexagonapp.ui.screens.form.PersonalProfileFormScreen
 import br.com.leonardo.hexagonapp.ui.screens.form.PersonalProfileFormUiState
 import br.com.leonardo.hexagonapp.ui.screens.form.PersonalProfileFormViewModel
@@ -24,6 +26,9 @@ class FormScreenTest {
 
     @get:Rule
     val composeTestRule = createComposeRule()
+
+    //corrigir Classe porteriormente
+    val composeTestRuleActivity = createAndroidComposeRule<MainActivity>()
 
     @Test
     fun shouldAllowUserToFillAndSubmitFormSuccessfully() {
