@@ -1,22 +1,22 @@
 package br.com.leonardo.localData.repository.impl
 
-import br.com.leonardo.localData.database.dao.PersonalProfileDao
 import br.com.leonardo.localData.model.PersonalProfile
 import br.com.leonardo.localData.repository.PersonalProfileRepository
+import br.com.leonardo.localData.source.local.PersonalProfileLocalSource
 
-class PersonalProfileRepositoryImpl(private val dao: PersonalProfileDao) :
+class PersonalProfileRepositoryImpl(private val personalProfileLocalSource: PersonalProfileLocalSource) :
     PersonalProfileRepository {
 
-    override fun getInactive() = dao.getInactive()
+    override fun getInactives() = personalProfileLocalSource.getInactive()
 
-    override fun getActives() = dao.getActives()
+    override fun getActives() = personalProfileLocalSource.getActives()
 
-    override suspend fun getById(id: String) = dao.getById(id = id)
+    override suspend fun getById(id: String) = personalProfileLocalSource.getById(id = id)
 
     override suspend fun insert(personalProfile: PersonalProfile) =
-        dao.insert(personalProfile = personalProfile)
+        personalProfileLocalSource.insert(personalProfile = personalProfile)
 
     override suspend fun remove(personalProfile: PersonalProfile) =
-        dao.remove(personalProfile = personalProfile)
+        personalProfileLocalSource.remove(personalProfile = personalProfile)
 
 }

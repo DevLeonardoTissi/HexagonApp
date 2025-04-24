@@ -1,10 +1,10 @@
-package br.com.leonardo.webClient.source.mapper.impl
+package br.com.leonardo.webClient.source.remote.mapper.impl
 
 import br.com.leonardo.webClient.model.GitHubProfileInfo
 import br.com.leonardo.webClient.model.GitHubProfileInfoResponse
 import br.com.leonardo.webClient.model.GithubRepositoryInfo
 import br.com.leonardo.webClient.model.GithubRepositoryInfoResponse
-import br.com.leonardo.webClient.source.mapper.GithubUserInfoMapper
+import br.com.leonardo.webClient.source.remote.mapper.GithubUserInfoMapper
 
 class GithubUserInfoMapperImpl : GithubUserInfoMapper {
     override fun toModel(githubProfileInfoResponse: GitHubProfileInfoResponse): GitHubProfileInfo {

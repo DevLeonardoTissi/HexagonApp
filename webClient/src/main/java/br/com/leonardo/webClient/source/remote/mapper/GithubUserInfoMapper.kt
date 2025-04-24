@@ -1,4 +1,4 @@
-package br.com.leonardo.webClient.source.mapper
+package br.com.leonardo.webClient.source.remote.mapper
 
 import br.com.leonardo.webClient.model.GitHubProfileInfo
 import br.com.leonardo.webClient.model.GitHubProfileInfoResponse

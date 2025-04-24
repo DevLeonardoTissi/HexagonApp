@@ -7,23 +7,24 @@ import br.com.leonardo.hexagonapp.ui.activity.AppUiState.Companion.homeRoute
 import br.com.leonardo.hexagonapp.ui.activity.AppUiState.Companion.inactiveRoute
 import br.com.leonardo.hexagonapp.utils.AppRoute
 import br.com.leonardo.localData.model.Settings
-import br.com.leonardo.localData.repository.SettingsRepository
-import kotlinx.coroutines.flow.Flow
+import br.com.leonardo.localData.usecase.SearchSettingsUseCase
+import br.com.leonardo.localData.usecase.UpdateSettingsUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class AppViewModel(private val repository: SettingsRepository) : ViewModel() {
-
-    val settings: Flow<Settings> = repository.searchSettings()
+class AppViewModel(
+    private val searchSettingsUseCase: SearchSettingsUseCase,
+    private val updateSettingsUseCase: UpdateSettingsUseCase
+) : ViewModel() {
 
     private val _uiState = MutableStateFlow(AppUiState())
     val uiState = _uiState.asStateFlow()
 
     private fun toggleDarkMode(darkMode: Boolean) {
         viewModelScope.launch {
-            repository.updateSettings(Settings(darkMode = darkMode))
+            updateSettingsUseCase(Settings(darkMode = darkMode))
         }
     }
 
@@ -38,7 +39,7 @@ class AppViewModel(private val repository: SettingsRepository) : ViewModel() {
 
     init {
         viewModelScope.launch {
-            settings.collect { settings ->
+            searchSettingsUseCase().collect { settings ->
                 _uiState.update { currentState ->
                     currentState.copy(
                         isDarkMode = settings.darkMode,

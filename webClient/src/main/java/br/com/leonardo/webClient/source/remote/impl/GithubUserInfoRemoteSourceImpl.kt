@@ -1,15 +1,15 @@
-package br.com.leonardo.webClient.source.impl
+package br.com.leonardo.webClient.source.remote.impl
 
 import br.com.leonardo.webClient.model.GitHubProfileInfo
 import br.com.leonardo.webClient.model.GithubRepositoryInfo
 import br.com.leonardo.webClient.services.GithubApiService
-import br.com.leonardo.webClient.source.GithubUserInfoSource
-import br.com.leonardo.webClient.source.mapper.GithubUserInfoMapper
+import br.com.leonardo.webClient.source.remote.GithubUserInfoRemoteSource
+import br.com.leonardo.webClient.source.remote.mapper.GithubUserInfoMapper
 
-class GithubUserInfoSourceImpl(
+class GithubUserInfoRemoteSourceImpl(
     private val githubProfileService: GithubApiService,
     private val mapper: GithubUserInfoMapper
-) : GithubUserInfoSource {
+) : GithubUserInfoRemoteSource {
 
     override suspend fun getUserProfileInfo(): GitHubProfileInfo? {
         return githubProfileService.getUserProfileInfo()?.let {

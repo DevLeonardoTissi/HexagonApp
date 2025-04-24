@@ -3,10 +3,10 @@ package br.com.leonardo.webClient.di.modules
 import br.com.leonardo.webClient.repository.GithubUserRepository
 import br.com.leonardo.webClient.repository.impl.GithubUserRepositoryImpl
 import br.com.leonardo.webClient.services.GithubApiService
-import br.com.leonardo.webClient.source.GithubUserInfoSource
-import br.com.leonardo.webClient.source.impl.GithubUserInfoSourceImpl
-import br.com.leonardo.webClient.source.mapper.GithubUserInfoMapper
-import br.com.leonardo.webClient.source.mapper.impl.GithubUserInfoMapperImpl
+import br.com.leonardo.webClient.source.remote.GithubUserInfoRemoteSource
+import br.com.leonardo.webClient.source.remote.impl.GithubUserInfoRemoteSourceImpl
+import br.com.leonardo.webClient.source.remote.mapper.GithubUserInfoMapper
+import br.com.leonardo.webClient.source.remote.mapper.impl.GithubUserInfoMapperImpl
 import br.com.leonardo.webClient.usecase.GetUserProfileInfoUseCase
 import br.com.leonardo.webClient.usecase.GetUserRepositoriesInfoUseCase
 import br.com.leonardo.webClient.usecase.impl.GetUserProfileInfoUseCaseImpl
@@ -36,7 +36,7 @@ val webClientRepositoryModule = module {
 
     single { get<Retrofit>().create(GithubApiService::class.java) }
     single<GithubUserInfoMapper> { GithubUserInfoMapperImpl() }
-    single<GithubUserInfoSource> { GithubUserInfoSourceImpl(get(), get()) }
+    single<GithubUserInfoRemoteSource> { GithubUserInfoRemoteSourceImpl(get(), get()) }
     single<GithubUserRepository> { GithubUserRepositoryImpl(get()) }
     single<GetUserProfileInfoUseCase> { GetUserProfileInfoUseCaseImpl(get()) }
     single<GetUserRepositoriesInfoUseCase> { GetUserRepositoriesInfoUseCaseImpl(get()) }

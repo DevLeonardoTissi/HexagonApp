@@ -5,14 +5,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.leonardo.hexagonapp.utils.extensions.toBrazilianDateFormat
 import br.com.leonardo.localData.model.PersonalProfile
-import br.com.leonardo.localData.repository.PersonalProfileRepository
+import br.com.leonardo.localData.usecase.GetProfileByIdUseCase
+import br.com.leonardo.localData.usecase.InsertProfileUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class PersonalProfileFormViewModel(
-    private val repository: PersonalProfileRepository,
+    private val insertProfileUseCase: InsertProfileUseCase,
+    private val getProfileByIdUseCase: GetProfileByIdUseCase,
     savedStateHandle: SavedStateHandle
 ) :
     ViewModel() {
@@ -80,16 +82,17 @@ class PersonalProfileFormViewModel(
 
     private fun searchById(id: String) {
         viewModelScope.launch {
-            val personalProfile = repository.getById(id = id)
-            _uiState.value = _uiState.value.copy(
-                id = personalProfile.id,
-                name = personalProfile.name,
-                cpf = personalProfile.cpf,
-                city = personalProfile.city,
-                dateOfBirth = personalProfile.dateOfBirth,
-                photo = personalProfile.photo,
-                active = personalProfile.active
-            )
+            with(getProfileByIdUseCase(id = id)) {
+                _uiState.value = _uiState.value.copy(
+                    id = this.id,
+                    name = name,
+                    cpf = cpf,
+                    city = city,
+                    dateOfBirth = dateOfBirth,
+                    photo = photo,
+                    active = active
+                )
+            }
         }
     }
 
@@ -133,7 +136,7 @@ class PersonalProfileFormViewModel(
 
     private fun insert() {
         viewModelScope.launch {
-            repository.insert(
+            insertProfileUseCase(
                 PersonalProfile(
                     id = uiState.value.id,
                     name = uiState.value.name,

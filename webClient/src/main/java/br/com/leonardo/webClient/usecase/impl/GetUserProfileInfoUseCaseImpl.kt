@@ -10,8 +10,4 @@ class GetUserProfileInfoUseCaseImpl(private val repository: GithubUserRepository
     override suspend operator fun invoke(): GitHubProfileInfo? {
        return repository.getUserProfileInfo()
     }
-
-     private suspend fun getUserProfileInfo(): GitHubProfileInfo? {
-        return repository.getUserProfileInfo()
-    }
 }

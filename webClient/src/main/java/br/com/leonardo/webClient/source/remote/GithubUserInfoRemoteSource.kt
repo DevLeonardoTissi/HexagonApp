@@ -1,9 +1,9 @@
-package br.com.leonardo.webClient.source
+package br.com.leonardo.webClient.source.remote
 
 import br.com.leonardo.webClient.model.GitHubProfileInfo
 import br.com.leonardo.webClient.model.GithubRepositoryInfo
 
-interface GithubUserInfoSource {
+interface GithubUserInfoRemoteSource {
 
     suspend fun getUserProfileInfo(): GitHubProfileInfo?
 

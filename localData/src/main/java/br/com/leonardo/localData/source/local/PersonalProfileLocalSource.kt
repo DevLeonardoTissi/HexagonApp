@@ -1,11 +1,11 @@
-package br.com.leonardo.localData.repository
+package br.com.leonardo.localData.source.local
 
 import br.com.leonardo.localData.model.PersonalProfile
 import kotlinx.coroutines.flow.Flow
 
-interface PersonalProfileRepository {
+interface PersonalProfileLocalSource {
 
-    fun getInactives() : Flow<List<PersonalProfile>>
+    fun getInactive() : Flow<List<PersonalProfile>>
 
     fun getActives() : Flow<List<PersonalProfile>>
 
@@ -16,4 +16,3 @@ interface PersonalProfileRepository {
     suspend fun remove(personalProfile: PersonalProfile)
 
 }
-

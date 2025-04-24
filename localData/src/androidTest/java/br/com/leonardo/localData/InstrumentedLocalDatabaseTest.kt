@@ -84,7 +84,7 @@ class InstrumentedLocalDatabaseTest : KoinComponent {
                 dateOfBirth = "Today"
             )
         )
-        val currentInactivesProfiles = personalProfileRepository.getInactive()
+        val currentInactivesProfiles = personalProfileRepository.getInactives()
         assertEquals("TestInactive", currentInactivesProfiles.first().first().name)
     }
 

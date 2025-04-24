@@ -3,12 +3,10 @@ package br.com.leonardo.webClient.repository.impl
 import br.com.leonardo.webClient.model.GitHubProfileInfo
 import br.com.leonardo.webClient.model.GithubRepositoryInfo
 import br.com.leonardo.webClient.repository.GithubUserRepository
-import br.com.leonardo.webClient.services.GithubApiService
-import br.com.leonardo.webClient.source.GithubUserInfoSource
-import br.com.leonardo.webClient.source.mapper.GithubUserInfoMapper
+import br.com.leonardo.webClient.source.remote.GithubUserInfoRemoteSource
 
 class GithubUserRepositoryImpl(
-    private val githubUserInfoSource: GithubUserInfoSource
+    private val githubUserInfoSource: GithubUserInfoRemoteSource
 ) : GithubUserRepository {
 
     override suspend fun getUserProfileInfo(): GitHubProfileInfo? {
