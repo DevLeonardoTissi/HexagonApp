@@ -3,12 +3,16 @@ package br.com.leonardo.hexagonapp.ui.screens.devProfile
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.leonardo.hexagonapp.utils.DevUiProfileState
-import br.com.leonardo.webClient.repository.GithubUserRepository
+import br.com.leonardo.webClient.usecase.GetUserProfileInfoUseCase
+import br.com.leonardo.webClient.usecase.GetUserRepositoriesInfoUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class DevProfileViewModel(private val githubUserRepository: GithubUserRepository) : ViewModel() {
+class DevProfileViewModel(
+    private val getUserProfileInfoUseCase: GetUserProfileInfoUseCase,
+    private val getUserRepositoriesInfoUseCase: GetUserRepositoriesInfoUseCase,
+) : ViewModel() {
 
     private val _uiState = MutableStateFlow(DevProfileUiState())
     val uiState = _uiState.asStateFlow()
@@ -30,8 +34,9 @@ class DevProfileViewModel(private val githubUserRepository: GithubUserRepository
                 ))
 
             try {
-                val userProfile = githubUserRepository.getUserProfileInfo()
-                val repositories = githubUserRepository.getUserRepositoriesInfo()
+
+                val userProfile = getUserProfileInfoUseCase()
+                val repositories = getUserRepositoriesInfoUseCase()
 
                 updateUiState(
                     DevProfileUiState(

@@ -3,6 +3,14 @@ package br.com.leonardo.webClient.di.modules
 import br.com.leonardo.webClient.repository.GithubUserRepository
 import br.com.leonardo.webClient.repository.impl.GithubUserRepositoryImpl
 import br.com.leonardo.webClient.services.GithubApiService
+import br.com.leonardo.webClient.source.GithubUserInfoSource
+import br.com.leonardo.webClient.source.impl.GithubUserInfoSourceImpl
+import br.com.leonardo.webClient.source.mapper.GithubUserInfoMapper
+import br.com.leonardo.webClient.source.mapper.impl.GithubUserInfoMapperImpl
+import br.com.leonardo.webClient.usecase.GetUserProfileInfoUseCase
+import br.com.leonardo.webClient.usecase.GetUserRepositoriesInfoUseCase
+import br.com.leonardo.webClient.usecase.impl.GetUserProfileInfoUseCaseImpl
+import br.com.leonardo.webClient.usecase.impl.GetUserRepositoriesInfoUseCaseImpl
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
@@ -25,6 +33,11 @@ val webClientRepositoryModule = module {
             .client(client)
             .build()
     }
+
     single { get<Retrofit>().create(GithubApiService::class.java) }
-    single<GithubUserRepository>{ GithubUserRepositoryImpl(get()) }
+    single<GithubUserInfoMapper> { GithubUserInfoMapperImpl() }
+    single<GithubUserInfoSource> { GithubUserInfoSourceImpl(get(), get()) }
+    single<GithubUserRepository> { GithubUserRepositoryImpl(get()) }
+    single<GetUserProfileInfoUseCase> { GetUserProfileInfoUseCaseImpl(get()) }
+    single<GetUserRepositoriesInfoUseCase> { GetUserRepositoriesInfoUseCaseImpl(get()) }
 }

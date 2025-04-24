@@ -15,7 +15,7 @@ class WebClientRequisitionsTest : KoinTest {
     @get:Rule
     val koinTestRule = KoinTestRule.create {
         printLogger()
-        modules(webClientRepositoryModule)
+        modules(webClientRepositoryModuleTest)
     }
 
     private val repository by inject<GithubUserRepository>()

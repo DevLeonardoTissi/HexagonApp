@@ -1,15 +1,9 @@
 package br.com.leonardo.webClient.model
 
-class GithubRepositoryInfoResponse(
-    private val name: String?,
-    private val html_url: String?,
-    private val description: String?,
-) {
+import com.google.gson.annotations.SerializedName
 
-    val gitHubRepositoryInfo: GithubRepositoryInfo
-        get() = GithubRepositoryInfo(
-            name = name,
-            html_url = html_url,
-            description = description
-        )
-}
+class GithubRepositoryInfoResponse(
+    val name: String?,
+    @SerializedName("html_url") val htmlUrl: String?,
+    val description: String?,
+)
