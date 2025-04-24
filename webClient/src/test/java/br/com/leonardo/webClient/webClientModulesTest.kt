@@ -7,6 +7,10 @@ import br.com.leonardo.webClient.source.GithubUserInfoSource
 import br.com.leonardo.webClient.source.impl.GithubUserInfoSourceImpl
 import br.com.leonardo.webClient.source.mapper.GithubUserInfoMapper
 import br.com.leonardo.webClient.source.mapper.impl.GithubUserInfoMapperImpl
+import br.com.leonardo.webClient.usecase.GetUserProfileInfoUseCase
+import br.com.leonardo.webClient.usecase.GetUserRepositoriesInfoUseCase
+import br.com.leonardo.webClient.usecase.impl.GetUserProfileInfoUseCaseImpl
+import br.com.leonardo.webClient.usecase.impl.GetUserRepositoriesInfoUseCaseImpl
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
@@ -34,4 +38,6 @@ val webClientRepositoryModuleTest = module {
     single<GithubUserInfoMapper> { GithubUserInfoMapperImpl() }
     single<GithubUserInfoSource> { GithubUserInfoSourceImpl(get(), get()) }
     single<GithubUserRepository> { GithubUserRepositoryImpl(get()) }
+    single<GetUserProfileInfoUseCase> { GetUserProfileInfoUseCaseImpl(get()) }
+    single<GetUserRepositoriesInfoUseCase> { GetUserRepositoriesInfoUseCaseImpl(get()) }
 }
