@@ -4,9 +4,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.List
@@ -38,6 +40,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -57,6 +60,11 @@ import br.com.leonardo.hexagonapp.ui.APP_NAME
 import br.com.leonardo.hexagonapp.ui.components.IconSecondaryColor
 import br.com.leonardo.hexagonapp.ui.components.ModalBottomSheetMore
 import br.com.leonardo.hexagonapp.utils.AppRoute
+import br.com.leonardo.hexagonapp.utils.NetworkState
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.LottieConstants
+import com.airbnb.lottie.compose.rememberLottieComposition
 import kotlinx.coroutines.launch
 
 @Composable
@@ -73,6 +81,7 @@ fun MainScreen(
     val snackBarHost = remember { SnackbarHostState() }
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
+    val composition by rememberLottieComposition(spec = LottieCompositionSpec.RawRes(R.raw.no_wifi_icon))
 
     LaunchedEffect(navController) {
         navController.addOnDestinationChangedListener { _, destination, _ ->
@@ -271,9 +280,25 @@ fun MainScreen(
                         }
                     })
             }) { paddingValues ->
-                Box(modifier = Modifier.padding(paddingValues)) {
-                    HexagonAppNavHost(navController = navController)
+                Box(modifier = Modifier.fillMaxSize()){
+                    Box(modifier = Modifier.padding(paddingValues)) {
+                        HexagonAppNavHost(navController = navController)
+                    }
+
+                    if (appUiState.networkStatus is NetworkState.Lost) {
+                        Box(modifier = Modifier
+                            .align(Alignment.TopEnd)
+                            .padding(paddingValues)){
+                            LottieAnimation(
+                                composition = composition,
+                                iterations = LottieConstants.IterateForever,
+                                modifier = Modifier.size(60.dp)
+                            )
+                        }
+                    }
                 }
+
+
             }
         }
     }

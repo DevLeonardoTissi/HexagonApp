@@ -15,7 +15,7 @@ import org.koin.androidx.compose.koinViewModel
 object InactiveRoute
 
 fun NavGraphBuilder.inactiveScreen(navController: NavController) {
-    composable<InactiveRoute>{
+    composable<InactiveRoute> {
 
         val viewModel: InactiveProfilesViewModel = koinViewModel()
         val uiState: InactiveProfilesUiState by viewModel.uiState.collectAsState()
@@ -24,6 +24,7 @@ fun NavGraphBuilder.inactiveScreen(navController: NavController) {
             navController.navigate(FormRoute(id))
         }, onDelete = { profile ->
             viewModel.remove(profile)
-        })
+        }, onUpdate = { profile -> viewModel.update(profile) }
+        )
     }
 }

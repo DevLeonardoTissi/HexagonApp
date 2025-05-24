@@ -15,7 +15,7 @@ import org.koin.androidx.compose.koinViewModel
 object HomeRoute
 
 fun NavGraphBuilder.homeScreen(navController: NavController) {
-    composable<HomeRoute>{
+    composable<HomeRoute> {
 
         val viewModel: HomeScreenViewModel = koinViewModel()
         val uiState: HomeScreenUiState by viewModel.uiState.collectAsState()
@@ -24,7 +24,8 @@ fun NavGraphBuilder.homeScreen(navController: NavController) {
             navController.navigate(FormRoute(id))
         }, onDelete = { profile ->
             viewModel.remove(profile)
-        })
+        }, onUpdate = { profile -> viewModel.update(profile) }
+        )
     }
 }
 

@@ -119,6 +119,8 @@ kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-t
 
 #Material design 3
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" , version.ref= "material3Android" }
+androidx-material-icons-extended = {  group = "androidx.compose.material", name = "material-icons-extended"}
+
 
 #Retrofit + Converter + Logging Iterceptor
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofitVersion" }

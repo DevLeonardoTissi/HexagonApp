@@ -1,9 +1,11 @@
 package br.com.leonardo.hexagonapp.ui.activity
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
@@ -11,6 +13,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.rememberNavController
 import br.com.leonardo.hexagonapp.ui.theme.HexagonAppTheme
+import br.com.leonardo.hexagonapp.utils.NetworkState
+import br.com.leonardo.hexagonapp.utils.extensions.toast
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 

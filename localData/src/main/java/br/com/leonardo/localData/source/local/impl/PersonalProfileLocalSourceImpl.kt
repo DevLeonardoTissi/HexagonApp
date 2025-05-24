@@ -18,4 +18,8 @@ class PersonalProfileLocalSourceImpl(private val dao: PersonalProfileDao) :
 
     override suspend fun remove(personalProfile: PersonalProfile) =
         dao.remove(personalProfile = personalProfile)
+
+    override suspend fun update(personalProfile: PersonalProfile) {
+        dao.update(personalProfile = personalProfile)
+    }
 }

@@ -1,5 +1,6 @@
 package br.com.leonardo.hexagonapp.ui.components
 
+import android.content.Context
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
@@ -13,6 +14,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.rounded.CatchingPokemon
+import androidx.compose.material.icons.rounded.ThumbsUpDown
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.SwipeToDismissBox
@@ -33,6 +36,7 @@ import androidx.compose.ui.unit.dp
 import br.com.leonardo.hexagonapp.R
 import br.com.leonardo.localData.model.PersonalProfile
 import br.com.leonardo.hexagonapp.ui.theme.customRed
+import br.com.leonardo.hexagonapp.ui.theme.customYellow
 import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -40,7 +44,8 @@ import kotlinx.coroutines.delay
 fun PersonalProfileList(
     list: List<PersonalProfile>?,
     onCLickItem: (profileID: String) -> Unit,
-    onDelete: (profile: PersonalProfile) -> Unit
+    onDelete: (profile: PersonalProfile) -> Unit,
+    onUpdate: (profile: PersonalProfile) -> Unit
 ) {
     val context = LocalContext.current
     var visible by remember { mutableStateOf(false) }
@@ -69,46 +74,24 @@ fun PersonalProfileList(
                         LaunchedEffect(swipeToDismissBoxState.currentValue) {
                             if (swipeToDismissBoxState.currentValue === SwipeToDismissBoxValue.EndToStart) {
                                 onDelete(profile)
+                            }else if (swipeToDismissBoxState.currentValue === SwipeToDismissBoxValue.StartToEnd){
+                                onUpdate(profile)
                             }
                         }
 
                         SwipeToDismissBox(state = swipeToDismissBoxState, backgroundContent = {
                             when (swipeToDismissBoxState.dismissDirection) {
-                                SwipeToDismissBoxValue.StartToEnd -> {}
+                                SwipeToDismissBoxValue.StartToEnd -> {
+                                    AlterBox(context, profile.active)
+                                }
                                 SwipeToDismissBoxValue.EndToStart -> {
-
-                                    Box(
-                                        modifier = Modifier
-                                            .padding(16.dp)
-                                            .background(customRed, RoundedCornerShape(16.dp))
-                                            .fillMaxSize()
-
-                                    ) {
-                                        Column(
-                                            modifier = Modifier
-                                                .align(Alignment.CenterEnd)
-                                                .padding(16.dp)
-                                        ) {
-                                            Text(
-                                                text = context.getString(R.string.swipeToDismissBoxLabelDelete),
-                                                color = Color.White,
-                                                modifier = Modifier
-                                                    .align(Alignment.CenterHorizontally)
-                                            )
-                                            Icon(
-                                                Icons.Default.Delete,
-                                                contentDescription = context.getString(R.string.swipeToDismissBoxIconDescriptionDelete),
-                                                modifier = Modifier
-                                                    .align(Alignment.CenterHorizontally), tint = Color.White
-                                            )
-                                        }
-                                    }
+                                    RemoveBox(context)
                                 }
 
                                 SwipeToDismissBoxValue.Settled -> {}
                             }
 
-                        }, enableDismissFromStartToEnd = false) {
+                        }, enableDismissFromStartToEnd = true) {
                             PersonalProfileLayout(
                                 id = profile.id,
                                 name = profile.name,
@@ -127,4 +110,68 @@ fun PersonalProfileList(
     }
 
 
+}
+
+@Composable
+fun RemoveBox(context: Context) {
+    Box(
+        modifier = Modifier
+            .padding(16.dp)
+            .background(customRed, RoundedCornerShape(16.dp))
+            .fillMaxSize()
+
+    ) {
+        Column(
+            modifier = Modifier
+                .align(Alignment.CenterEnd)
+                .padding(16.dp)
+        ) {
+            Text(
+                text = context.getString(R.string.swipeToDismissBoxLabelDelete),
+                color = Color.White,
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+            )
+            Icon(
+                Icons.Default.Delete,
+                contentDescription = context.getString(R.string.swipeToDismissBoxIconDescriptionDelete),
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally), tint = Color.White
+            )
+        }
+    }
+}
+
+@Composable
+fun AlterBox(context: Context, active: Boolean) {
+    Box(
+        modifier = Modifier
+            .padding(16.dp)
+            .background(customYellow, RoundedCornerShape(16.dp))
+            .fillMaxSize()
+
+    ) {
+        Column(
+            modifier = Modifier
+                .align(Alignment.CenterStart)
+                .padding(16.dp)
+        ) {
+            Text(
+                text = if (active) {
+                    context.getString(R.string.swipeToDismissBoxLabelInactive)
+                } else {
+                    context.getString(R.string.swipeToDismissBoxLabelActivate)
+                },
+                color = Color.White,
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+            )
+            Icon(
+                Icons.Rounded.ThumbsUpDown,
+                contentDescription = context.getString(R.string.swipeToDismissBoxIconDescriptionUpdate),
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally), tint = Color.White
+            )
+        }
+    }
 }

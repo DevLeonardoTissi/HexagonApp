@@ -8,12 +8,13 @@ import br.com.leonardo.hexagonapp.ui.components.PersonalProfileList
 fun HomeScreen(
     uiState: HomeScreenUiState,
     onClickItem: (profileId: String) -> Unit,
-    onDelete: (profile: PersonalProfile) -> Unit
+    onDelete: (profile: PersonalProfile) -> Unit,
+    onUpdate: (profile: PersonalProfile) -> Unit
 ) {
 
     PersonalProfileList(list = uiState.activesList, onCLickItem = { profileId ->
         onClickItem(profileId)
-    }, onDelete = { profile ->
-        onDelete(profile)
-    })
+    }, onDelete = { profile -> onDelete(profile)
+    }, onUpdate = { profile -> onUpdate(profile) }
+    )
 }

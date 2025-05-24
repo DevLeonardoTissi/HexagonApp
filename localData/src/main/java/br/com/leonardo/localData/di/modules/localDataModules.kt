@@ -18,6 +18,7 @@ import br.com.leonardo.localData.usecase.GetInactivesProfilesUseCase
 import br.com.leonardo.localData.usecase.GetProfileByIdUseCase
 import br.com.leonardo.localData.usecase.InsertProfileUseCase
 import br.com.leonardo.localData.usecase.SearchSettingsUseCase
+import br.com.leonardo.localData.usecase.UpdateProfileUseCase
 import br.com.leonardo.localData.usecase.UpdateSettingsUseCase
 import br.com.leonardo.localData.usecase.impl.DeleteProfileUseCaseImpl
 import br.com.leonardo.localData.usecase.impl.GetActivesProfilesUseCaseImpl
@@ -25,6 +26,7 @@ import br.com.leonardo.localData.usecase.impl.GetInactivesProfilesUseCaseImpl
 import br.com.leonardo.localData.usecase.impl.GetProfileByIdUseCaseImpl
 import br.com.leonardo.localData.usecase.impl.InsertProfileUseCaseImpl
 import br.com.leonardo.localData.usecase.impl.SearchSettingsUseCaseImpl
+import br.com.leonardo.localData.usecase.impl.UpdateProfileUseCaseImpl
 import br.com.leonardo.localData.usecase.impl.UpdateSettingsUseCaseImpl
 import org.koin.dsl.module
 
@@ -44,6 +46,7 @@ val localDataRepositoryModule = module {
     single<PersonalProfileLocalSource> { PersonalProfileLocalSourceImpl(get()) }
     single<PersonalProfileRepository> { PersonalProfileRepositoryImpl(get()) }
     single<GetActivesProfilesUseCase> { GetActivesProfilesUseCaseImpl(get()) }
+    single<UpdateProfileUseCase> { UpdateProfileUseCaseImpl(get()) }
     single<GetInactivesProfilesUseCase> { GetInactivesProfilesUseCaseImpl(get()) }
     single<GetProfileByIdUseCase> { GetProfileByIdUseCaseImpl(get()) }
     single<DeleteProfileUseCase> { DeleteProfileUseCaseImpl(get()) }

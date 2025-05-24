@@ -10,6 +10,7 @@
     <string name = "iconForHelpMenuDrawer">Help</string>"
     <string name = "iconAddForNavigateToFormFloatingButton">add button to form screen</string>"
     <string name = "iconMoreForInfoAndConfiguration">More - Configuration</string>"
+    <string name = "iconNoNetworkConnection">No network connection</string>"
     <string name = "iconListForOpenMenuDrawer">Open drawer</string>"
     <string name = "iconBackForNavigateUp">navigate to back</string>"
 
@@ -29,8 +30,11 @@
         <string name="topAppBarInactiveTitle">Inativos</string>
 
     <!--- Personal Profile List -->
-    <string name="swipeToDismissBoxIconDescriptionDelete">Remover</string>
+    <string name="swipeToDismissBoxIconDescriptionDelete">Remove Icon</string>
+    <string name="swipeToDismissBoxIconDescriptionUpdate">Update Icon</string>
     <string name="swipeToDismissBoxLabelDelete">Remover</string>
+    <string name="swipeToDismissBoxLabelActivate">Ativar</string>
+    <string name="swipeToDismissBoxLabelInactive">Desativar</string>
 
         <!--- Bottom sheet dialog settings -->
         <string name="bottomSheetSettingsTitle">Configurações</string>

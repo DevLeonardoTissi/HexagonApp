@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy.Companion.REPLACE
 import androidx.room.Query
+import androidx.room.Update
 import br.com.leonardo.localData.model.PersonalProfile
 import kotlinx.coroutines.flow.Flow
 
@@ -25,5 +26,8 @@ interface PersonalProfileDao {
 
     @Delete
     suspend fun remove(personalProfile: PersonalProfile)
+
+    @Update
+    suspend fun update(personalProfile: PersonalProfile)
 
 }

@@ -8,12 +8,14 @@ import br.com.leonardo.hexagonapp.ui.components.PersonalProfileList
 fun InactiveScreen(
     uiState: InactiveProfilesUiState,
     onClickItem: (profileId: String) -> Unit,
-    onDelete: (profile: PersonalProfile) -> Unit
+    onDelete: (profile: PersonalProfile) -> Unit,
+    onUpdate: (profile: PersonalProfile) -> Unit
 ) {
 
     PersonalProfileList(list = uiState.inactiveList, onCLickItem = { profileId ->
         onClickItem(profileId)
     }, onDelete = { profile ->
         onDelete(profile)
-    })
+    }, onUpdate = { profile -> onUpdate(profile) }
+    )
 }

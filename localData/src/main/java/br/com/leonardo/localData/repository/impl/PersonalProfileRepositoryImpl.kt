@@ -19,4 +19,8 @@ class PersonalProfileRepositoryImpl(private val personalProfileLocalSource: Pers
     override suspend fun remove(personalProfile: PersonalProfile) =
         personalProfileLocalSource.remove(personalProfile = personalProfile)
 
+    override suspend fun update(personalProfile: PersonalProfile) {
+        personalProfileLocalSource.update(personalProfile = personalProfile)
+    }
+
 }

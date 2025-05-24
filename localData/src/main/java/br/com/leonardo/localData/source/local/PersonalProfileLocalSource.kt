@@ -15,4 +15,6 @@ interface PersonalProfileLocalSource {
 
     suspend fun remove(personalProfile: PersonalProfile)
 
+    suspend fun update(personalProfile: PersonalProfile)
+
 }

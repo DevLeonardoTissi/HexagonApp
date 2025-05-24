@@ -1,11 +1,16 @@
 package br.com.leonardo.hexagonapp.ui.activity
 
+import android.net.ConnectivityManager
+import android.net.Network
+import android.net.NetworkCapabilities
+import android.net.NetworkRequest
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.leonardo.hexagonapp.ui.activity.AppUiState.Companion.formRoute
 import br.com.leonardo.hexagonapp.ui.activity.AppUiState.Companion.homeRoute
 import br.com.leonardo.hexagonapp.ui.activity.AppUiState.Companion.inactiveRoute
 import br.com.leonardo.hexagonapp.utils.AppRoute
+import br.com.leonardo.hexagonapp.utils.NetworkState
 import br.com.leonardo.localData.model.Settings
 import br.com.leonardo.localData.usecase.SearchSettingsUseCase
 import br.com.leonardo.localData.usecase.UpdateSettingsUseCase
@@ -16,7 +21,8 @@ import kotlinx.coroutines.launch
 
 class AppViewModel(
     private val searchSettingsUseCase: SearchSettingsUseCase,
-    private val updateSettingsUseCase: UpdateSettingsUseCase
+    private val updateSettingsUseCase: UpdateSettingsUseCase,
+    connectivityManager: ConnectivityManager
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(AppUiState())
@@ -38,6 +44,47 @@ class AppViewModel(
     }
 
     init {
+
+        val networkRequest = NetworkRequest.Builder()
+            .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+            .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
+            .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
+            .build()
+
+
+        val networkCallback = object : ConnectivityManager.NetworkCallback() {
+            override fun onAvailable(network: Network) {
+                super.onAvailable(network)
+                _uiState.update { currentState ->
+                    currentState.copy(networkStatus = NetworkState.Avaliable(network))
+                }
+            }
+
+            override fun onCapabilitiesChanged(
+                network: Network,
+                networkCapabilities: NetworkCapabilities
+            ) {
+                super.onCapabilitiesChanged(network, networkCapabilities)
+                _uiState.update { currentState ->
+                    currentState.copy(
+                        networkStatus = NetworkState.CapabilitiesChanged(
+                            network,
+                            networkCapabilities
+                        )
+                    )
+                }
+            }
+
+            override fun onLost(network: Network) {
+                super.onLost(network)
+                _uiState.update { currentState ->
+                    currentState.copy(networkStatus = NetworkState.Lost)
+                }
+            }
+        }
+
+        connectivityManager.requestNetwork(networkRequest, networkCallback)
+
         viewModelScope.launch {
             searchSettingsUseCase().collect { settings ->
                 _uiState.update { currentState ->
