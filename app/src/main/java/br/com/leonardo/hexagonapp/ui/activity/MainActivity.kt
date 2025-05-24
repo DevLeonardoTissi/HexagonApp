@@ -27,7 +27,6 @@ class MainActivity : ComponentActivity() {
 
 
     private val appViewModel: AppViewModel by viewModel()
-
     private val batteryReceiver = BatteryStatusBroadcastReceiver { isLow ->
         appViewModel.setBatteryLow(isLow)
     }
@@ -72,7 +71,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-   private fun isBatteryLowNow(): Boolean {
+    private fun isBatteryLowNow(): Boolean {
         val intent = registerReceiver(
             null, IntentFilter(Intent.ACTION_BATTERY_CHANGED)
         ) ?: return false
@@ -83,8 +82,8 @@ class MainActivity : ComponentActivity() {
         return batteryPct <= 0.15f
     }
 
-    private fun checkBatteryLevelInit(){
-        if (isBatteryLowNow()){
+    private fun checkBatteryLevelInit() {
+        if (isBatteryLowNow()) {
             appViewModel.setBatteryLow(true)
         }
     }
