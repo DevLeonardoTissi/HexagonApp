@@ -15,7 +15,8 @@ data class AppUiState(
     var showAddFloatingActionButton: Boolean = true,
     var currentRoute: AppRoute = AppRoute.Home,
     val onCurrentRouteChange: (String) -> Unit = {},
-    val networkStatus: NetworkState = NetworkState.Lost
+    val networkStatus: NetworkState = NetworkState.Lost,
+    val batteryIsLow: Boolean = false
 ) {
     suspend fun updateDrawer() {
         if (drawerState.isClosed) {

@@ -2,6 +2,7 @@ package br.com.leonardo.hexagonapp.ui.activity
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -81,7 +82,7 @@ fun MainScreen(
     val snackBarHost = remember { SnackbarHostState() }
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
-    val composition by rememberLottieComposition(spec = LottieCompositionSpec.RawRes(R.raw.no_wifi_icon))
+
 
     LaunchedEffect(navController) {
         navController.addOnDestinationChangedListener { _, destination, _ ->
@@ -280,22 +281,38 @@ fun MainScreen(
                         }
                     })
             }) { paddingValues ->
-                Box(modifier = Modifier.fillMaxSize()){
+                Box(modifier = Modifier.fillMaxSize()) {
                     Box(modifier = Modifier.padding(paddingValues)) {
                         HexagonAppNavHost(navController = navController)
                     }
 
-                    if (appUiState.networkStatus is NetworkState.Lost) {
-                        Box(modifier = Modifier
+                    Box(
+                        modifier = Modifier
                             .align(Alignment.TopEnd)
-                            .padding(paddingValues)){
-                            LottieAnimation(
-                                composition = composition,
-                                iterations = LottieConstants.IterateForever,
-                                modifier = Modifier.size(60.dp)
-                            )
+                            .padding(paddingValues)
+                    ) {
+
+                        Column {
+                            if (appUiState.networkStatus is NetworkState.Lost) {
+                                val composition by rememberLottieComposition(spec = LottieCompositionSpec.RawRes(R.raw.no_wifi_icon))
+                                LottieAnimation(
+                                    composition = composition,
+                                    iterations = LottieConstants.IterateForever,
+                                    modifier = Modifier.size(60.dp)
+                                )
+                            }
+                            if (appUiState.batteryIsLow) {
+                                val composition by rememberLottieComposition(spec = LottieCompositionSpec.RawRes(R.raw.low_battery))
+                                LottieAnimation(
+                                    composition = composition,
+                                    iterations = LottieConstants.IterateForever,
+                                    modifier = Modifier.size(60.dp)
+                                )
+                            }
                         }
                     }
+
+
                 }
 
 

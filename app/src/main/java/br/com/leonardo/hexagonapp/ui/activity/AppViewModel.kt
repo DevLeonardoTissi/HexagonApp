@@ -43,6 +43,12 @@ class AppViewModel(
         }
     }
 
+    fun setBatteryLow(isLow: Boolean) {
+        _uiState.update { currentState ->
+            currentState.copy(batteryIsLow = isLow)
+        }
+    }
+
     init {
 
         val networkRequest = NetworkRequest.Builder()

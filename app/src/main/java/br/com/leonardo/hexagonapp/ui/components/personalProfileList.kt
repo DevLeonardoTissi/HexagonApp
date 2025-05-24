@@ -14,7 +14,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.rounded.CatchingPokemon
 import androidx.compose.material.icons.rounded.ThumbsUpDown
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -34,9 +33,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import br.com.leonardo.hexagonapp.R
-import br.com.leonardo.localData.model.PersonalProfile
 import br.com.leonardo.hexagonapp.ui.theme.customRed
 import br.com.leonardo.hexagonapp.ui.theme.customYellow
+import br.com.leonardo.localData.model.PersonalProfile
 import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalMaterial3Api::class)
