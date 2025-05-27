@@ -17,6 +17,7 @@ import br.com.leonardo.webClient.usecase.GetUserProfileInfoUseCase
 import br.com.leonardo.webClient.usecase.GetUserRepositoriesInfoUseCase
 import br.com.leonardo.webClient.usecase.impl.GetUserProfileInfoUseCaseImpl
 import br.com.leonardo.webClient.usecase.impl.GetUserRepositoriesInfoUseCaseImpl
+import okhttp3.OkHttpClient
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -30,7 +31,7 @@ val webClientRepositoryModule = module {
     }
     single<NetworkStatus> { PlatformNetworkHandler(get<ConnectivityManager>()) }
     single<OkHttpClientProviderConfig> { OkHttpClientProviderConfigImpl(get<NetworkStatus>()) }
-    single { get<OkHttpClientProviderConfig>().invoke() }
+    single<OkHttpClient>{ get<OkHttpClientProviderConfig>().invoke() }
 
     single {
         Retrofit.Builder()
