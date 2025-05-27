@@ -14,45 +14,35 @@ class DevProfileViewModel(
     private val getUserRepositoriesInfoUseCase: GetUserRepositoriesInfoUseCase,
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(DevProfileUiState())
+    private val _uiState = MutableStateFlow(
+        DevProfileUiState(
+            state = DevUiProfileState.Loading,
+            onLoadUserInfo = ::loadUserInfo
+        )
+    )
     val uiState = _uiState.asStateFlow()
 
     init {
         loadUserInfo()
     }
 
-    private fun updateUiState(newState: DevProfileUiState) {
-        _uiState.value = newState
-    }
 
     private fun loadUserInfo() {
         viewModelScope.launch {
-            updateUiState(
-                DevProfileUiState(
-                    state = DevUiProfileState.Loading,
-                    onLoadUserInfo = { loadUserInfo() }
-                ))
+            _uiState.value = _uiState.value.copy(state = DevUiProfileState.Loading)
 
-            try {
-
-                val userProfile = getUserProfileInfoUseCase()
-                val repositories = getUserRepositoriesInfoUseCase()
-
-                updateUiState(
-                    DevProfileUiState(
-                        userProfile = userProfile,
-                        repositories = repositories,
-                        state = DevUiProfileState.Success,
-                        onLoadUserInfo = { loadUserInfo() }
-                    )
+            kotlin.runCatching {
+                _uiState.value.copy(
+                    userProfile = getUserProfileInfoUseCase(),
+                    repositories = getUserRepositoriesInfoUseCase(),
+                    state = DevUiProfileState.Success
                 )
 
-            } catch (e: Exception) {
-                updateUiState(
-                    DevProfileUiState(
-                        state = DevUiProfileState.Error,
-                        onLoadUserInfo = { loadUserInfo() }
-                    )
+            }.onSuccess { newState ->
+                _uiState.value = newState
+            }.onFailure {
+                _uiState.value = _uiState.value.copy(
+                    state = DevUiProfileState.Error
                 )
             }
         }

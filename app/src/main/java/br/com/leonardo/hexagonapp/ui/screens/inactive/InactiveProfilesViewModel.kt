@@ -8,6 +8,8 @@ import br.com.leonardo.localData.usecase.GetInactivesProfilesUseCase
 import br.com.leonardo.localData.usecase.UpdateProfileUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -33,12 +35,14 @@ class InactiveProfilesViewModel(
     }
 
     init {
-        viewModelScope.launch {
-            getInactivesProfilesUseCase().collect { inactiveList ->
-                _uiState.update { currentState ->
-                    currentState.copy(inactiveList = inactiveList)
-                }
+        observerInactivesProfiles()
+    }
+
+    private fun observerInactivesProfiles(){
+        getInactivesProfilesUseCase()
+            .onEach { profiles ->
+                _uiState.update { it.copy(inactiveList = profiles) }
             }
-        }
+            .launchIn(viewModelScope)
     }
 }

@@ -8,6 +8,9 @@ import br.com.leonardo.localData.usecase.GetActivesProfilesUseCase
 import br.com.leonardo.localData.usecase.UpdateProfileUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -33,12 +36,23 @@ class HomeScreenViewModel(
     }
 
     init {
-        viewModelScope.launch {
-            getActivesProfilesUseCase().collect { activesList ->
-                _uiState.update { currentState ->
-                    currentState.copy(activesList = activesList)
-                }
+        observerActivesProfiles()
+//        viewModelScope.launch {
+//            getActivesProfilesUseCase().collect { activesList ->
+//                _uiState.update { currentState ->
+//                    currentState.copy(activesList = activesList)
+//                }
+//            }
+//        }
+    }
+
+    private fun observerActivesProfiles() {
+        getActivesProfilesUseCase()
+            .onEach { profiles ->
+                _uiState.update { it.copy(activesList = profiles) }
+            }.catch {
+                //////
             }
-        }
+            .launchIn(viewModelScope)
     }
 }
