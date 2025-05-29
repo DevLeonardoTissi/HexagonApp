@@ -1,4 +1,4 @@
-package br.com.leonardo.hexagonapp.utils.extensions
+package br.com.leonardo.hexagonapp.utils.extensions.long
 
 import java.text.SimpleDateFormat
 import java.util.Date

@@ -24,7 +24,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.Button
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -41,10 +40,11 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.leonardo.hexagonapp.R
+import br.com.leonardo.hexagonapp.ui.components.DevProfileShimmerScreen
 import br.com.leonardo.hexagonapp.ui.components.SubComposeAsyncImage
 import br.com.leonardo.hexagonapp.ui.components.TypewriterText
 import br.com.leonardo.hexagonapp.utils.DevUiProfileState
-import br.com.leonardo.hexagonapp.utils.goToUri
+import br.com.leonardo.hexagonapp.utils.extensions.context.goToUri
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
@@ -59,19 +59,7 @@ fun DevProfileScreen(uiState: DevProfileUiState) {
 
     when (uiState.state) {
         DevUiProfileState.Loading -> {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    CircularProgressIndicator()
-                    Spacer(modifier = Modifier.height(16.dp))
-                    TypewriterText(texts = listOf(context.getString(R.string.loadingMessagingText)))
-                }
-            }
+            DevProfileShimmerScreen()
         }
 
         DevUiProfileState.Error -> {
@@ -187,7 +175,7 @@ fun DevProfileScreen(uiState: DevProfileUiState) {
                                         }
                                         Spacer(modifier = Modifier.height(20.dp))
                                         repository.html_url?.let {
-                                            Button(onClick = { goToUri(it, context) }) {
+                                            Button(onClick = { context.goToUri(it) }) {
                                                 Text(text = context.getString(R.string.repositoryURItext))
                                             }
                                         }

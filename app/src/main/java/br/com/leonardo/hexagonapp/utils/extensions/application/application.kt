@@ -1,4 +1,4 @@
-package br.com.leonardo.hexagonapp.utils.extensions
+package br.com.leonardo.hexagonapp.utils.extensions.application
 
 import android.app.Application
 import br.com.leonardo.hexagonapp.di.modules.viewModelModule

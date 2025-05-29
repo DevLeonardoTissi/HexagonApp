@@ -1,4 +1,4 @@
-package br.com.leonardo.hexagonapp.utils.extensions
+package br.com.leonardo.hexagonapp.utils.extensions.context
 
 import android.content.Context
 import android.widget.Toast

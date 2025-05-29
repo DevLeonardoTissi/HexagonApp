@@ -3,9 +3,13 @@ package br.com.leonardo.webClient.di.modules
 import android.content.Context
 import android.net.ConnectivityManager
 import br.com.leonardo.webClient.config.OkHttpClientProviderConfig
-import br.com.leonardo.webClient.config.OkHttpClientProviderConfigImpl
+import br.com.leonardo.webClient.config.impl.OkHttpClientProviderConfigImpl
 import br.com.leonardo.webClient.connectivity.NetworkStatus
 import br.com.leonardo.webClient.connectivity.PlatformNetworkHandler
+import br.com.leonardo.webClient.interceptor.LoggingInterceptor
+import br.com.leonardo.webClient.interceptor.NetworkStatusInterceptor
+import br.com.leonardo.webClient.interceptor.impl.LoggingInterceptorImpl
+import br.com.leonardo.webClient.interceptor.impl.NetworkStatusInterceptorImpl
 import br.com.leonardo.webClient.repository.GithubUserRepository
 import br.com.leonardo.webClient.repository.impl.GithubUserRepositoryImpl
 import br.com.leonardo.webClient.services.GithubApiService
@@ -30,8 +34,15 @@ val webClientRepositoryModule = module {
         get<Context>().getSystemService(ConnectivityManager::class.java) as ConnectivityManager
     }
     single<NetworkStatus> { PlatformNetworkHandler(get<ConnectivityManager>()) }
-    single<OkHttpClientProviderConfig> { OkHttpClientProviderConfigImpl(get<NetworkStatus>()) }
-    single<OkHttpClient>{ get<OkHttpClientProviderConfig>().invoke() }
+    single<NetworkStatusInterceptor> { NetworkStatusInterceptorImpl(get<NetworkStatus>()) }
+    single<LoggingInterceptor> { LoggingInterceptorImpl() }
+    single<OkHttpClientProviderConfig> {
+        OkHttpClientProviderConfigImpl(
+            get<NetworkStatusInterceptor>(),
+            get<LoggingInterceptor>()
+        )
+    }
+    single<OkHttpClient> { get<OkHttpClientProviderConfig>().invoke() }
 
     single {
         Retrofit.Builder()
