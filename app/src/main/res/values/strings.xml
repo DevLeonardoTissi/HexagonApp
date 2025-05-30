@@ -79,6 +79,10 @@
     <string name="repositoriesTitle">repositórios</string>
     <string name="repositoryURItext">Ver repositório</string>
     <string name="devProfileImageDescription">Foto do desenvolvdedor</string>
+    <string name="shareSheetProfileUrlTile">Compartilhe meu perfil do Linkedin</string>
+    <string name="copyToClipboardToastMessage">Link do Linkedin copiado para área de tranferência</string>
+    <string name="copyToClipboardToastMessageLabel">Link do Linkedin copiado para área de tranferência</string>
+    <string name="LinkedinProfileUrl">https://www.linkedin.com/in/leonardotissi/</string>
 
     <!--- PersonalProfileLayout -->
     <string name="personalProfileImageDescription">user Photo</string>

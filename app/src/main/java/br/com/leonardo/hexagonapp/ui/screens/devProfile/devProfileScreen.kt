@@ -1,8 +1,10 @@
 package br.com.leonardo.hexagonapp.ui.screens.devProfile
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -44,12 +46,15 @@ import br.com.leonardo.hexagonapp.ui.components.DevProfileShimmerScreen
 import br.com.leonardo.hexagonapp.ui.components.SubComposeAsyncImage
 import br.com.leonardo.hexagonapp.ui.components.TypewriterText
 import br.com.leonardo.hexagonapp.utils.DevUiProfileState
+import br.com.leonardo.hexagonapp.utils.extensions.context.copyToClipboard
 import br.com.leonardo.hexagonapp.utils.extensions.context.goToUri
+import br.com.leonardo.hexagonapp.utils.extensions.context.shareSheetText
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun DevProfileScreen(uiState: DevProfileUiState) {
 
@@ -118,6 +123,26 @@ fun DevProfileScreen(uiState: DevProfileUiState) {
                                     )
                                 ), CircleShape
                             )
+                            .combinedClickable(
+                                onClick = {
+                                    with(context) {
+                                        shareSheetText(
+                                            R.string.shareSheetProfileUrlTile,
+                                            getString(R.string.LinkedinProfileUrl)
+                                        )
+
+                                    }
+                                },
+                                onLongClick = {
+                                    with(context) {
+                                        copyToClipboard(
+                                            R.string.copyToClipboardToastMessageLabel,
+                                            getString(R.string.LinkedinProfileUrl),
+                                            R.string.copyToClipboardToastMessage
+                                        )
+                                    }
+                                }
+                            )
                     )
                 }
 
@@ -179,9 +204,6 @@ fun DevProfileScreen(uiState: DevProfileUiState) {
                                                 Text(text = context.getString(R.string.repositoryURItext))
                                             }
                                         }
-//                                    ClickableText(text = AnnotatedString(context.getString(R.string.repositoryURItext))) {
-//                                        goToUri(repositories.html_url, context)
-//                                    }
                                     }
                                 }
                             }
