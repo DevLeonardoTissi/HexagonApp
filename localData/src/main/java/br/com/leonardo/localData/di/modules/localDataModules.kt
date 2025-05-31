@@ -32,7 +32,7 @@ import org.koin.dsl.module
 
 private const val DATABASE_NAME = "hexagonApp.db"
 
-val localDataRepositoryModule = module {
+val localDataModule = module {
     single {
         Room.databaseBuilder(
             get<Context>(),

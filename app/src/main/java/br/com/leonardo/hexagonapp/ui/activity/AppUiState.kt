@@ -4,7 +4,7 @@ package br.com.leonardo.hexagonapp.ui.activity
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.DrawerValue
 import br.com.leonardo.hexagonapp.utils.AppRoute
-import br.com.leonardo.hexagonapp.utils.NetworkState
+import br.com.leonardo.webClient.utils.NetworkState
 
 data class AppUiState(
     val isDarkMode: Boolean = false,

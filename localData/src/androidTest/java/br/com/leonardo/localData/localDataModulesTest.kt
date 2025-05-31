@@ -29,7 +29,7 @@ import br.com.leonardo.localData.usecase.impl.UpdateSettingsUseCaseImpl
 import org.koin.dsl.module
 
 
-val localDataRepositoryModuleTest = module {
+val localDataModuleTest = module {
     single {
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
         Room.inMemoryDatabaseBuilder(

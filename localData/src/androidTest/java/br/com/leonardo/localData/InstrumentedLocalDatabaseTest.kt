@@ -24,7 +24,7 @@ class InstrumentedLocalDatabaseTest : KoinComponent {
 
     //If you don't want dynamic modules, you don't need to create this rule
     @get:Rule
-    val koinTestRule = KoinTestRule(listOf(localDataRepositoryModuleTest))
+    val koinTestRule = KoinTestRule(listOf(localDataModuleTest))
 
     private val personalProfileRepository by inject<PersonalProfileRepository>()
     private val settingsRepository by inject<SettingsRepository>()

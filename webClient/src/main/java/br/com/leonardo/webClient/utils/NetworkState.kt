@@ -1,4 +1,4 @@
-package br.com.leonardo.hexagonapp.utils
+package br.com.leonardo.webClient.utils
 
 import android.net.Network
 import android.net.NetworkCapabilities

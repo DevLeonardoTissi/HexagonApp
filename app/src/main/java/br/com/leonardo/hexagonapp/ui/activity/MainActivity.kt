@@ -31,19 +31,13 @@ class MainActivity : ComponentActivity() {
 
         installSplashScreen()
         checkBatteryLevelInit()
+        registerBatteryStatusBroadcastReceiver()
 
         setContent {
 
             val appUiState by appViewModel.uiState.collectAsState()
             val navController = rememberNavController()
             val coroutineScope = rememberCoroutineScope()
-
-
-            val intentFilter = IntentFilter().apply {
-                addAction(Intent.ACTION_BATTERY_LOW)
-                addAction(Intent.ACTION_BATTERY_OKAY)
-            }
-            registerReceiver(batteryReceiver, intentFilter)
 
             HexagonAppTheme(darkTheme = appUiState.isDarkMode) {
                 MainScreen(
@@ -64,6 +58,14 @@ class MainActivity : ComponentActivity() {
                 )
             }
         }
+    }
+
+    private fun registerBatteryStatusBroadcastReceiver(){
+        val intentFilter = IntentFilter().apply {
+            addAction(Intent.ACTION_BATTERY_LOW)
+            addAction(Intent.ACTION_BATTERY_OKAY)
+        }
+        registerReceiver(batteryReceiver, intentFilter)
     }
 
     private fun isBatteryLowNow(): Boolean {
@@ -87,7 +89,6 @@ class MainActivity : ComponentActivity() {
         super.onDestroy()
         unregisterReceiver(batteryReceiver)
     }
-
 
 }
 

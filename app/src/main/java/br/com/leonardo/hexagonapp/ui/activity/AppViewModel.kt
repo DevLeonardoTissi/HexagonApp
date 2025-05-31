@@ -1,19 +1,15 @@
 package br.com.leonardo.hexagonapp.ui.activity
 
-import android.net.ConnectivityManager
-import android.net.Network
-import android.net.NetworkCapabilities
-import android.net.NetworkRequest
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.leonardo.hexagonapp.ui.activity.AppUiState.Companion.formRoute
 import br.com.leonardo.hexagonapp.ui.activity.AppUiState.Companion.homeRoute
 import br.com.leonardo.hexagonapp.ui.activity.AppUiState.Companion.inactiveRoute
 import br.com.leonardo.hexagonapp.utils.AppRoute
-import br.com.leonardo.hexagonapp.utils.NetworkState
 import br.com.leonardo.localData.model.Settings
 import br.com.leonardo.localData.usecase.SearchSettingsUseCase
 import br.com.leonardo.localData.usecase.UpdateSettingsUseCase
+import br.com.leonardo.webClient.utils.NetworkMonitor
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -24,7 +20,7 @@ import kotlinx.coroutines.launch
 class AppViewModel(
     private val searchSettingsUseCase: SearchSettingsUseCase,
     private val updateSettingsUseCase: UpdateSettingsUseCase,
-    connectivityManager: ConnectivityManager
+    private val networkMonitor: NetworkMonitor
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(
@@ -37,11 +33,11 @@ class AppViewModel(
     val uiState = _uiState.asStateFlow()
 
     init {
-        monitorNetwork(connectivityManager)
         observerSettings()
+        networkMonitor()
     }
 
-    private fun observerSettings(){
+    private fun observerSettings() {
         searchSettingsUseCase().onEach { settings ->
             _uiState.update {
                 it.copy(
@@ -51,46 +47,26 @@ class AppViewModel(
         }.launchIn(viewModelScope)
     }
 
-    private fun monitorNetwork(connectivityManager: ConnectivityManager) {
-        val networkRequest = NetworkRequest.Builder()
-            .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-            .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
-            .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
-            .build()
-
-
-        val networkCallback = object : ConnectivityManager.NetworkCallback() {
-            override fun onAvailable(network: Network) {
-                super.onAvailable(network)
-                _uiState.update { currentState ->
-                    currentState.copy(networkStatus = NetworkState.Avaliable(network))
-                }
-            }
-
-            override fun onCapabilitiesChanged(
-                network: Network,
-                networkCapabilities: NetworkCapabilities
-            ) {
-                super.onCapabilitiesChanged(network, networkCapabilities)
+    private fun networkMonitor() {
+        networkMonitor.monitor(
+            onConnectionCapabilitiesChanged = { state ->
                 _uiState.update { currentState ->
                     currentState.copy(
-                        networkStatus = NetworkState.CapabilitiesChanged(
-                            network,
-                            networkCapabilities
-                        )
+                        networkStatus = state
                     )
                 }
-            }
-
-            override fun onLost(network: Network) {
-                super.onLost(network)
+            },
+            onConnectionAvailable = { state ->
                 _uiState.update { currentState ->
-                    currentState.copy(networkStatus = NetworkState.Lost)
+                    currentState.copy(networkStatus = state)
+                }
+            },
+            onConnectionLost = { state ->
+                _uiState.update { currentState ->
+                    currentState.copy(networkStatus = state)
                 }
             }
-        }
-
-        connectivityManager.requestNetwork(networkRequest, networkCallback)
+        )
     }
 
     private fun toggleDarkMode(darkMode: Boolean) {

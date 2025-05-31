@@ -19,7 +19,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 private const val GITHUB_API_BASE_URL = "https://api.github.com/users/"
 
-val webClientRepositoryModuleTest = module {
+val webClientModuleTest = module {
     val client = OkHttpClient.Builder()
         .addInterceptor(HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY

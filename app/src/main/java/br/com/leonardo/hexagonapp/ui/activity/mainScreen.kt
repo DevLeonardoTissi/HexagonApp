@@ -61,7 +61,7 @@ import br.com.leonardo.hexagonapp.ui.APP_NAME
 import br.com.leonardo.hexagonapp.ui.components.IconSecondaryColor
 import br.com.leonardo.hexagonapp.ui.components.ModalBottomSheetMore
 import br.com.leonardo.hexagonapp.utils.AppRoute
-import br.com.leonardo.hexagonapp.utils.NetworkState
+import br.com.leonardo.webClient.utils.NetworkState
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
