@@ -23,6 +23,7 @@ import br.com.leonardo.webClient.usecase.GetUserProfileInfoUseCase
 import br.com.leonardo.webClient.usecase.GetUserRepositoriesInfoUseCase
 import br.com.leonardo.webClient.usecase.impl.GetUserProfileInfoUseCaseImpl
 import br.com.leonardo.webClient.usecase.impl.GetUserRepositoriesInfoUseCaseImpl
+import br.com.leonardo.webClient.utils.GITHUB_API_BASE_URL
 import br.com.leonardo.webClient.utils.NetworkMonitor
 import br.com.leonardo.webClient.utils.impl.NetworkMonitorImpl
 import okhttp3.OkHttpClient
@@ -30,7 +31,6 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-private const val GITHUB_API_BASE_URL = "https://api.github.com/users/"
 
 val webClientModule = module {
 
