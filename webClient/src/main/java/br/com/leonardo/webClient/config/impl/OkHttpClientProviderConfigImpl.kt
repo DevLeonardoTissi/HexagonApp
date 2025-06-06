@@ -1,6 +1,7 @@
 package br.com.leonardo.webClient.config.impl
 
 import br.com.leonardo.webClient.config.OkHttpClientProviderConfig
+import br.com.leonardo.webClient.interceptor.ErrorInterceptor
 import br.com.leonardo.webClient.interceptor.LoggingInterceptor
 import br.com.leonardo.webClient.interceptor.NetworkStatusInterceptor
 import okhttp3.OkHttpClient
@@ -8,9 +9,10 @@ import java.util.concurrent.TimeUnit
 
 class OkHttpClientProviderConfigImpl(
     private val networkStatusInterceptor: NetworkStatusInterceptor,
-    private val loggingInterceptor: LoggingInterceptor
-) :
-    OkHttpClientProviderConfig {
+    private val loggingInterceptor: LoggingInterceptor,
+    private val errorInterceptor: ErrorInterceptor
+
+) : OkHttpClientProviderConfig {
 
     override operator fun invoke(): OkHttpClient {
         return OkHttpClient.Builder().apply {
@@ -20,6 +22,7 @@ class OkHttpClientProviderConfigImpl(
             retryOnConnectionFailure(true)
             addInterceptor(networkStatusInterceptor)
             addInterceptor(loggingInterceptor)
+            addInterceptor(errorInterceptor)
         }.build()
     }
 }

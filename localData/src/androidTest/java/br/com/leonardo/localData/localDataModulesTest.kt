@@ -5,8 +5,8 @@ import androidx.test.platform.app.InstrumentationRegistry
 import br.com.leonardo.localData.database.AppDatabase
 import br.com.leonardo.localData.database.DatabaseSettingsCallback
 import br.com.leonardo.localData.repository.PersonalProfileRepository
-import br.com.leonardo.localData.repository.impl.PersonalProfileRepositoryImpl
 import br.com.leonardo.localData.repository.SettingsRepository
+import br.com.leonardo.localData.repository.impl.PersonalProfileRepositoryImpl
 import br.com.leonardo.localData.repository.impl.SettingsRepositoryImpl
 import br.com.leonardo.localData.source.local.PersonalProfileLocalSource
 import br.com.leonardo.localData.source.local.SettingsLocalSource

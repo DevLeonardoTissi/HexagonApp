@@ -88,4 +88,26 @@ class InstrumentedLocalDatabaseTest : KoinComponent {
         assertEquals("TestInactive", currentInactivesProfiles.first().first().name)
     }
 
+    @Test
+    fun test_f_userProfileShouldBeCorrectlyUpdated() = runBlocking {
+
+        val profileTest = PersonalProfile(
+            cpf = "123",
+            name = "TestInactive",
+            city = "CityTest",
+            active = false,
+            dateOfBirth = "Today"
+        )
+
+        personalProfileRepository.insert(
+            profileTest
+        )
+        val currentInactivesProfiles = personalProfileRepository.getInactives()
+        assertEquals("TestInactive", currentInactivesProfiles.first().first().name)
+
+        personalProfileRepository.update(profileTest.copy(active = true))
+        val currentActivesProfiles = personalProfileRepository.getActives()
+        assertEquals(true, currentActivesProfiles.first().first().active)
+    }
+
 }

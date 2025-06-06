@@ -6,8 +6,10 @@ import br.com.leonardo.webClient.config.OkHttpClientProviderConfig
 import br.com.leonardo.webClient.config.impl.OkHttpClientProviderConfigImpl
 import br.com.leonardo.webClient.connectivity.NetworkStatus
 import br.com.leonardo.webClient.connectivity.PlatformNetworkHandler
+import br.com.leonardo.webClient.interceptor.ErrorInterceptor
 import br.com.leonardo.webClient.interceptor.LoggingInterceptor
 import br.com.leonardo.webClient.interceptor.NetworkStatusInterceptor
+import br.com.leonardo.webClient.interceptor.impl.ErrorInterceptorImpl
 import br.com.leonardo.webClient.interceptor.impl.LoggingInterceptorImpl
 import br.com.leonardo.webClient.interceptor.impl.NetworkStatusInterceptorImpl
 import br.com.leonardo.webClient.repository.GithubUserRepository
@@ -37,11 +39,13 @@ val webClientModule = module {
     }
     single<NetworkStatus> { PlatformNetworkHandler(get<ConnectivityManager>()) }
     single<NetworkStatusInterceptor> { NetworkStatusInterceptorImpl(get<NetworkStatus>()) }
+    single<ErrorInterceptor> { ErrorInterceptorImpl() }
     single<LoggingInterceptor> { LoggingInterceptorImpl() }
     single<OkHttpClientProviderConfig> {
         OkHttpClientProviderConfigImpl(
             get<NetworkStatusInterceptor>(),
-            get<LoggingInterceptor>()
+            get<LoggingInterceptor>(),
+            get<ErrorInterceptor>()
         )
     }
     single<OkHttpClient> { get<OkHttpClientProviderConfig>().invoke() }

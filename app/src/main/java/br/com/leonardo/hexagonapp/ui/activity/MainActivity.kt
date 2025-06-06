@@ -20,7 +20,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : ComponentActivity() {
 
-
     private val appViewModel: AppViewModel by viewModel()
     private val batteryReceiver = BatteryStatusBroadcastReceiver { isLow ->
         appViewModel.setBatteryLow(isLow)
@@ -45,9 +44,7 @@ class MainActivity : ComponentActivity() {
                     appUiState,
                     onCurrentRouteChange = { appUiState.onCurrentRouteChange(it) },
                     changeVisibilityBottomSheetConfigAndInfo = {
-                        appUiState.changeVisibilityBottomSheetDialogInfoAndConfig(
-                            it
-                        )
+                        appUiState.changeVisibilityBottomSheetDialogInfoAndConfig(it)
                     },
                     onUpdateDarkMode = { appUiState.onDarkModeChange(it) },
                     onUpdateDrawerState = {
@@ -60,7 +57,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    private fun registerBatteryStatusBroadcastReceiver(){
+    private fun registerBatteryStatusBroadcastReceiver() {
         val intentFilter = IntentFilter().apply {
             addAction(Intent.ACTION_BATTERY_LOW)
             addAction(Intent.ACTION_BATTERY_OKAY)
