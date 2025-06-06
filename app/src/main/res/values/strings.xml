@@ -1,33 +1,41 @@
 <resources>
     <string name="app_name">HexagonApp</string>
 
-    <!-- Main -->
-    <string name = "iconCloseForCloseMenuDrawer">Close drawer</string>"
-    <string name = "iconHomeForNavigateToHomeScreenMenuDrawer">Home Screen</string>"
-    <string name = "iconAddForNavigateToFormScreenMenuDrawer">Form Screen</string>"
-    <string name = "iconForNavigateToInactiveScreenMenuDrawer">Inactive Screen</string>"
-    <string name = "iconForNavigateToDevProfileScreenMenuDrawer">Dev Profile Screen</string>"
-    <string name = "iconForHelpMenuDrawer">Help</string>"
-    <string name = "iconAddForNavigateToFormFloatingButton">add button to form screen</string>"
-    <string name = "iconMoreForInfoAndConfiguration">More - Configuration</string>"
-    <string name = "iconNoNetworkConnection">No network connection</string>"
-    <string name = "iconListForOpenMenuDrawer">Open drawer</string>"
-    <string name = "iconBackForNavigateUp">navigate to back</string>"
+    <!-- Main Activity -->
+    <string name="main_activity_toast_message_notifications_permission_not_granted">O app não mostrará notificações</string>
+    <string name="main_activity_toast_message_notifications_permission_granted">O app mostrará notificações</string>
 
-        <!-- SnackBarHelp -->
-        <string name="snackBarHelpMessage">Arraste para o lado para deletar\n👈</string>
+    <string name="no_connection_notification_title">Conexâo perdida</string>
+    <string name="no_connection_notification_description">Alguns recursos podem não estar funcionando como esperado.</string>
 
-        <!--- Drawer menu items -->
-        <string name="menuDrawerHomeOption">Principal</string>
-        <string name="menuDrawerInsertOption">Adicionar</string>
-        <string name="menuDrawerInactiveOption">Inativos</string>
-        <string name="menuDrawerDevProfileOption">Perfil do desenvolvedor</string>
-        <string name="menuDrawerHelpOption">Ajuda</string>
 
-        <string name="topAppBarActiveTitle">Ativos</string>
-        <string name="topAppBarDevProfileTitle">Desenvolvedor</string>
-        <string name="topAppBarFormTitle">Formulário</string>
-        <string name="topAppBarInactiveTitle">Inativos</string>
+    <!-- Main Screen -->
+    <string name="iconCloseForCloseMenuDrawer">Close drawer</string>"
+    <string name="iconHomeForNavigateToHomeScreenMenuDrawer">Home Screen</string>"
+    <string name="iconAddForNavigateToFormScreenMenuDrawer">Form Screen</string>"
+    <string name="iconForNavigateToInactiveScreenMenuDrawer">Inactive Screen</string>"
+    <string name="iconForNavigateToDevProfileScreenMenuDrawer">Dev Profile Screen</string>"
+    <string name="iconForHelpMenuDrawer">Help</string>"
+    <string name="iconAddForNavigateToFormFloatingButton">add button to form screen</string>"
+    <string name="iconMoreForInfoAndConfiguration">More - Configuration</string>"
+    <string name="iconNoNetworkConnection">No network connection</string>"
+    <string name="iconListForOpenMenuDrawer">Open drawer</string>"
+    <string name="iconBackForNavigateUp">navigate to back</string>"
+
+    <!-- SnackBarHelp -->
+    <string name="snackBarHelpMessage">Arraste para o lado para deletar\n👈</string>
+
+    <!--- Drawer menu items -->
+    <string name="menuDrawerHomeOption">Principal</string>
+    <string name="menuDrawerInsertOption">Adicionar</string>
+    <string name="menuDrawerInactiveOption">Inativos</string>
+    <string name="menuDrawerDevProfileOption">Perfil do desenvolvedor</string>
+    <string name="menuDrawerHelpOption">Ajuda</string>
+
+    <string name="topAppBarActiveTitle">Ativos</string>
+    <string name="topAppBarDevProfileTitle">Desenvolvedor</string>
+    <string name="topAppBarFormTitle">Formulário</string>
+    <string name="topAppBarInactiveTitle">Inativos</string>
 
     <!--- Personal Profile List -->
     <string name="swipeToDismissBoxIconDescriptionDelete">Remove Icon</string>
@@ -36,9 +44,9 @@
     <string name="swipeToDismissBoxLabelActivate">Ativar</string>
     <string name="swipeToDismissBoxLabelInactive">Desativar</string>
 
-        <!--- Bottom sheet dialog settings -->
-        <string name="bottomSheetSettingsTitle">Configurações</string>
-        <string name="bottomSheetSettingsSwitchDarkModeLabel">Modo Noturno</string>
+    <!--- Bottom sheet dialog settings -->
+    <string name="bottomSheetSettingsTitle">Configurações</string>
+    <string name="bottomSheetSettingsSwitchDarkModeLabel">Modo Noturno</string>
 
     <!-- Form -->
     <string name="updatePhotoDescriptionButton">Update Photo</string>
@@ -89,6 +97,9 @@
     <string name="personalProfileCPFDescription">CPF icon</string>
     <string name="personalProfileDateOfBirthDescription">date of birth icon</string>
 
+    <!-- Setup Notifications -->
+    <string name="channel_name">Principal</string>
+    <string name="channel_description">Publicações principais do App</string>
 
     <!-- Common -->
     <string name="commonOk">OK</string>

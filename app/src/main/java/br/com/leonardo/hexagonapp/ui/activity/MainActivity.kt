@@ -1,20 +1,27 @@
 package br.com.leonardo.hexagonapp.ui.activity
 
+import android.Manifest
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.pm.PackageManager
 import android.os.BatteryManager
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.rememberNavController
+import br.com.leonardo.hexagonapp.R
 import br.com.leonardo.hexagonapp.broadcasReceiver.BatteryStatusBroadcastReceiver
 import br.com.leonardo.hexagonapp.ui.theme.HexagonAppTheme
+import br.com.leonardo.hexagonapp.utils.extensions.context.toast
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -24,6 +31,15 @@ class MainActivity : ComponentActivity() {
     private val batteryReceiver = BatteryStatusBroadcastReceiver { isLow ->
         appViewModel.setBatteryLow(isLow)
     }
+    private val requestPermissionNotificationsLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission(),
+    ) { isGranted: Boolean ->
+        if (isGranted) {
+            this.toast(getString(R.string.main_activity_toast_message_notifications_permission_granted))
+        } else {
+            this.toast(getString(R.string.main_activity_toast_message_notifications_permission_not_granted))
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +47,7 @@ class MainActivity : ComponentActivity() {
         installSplashScreen()
         checkBatteryLevelInit()
         registerBatteryStatusBroadcastReceiver()
+        askNotificationPermission()
 
         setContent {
 
@@ -79,6 +96,16 @@ class MainActivity : ComponentActivity() {
     private fun checkBatteryLevelInit() {
         if (isBatteryLowNow()) {
             appViewModel.setBatteryLow(true)
+        }
+    }
+
+    private fun askNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) !=
+                PackageManager.PERMISSION_GRANTED
+            ) {
+                requestPermissionNotificationsLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+            }
         }
     }
 

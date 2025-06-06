@@ -2,6 +2,9 @@ package br.com.leonardo.hexagonapp.ui.activity
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import br.com.leonardo.hexagonapp.R
+import br.com.leonardo.hexagonapp.notification.NotificationUseCase
+import br.com.leonardo.hexagonapp.ui.NOTIFICATIONS_NETWORK_ERROR_IDENTIFIER
 import br.com.leonardo.hexagonapp.ui.activity.AppUiState.Companion.formRoute
 import br.com.leonardo.hexagonapp.ui.activity.AppUiState.Companion.homeRoute
 import br.com.leonardo.hexagonapp.ui.activity.AppUiState.Companion.inactiveRoute
@@ -20,7 +23,8 @@ import kotlinx.coroutines.launch
 class AppViewModel(
     private val searchSettingsUseCase: SearchSettingsUseCase,
     private val updateSettingsUseCase: UpdateSettingsUseCase,
-    private val networkMonitor: NetworkMonitor
+    private val networkMonitor: NetworkMonitor,
+    private val notificationUseCase: NotificationUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(
@@ -55,16 +59,22 @@ class AppViewModel(
                         networkStatus = state
                     )
                 }
+
+                cancelNotConnectionNotification()
             },
             onConnectionAvailable = { state ->
                 _uiState.update { currentState ->
                     currentState.copy(networkStatus = state)
                 }
+
+                cancelNotConnectionNotification()
             },
             onConnectionLost = { state ->
                 _uiState.update { currentState ->
                     currentState.copy(networkStatus = state)
                 }
+
+                launchNotConnectionNotification()
             }
         )
     }
@@ -73,6 +83,20 @@ class AppViewModel(
         viewModelScope.launch {
             updateSettingsUseCase(Settings(darkMode = darkMode))
         }
+    }
+
+    private fun cancelNotConnectionNotification() {
+        notificationUseCase.cancel(NOTIFICATIONS_NETWORK_ERROR_IDENTIFIER)
+
+    }
+
+    private fun launchNotConnectionNotification() {
+        notificationUseCase.show(
+            R.string.no_connection_notification_title,
+            R.string.no_connection_notification_description,
+            iconId = R.drawable.no_wifi,
+            exclusiveId = NOTIFICATIONS_NETWORK_ERROR_IDENTIFIER
+        )
     }
 
     private fun updateRoute(route: String): AppRoute {
