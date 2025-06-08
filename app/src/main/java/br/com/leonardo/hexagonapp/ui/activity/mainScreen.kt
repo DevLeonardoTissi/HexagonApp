@@ -76,7 +76,8 @@ fun MainScreen(
     onCurrentRouteChange: (String) -> Unit,
     changeVisibilityBottomSheetConfigAndInfo: (Boolean) -> Unit,
     onUpdateDarkMode: (Boolean) -> Unit,
-    onUpdateDrawerState: () -> Unit
+    onUpdateDrawerState: () -> Unit,
+    onUpdateShowNotification: (Boolean) -> Unit
 ) {
 
     val snackBarHost = remember { SnackbarHostState() }
@@ -118,6 +119,10 @@ fun MainScreen(
             },
             isDarkMode = appUiState.isDarkMode, onDarkModeChange = { isDarkMode ->
                 onUpdateDarkMode(isDarkMode)
+            },
+            showNotifications = appUiState.showNotifications,
+            onShowNotificationChange = { showNotification ->
+                onUpdateShowNotification(showNotification)
             }
         )
     }
@@ -294,7 +299,11 @@ fun MainScreen(
 
                         Column {
                             if (appUiState.networkStatus is NetworkState.Lost) {
-                                val composition by rememberLottieComposition(spec = LottieCompositionSpec.RawRes(R.raw.no_wifi_icon))
+                                val composition by rememberLottieComposition(
+                                    spec = LottieCompositionSpec.RawRes(
+                                        R.raw.no_wifi_icon
+                                    )
+                                )
                                 LottieAnimation(
                                     composition = composition,
                                     iterations = LottieConstants.IterateForever,
@@ -302,7 +311,11 @@ fun MainScreen(
                                 )
                             }
                             if (appUiState.batteryIsLow) {
-                                val composition by rememberLottieComposition(spec = LottieCompositionSpec.RawRes(R.raw.low_battery))
+                                val composition by rememberLottieComposition(
+                                    spec = LottieCompositionSpec.RawRes(
+                                        R.raw.low_battery
+                                    )
+                                )
                                 LottieAnimation(
                                     composition = composition,
                                     iterations = LottieConstants.IterateForever,
@@ -311,11 +324,7 @@ fun MainScreen(
                             }
                         }
                     }
-
-
                 }
-
-
             }
         }
     }

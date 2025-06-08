@@ -68,6 +68,9 @@ class MainActivity : ComponentActivity() {
                         coroutineScope.launch {
                             appUiState.updateDrawer()
                         }
+                    },
+                    onUpdateShowNotification = {
+                        appUiState.onShowNotificationsChange(it)
                     }
                 )
             }

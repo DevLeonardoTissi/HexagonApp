@@ -47,6 +47,8 @@
     <!--- Bottom sheet dialog settings -->
     <string name="bottomSheetSettingsTitle">Configurações</string>
     <string name="bottomSheetSettingsSwitchDarkModeLabel">Modo Noturno</string>
+    <string name="bottomSheetSettingsSwitchIconCheckDescription">CheckIcon</string>
+    <string name="bottomSheetSettingsSwitchShowNotificationsLabel">Notificações</string>
 
     <!-- Form -->
     <string name="updatePhotoDescriptionButton">Update Photo</string>

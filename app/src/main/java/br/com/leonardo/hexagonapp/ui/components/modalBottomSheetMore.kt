@@ -6,7 +6,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
@@ -32,7 +35,9 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 fun ModalBottomSheetMore(
     onDismissRequest: () -> Unit,
     isDarkMode: Boolean,
-    onDarkModeChange: (Boolean) -> Unit
+    showNotifications:Boolean,
+    onDarkModeChange: (Boolean) -> Unit,
+    onShowNotificationChange: (Boolean) -> Unit
 ) {
     HexagonAppTheme {
         ModalBottomSheet(
@@ -83,7 +88,34 @@ fun ModalBottomSheetMore(
                         textAlign = TextAlign.Center,
                         fontSize = 18.sp
                     )
-                    Switch(checked = isDarkMode, onCheckedChange = { onDarkModeChange(it) })
+                    Switch(checked = isDarkMode, thumbContent = {
+                        Icon(
+                            imageVector = Icons.Default.Check,
+                            contentDescription = context.getString(R.string.bottomSheetSettingsSwitchIconCheckDescription)
+                        )
+                    }, onCheckedChange = { onDarkModeChange(it) })
+                }
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+
+                    Text(
+                        text = context.getString(R.string.bottomSheetSettingsSwitchShowNotificationsLabel),
+                        modifier = Modifier.padding(16.dp),
+                        textAlign = TextAlign.Center,
+                        fontSize = 18.sp
+                    )
+                    Switch(checked = showNotifications, thumbContent = {
+                        Icon(
+                            imageVector = Icons.Default.Check,
+                            contentDescription = context.getString(R.string.bottomSheetSettingsSwitchIconCheckDescription)
+                        )
+                    }, onCheckedChange = { onShowNotificationChange(it) })
                 }
             }
         }

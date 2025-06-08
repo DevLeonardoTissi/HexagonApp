@@ -23,4 +23,5 @@ interface NotificationUseCase {
     )
 
     fun cancel(exclusiveId: Int?)
+    fun cancelAll()
 }

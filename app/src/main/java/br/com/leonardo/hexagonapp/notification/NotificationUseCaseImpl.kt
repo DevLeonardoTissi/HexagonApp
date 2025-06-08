@@ -83,6 +83,10 @@ class NotificationUseCaseImpl(
         return context.imageLoader.execute(request).drawable?.toBitmap()
     }
 
+    override fun cancelAll() {
+        notificationManager.cancelAll()
+    }
+
 
     private fun createNotification(
         title: String,

@@ -17,12 +17,12 @@ plugins {
 
 android {
     namespace = "br.com.leonardo.hexagonapp"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "br.com.leonardo.hexagonapp"
         minSdk = 28
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 

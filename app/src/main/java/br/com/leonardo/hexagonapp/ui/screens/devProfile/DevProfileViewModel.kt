@@ -7,6 +7,7 @@ import br.com.leonardo.webClient.usecase.GetUserProfileInfoUseCase
 import br.com.leonardo.webClient.usecase.GetUserRepositoriesInfoUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class DevProfileViewModel(
@@ -17,7 +18,8 @@ class DevProfileViewModel(
     private val _uiState = MutableStateFlow(
         DevProfileUiState(
             state = DevUiProfileState.Loading,
-            onLoadUserInfo = ::loadUserInfo
+            onLoadUserInfo = ::loadUserInfo,
+            refreshingPerform = ::refreshingPerform
         )
     )
     val uiState = _uiState.asStateFlow()
@@ -26,23 +28,32 @@ class DevProfileViewModel(
         loadUserInfo()
     }
 
+    private fun refreshingPerform() {
+        loadUserInfo(isRefreshing = true)
+    }
 
-    private fun loadUserInfo() {
+    private fun loadUserInfo(isRefreshing: Boolean? = false) {
         viewModelScope.launch {
-            _uiState.value = _uiState.value.copy(state = DevUiProfileState.Loading)
+            if (isRefreshing == true) {
+                _uiState.update { it.copy(refreshing = true) }
+            } else {
+                _uiState.update { it.copy(state = DevUiProfileState.Loading) }
+            }
 
             kotlin.runCatching {
                 _uiState.value.copy(
                     userProfile = getUserProfileInfoUseCase(),
                     repositories = getUserRepositoriesInfoUseCase(),
-                    state = DevUiProfileState.Success
+                    state = DevUiProfileState.Success,
+                    refreshing = false
                 )
 
             }.onSuccess { newState ->
                 _uiState.value = newState
             }.onFailure {
                 _uiState.value = _uiState.value.copy(
-                    state = DevUiProfileState.Error
+                    state = DevUiProfileState.Error,
+                    refreshing = false
                 )
             }
         }

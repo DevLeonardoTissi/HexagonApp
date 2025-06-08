@@ -6,6 +6,6 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 class DatabaseSettingsCallback: RoomDatabase.Callback() {
     override fun onCreate(db: SupportSQLiteDatabase) {
         super.onCreate(db)
-        db.execSQL("INSERT INTO `Settings` (`id`, `darkMode`) VALUES (1, 0)")
+        db.execSQL("INSERT INTO `Settings` (`id`, `darkMode`, `showNotification`) VALUES (1, 0, 0)")
     }
 }

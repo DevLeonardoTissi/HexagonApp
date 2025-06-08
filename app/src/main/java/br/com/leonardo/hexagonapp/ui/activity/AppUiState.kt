@@ -8,7 +8,9 @@ import br.com.leonardo.webClient.utils.NetworkState
 
 data class AppUiState(
     val isDarkMode: Boolean = false,
+    val showNotifications:Boolean= false,
     val onDarkModeChange: (Boolean) -> Unit = {},
+    val onShowNotificationsChange: (Boolean) -> Unit = {},
     val showBottomSheetDialogInfoAndConfig: Boolean = false,
     val changeVisibilityBottomSheetDialogInfoAndConfig: (Boolean) -> Unit = {},
     var drawerState: DrawerState = DrawerState(DrawerValue.Closed),

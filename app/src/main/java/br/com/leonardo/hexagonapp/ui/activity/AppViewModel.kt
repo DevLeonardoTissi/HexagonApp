@@ -31,7 +31,8 @@ class AppViewModel(
         AppUiState(
             onDarkModeChange = ::toggleDarkMode,
             changeVisibilityBottomSheetDialogInfoAndConfig = ::setBottomSheetVisibility,
-            onCurrentRouteChange = ::onRouteChanged
+            onCurrentRouteChange = ::onRouteChanged,
+            onShowNotificationsChange = ::toggleNotifications
         )
     )
     val uiState = _uiState.asStateFlow()
@@ -46,6 +47,8 @@ class AppViewModel(
             _uiState.update {
                 it.copy(
                     isDarkMode = settings.darkMode,
+                    showNotifications = settings.showNotification
+
                 )
             }
         }.launchIn(viewModelScope)
@@ -60,29 +63,61 @@ class AppViewModel(
                     )
                 }
 
-                cancelNotConnectionNotification()
+                if (notificationsEnabled()) {
+                    cancelNotConnectionNotification()
+                }
             },
             onConnectionAvailable = { state ->
                 _uiState.update { currentState ->
                     currentState.copy(networkStatus = state)
                 }
 
-                cancelNotConnectionNotification()
+                if (notificationsEnabled()) {
+                    cancelNotConnectionNotification()
+                }
             },
             onConnectionLost = { state ->
                 _uiState.update { currentState ->
                     currentState.copy(networkStatus = state)
                 }
 
-                launchNotConnectionNotification()
+                if (notificationsEnabled()) {
+                    launchNotConnectionNotification()
+                }
+
             }
         )
     }
 
     private fun toggleDarkMode(darkMode: Boolean) {
         viewModelScope.launch {
-            updateSettingsUseCase(Settings(darkMode = darkMode))
+            updateSettingsUseCase(
+                Settings(
+                    darkMode = darkMode,
+                    showNotification = uiState.value.showNotifications
+                )
+            )
         }
+    }
+
+    private fun toggleNotifications(showNotifications: Boolean) {
+        viewModelScope.launch {
+            updateSettingsUseCase(
+                Settings(
+                    darkMode = uiState.value.isDarkMode,
+                    showNotification = showNotifications
+                )
+            )
+        }
+
+        if (!showNotifications) {
+            cancelAllNotifications()
+        }
+
+    }
+
+    private fun cancelAllNotifications() {
+        notificationUseCase.cancelAll()
     }
 
     private fun cancelNotConnectionNotification() {
@@ -98,6 +133,8 @@ class AppViewModel(
             exclusiveId = NOTIFICATIONS_NETWORK_ERROR_IDENTIFIER
         )
     }
+
+    private fun notificationsEnabled(): Boolean = uiState.value.showNotifications
 
     private fun updateRoute(route: String): AppRoute {
         return when {

@@ -7,5 +7,6 @@ import androidx.room.PrimaryKey
 data class Settings(
     @PrimaryKey
     val id: Int = 1,
-    val darkMode: Boolean = false
+    val darkMode: Boolean = false,
+    val showNotification: Boolean = false
 )

@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface SettingsDAO {
+
     @Update
     suspend fun updateSettings(settings: Settings)
 

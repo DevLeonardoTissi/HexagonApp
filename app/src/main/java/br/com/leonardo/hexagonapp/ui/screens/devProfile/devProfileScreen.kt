@@ -1,12 +1,10 @@
 package br.com.leonardo.hexagonapp.ui.screens.devProfile
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -23,16 +21,14 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -42,25 +38,19 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.leonardo.hexagonapp.R
+import br.com.leonardo.hexagonapp.ui.components.DevProfileErrorScreen
 import br.com.leonardo.hexagonapp.ui.components.DevProfileShimmerScreen
 import br.com.leonardo.hexagonapp.ui.components.SubComposeAsyncImage
-import br.com.leonardo.hexagonapp.ui.components.TypewriterText
 import br.com.leonardo.hexagonapp.utils.DevUiProfileState
 import br.com.leonardo.hexagonapp.utils.extensions.context.copyToClipboard
 import br.com.leonardo.hexagonapp.utils.extensions.context.goToUri
 import br.com.leonardo.hexagonapp.utils.extensions.context.shareSheetText
-import com.airbnb.lottie.compose.LottieAnimation
-import com.airbnb.lottie.compose.LottieCompositionSpec
-import com.airbnb.lottie.compose.LottieConstants
-import com.airbnb.lottie.compose.rememberLottieComposition
 
-@OptIn(ExperimentalFoundationApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DevProfileScreen(uiState: DevProfileUiState) {
 
     val context = LocalContext.current
-    val composition by rememberLottieComposition(spec = LottieCompositionSpec.RawRes(R.raw.error))
-
 
     when (uiState.state) {
         DevUiProfileState.Loading -> {
@@ -68,140 +58,125 @@ fun DevProfileScreen(uiState: DevProfileUiState) {
         }
 
         DevUiProfileState.Error -> {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-
-                    LottieAnimation(
-                        composition = composition,
-                        iterations = LottieConstants.IterateForever,
-                        modifier = Modifier.size(200.dp)
-                    )
-
-                    TypewriterText(texts = listOf(context.getString(R.string.errorMessagingText)))
-                    Spacer(modifier = Modifier.height(16.dp))
-                    Button(onClick = { uiState.onLoadUserInfo() }) {
-                        Text(text = context.getString(R.string.buttonRetryLoadUserInfoText))
-                        Icon(
-                            Icons.Default.Refresh,
-                            contentDescription = context.getString(R.string.buttonRetryLoadUserInfoIconDescription)
-                        )
-                    }
-                }
-            }
+            DevProfileErrorScreen(onTryAgain = {
+                uiState.onLoadUserInfo()
+            })
         }
 
         DevUiProfileState.Success -> {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .verticalScroll(rememberScrollState()),
-                horizontalAlignment = Alignment.CenterHorizontally
+
+            PullToRefreshBox(
+                isRefreshing = uiState.refreshing,
+                onRefresh = { uiState.refreshingPerform() },
+                modifier = Modifier.fillMaxSize()
             ) {
 
-                uiState.userProfile?.let { userProfile ->
-                    SubComposeAsyncImage(
-                        model = userProfile.avatar_url,
-                        description = context.getString(R.string.devProfileImageDescription),
-                        modifier = Modifier
-                            .size(200.dp)
-                            .offset(y = 50.dp)
-                            .clip(shape = CircleShape)
-                            .border(
-                                BorderStroke(
-                                    2.dp,
-                                    brush = Brush.verticalGradient(
-                                        listOf(
-                                            MaterialTheme.colorScheme.secondaryContainer,
-                                            MaterialTheme.colorScheme.secondary
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .verticalScroll(rememberScrollState()),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+
+                    uiState.userProfile?.let { userProfile ->
+                        SubComposeAsyncImage(
+                            model = userProfile.avatar_url,
+                            description = context.getString(R.string.devProfileImageDescription),
+                            modifier = Modifier
+                                .size(200.dp)
+                                .offset(y = 50.dp)
+                                .clip(shape = CircleShape)
+                                .border(
+                                    BorderStroke(
+                                        2.dp,
+                                        brush = Brush.verticalGradient(
+                                            listOf(
+                                                MaterialTheme.colorScheme.secondaryContainer,
+                                                MaterialTheme.colorScheme.secondary
+                                            )
                                         )
-                                    )
-                                ), CircleShape
-                            )
-                            .combinedClickable(
-                                onClick = {
-                                    with(context) {
-                                        shareSheetText(
-                                            R.string.shareSheetProfileUrlTile,
-                                            getString(R.string.LinkedinProfileUrl)
-                                        )
+                                    ), CircleShape
+                                )
+                                .combinedClickable(
+                                    onClick = {
+                                        with(context) {
+                                            shareSheetText(
+                                                R.string.shareSheetProfileUrlTile,
+                                                getString(R.string.LinkedinProfileUrl)
+                                            )
 
-                                    }
-                                },
-                                onLongClick = {
-                                    with(context) {
-                                        copyToClipboard(
-                                            R.string.copyToClipboardToastMessageLabel,
-                                            getString(R.string.LinkedinProfileUrl),
-                                            R.string.copyToClipboardToastMessage
-                                        )
-                                    }
-                                }
-                            )
-                    )
-                }
-
-
-                Spacer(modifier = Modifier.height(100.dp))
-                Text(text = context.getString(R.string.repositoriesTitle), fontSize = 20.sp)
-                LazyRow {
-                    uiState.repositories?.let { repositoriesNonNull ->
-                        items(repositoriesNonNull) { repository ->
-                            Surface(
-                                color = MaterialTheme.colorScheme.primary,
-                                shape = RoundedCornerShape(15.dp),
-                                shadowElevation = 4.dp,
-                                modifier = Modifier.padding(15.dp),
-                            ) {
-                                Row(modifier = Modifier.padding(start = 15.dp)) {
-                                    Column(
-                                        modifier = Modifier
-                                            .width(300.dp)
-                                            .height(250.dp)
-                                            .background(MaterialTheme.colorScheme.primaryContainer)
-                                            .padding(10.dp),
-                                        verticalArrangement = Arrangement.Center,
-                                        horizontalAlignment = Alignment.CenterHorizontally
-
-                                    ) {
-
-                                        repository.name?.let {
-                                            Text(
-                                                text = it,
-                                                maxLines = 1,
-                                                overflow = TextOverflow.Ellipsis,
-                                                color = MaterialTheme.colorScheme.secondary,
-                                                modifier = Modifier.padding(8.dp)
+                                        }
+                                    },
+                                    onLongClick = {
+                                        with(context) {
+                                            copyToClipboard(
+                                                R.string.copyToClipboardToastMessageLabel,
+                                                getString(R.string.LinkedinProfileUrl),
+                                                R.string.copyToClipboardToastMessage
                                             )
                                         }
+                                    }
+                                )
+                        )
+                    }
 
-                                        HorizontalDivider(color = MaterialTheme.colorScheme.primary)
-                                        Spacer(modifier = Modifier.height(20.dp))
+
+                    Spacer(modifier = Modifier.height(100.dp))
+                    Text(text = context.getString(R.string.repositoriesTitle), fontSize = 20.sp)
+                    LazyRow {
+                        uiState.repositories?.let { repositoriesNonNull ->
+                            items(repositoriesNonNull) { repository ->
+                                Surface(
+                                    color = MaterialTheme.colorScheme.primary,
+                                    shape = RoundedCornerShape(15.dp),
+                                    shadowElevation = 4.dp,
+                                    modifier = Modifier.padding(15.dp),
+                                ) {
+                                    Row(modifier = Modifier.padding(start = 15.dp)) {
                                         Column(
                                             modifier = Modifier
-                                                .fillMaxWidth()
-                                                .height(100.dp),
+                                                .width(300.dp)
+                                                .height(250.dp)
+                                                .background(MaterialTheme.colorScheme.primaryContainer)
+                                                .padding(10.dp),
                                             verticalArrangement = Arrangement.Center,
                                             horizontalAlignment = Alignment.CenterHorizontally
+
                                         ) {
-                                            repository.description?.let {
+
+                                            repository.name?.let {
                                                 Text(
                                                     text = it,
+                                                    maxLines = 1,
+                                                    overflow = TextOverflow.Ellipsis,
                                                     color = MaterialTheme.colorScheme.secondary,
-                                                    maxLines = 4,
-                                                    overflow = TextOverflow.Ellipsis
+                                                    modifier = Modifier.padding(8.dp)
                                                 )
                                             }
-                                        }
-                                        Spacer(modifier = Modifier.height(20.dp))
-                                        repository.html_url?.let {
-                                            Button(onClick = { context.goToUri(it) }) {
-                                                Text(text = context.getString(R.string.repositoryURItext))
+
+                                            HorizontalDivider(color = MaterialTheme.colorScheme.primary)
+                                            Spacer(modifier = Modifier.height(20.dp))
+                                            Column(
+                                                modifier = Modifier
+                                                    .fillMaxWidth()
+                                                    .height(100.dp),
+                                                verticalArrangement = Arrangement.Center,
+                                                horizontalAlignment = Alignment.CenterHorizontally
+                                            ) {
+                                                repository.description?.let {
+                                                    Text(
+                                                        text = it,
+                                                        color = MaterialTheme.colorScheme.secondary,
+                                                        maxLines = 4,
+                                                        overflow = TextOverflow.Ellipsis
+                                                    )
+                                                }
+                                            }
+                                            Spacer(modifier = Modifier.height(20.dp))
+                                            repository.html_url?.let {
+                                                Button(onClick = { context.goToUri(it) }) {
+                                                    Text(text = context.getString(R.string.repositoryURItext))
+                                                }
                                             }
                                         }
                                     }
