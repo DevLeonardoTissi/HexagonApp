@@ -127,8 +127,8 @@ class AppViewModel(
 
     private fun launchNotConnectionNotification() {
         notificationUseCase.show(
-            R.string.no_connection_notification_title,
-            R.string.no_connection_notification_description,
+            titleStringId = R.string.no_connection_notification_title,
+            descriptionStringId = R.string.no_connection_notification_description,
             iconId = R.drawable.no_wifi,
             exclusiveId = NOTIFICATIONS_NETWORK_ERROR_IDENTIFIER
         )

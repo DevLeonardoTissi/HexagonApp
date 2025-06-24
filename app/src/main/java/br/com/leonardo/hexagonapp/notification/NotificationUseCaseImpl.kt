@@ -8,11 +8,11 @@ import android.graphics.Bitmap
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationCompat.VISIBILITY_PRIVATE
 import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.toBitmap
 import br.com.leonardo.hexagonapp.R
 import br.com.leonardo.hexagonapp.ui.NOTIFICATIONS_CHANNEL_IDENTIFIER
-import coil.imageLoader
-import coil.request.ImageRequest
+import coil3.imageLoader
+import coil3.request.ImageRequest
+import coil3.toBitmap
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -80,7 +80,7 @@ class NotificationUseCaseImpl(
         val request = ImageRequest.Builder(context)
             .data(img)
             .build()
-        return context.imageLoader.execute(request).drawable?.toBitmap()
+        return context.imageLoader.execute(request).image?.toBitmap()
     }
 
     override fun cancelAll() {

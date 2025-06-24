@@ -73,7 +73,9 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
 
     //Coil for compose
-    implementation(libs.coil.compose)
+    implementation(libs.coil3.coil.compose)
+    implementation(libs.coil.network.okhttp)
+
 
     //Lottie animation for compose
     implementation(libs.lottie.compose)
