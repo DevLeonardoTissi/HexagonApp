@@ -10,5 +10,7 @@ data class DevProfileUiState(
     val repositories: List<GithubRepositoryInfo>? = emptyList(),
     val onLoadUserInfo: () -> Unit = {},
     val refreshing: Boolean = false,
-    val refreshingPerform: () -> Unit = {}
+    val refreshingPerform: () -> Unit = {},
+    val showBottomSheetShareProfile: Boolean = false,
+    val changeVisibilityBottomSheetShareProfile: (Boolean) -> Unit = {}
 )

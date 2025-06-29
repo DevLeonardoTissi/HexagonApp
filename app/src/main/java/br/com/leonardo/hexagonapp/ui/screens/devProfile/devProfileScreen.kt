@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -21,9 +22,13 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -33,6 +38,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -40,6 +46,7 @@ import androidx.compose.ui.unit.sp
 import br.com.leonardo.hexagonapp.R
 import br.com.leonardo.hexagonapp.ui.components.DevProfileErrorScreen
 import br.com.leonardo.hexagonapp.ui.components.DevProfileShimmerScreen
+import br.com.leonardo.hexagonapp.ui.components.ModalBottomSheetShareDevProfile
 import br.com.leonardo.hexagonapp.ui.components.SubComposeAsyncImage
 import br.com.leonardo.hexagonapp.utils.DevUiProfileState
 import br.com.leonardo.hexagonapp.utils.extensions.context.copyToClipboard
@@ -79,45 +86,55 @@ fun DevProfileScreen(uiState: DevProfileUiState) {
                 ) {
 
                     uiState.userProfile?.let { userProfile ->
-                        SubComposeAsyncImage(
-                            model = userProfile.avatar_url,
-                            description = context.getString(R.string.devProfileImageDescription),
-                            modifier = Modifier
-                                .size(200.dp)
-                                .offset(y = 50.dp)
-                                .clip(shape = CircleShape)
-                                .border(
-                                    BorderStroke(
-                                        2.dp,
-                                        brush = Brush.verticalGradient(
-                                            listOf(
-                                                MaterialTheme.colorScheme.secondaryContainer,
-                                                MaterialTheme.colorScheme.secondary
+                        Box(modifier = Modifier.fillMaxWidth()){
+                            SubComposeAsyncImage(
+                                model = userProfile.avatar_url,
+                                description = context.getString(R.string.devProfileImageDescription),
+                                modifier = Modifier
+                                    .size(200.dp)
+                                    .offset(y = 50.dp)
+                                    .align(Alignment.Center)
+                                    .clip(shape = CircleShape)
+                                    .border(
+                                        BorderStroke(
+                                            2.dp,
+                                            brush = Brush.verticalGradient(
+                                                listOf(
+                                                    MaterialTheme.colorScheme.secondaryContainer,
+                                                    MaterialTheme.colorScheme.secondary
+                                                )
                                             )
-                                        )
-                                    ), CircleShape
-                                )
-                                .combinedClickable(
-                                    onClick = {
-                                        with(context) {
-                                            shareSheetText(
-                                                R.string.shareSheetProfileUrlTile,
-                                                getString(R.string.LinkedinProfileUrl)
-                                            )
+                                        ), CircleShape
+                                    )
+                                    .combinedClickable(
+                                        onClick = {},
+                                        onLongClick = {}
+                                    )
+                            )
 
-                                        }
-                                    },
-                                    onLongClick = {
-                                        with(context) {
-                                            copyToClipboard(
-                                                R.string.copyToClipboardToastMessageLabel,
-                                                getString(R.string.LinkedinProfileUrl),
-                                                R.string.copyToClipboardToastMessage
-                                            )
-                                        }
-                                    }
+                            IconButton(
+                                onClick = { uiState.changeVisibilityBottomSheetShareProfile(true) },
+                                modifier = Modifier
+                                    .padding(horizontal = 16.dp)
+                                    .align(Alignment.BottomCenter)
+                                    .offset(y = 50.dp, x = 50.dp)
+                                    .size(50.dp)
+                                    .background(color = MaterialTheme.colorScheme.primary, shape = CircleShape)
+                                    .border(
+                                        BorderStroke(
+                                            2.dp,
+                                            color = Color.White
+                                        ), CircleShape
+                                    )
+                            ) {
+                                Icon(
+                                    Icons.Default.Share,
+                                    contentDescription = context.getString(R.string.shareProfileIconDescription),
+                                    tint = Color.White
                                 )
-                        )
+                            }
+
+                        }
                     }
 
 
@@ -184,6 +201,29 @@ fun DevProfileScreen(uiState: DevProfileUiState) {
                             }
                         }
                     }
+                }
+
+                if (uiState.showBottomSheetShareProfile) {
+                    ModalBottomSheetShareDevProfile(
+                        context.getString(R.string.LinkedinProfileUrl),
+                        onDismissRequest = { uiState.changeVisibilityBottomSheetShareProfile(false) },
+                        onclickShareButton = {
+                            with(context) {
+                                shareSheetText(
+                                    R.string.shareSheetProfileUrlTile,
+                                    getString(R.string.LinkedinProfileUrl)
+                                )
+                            }
+                        },
+                        onClickCopyButton = {
+                            with(context) {
+                                copyToClipboard(
+                                    R.string.copyToClipboardToastMessageLabel,
+                                    getString(R.string.LinkedinProfileUrl),
+                                    R.string.copyToClipboardToastMessage
+                                )
+                            }
+                        })
                 }
             }
         }

@@ -59,6 +59,9 @@ coreSplashscreen = "1.0.1"
 #Google Fonts
 uiTextGoogleFonts = "1.6.8"
 
+#ZXing - Qr code generator
+zxingVersion = "3.5.3"
+
 coreKtx = "1.16.0"
 junit = "4.13.2"
 junitVersion = "1.1.5"
@@ -134,6 +137,8 @@ androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", versi
 #Google Fonts
 androidx-ui-text-google-fonts = { group = "androidx.compose.ui", name = "ui-text-google-fonts", version.ref = "uiTextGoogleFonts" }
 
+#ZXing - Qr code generator
+core = { module = "com.google.zxing:core", version.ref = "zxingVersion" }
 
 
 junit = { group = "junit", name = "junit", version.ref = "junit" }

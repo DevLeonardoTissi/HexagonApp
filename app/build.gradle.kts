@@ -102,6 +102,10 @@ dependencies {
     //Splash screen
     implementation(libs.androidx.core.splashscreen)
 
+    //Zxing - QrCode Generator
+    implementation(libs.core)
+
+
     //Browser
     implementation(libs.androidx.browser)
 

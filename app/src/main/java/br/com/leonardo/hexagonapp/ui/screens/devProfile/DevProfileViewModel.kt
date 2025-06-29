@@ -19,7 +19,8 @@ class DevProfileViewModel(
         DevProfileUiState(
             state = DevUiProfileState.Loading,
             onLoadUserInfo = ::loadUserInfo,
-            refreshingPerform = ::refreshingPerform
+            refreshingPerform = ::refreshingPerform,
+            changeVisibilityBottomSheetShareProfile = ::setVisibilityBottomSheetShareProfile
         )
     )
     val uiState = _uiState.asStateFlow()
@@ -30,6 +31,10 @@ class DevProfileViewModel(
 
     private fun refreshingPerform() {
         loadUserInfo(isRefreshing = true)
+    }
+
+    private fun setVisibilityBottomSheetShareProfile(show: Boolean) {
+        _uiState.update { it.copy(showBottomSheetShareProfile = show) }
     }
 
     private fun loadUserInfo(isRefreshing: Boolean? = false) {

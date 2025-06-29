@@ -93,6 +93,14 @@
     <string name="copyToClipboardToastMessage">Link do Linkedin copiado para área de tranferência</string>
     <string name="copyToClipboardToastMessageLabel">Link do Linkedin copiado para área de tranferência</string>
     <string name="LinkedinProfileUrl">https://www.linkedin.com/in/leonardotissi/</string>
+    <string name="shareProfileIconDescription">Share Profile</string>
+
+    <!-- Modal Bottom Sheet Share Profile -->
+    <string name="ModalBottomSheetShareTitleText">Perfil no linkedin</string>
+    <string name="qrCodeDescriptionText">Qr Code Image from profile url</string>
+    <string name="ModalBottomSheetShareShareButtonText">Compartilhar</string>
+    <string name="ModalBottomSheetShareCopyButtonText">Copiar</string>
+
 
     <!--- PersonalProfileLayout -->
     <string name="personalProfileImageDescription">user Photo</string>
