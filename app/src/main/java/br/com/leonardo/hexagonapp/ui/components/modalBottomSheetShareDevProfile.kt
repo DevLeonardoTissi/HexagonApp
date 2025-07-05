@@ -34,9 +34,7 @@ fun ModalBottomSheetShareDevProfile(
 ) {
 
     val context = LocalContext.current
-    val sheetState = rememberModalBottomSheetState(
-        skipPartiallyExpanded = true
-    )
+    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
     HexagonAppTheme {
         ModalBottomSheet(onDismissRequest = { onDismissRequest() }, sheetState = sheetState) {

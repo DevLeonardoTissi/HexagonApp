@@ -32,10 +32,12 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Button
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
+import androidx.compose.material3.DatePickerState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SelectableDates
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDatePickerState
@@ -51,10 +53,12 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.DialogProperties
 import br.com.leonardo.hexagonapp.R
 import br.com.leonardo.hexagonapp.ui.components.AnimatedAlertDialogWithConfirmButton
 import br.com.leonardo.hexagonapp.ui.components.SearchTextField
 import br.com.leonardo.hexagonapp.ui.components.SubComposeAsyncImage
+import java.time.LocalDate
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -62,7 +66,19 @@ fun PersonalProfileFormScreen(
     uiState: PersonalProfileFormUiState, onPopBackStack: () -> Unit
 ) {
     val context = LocalContext.current
-    val datePickerState = rememberDatePickerState()
+
+    val datePickerState = rememberDatePickerState(
+        selectableDates = object : SelectableDates {
+            override fun isSelectableDate(utcTimeMillis: Long): Boolean {
+                return utcTimeMillis <= System.currentTimeMillis()
+            }
+
+            override fun isSelectableYear(year: Int): Boolean {
+                return year <= LocalDate.now().year
+            }
+        }
+    )
+
     val focusManager = LocalFocusManager.current
     val pickMedia =
         rememberLauncherForActivityResult(contract = ActivityResultContracts.PickVisualMedia()) { uri ->
@@ -238,6 +254,7 @@ fun PersonalProfileFormScreen(
 
     if (uiState.showDatePickerDialog) {
         DatePickerDialog(
+            properties = DialogProperties(),
             onDismissRequest = { uiState.onShowDatePickerDialog(false) },
             confirmButton = {
                 Button(
@@ -255,3 +272,4 @@ fun PersonalProfileFormScreen(
         }
     }
 }
+

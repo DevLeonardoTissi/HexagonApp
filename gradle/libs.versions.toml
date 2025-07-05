@@ -62,6 +62,10 @@ uiTextGoogleFonts = "1.6.8"
 #ZXing - Qr code generator
 zxingVersion = "3.5.3"
 
+#Material adaptative
+adaptive = "1.2.0-alpha07"
+
+
 coreKtx = "1.16.0"
 junit = "4.13.2"
 junitVersion = "1.1.5"
@@ -78,6 +82,13 @@ material = "1.12.0"
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycleRuntimeCompose" }
+
+
+#Material adaptative
+androidx-adaptive = { module = "androidx.compose.material3.adaptive:adaptive", version.ref = "adaptive" }
+androidx-adaptive-layout = { module = "androidx.compose.material3.adaptive:adaptive-layout", version.ref = "adaptive" }
+androidx-adaptive-navigation = { module = "androidx.compose.material3.adaptive:adaptive-navigation", version.ref = "adaptive" }
+
 
 #Browser
 androidx-browser = { module = "androidx.browser:browser", version.ref = "browser" }

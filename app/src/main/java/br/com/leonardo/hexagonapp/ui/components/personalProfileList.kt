@@ -5,11 +5,16 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -20,9 +25,11 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.SwipeToDismissBox
 import androidx.compose.material3.SwipeToDismissBoxValue
 import androidx.compose.material3.Text
+import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -32,6 +39,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.window.core.layout.WindowSizeClass
 import br.com.leonardo.hexagonapp.R
 import br.com.leonardo.hexagonapp.ui.theme.customRed
 import br.com.leonardo.hexagonapp.ui.theme.customYellow
@@ -48,6 +56,14 @@ fun PersonalProfileList(
 ) {
     val context = LocalContext.current
     var visible by remember { mutableStateOf(false) }
+
+    val windowSizeClass = currentWindowAdaptiveInfo().windowSizeClass
+
+    val isMediumDp by remember(windowSizeClass) {
+        derivedStateOf {
+            windowSizeClass.isWidthAtLeastBreakpoint(WindowSizeClass.WIDTH_DP_MEDIUM_LOWER_BOUND)
+        }
+    }
 
     LaunchedEffect(null) {
         delay(200)
@@ -66,41 +82,93 @@ fun PersonalProfileList(
         ) {
 
             list?.let { list ->
-                LazyColumn {
-                    items(list, key = { it.id }) { profile ->
-                        val swipeToDismissBoxState = rememberSwipeToDismissBoxState()
 
-                        LaunchedEffect(swipeToDismissBoxState.currentValue) {
-                            if (swipeToDismissBoxState.currentValue === SwipeToDismissBoxValue.EndToStart) {
-                                onDelete(profile)
-                            }else if (swipeToDismissBoxState.currentValue === SwipeToDismissBoxValue.StartToEnd){
-                                onUpdate(profile)
+                if (isMediumDp) {
+                    LazyVerticalGrid(
+                        columns = GridCells.Fixed(2),
+                        contentPadding = PaddingValues(16.dp),
+                        verticalArrangement = Arrangement.spacedBy(8.dp),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+
+                        items(list, key = { it.id }) { profile ->
+                            val swipeToDismissBoxState = rememberSwipeToDismissBoxState()
+
+                            LaunchedEffect(swipeToDismissBoxState.currentValue) {
+                                if (swipeToDismissBoxState.currentValue === SwipeToDismissBoxValue.EndToStart) {
+                                    onDelete(profile)
+                                } else if (swipeToDismissBoxState.currentValue === SwipeToDismissBoxValue.StartToEnd) {
+                                    onUpdate(profile)
+                                }
+                            }
+
+                            SwipeToDismissBox(state = swipeToDismissBoxState, backgroundContent = {
+                                when (swipeToDismissBoxState.dismissDirection) {
+                                    SwipeToDismissBoxValue.StartToEnd -> {
+                                        AlterBox(context, profile.active)
+                                    }
+
+                                    SwipeToDismissBoxValue.EndToStart -> {
+                                        RemoveBox(context)
+                                    }
+
+                                    SwipeToDismissBoxValue.Settled -> {}
+                                }
+
+                            }, enableDismissFromStartToEnd = true) {
+                                PersonalProfileLayout(
+                                    id = profile.id,
+                                    name = profile.name,
+                                    dateOfBirth = profile.dateOfBirth,
+                                    photo = profile.photo,
+                                    cpf = profile.cpf,
+                                    onClickItem = { profileId ->
+                                        onCLickItem(profileId)
+                                    }
+                                )
                             }
                         }
+                    }
 
-                        SwipeToDismissBox(state = swipeToDismissBoxState, backgroundContent = {
-                            when (swipeToDismissBoxState.dismissDirection) {
-                                SwipeToDismissBoxValue.StartToEnd -> {
-                                    AlterBox(context, profile.active)
-                                }
-                                SwipeToDismissBoxValue.EndToStart -> {
-                                    RemoveBox(context)
-                                }
+                } else {
+                    LazyColumn {
+                        items(list, key = { it.id }) { profile ->
+                            val swipeToDismissBoxState = rememberSwipeToDismissBoxState()
 
-                                SwipeToDismissBoxValue.Settled -> {}
+
+                            LaunchedEffect(swipeToDismissBoxState.currentValue) {
+                                if (swipeToDismissBoxState.currentValue === SwipeToDismissBoxValue.EndToStart) {
+                                    onDelete(profile)
+                                } else if (swipeToDismissBoxState.currentValue === SwipeToDismissBoxValue.StartToEnd) {
+                                    onUpdate(profile)
+                                }
                             }
 
-                        }, enableDismissFromStartToEnd = true) {
-                            PersonalProfileLayout(
-                                id = profile.id,
-                                name = profile.name,
-                                dateOfBirth = profile.dateOfBirth,
-                                photo = profile.photo,
-                                cpf = profile.cpf,
-                                onClickItem = { profileId ->
-                                    onCLickItem(profileId)
+                            SwipeToDismissBox(state = swipeToDismissBoxState, backgroundContent = {
+                                when (swipeToDismissBoxState.dismissDirection) {
+                                    SwipeToDismissBoxValue.StartToEnd -> {
+                                        AlterBox(context, profile.active)
+                                    }
+
+                                    SwipeToDismissBoxValue.EndToStart -> {
+                                        RemoveBox(context)
+                                    }
+
+                                    SwipeToDismissBoxValue.Settled -> {}
                                 }
-                            )
+
+                            }, enableDismissFromStartToEnd = true) {
+                                PersonalProfileLayout(
+                                    id = profile.id,
+                                    name = profile.name,
+                                    dateOfBirth = profile.dateOfBirth,
+                                    photo = profile.photo,
+                                    cpf = profile.cpf,
+                                    onClickItem = { profileId ->
+                                        onCLickItem(profileId)
+                                    }
+                                )
+                            }
                         }
                     }
                 }

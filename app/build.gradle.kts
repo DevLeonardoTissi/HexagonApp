@@ -105,6 +105,12 @@ dependencies {
     //Zxing - QrCode Generator
     implementation(libs.core)
 
+    //Material Adaptative
+    implementation(libs.androidx.adaptive)
+    implementation (libs.androidx.adaptive.layout)
+    implementation (libs.androidx.adaptive.navigation)
+
+
 
     //Browser
     implementation(libs.androidx.browser)
