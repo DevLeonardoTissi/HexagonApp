@@ -3,11 +3,13 @@ package br.com.leonardo.hexagonapp.ui.activity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.leonardo.hexagonapp.R
-import br.com.leonardo.hexagonapp.notification.NotificationUseCase
 import br.com.leonardo.hexagonapp.ui.NOTIFICATIONS_NETWORK_ERROR_IDENTIFIER
 import br.com.leonardo.hexagonapp.ui.activity.AppUiState.Companion.formRoute
 import br.com.leonardo.hexagonapp.ui.activity.AppUiState.Companion.homeRoute
 import br.com.leonardo.hexagonapp.ui.activity.AppUiState.Companion.inactiveRoute
+import br.com.leonardo.hexagonapp.usecase.BatteryMonitorUseCase
+import br.com.leonardo.hexagonapp.usecase.CheckNotificationPermissionUseCase
+import br.com.leonardo.hexagonapp.usecase.NotificationUseCase
 import br.com.leonardo.hexagonapp.utils.AppRoute
 import br.com.leonardo.localData.model.Settings
 import br.com.leonardo.localData.usecase.SearchSettingsUseCase
@@ -24,7 +26,9 @@ class AppViewModel(
     private val searchSettingsUseCase: SearchSettingsUseCase,
     private val updateSettingsUseCase: UpdateSettingsUseCase,
     private val networkMonitor: NetworkMonitor,
-    private val notificationUseCase: NotificationUseCase
+    private val notificationUseCase: NotificationUseCase,
+    private val checkNotificationPermissionUseCase: CheckNotificationPermissionUseCase,
+    private val batteryMonitorUseCase : BatteryMonitorUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(
@@ -40,7 +44,20 @@ class AppViewModel(
     init {
         observerSettings()
         networkMonitor()
+        batteryMonitor()
     }
+
+    fun unregisterReceivers(){
+        batteryMonitorUseCase.unregisterReceiver()
+    }
+
+    private fun batteryMonitor(){
+        batteryMonitorUseCase.monitor { isLow ->
+            setBatteryLow(isLow)
+        }
+    }
+
+    fun checkNotificationPermission(): Boolean = checkNotificationPermissionUseCase()
 
     private fun observerSettings() {
         searchSettingsUseCase().onEach { settings ->
@@ -155,7 +172,7 @@ class AppViewModel(
         }
     }
 
-    fun setBatteryLow(isLow: Boolean) {
+    private fun setBatteryLow(isLow: Boolean) {
         _uiState.update { currentState ->
             currentState.copy(batteryIsLow = isLow)
         }

@@ -1,4 +1,4 @@
-package br.com.leonardo.hexagonapp.notification
+package br.com.leonardo.hexagonapp.usecase.impl
 
 import android.app.Notification
 import android.app.NotificationManager
@@ -10,6 +10,7 @@ import androidx.core.app.NotificationCompat.VISIBILITY_PRIVATE
 import androidx.core.content.ContextCompat
 import br.com.leonardo.hexagonapp.R
 import br.com.leonardo.hexagonapp.ui.NOTIFICATIONS_CHANNEL_IDENTIFIER
+import br.com.leonardo.hexagonapp.usecase.NotificationUseCase
 import coil3.imageLoader
 import coil3.request.ImageRequest
 import coil3.toBitmap

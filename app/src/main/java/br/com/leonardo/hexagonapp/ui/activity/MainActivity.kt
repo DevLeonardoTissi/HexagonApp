@@ -1,6 +1,7 @@
 package br.com.leonardo.hexagonapp.ui.activity
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
@@ -28,16 +29,14 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class MainActivity : ComponentActivity() {
 
     private val appViewModel: AppViewModel by viewModel()
-    private val batteryReceiver = BatteryStatusBroadcastReceiver { isLow ->
-        appViewModel.setBatteryLow(isLow)
-    }
+
     private val requestPermissionNotificationsLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission(),
     ) { isGranted: Boolean ->
         if (isGranted) {
-            this.toast(getString(R.string.main_activity_toast_message_notifications_permission_granted))
+            onNotificationPermissionGranted()
         } else {
-            this.toast(getString(R.string.main_activity_toast_message_notifications_permission_not_granted))
+            onNotificationPermissionNotGranted()
         }
     }
 
@@ -45,9 +44,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         installSplashScreen()
-        checkBatteryLevelInit()
-        registerBatteryStatusBroadcastReceiver()
-        askNotificationPermission()
+        requestNotificationIfNeeded()
 
         setContent {
 
@@ -77,44 +74,29 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    private fun registerBatteryStatusBroadcastReceiver() {
-        val intentFilter = IntentFilter().apply {
-            addAction(Intent.ACTION_BATTERY_LOW)
-            addAction(Intent.ACTION_BATTERY_OKAY)
-        }
-        registerReceiver(batteryReceiver, intentFilter)
-    }
-
-    private fun isBatteryLowNow(): Boolean {
-        val intent = registerReceiver(
-            null, IntentFilter(Intent.ACTION_BATTERY_CHANGED)
-        ) ?: return false
-
-        val level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)
-        val scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
-        val batteryPct = level / scale.toFloat()
-        return batteryPct <= 0.15f
-    }
-
-    private fun checkBatteryLevelInit() {
-        if (isBatteryLowNow()) {
-            appViewModel.setBatteryLow(true)
+    @SuppressLint("InlinedApi")
+    private fun requestNotificationIfNeeded() {
+        if (appViewModel.checkNotificationPermission()) {
+            requestPermissionNotificationsLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
         }
     }
 
-    private fun askNotificationPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) !=
-                PackageManager.PERMISSION_GRANTED
-            ) {
-                requestPermissionNotificationsLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
-            }
-        }
+
+
+    private fun onNotificationPermissionGranted() {
+        this.toast(getString(R.string.main_activity_toast_message_notifications_permission_granted))
+
     }
+
+    private fun onNotificationPermissionNotGranted() {
+        this.toast(getString(R.string.main_activity_toast_message_notifications_permission_not_granted))
+    }
+
+
 
     override fun onDestroy() {
+        appViewModel.unregisterReceivers()
         super.onDestroy()
-        unregisterReceiver(batteryReceiver)
     }
 
 }

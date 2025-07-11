@@ -1,4 +1,4 @@
-package br.com.leonardo.hexagonapp.notification
+package br.com.leonardo.hexagonapp.usecase
 
 import android.app.PendingIntent
 
