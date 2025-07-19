@@ -43,6 +43,7 @@ import androidx.window.core.layout.WindowSizeClass
 import br.com.leonardo.hexagonapp.R
 import br.com.leonardo.hexagonapp.ui.theme.customRed
 import br.com.leonardo.hexagonapp.ui.theme.customYellow
+import br.com.leonardo.hexagonapp.utils.extensions.long.toDateFormat
 import br.com.leonardo.localData.model.PersonalProfile
 import kotlinx.coroutines.delay
 
@@ -119,7 +120,7 @@ fun PersonalProfileList(
                                 PersonalProfileLayout(
                                     id = profile.id,
                                     name = profile.name,
-                                    dateOfBirth = profile.dateOfBirth,
+                                    dateOfBirth = profile.dateOfBirth.toDateFormat(),
                                     photo = profile.photo,
                                     cpf = profile.cpf,
                                     onClickItem = { profileId ->
@@ -161,7 +162,7 @@ fun PersonalProfileList(
                                 PersonalProfileLayout(
                                     id = profile.id,
                                     name = profile.name,
-                                    dateOfBirth = profile.dateOfBirth,
+                                    dateOfBirth = profile.dateOfBirth.toDateFormat(),
                                     photo = profile.photo,
                                     cpf = profile.cpf,
                                     onClickItem = { profileId ->

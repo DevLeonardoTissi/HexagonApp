@@ -32,7 +32,6 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Button
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
-import androidx.compose.material3.DatePickerState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -195,7 +194,7 @@ fun PersonalProfileFormScreen(
             placeholderText = context.getString(R.string.inputDateOfBirthPlaceHolder),
             onSearchChange = { },
             icon = Icons.Default.DateRange,
-            searchText = uiState.dateOfBirth,
+            searchText = uiState.dateOfBirthPresentation,
             readonly = true,
             inError = uiState.fieldDateOfBirthError
         )

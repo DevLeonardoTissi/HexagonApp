@@ -37,7 +37,10 @@ class PersonalProfileFormViewModel(
                 },
                 onDateOfBirthChanged = { dateOfBirth ->
                     _uiState.value =
-                        _uiState.value.copy(dateOfBirth = dateOfBirth.toBrazilianDateFormat())
+                        _uiState.value.copy(
+                            dateOfBirth = dateOfBirth,
+                            dateOfBirthPresentation = dateOfBirth.toBrazilianDateFormat()
+                        )
                 },
                 onPhotoChanged = { photo ->
                     _uiState.value = _uiState.value.copy(photo = photo)
@@ -89,6 +92,7 @@ class PersonalProfileFormViewModel(
                     cpf = cpf,
                     city = city,
                     dateOfBirth = dateOfBirth,
+                    dateOfBirthPresentation = dateOfBirth.toBrazilianDateFormat(),
                     photo = photo,
                     active = active
                 )
@@ -114,7 +118,7 @@ class PersonalProfileFormViewModel(
                     isError
                 )
             },
-            Pair(uiState.value.dateOfBirth.isBlank()) { isError: Boolean ->
+            Pair(uiState.value.dateOfBirth == 0L) { isError: Boolean ->
                 _uiState.value.onFieldDateOfBirthErrorChanged(
                     isError
                 )
