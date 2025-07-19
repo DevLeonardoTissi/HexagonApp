@@ -102,10 +102,6 @@ class PersonalProfileFormViewModel(
 
     private fun invalidCpf(cpf: String): Boolean = cpf.isBlank() || cpf.length != 11
 
-    fun formatCpf(cpf: String): String {
-        return cpf.replace(Regex("(\\d{3})(\\d{3})(\\d{3})(\\d{2})"), "$1.$2.$3-$4")
-    }
-
     private fun checkFields(): Boolean {
         val fieldsToCheck = listOf(
             Pair(uiState.value.name.isBlank()) { isError: Boolean ->
@@ -149,7 +145,7 @@ class PersonalProfileFormViewModel(
                 PersonalProfile(
                     id = uiState.value.id,
                     name = uiState.value.name,
-                    cpf = formatCpf(uiState.value.cpf),
+                    cpf = uiState.value.cpf,
                     city = uiState.value.city,
                     photo = uiState.value.photo,
                     dateOfBirth = uiState.value.dateOfBirth,
