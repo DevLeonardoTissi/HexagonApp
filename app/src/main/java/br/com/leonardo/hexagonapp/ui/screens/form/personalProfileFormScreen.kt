@@ -1,5 +1,6 @@
 package br.com.leonardo.hexagonapp.ui.screens.form
 
+import android.R.id.input
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -50,7 +51,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.OffsetMapping
+import androidx.compose.ui.text.input.TransformedText
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import br.com.leonardo.hexagonapp.R
@@ -158,10 +163,16 @@ fun PersonalProfileFormScreen(
             labelText = context.getString(R.string.inputCpfLabel),
             placeholderText = context.getString(R.string.inputCpfPlaceHolder),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            onSearchChange = { uiState.onCpfChanged(it) },
+            onSearchChange = {input ->
+                val onlyDigits = input.filter { it.isDigit() }
+                if (input.length <= 11) {
+                    uiState.onCpfChanged(onlyDigits)
+                }
+            },
             icon = Icons.Default.Lock,
             searchText = uiState.cpf,
-            inError = uiState.fieldCPFError
+            inError = uiState.fieldCPFError,
+            visualTransformation = cpfVisualTransformation()
         )
 
         SearchTextField(
@@ -269,6 +280,40 @@ fun PersonalProfileFormScreen(
             }) {
             DatePicker(state = datePickerState)
         }
+    }
+}
+
+fun cpfVisualTransformation(): VisualTransformation {
+    return VisualTransformation { text ->
+        val digits = text.text.filter { it.isDigit() }
+
+        val formatted = buildString {
+            for (i in digits.indices) {
+                append(digits[i])
+                if (i == 2 || i == 5) append(".")
+                if (i == 8) append("-")
+            }
+        }
+
+        val offsetMapping = object : OffsetMapping {
+            override fun originalToTransformed(offset: Int): Int {
+                var transformed = offset
+                if (offset > 2) transformed += 1
+                if (offset > 5) transformed += 1
+                if (offset > 8) transformed += 1
+                return transformed.coerceAtMost(formatted.length)
+            }
+
+            override fun transformedToOriginal(offset: Int): Int {
+                var original = offset
+                if (offset > 3) original -= 1
+                if (offset > 7) original -= 1
+                if (offset > 11) original -= 1
+                return original.coerceAtMost(digits.length)
+            }
+        }
+
+        TransformedText(AnnotatedString(formatted), offsetMapping)
     }
 }
 

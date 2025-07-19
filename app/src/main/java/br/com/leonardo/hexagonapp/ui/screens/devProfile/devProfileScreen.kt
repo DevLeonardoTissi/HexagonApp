@@ -86,7 +86,7 @@ fun DevProfileScreen(uiState: DevProfileUiState) {
                 ) {
 
                     uiState.userProfile?.let { userProfile ->
-                        Box(modifier = Modifier.fillMaxWidth()){
+                        Box(modifier = Modifier.fillMaxWidth()) {
                             SubComposeAsyncImage(
                                 model = userProfile.avatar_url,
                                 description = context.getString(R.string.devProfileImageDescription),
@@ -119,7 +119,10 @@ fun DevProfileScreen(uiState: DevProfileUiState) {
                                     .align(Alignment.BottomCenter)
                                     .offset(y = 50.dp, x = 50.dp)
                                     .size(50.dp)
-                                    .background(color = MaterialTheme.colorScheme.primary, shape = CircleShape)
+                                    .background(
+                                        color = MaterialTheme.colorScheme.primary,
+                                        shape = CircleShape
+                                    )
                                     .border(
                                         BorderStroke(
                                             2.dp,
@@ -205,7 +208,7 @@ fun DevProfileScreen(uiState: DevProfileUiState) {
 
                 if (uiState.showBottomSheetShareProfile) {
                     ModalBottomSheetShareDevProfile(
-                        context.getString(R.string.LinkedinProfileUrl),
+                        qrCodeText = context.getString(R.string.LinkedinProfileUrl),
                         onDismissRequest = { uiState.changeVisibilityBottomSheetShareProfile(false) },
                         onclickShareButton = {
                             with(context) {

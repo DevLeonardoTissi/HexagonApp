@@ -89,7 +89,7 @@ class PersonalProfileFormViewModel(
                 _uiState.value = _uiState.value.copy(
                     id = this.id,
                     name = name,
-                    cpf = cpf,
+                    cpf = cpf.filter { it.isDigit() },
                     city = city,
                     dateOfBirth = dateOfBirth,
                     dateOfBirthPresentation = dateOfBirth.toBrazilianDateFormat(),
@@ -100,6 +100,11 @@ class PersonalProfileFormViewModel(
         }
     }
 
+    private fun invalidCpf(cpf: String): Boolean = cpf.isBlank() || cpf.length != 11
+
+    fun formatCpf(cpf: String): String {
+        return cpf.replace(Regex("(\\d{3})(\\d{3})(\\d{3})(\\d{2})"), "$1.$2.$3-$4")
+    }
 
     private fun checkFields(): Boolean {
         val fieldsToCheck = listOf(
@@ -108,7 +113,7 @@ class PersonalProfileFormViewModel(
                     isError
                 )
             },
-            Pair(uiState.value.cpf.isBlank()) { isError: Boolean ->
+            Pair(invalidCpf(uiState.value.cpf)) { isError: Boolean ->
                 _uiState.value.onFieldCPFErrorChanged(
                     isError
                 )
@@ -144,7 +149,7 @@ class PersonalProfileFormViewModel(
                 PersonalProfile(
                     id = uiState.value.id,
                     name = uiState.value.name,
-                    cpf = uiState.value.cpf,
+                    cpf = formatCpf(uiState.value.cpf),
                     city = uiState.value.city,
                     photo = uiState.value.photo,
                     dateOfBirth = uiState.value.dateOfBirth,

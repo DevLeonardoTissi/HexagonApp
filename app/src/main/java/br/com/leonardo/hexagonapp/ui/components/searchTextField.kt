@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.VisualTransformation
 
 @Composable
 fun SearchTextField(
@@ -21,7 +22,8 @@ fun SearchTextField(
     iconDescription: String?,
     keyboardOptions: KeyboardOptions? = KeyboardOptions(keyboardType = KeyboardType.Text),
     readonly: Boolean? = false,
-    inError:Boolean = false
+    inError: Boolean = false,
+    visualTransformation: VisualTransformation? = VisualTransformation.None
 ) {
     OutlinedTextField(
         isError = inError,
@@ -45,6 +47,7 @@ fun SearchTextField(
         placeholder = {
             Text(placeholderText)
         },
-        keyboardOptions = keyboardOptions ?: KeyboardOptions(keyboardType = KeyboardType.Text)
+        keyboardOptions = keyboardOptions ?: KeyboardOptions(keyboardType = KeyboardType.Text),
+        visualTransformation = visualTransformation ?: VisualTransformation.None
     )
 }
