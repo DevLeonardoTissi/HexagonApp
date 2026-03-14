@@ -11,7 +11,6 @@ import androidx.compose.ui.test.isRoot
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
-import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.test.printToLog
@@ -24,6 +23,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
+import java.time.LocalDate
 
 class FormScreenTest {
 
@@ -52,12 +52,18 @@ class FormScreenTest {
             }
         }
 
+
         val inputName = hasText("Digite seu nome") and hasClickAction()
         val inputCPF = hasText("Digite seu CPF") and hasClickAction()
         val inputCity = hasText("Digite sua cidade") and hasClickAction()
         val inputDateOfBirth = hasText("Data de nascimento") and hasClickAction()
-        val datePickerDate = hasText("Friday, March 13, 2026") and hasClickAction()
-        val selectedDate = hasText("13/03/2026", substring = true)
+
+        val datePickerDate = with(DateInDatePicker) {
+            hasText("Today, ${dayOfWeek}, $monthName ${day}, $year") and hasClickAction()
+        }
+        val selectedDate = with(DateInDatePicker) {
+            hasText("${day}/${month}/${year}", substring = true)
+        }
         val saveButton = hasContentDescription("Save button") and hasClickAction()
         val activeSwitch = hasContentDescription("Active switch") and hasClickAction()
 
@@ -75,10 +81,10 @@ class FormScreenTest {
         composeTestRule.onNode(inputDateOfBirth)
             .performClick()
 
+        composeTestRule.onAllNodes(isRoot())[1].printToLog("ESTRUTURA_DATEPICKER")
         composeTestRule.onNode(datePickerDate)
             .performClick()
 
-        composeTestRule.onAllNodes(isRoot())[1].printToLog("ESTRUTURA_DATEPICKER")
         composeTestRule.onNodeWithText("Selecionar data").performClick()
 
         composeTestRule.onAllNodes(isRoot())[0].printToLog("ESTRUTURA_TELA")
@@ -96,4 +102,13 @@ class FormScreenTest {
             .assertIsDisplayed()
 
     }
+}
+
+object DateInDatePicker {
+    val today: LocalDate = LocalDate.now()
+    val dayOfWeek = today.dayOfWeek.name.lowercase().replaceFirstChar { it.uppercase() }
+    val month = today.monthValue.toString().padStart(2, '0')
+    val day = today.dayOfMonth
+    val year = today.year
+    val monthName = today.month.name.lowercase().replaceFirstChar { it.uppercase() }
 }

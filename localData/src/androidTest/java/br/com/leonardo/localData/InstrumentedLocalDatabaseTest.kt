@@ -28,9 +28,11 @@ class InstrumentedLocalDatabaseTest : KoinComponent {
     val koinTestRule = KoinTestRule(listOf(localDataModuleTest))
 
     private val personalProfileRepository by inject<PersonalProfileRepository>()
+
     private val settingsRepository by inject<SettingsRepository>()
 
     private val currencyTime = Instant.now().toEpochMilli()
+
 
     @Test
     fun test_a_defaultSettingsShouldHaveDarkModeDisabled() =
