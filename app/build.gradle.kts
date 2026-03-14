@@ -1,6 +1,6 @@
 plugins {
     alias(libs.plugins.androidApplication)
-    alias(libs.plugins.jetbrainsKotlinAndroid)
+
 
     //New compose compile plugin
     alias(libs.plugins.compose.compiler)
@@ -12,12 +12,12 @@ plugins {
     alias(libs.plugins.crashlytics)
 
     //Kotlin Serialization (for navigation version)
-    kotlin("plugin.serialization") version "2.0.0"
+    kotlin("plugin.serialization") version "2.3.10"
 }
 
 android {
     namespace = "br.com.leonardo.hexagonapp"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "br.com.leonardo.hexagonapp"
@@ -42,11 +42,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     buildFeatures {
         compose = true
@@ -89,7 +86,7 @@ dependencies {
     //Firebase DOM
     implementation(platform(libs.firebase.bom))
 
-    //Google analytics
+    //Google Analytics
     implementation(libs.google.firebase.analytics)
 
     //Firebase crashlytics

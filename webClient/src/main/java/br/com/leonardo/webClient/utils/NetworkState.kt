@@ -7,10 +7,10 @@ sealed class NetworkState {
 
     data class CapabilitiesChanged(
         val network: Network,
-        val natworkCapabilities: NetworkCapabilities
+        val networkCapabilities: NetworkCapabilities
     ) : NetworkState()
 
-    data class Avaliable(val network: Network) : NetworkState()
+    data class Available(val network: Network) : NetworkState()
     data object Lost : NetworkState()
 
 }

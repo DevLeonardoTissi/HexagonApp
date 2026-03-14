@@ -12,7 +12,7 @@ class NetworkMonitorImpl(
 ) : NetworkMonitor {
 
     override fun monitor(
-        onConnectionAvailable: (NetworkState.Avaliable) -> Unit,
+        onConnectionAvailable: (NetworkState.Available) -> Unit,
         onConnectionCapabilitiesChanged: (NetworkState) -> Unit,
         onConnectionLost: (NetworkState) -> Unit,
     ) {
@@ -25,7 +25,7 @@ class NetworkMonitorImpl(
         val networkCallback = object : ConnectivityManager.NetworkCallback() {
             override fun onAvailable(network: Network) {
                 super.onAvailable(network)
-                onConnectionAvailable(NetworkState.Avaliable(network))
+                onConnectionAvailable(NetworkState.Available(network))
             }
 
             override fun onCapabilitiesChanged(

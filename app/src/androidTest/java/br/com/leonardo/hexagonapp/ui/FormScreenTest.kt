@@ -45,10 +45,9 @@ class FormScreenTest {
             HexagonAppTheme {
                 Surface {
                     PersonalProfileFormScreen(
-                        uiState = uiState
-                    ) {
-                        Unit
-                    }
+                        uiState = uiState,
+                        onPopBackStack = {}
+                    )
                 }
             }
         }

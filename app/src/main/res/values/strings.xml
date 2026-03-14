@@ -18,7 +18,6 @@
     <string name="iconForHelpMenuDrawer">Help</string>"
     <string name="iconAddForNavigateToFormFloatingButton">add button to form screen</string>"
     <string name="iconMoreForInfoAndConfiguration">More - Configuration</string>"
-    <string name="iconNoNetworkConnection">No network connection</string>"
     <string name="iconListForOpenMenuDrawer">Open drawer</string>"
     <string name="iconBackForNavigateUp">navigate to back</string>"
 
@@ -82,7 +81,7 @@
 
 
     <!-- Dev Profile Screen -->
-    <string name="loadingMessagingText">Carregando...</string>
+    <string name="loadingMessagingText">Carregando…</string>
     <string name="errorMessagingText">Erro ao carregar informações</string>
     <string name="buttonRetryLoadUserInfoText">Tentar novamente</string>
     <string name="buttonRetryLoadUserInfoIconDescription">Icon refresh</string>

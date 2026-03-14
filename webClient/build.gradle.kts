@@ -1,11 +1,10 @@
 plugins {
     alias(libs.plugins.android.library)
-    alias(libs.plugins.jetbrainsKotlinAndroid)
 }
 
 android {
     namespace = "br.com.leonardo.webClient"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         minSdk = 28
@@ -24,11 +23,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 }
 
@@ -44,7 +40,7 @@ dependencies {
     //Kotlin coroutines tests
     testImplementation (libs.kotlinx.coroutines.test)
 
-    testImplementation("io.mockk:mockk:1.13.12")
+    testImplementation(libs.mockk)
 
 
     //Retrofit + Converter + Logging interceptor
