@@ -24,8 +24,8 @@ import br.com.leonardo.webClient.usecase.GetUserRepositoriesInfoUseCase
 import br.com.leonardo.webClient.usecase.impl.GetUserProfileInfoUseCaseImpl
 import br.com.leonardo.webClient.usecase.impl.GetUserRepositoriesInfoUseCaseImpl
 import br.com.leonardo.webClient.utils.GITHUB_API_BASE_URL
-import br.com.leonardo.webClient.utils.NetworkMonitor
-import br.com.leonardo.webClient.utils.impl.NetworkMonitorImpl
+import br.com.leonardo.webClient.utils.networkMonitor.NetworkMonitor
+import br.com.leonardo.webClient.utils.networkMonitor.impl.NetworkMonitorImpl
 import okhttp3.OkHttpClient
 import org.koin.dsl.module
 import retrofit2.Retrofit

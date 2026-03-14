@@ -40,8 +40,8 @@ class NavigationTest {
 
             HexagonAppTheme(darkTheme = appUiState.isDarkMode) {
                 MainScreen(
-                    navController,
-                    appUiState,
+                    navController = navController,
+                    appUiState = appUiState,
                     onCurrentRouteChange = { appUiState.onCurrentRouteChange(it) },
                     changeVisibilityBottomSheetConfigAndInfo = {
                         appUiState.changeVisibilityBottomSheetDialogInfoAndConfig(
@@ -53,7 +53,8 @@ class NavigationTest {
                         coroutineScope.launch {
                             appUiState.updateDrawer()
                         }
-                    }
+                    },
+                    onUpdateShowNotification = {}
                 )
             }
         }

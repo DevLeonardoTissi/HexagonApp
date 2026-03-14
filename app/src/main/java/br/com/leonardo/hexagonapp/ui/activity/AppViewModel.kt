@@ -14,7 +14,7 @@ import br.com.leonardo.hexagonapp.utils.AppRoute
 import br.com.leonardo.localData.model.Settings
 import br.com.leonardo.localData.usecase.SearchSettingsUseCase
 import br.com.leonardo.localData.usecase.UpdateSettingsUseCase
-import br.com.leonardo.webClient.utils.NetworkMonitor
+import br.com.leonardo.webClient.utils.networkMonitor.NetworkMonitor
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn

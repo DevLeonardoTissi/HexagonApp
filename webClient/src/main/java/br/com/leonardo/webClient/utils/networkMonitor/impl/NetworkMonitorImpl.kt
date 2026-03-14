@@ -1,10 +1,10 @@
-package br.com.leonardo.webClient.utils.impl
+package br.com.leonardo.webClient.utils.networkMonitor.impl
 
 import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
-import br.com.leonardo.webClient.utils.NetworkMonitor
+import br.com.leonardo.webClient.utils.networkMonitor.NetworkMonitor
 import br.com.leonardo.webClient.utils.NetworkState
 
 class NetworkMonitorImpl(

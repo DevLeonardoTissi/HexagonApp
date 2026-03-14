@@ -7,11 +7,14 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.hasClickAction
 import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.hasText
+import androidx.compose.ui.test.isRoot
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
+import androidx.compose.ui.test.printToLog
 import br.com.leonardo.hexagonapp.ui.activity.MainActivity
 import br.com.leonardo.hexagonapp.ui.screens.form.PersonalProfileFormScreen
 import br.com.leonardo.hexagonapp.ui.screens.form.PersonalProfileFormUiState
@@ -26,6 +29,7 @@ class FormScreenTest {
 
     @get:Rule
     val composeTestRule = createComposeRule()
+
 
     //corrigir Classe porteriormente
     val composeTestRuleActivity = createAndroidComposeRule<MainActivity>()
@@ -43,7 +47,7 @@ class FormScreenTest {
                     PersonalProfileFormScreen(
                         uiState = uiState
                     ) {
-                            Unit
+                        Unit
                     }
                 }
             }
@@ -53,13 +57,10 @@ class FormScreenTest {
         val inputCPF = hasText("Digite seu CPF") and hasClickAction()
         val inputCity = hasText("Digite sua cidade") and hasClickAction()
         val inputDateOfBirth = hasText("Data de nascimento") and hasClickAction()
-        val datePickerDate = hasText("Thursday, August 1, 2024") and hasClickAction()
-        val selectDateButton = hasText("Selecionar data") and hasClickAction()
-        val selectedDate = hasText("01/08/2024")
+        val datePickerDate = hasText("Friday, March 13, 2026") and hasClickAction()
+        val selectedDate = hasText("13/03/2026", substring = true)
         val saveButton = hasContentDescription("Save button") and hasClickAction()
         val activeSwitch = hasContentDescription("Active switch") and hasClickAction()
-
-
 
         composeTestRule.onNode(inputName)
             .performClick()
@@ -78,9 +79,10 @@ class FormScreenTest {
         composeTestRule.onNode(datePickerDate)
             .performClick()
 
-        composeTestRule.onNode(selectDateButton)
-            .performClick()
+        composeTestRule.onAllNodes(isRoot())[1].printToLog("ESTRUTURA_DATEPICKER")
+        composeTestRule.onNodeWithText("Selecionar data").performClick()
 
+        composeTestRule.onAllNodes(isRoot())[0].printToLog("ESTRUTURA_TELA")
         composeTestRule.onNode(selectedDate)
             .assertIsDisplayed()
 
@@ -94,10 +96,5 @@ class FormScreenTest {
             .onNodeWithText("Confirma a adição?")
             .assertIsDisplayed()
 
-        // GET COMPONENTS TREE DATE PICKER
-        // composeTestRule.onAllNodes(isRoot())[1].printToLog("T:")
-
     }
-
-
 }

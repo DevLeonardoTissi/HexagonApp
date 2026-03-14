@@ -16,6 +16,7 @@ import org.junit.runner.RunWith
 import org.junit.runners.MethodSorters
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
+import java.time.Instant
 
 
 @RunWith(AndroidJUnit4::class)
@@ -28,6 +29,8 @@ class InstrumentedLocalDatabaseTest : KoinComponent {
 
     private val personalProfileRepository by inject<PersonalProfileRepository>()
     private val settingsRepository by inject<SettingsRepository>()
+
+    private val currencyTime = Instant.now().toEpochMilli()
 
     @Test
     fun test_a_defaultSettingsShouldHaveDarkModeDisabled() =
@@ -50,7 +53,7 @@ class InstrumentedLocalDatabaseTest : KoinComponent {
                 name = "Test",
                 city = "CityTest",
                 active = true,
-                dateOfBirth = "Today"
+                dateOfBirth = currencyTime
             )
         )
         val currentSettings = personalProfileRepository.getActives()
@@ -65,7 +68,7 @@ class InstrumentedLocalDatabaseTest : KoinComponent {
                 name = "Test",
                 city = "CityTest",
                 active = true,
-                dateOfBirth = "Today"
+                dateOfBirth = currencyTime
             )
         )
 
@@ -81,7 +84,7 @@ class InstrumentedLocalDatabaseTest : KoinComponent {
                 name = "TestInactive",
                 city = "CityTest",
                 active = false,
-                dateOfBirth = "Today"
+                dateOfBirth = currencyTime
             )
         )
         val currentInactivesProfiles = personalProfileRepository.getInactives()
@@ -96,7 +99,7 @@ class InstrumentedLocalDatabaseTest : KoinComponent {
             name = "TestInactive",
             city = "CityTest",
             active = false,
-            dateOfBirth = "Today"
+            dateOfBirth = currencyTime
         )
 
         personalProfileRepository.insert(
