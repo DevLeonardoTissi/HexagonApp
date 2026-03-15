@@ -88,7 +88,7 @@ fun DevProfileScreen(uiState: DevProfileUiState) {
                     uiState.userProfile?.let { userProfile ->
                         Box(modifier = Modifier.fillMaxWidth()) {
                             SubComposeAsyncImage(
-                                model = userProfile.avatar_url,
+                                model = userProfile.avatarUrl,
                                 description = context.getString(R.string.devProfileImageDescription),
                                 modifier = Modifier
                                     .size(200.dp)
@@ -193,7 +193,7 @@ fun DevProfileScreen(uiState: DevProfileUiState) {
                                                 }
                                             }
                                             Spacer(modifier = Modifier.height(20.dp))
-                                            repository.html_url?.let {
+                                            repository.htmlUrl?.let {
                                                 Button(onClick = { context.goToUri(it) }) {
                                                     Text(text = context.getString(R.string.repositoryURItext))
                                                 }

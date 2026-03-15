@@ -1,7 +1,7 @@
 package br.com.leonardo.webClient.services
 
-import br.com.leonardo.webClient.model.GitHubProfileInfoResponse
-import br.com.leonardo.webClient.model.GithubRepositoryInfoResponse
+import br.com.leonardo.webClient.models.entity.response.GitHubProfileInfoResponse
+import br.com.leonardo.webClient.models.entity.response.GithubRepositoryInfoResponse
 import retrofit2.http.GET
 
 interface GithubApiService {

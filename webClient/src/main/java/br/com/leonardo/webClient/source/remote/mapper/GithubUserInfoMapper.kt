@@ -1,14 +1,14 @@
 package br.com.leonardo.webClient.source.remote.mapper
 
-import br.com.leonardo.webClient.model.GitHubProfileInfo
-import br.com.leonardo.webClient.model.GitHubProfileInfoResponse
-import br.com.leonardo.webClient.model.GithubRepositoryInfo
-import br.com.leonardo.webClient.model.GithubRepositoryInfoResponse
+import br.com.leonardo.webClient.models.model.GitHubProfileInfoModel
+import br.com.leonardo.webClient.models.entity.response.GitHubProfileInfoResponse
+import br.com.leonardo.webClient.models.model.GithubRepositoryInfoModel
+import br.com.leonardo.webClient.models.entity.response.GithubRepositoryInfoResponse
 
 interface GithubUserInfoMapper {
 
-    fun toModel(githubProfileInfoResponse: GitHubProfileInfoResponse): GitHubProfileInfo
+    fun toModel(githubProfileInfoResponse: GitHubProfileInfoResponse?): GitHubProfileInfoModel
 
-    fun toModel(githubRepositoryInfoResponseList: List<GithubRepositoryInfoResponse>): List<GithubRepositoryInfo>
+    fun toModel(githubRepositoryInfoResponse: GithubRepositoryInfoResponse): GithubRepositoryInfoModel
 
 }

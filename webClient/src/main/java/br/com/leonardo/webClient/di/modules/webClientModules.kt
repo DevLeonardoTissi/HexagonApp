@@ -54,7 +54,7 @@ val webClientModule = module {
         Retrofit.Builder()
             .baseUrl(GITHUB_API_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
-            .client(get())
+            .client(get<OkHttpClient>())
             .build()
     }
 

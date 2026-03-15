@@ -8,8 +8,7 @@ import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
 import org.koin.core.module.Module
 
-//To not use dynamic modules
-//If you don't want to, don't use class
+
 class KoinTestRule(private val modules: List<Module>) : TestWatcher() {
     override fun starting(description: Description?) {
         super.starting(description)

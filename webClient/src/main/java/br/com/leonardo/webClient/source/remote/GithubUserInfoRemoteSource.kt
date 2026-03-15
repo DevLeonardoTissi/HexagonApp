@@ -1,12 +1,12 @@
 package br.com.leonardo.webClient.source.remote
 
-import br.com.leonardo.webClient.model.GitHubProfileInfo
-import br.com.leonardo.webClient.model.GithubRepositoryInfo
+import br.com.leonardo.webClient.models.model.GitHubProfileInfoModel
+import br.com.leonardo.webClient.models.model.GithubRepositoryInfoModel
 
 interface GithubUserInfoRemoteSource {
 
-    suspend fun getUserProfileInfo(): GitHubProfileInfo?
+    suspend fun getUserProfileInfo(): GitHubProfileInfoModel
 
-    suspend fun getUserRepositoriesInfo(): List<GithubRepositoryInfo>?
+    suspend fun getUserRepositoriesInfo(): List<GithubRepositoryInfoModel>
 
 }

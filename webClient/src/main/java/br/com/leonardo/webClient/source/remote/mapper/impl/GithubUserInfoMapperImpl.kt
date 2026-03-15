@@ -1,33 +1,31 @@
 package br.com.leonardo.webClient.source.remote.mapper.impl
 
-import br.com.leonardo.webClient.model.GitHubProfileInfo
-import br.com.leonardo.webClient.model.GitHubProfileInfoResponse
-import br.com.leonardo.webClient.model.GithubRepositoryInfo
-import br.com.leonardo.webClient.model.GithubRepositoryInfoResponse
+import br.com.leonardo.webClient.models.entity.response.GitHubProfileInfoResponse
+import br.com.leonardo.webClient.models.entity.response.GithubRepositoryInfoResponse
+import br.com.leonardo.webClient.models.model.GitHubProfileInfoModel
+import br.com.leonardo.webClient.models.model.GithubRepositoryInfoModel
 import br.com.leonardo.webClient.source.remote.mapper.GithubUserInfoMapper
 
 class GithubUserInfoMapperImpl : GithubUserInfoMapper {
-    override fun toModel(githubProfileInfoResponse: GitHubProfileInfoResponse): GitHubProfileInfo {
+    override fun toModel(githubProfileInfoResponse: GitHubProfileInfoResponse?): GitHubProfileInfoModel =
         with(githubProfileInfoResponse) {
-            return GitHubProfileInfo(
-                avatar_url = avatarUrl,
-                html_url = htmlUrl,
-                name = name,
-                blog = blog,
-                location = location,
-                bio = bio,
-                public_repos = publicRepos
+            GitHubProfileInfoModel(
+                avatarUrl = this?.avatarUrl.orEmpty(),
+                htmlUrl = this?.htmlUrl.orEmpty(),
+                name = this?.name.orEmpty(),
+                blog = this?.blog.orEmpty(),
+                location = this?.location.orEmpty(),
+                bio = this?.bio.orEmpty(),
+                publicRepos = this?.publicRepos
             )
         }
-    }
 
-    override fun toModel(githubRepositoryInfoResponseList: List<GithubRepositoryInfoResponse>): List<GithubRepositoryInfo> {
-        return githubRepositoryInfoResponseList.map { responseItem ->
-            GithubRepositoryInfo(
-                name = responseItem.name,
-                html_url = responseItem.htmlUrl,
-                description = responseItem.description
+    override fun toModel(githubRepositoryInfoResponse: GithubRepositoryInfoResponse): GithubRepositoryInfoModel =
+        with(githubRepositoryInfoResponse) {
+            GithubRepositoryInfoModel(
+                name = name.orEmpty(),
+                htmlUrl = htmlUrl.orEmpty(),
+                description = description.orEmpty()
             )
         }
-    }
 }
