@@ -4,5 +4,5 @@ import br.com.leonardo.webClient.models.model.GithubRepositoryInfoModel
 
 interface GetUserRepositoriesInfoUseCase {
 
-    suspend operator fun invoke(): List<GithubRepositoryInfoModel>
+    suspend operator fun invoke(): Result<List<GithubRepositoryInfoModel>>
 }

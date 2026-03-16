@@ -25,5 +25,5 @@ val webClientModuleForUnitTest = module {
     single { get<Retrofit>().create(GithubApiService::class.java) }
     single<GithubUserInfoMapper> { GithubUserInfoMapperImpl() }
     single<GithubUserInfoRemoteSource> { GithubUserInfoRemoteSourceImpl(githubProfileService = get(), mapper = get()) }
-    single<GithubUserRepository> { GithubUserRepositoryImpl(githubUserInfoSource = get()) }
+    single<GithubUserRepository> { GithubUserRepositoryImpl(githubUserInfoRemoteSource = get()) }
 }

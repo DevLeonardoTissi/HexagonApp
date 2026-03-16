@@ -7,8 +7,8 @@ import br.com.leonardo.webClient.models.entity.response.GithubRepositoryInfoResp
 
 interface GithubUserInfoMapper {
 
-    fun toModel(githubProfileInfoResponse: GitHubProfileInfoResponse?): GitHubProfileInfoModel
+    fun toModel(githubProfileInfoResponse: GitHubProfileInfoResponse): GitHubProfileInfoModel
 
-    fun toModel(githubRepositoryInfoResponse: GithubRepositoryInfoResponse): GithubRepositoryInfoModel
+    fun toModel(githubRepositoryInfoListResponse: List<GithubRepositoryInfoResponse>): List<GithubRepositoryInfoModel>
 
 }

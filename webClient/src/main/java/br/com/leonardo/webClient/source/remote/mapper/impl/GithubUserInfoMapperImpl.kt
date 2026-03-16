@@ -7,25 +7,25 @@ import br.com.leonardo.webClient.models.model.GithubRepositoryInfoModel
 import br.com.leonardo.webClient.source.remote.mapper.GithubUserInfoMapper
 
 class GithubUserInfoMapperImpl : GithubUserInfoMapper {
-    override fun toModel(githubProfileInfoResponse: GitHubProfileInfoResponse?): GitHubProfileInfoModel =
+    override fun toModel(githubProfileInfoResponse: GitHubProfileInfoResponse): GitHubProfileInfoModel =
         with(githubProfileInfoResponse) {
             GitHubProfileInfoModel(
-                avatarUrl = this?.avatarUrl.orEmpty(),
-                htmlUrl = this?.htmlUrl.orEmpty(),
-                name = this?.name.orEmpty(),
-                blog = this?.blog.orEmpty(),
-                location = this?.location.orEmpty(),
-                bio = this?.bio.orEmpty(),
-                publicRepos = this?.publicRepos
+                avatarUrl = avatarUrl.orEmpty(),
+                htmlUrl = htmlUrl.orEmpty(),
+                name = name.orEmpty(),
+                blog = blog.orEmpty(),
+                location = location.orEmpty(),
+                bio = bio.orEmpty(),
+                publicRepos = publicRepos
             )
         }
 
-    override fun toModel(githubRepositoryInfoResponse: GithubRepositoryInfoResponse): GithubRepositoryInfoModel =
-        with(githubRepositoryInfoResponse) {
+    override fun toModel(githubRepositoryInfoListResponse: List<GithubRepositoryInfoResponse>): List<GithubRepositoryInfoModel> =
+        githubRepositoryInfoListResponse.map {
             GithubRepositoryInfoModel(
-                name = name.orEmpty(),
-                htmlUrl = htmlUrl.orEmpty(),
-                description = description.orEmpty()
+                name = it.name.orEmpty(),
+                htmlUrl = it.htmlUrl.orEmpty(),
+                description = it.description.orEmpty()
             )
         }
 }

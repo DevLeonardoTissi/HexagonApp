@@ -5,8 +5,8 @@ import br.com.leonardo.webClient.models.model.GithubRepositoryInfoModel
 
 interface GithubUserInfoRemoteSource {
 
-    suspend fun getUserProfileInfo(): GitHubProfileInfoModel
+    suspend fun getUserProfileInfo(): Result<GitHubProfileInfoModel>
 
-    suspend fun getUserRepositoriesInfo(): List<GithubRepositoryInfoModel>
+    suspend fun getUserRepositoriesInfo(): Result<List<GithubRepositoryInfoModel>>
 
 }

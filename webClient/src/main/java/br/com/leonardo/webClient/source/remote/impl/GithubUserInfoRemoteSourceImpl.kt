@@ -1,5 +1,6 @@
 package br.com.leonardo.webClient.source.remote.impl
 
+import br.com.leonardo.webClient.exception.EmptyResponseException
 import br.com.leonardo.webClient.models.model.GitHubProfileInfoModel
 import br.com.leonardo.webClient.models.model.GithubRepositoryInfoModel
 import br.com.leonardo.webClient.services.GithubApiService
@@ -11,12 +12,36 @@ class GithubUserInfoRemoteSourceImpl(
     private val mapper: GithubUserInfoMapper
 ) : GithubUserInfoRemoteSource {
 
-    override suspend fun getUserProfileInfo(): GitHubProfileInfoModel =
-        mapper.toModel(githubProfileInfoResponse = githubProfileService.getUserProfileInfo())
+    override suspend fun getUserProfileInfo(): Result<GitHubProfileInfoModel> =
+        requestNotNullable {
+            githubProfileService.getUserProfileInfo()
+        }.map { response ->
+            mapper.toModel(githubProfileInfoResponse = response)
+        }
 
 
-    override suspend fun getUserRepositoriesInfo(): List<GithubRepositoryInfoModel> =
-        githubProfileService.getUserRepositoriesInfo()?.let {
-            it.map { responseItem -> mapper.toModel(githubRepositoryInfoResponse = responseItem) }
-        } ?: emptyList()
+    override suspend fun getUserRepositoriesInfo(): Result<List<GithubRepositoryInfoModel>> =
+        requestNotNullable {
+            githubProfileService.getUserRepositoriesInfo()
+        }.map { response ->
+            mapper.toModel(githubRepositoryInfoListResponse = response)
+        }
+}
+
+
+//RE = Response
+suspend fun <RE> requestNotNullable(
+    block: suspend () -> RE?,
+): Result<RE> {
+    return try {
+        val response = block()
+        if (response != null) {
+            Result.success(response)
+        } else {
+            Result.failure(EmptyResponseException())
+        }
+    } catch (e: Exception) {
+        Result.failure(e)
+    }
+
 }

@@ -6,15 +6,15 @@ import br.com.leonardo.webClient.repository.GithubUserRepository
 import br.com.leonardo.webClient.source.remote.GithubUserInfoRemoteSource
 
 class GithubUserRepositoryImpl(
-    private val githubUserInfoSource: GithubUserInfoRemoteSource
+    private val githubUserInfoRemoteSource: GithubUserInfoRemoteSource
 ) : GithubUserRepository {
 
-    override suspend fun getUserProfileInfo(): GitHubProfileInfoModel {
-        return githubUserInfoSource.getUserProfileInfo()
+    override suspend fun getUserProfileInfo(): Result<GitHubProfileInfoModel> {
+        return githubUserInfoRemoteSource.getUserProfileInfo()
     }
 
-    override suspend fun getUserRepositoriesInfo(): List<GithubRepositoryInfoModel> {
-        return githubUserInfoSource.getUserRepositoriesInfo()
+    override suspend fun getUserRepositoriesInfo(): Result<List<GithubRepositoryInfoModel>> {
+        return githubUserInfoRemoteSource.getUserRepositoriesInfo()
 
     }
 }

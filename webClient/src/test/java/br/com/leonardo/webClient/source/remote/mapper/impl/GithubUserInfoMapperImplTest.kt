@@ -1,14 +1,22 @@
 package br.com.leonardo.webClient.source.remote.mapper.impl
 
+import br.com.leonardo.webClient.mock.Mocks
 import br.com.leonardo.webClient.models.entity.response.GitHubProfileInfoResponse
 import br.com.leonardo.webClient.models.entity.response.GithubRepositoryInfoResponse
 import org.junit.Assert
+import org.junit.Before
 import org.junit.Test
+import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 class GithubUserInfoMapperImplTest {
 
-    private val githubUserInfoMapperImpl = GithubUserInfoMapperImpl()
+    private lateinit var githubUserInfoMapperImpl: GithubUserInfoMapperImpl
+
+    @Before
+    fun setup() {
+        githubUserInfoMapperImpl = GithubUserInfoMapperImpl()
+    }
 
     @Test
     fun `should return correct GitHubProfileInfoModel`() {
@@ -55,44 +63,44 @@ class GithubUserInfoMapperImplTest {
     }
 
     @Test
-    fun `should return correct GitHubProfileInfoModel when null entity`() {
-        val model = githubUserInfoMapperImpl.toModel(githubProfileInfoResponse = null)
-
-        assertTrue(model.avatarUrl.isEmpty())
-        assertTrue(model.htmlUrl.isEmpty())
-        assertTrue(model.name.isEmpty())
-        assertTrue(model.blog.isEmpty())
-        assertTrue(model.location.isEmpty())
-        assertTrue(model.bio.isEmpty())
-        Assert.assertNull(model.publicRepos)
-    }
-
-    @Test
     fun `should return correct GithubRepositoryInfoModel`() {
         val fieldHtmlURlExample = "https:htmlUrl.com"
         val fieldNameExample = "name"
         val fieldDescriptionExample = "description example"
 
-        val entity = GithubRepositoryInfoResponse(
-            htmlUrl = fieldHtmlURlExample,
-            name = fieldNameExample,
-            description = fieldDescriptionExample
+        val entityList = listOf(
+            GithubRepositoryInfoResponse(
+                htmlUrl = fieldHtmlURlExample,
+                name = fieldNameExample,
+                description = fieldDescriptionExample
+            )
         )
 
-        val model = githubUserInfoMapperImpl.toModel(githubRepositoryInfoResponse = entity)
-        Assert.assertEquals(fieldHtmlURlExample, model.htmlUrl)
-        Assert.assertEquals(fieldNameExample, model.name)
-        Assert.assertEquals(fieldDescriptionExample, model.description)
+        val modelList =
+            githubUserInfoMapperImpl.toModel(githubRepositoryInfoListResponse = entityList)
+        Assert.assertEquals(fieldHtmlURlExample, modelList.first().htmlUrl)
+        Assert.assertEquals(fieldNameExample, modelList.first().name)
+        Assert.assertEquals(fieldDescriptionExample, modelList.first().description)
     }
 
     @Test
     fun `should return correct GithubRepositoryInfoModel when null values`() {
-        val entity = GithubRepositoryInfoResponse()
+        val entity = listOf(GithubRepositoryInfoResponse())
 
-        val model = githubUserInfoMapperImpl.toModel(githubRepositoryInfoResponse = entity)
-        assertTrue(model.htmlUrl.isEmpty())
-        assertTrue(model.name.isEmpty())
-        assertTrue(model.description.isEmpty())
+        val model = githubUserInfoMapperImpl.toModel(githubRepositoryInfoListResponse = entity)
+        assertTrue(model.first().htmlUrl.isEmpty())
+        assertTrue(model.first().name.isEmpty())
+        assertTrue(model.first().description.isEmpty())
+    }
+
+    @Test
+    fun `should return correct GithubRepositoryInfoModelList`() {
+        val entityList = Mocks.repositoriesResponseList
+        val modelList = Mocks.repositoriesModelList
+
+        val modelMapperList =
+            githubUserInfoMapperImpl.toModel(githubRepositoryInfoListResponse = entityList)
+        assertEquals(modelMapperList, modelList)
     }
 }
 
