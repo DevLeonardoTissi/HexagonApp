@@ -29,19 +29,19 @@ class GithubUserInfoRemoteSourceImpl(
 }
 
 
-//RE = Response
+//RE = Response type
 suspend fun <RE> requestNotNullable(
     block: suspend () -> RE?,
 ): Result<RE> {
     return try {
         val response = block()
         if (response != null) {
-            Result.success(response)
+            Result.success(value = response)
         } else {
-            Result.failure(EmptyResponseException())
+            Result.failure(exception = EmptyResponseException())
         }
     } catch (e: Exception) {
-        Result.failure(e)
+        Result.failure(exception = e)
     }
 
 }
