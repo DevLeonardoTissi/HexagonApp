@@ -1,29 +1,41 @@
 package br.com.leonardo.hexagonapp.ui.screens.devProfile
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import br.com.leonardo.hexagonapp.utils.DevUiProfileState
+import br.com.leonardo.hexagonapp.ui.screens.utils.HexagonViewModel
+import br.com.leonardo.hexagonapp.utils.DevProfileScreenState
+import br.com.leonardo.webClient.models.model.GitHubProfileInfoModel
+import br.com.leonardo.webClient.models.model.GithubRepositoryInfoModel
 import br.com.leonardo.webClient.usecase.GetUserProfileInfoUseCase
 import br.com.leonardo.webClient.usecase.GetUserRepositoriesInfoUseCase
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 
 class DevProfileViewModel(
     private val getUserProfileInfoUseCase: GetUserProfileInfoUseCase,
     private val getUserRepositoriesInfoUseCase: GetUserRepositoriesInfoUseCase,
-) : ViewModel() {
+) : HexagonViewModel<
+        DevProfileActions,
+        DevProfileState,
+        DevProfileData,
+        DevProfileUIState,
+        DevProfileUIData
+        >() {
 
-    private val _uiState = MutableStateFlow(
-        DevProfileUiState(
-            state = DevUiProfileState.Loading,
-            onLoadUserInfo = ::loadUserInfo,
-            refreshingPerform = ::refreshingPerform,
-            changeVisibilityBottomSheetShareProfile = ::setVisibilityBottomSheetShareProfile
-        )
+    override val data = DevProfileData(
+        initialState = DevProfileState()
     )
-    val uiState = _uiState.asStateFlow()
+
+    override val uiData = DevProfileUIData(
+        initialState = DevProfileUIState(screenState = DevProfileScreenState.Loading)
+    )
+
+    override fun handleAction(action: DevProfileActions) {
+        when (action) {
+            is DevProfileActions.ChangeVisibilityBottomSheetShare -> setVisibilityBottomSheetShareProfile(
+                action.visibility
+            )
+
+            is DevProfileActions.Load -> loadUserInfo()
+            is DevProfileActions.Refresh -> refreshingPerform()
+        }
+    }
 
     init {
         loadUserInfo()
@@ -34,33 +46,53 @@ class DevProfileViewModel(
     }
 
     private fun setVisibilityBottomSheetShareProfile(show: Boolean) {
-        _uiState.update { it.copy(showBottomSheetShareProfile = show) }
+        uiData.updateUIState { it.copy(showBottomSheetShareProfile = show) }
     }
 
-    private fun loadUserInfo(isRefreshing: Boolean? = false) {
-        viewModelScope.launch {
-            if (isRefreshing == true) {
-                _uiState.update { it.copy(refreshing = true) }
-            } else {
-                _uiState.update { it.copy(state = DevUiProfileState.Loading) }
-            }
+    fun loadUserInfo(isRefreshing: Boolean? = false) {
+        if (isRefreshing == true) uiData.refresh(true) else uiData.load()
+        getUserInfo()
+    }
 
-            kotlin.runCatching {
-                _uiState.value.copy(
-                    userProfile = getUserProfileInfoUseCase(),
-                    repositories = getUserRepositoriesInfoUseCase(),
-                    state = DevUiProfileState.Success,
-                    refreshing = false
-                )
+    private fun getUserInfo(
+    ) {
+        executeBlock(
+            block = getUserProfileInfoUseCase::invoke,
+            onSuccess = { userProfile ->
+                onSuccessGetUserInfo(userProfile)
+            }, onError = {
+                onErrorGetUserInfo()
+            })
+    }
 
-            }.onSuccess { newState ->
-                _uiState.value = newState
-            }.onFailure {
-                _uiState.value = _uiState.value.copy(
-                    state = DevUiProfileState.Error,
-                    refreshing = false
-                )
-            }
-        }
+    private fun onSuccessGetUserInfo(userInfo: GitHubProfileInfoModel) {
+        data.updateUserProfile(userInfo)
+        getUserRepositories()
+    }
+
+    private fun onErrorGetUserInfo() {
+        uiData.error()
+    }
+
+    private fun getUserRepositories(
+    ) {
+        executeBlock(
+            block = getUserRepositoriesInfoUseCase::invoke,
+            onSuccess = { userRepositories ->
+                onSuccessGetUserRepositories(userRepositories)
+            },
+            onError = {
+                onErrorGetUserRepositories()
+            })
+    }
+
+    private fun onSuccessGetUserRepositories(repositories: List<GithubRepositoryInfoModel>) {
+        data.updateUserRepositories(repositories)
+        uiData.refresh(false)
+        uiData.success()
+    }
+
+    private fun onErrorGetUserRepositories() {
+        uiData.error()
     }
 }

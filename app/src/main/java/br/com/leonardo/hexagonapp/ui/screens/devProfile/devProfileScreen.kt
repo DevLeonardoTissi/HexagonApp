@@ -40,6 +40,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -48,33 +49,37 @@ import br.com.leonardo.hexagonapp.ui.components.DevProfileErrorScreen
 import br.com.leonardo.hexagonapp.ui.components.DevProfileShimmerScreen
 import br.com.leonardo.hexagonapp.ui.components.ModalBottomSheetShareDevProfile
 import br.com.leonardo.hexagonapp.ui.components.SubComposeAsyncImage
-import br.com.leonardo.hexagonapp.utils.DevUiProfileState
+import br.com.leonardo.hexagonapp.utils.DevProfileScreenState
 import br.com.leonardo.hexagonapp.utils.extensions.context.copyToClipboard
 import br.com.leonardo.hexagonapp.utils.extensions.context.goToUri
 import br.com.leonardo.hexagonapp.utils.extensions.context.shareSheetText
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DevProfileScreen(uiState: DevProfileUiState) {
+fun DevProfileScreen(state: DevProfileState, uiState: DevProfileUIState, onAction: (action: DevProfileActions) -> Unit) {
 
     val context = LocalContext.current
 
-    when (uiState.state) {
-        DevUiProfileState.Loading -> {
+    when (uiState.screenState) {
+        DevProfileScreenState.Loading -> {
             DevProfileShimmerScreen()
         }
 
-        DevUiProfileState.Error -> {
+        DevProfileScreenState.Error -> {
             DevProfileErrorScreen(onTryAgain = {
-                uiState.onLoadUserInfo()
+                onAction(DevProfileActions.Load)
             })
         }
 
-        DevUiProfileState.Success -> {
+        DevProfileScreenState.Success -> {
 
             PullToRefreshBox(
                 isRefreshing = uiState.refreshing,
-                onRefresh = { uiState.refreshingPerform() },
+                onRefresh = {
+                    onAction(
+                        DevProfileActions.Refresh
+                    )
+                },
                 modifier = Modifier.fillMaxSize()
             ) {
 
@@ -85,11 +90,11 @@ fun DevProfileScreen(uiState: DevProfileUiState) {
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
 
-                    uiState.userProfile?.let { userProfile ->
+                    state.userProfile?.let { userProfile ->
                         Box(modifier = Modifier.fillMaxWidth()) {
                             SubComposeAsyncImage(
                                 model = userProfile.avatarUrl,
-                                description = context.getString(R.string.devProfileImageDescription),
+                                description = stringResource(R.string.devProfileImageDescription),
                                 modifier = Modifier
                                     .size(200.dp)
                                     .offset(y = 50.dp)
@@ -113,7 +118,13 @@ fun DevProfileScreen(uiState: DevProfileUiState) {
                             )
 
                             IconButton(
-                                onClick = { uiState.changeVisibilityBottomSheetShareProfile(true) },
+                                onClick = {
+                                    onAction(
+                                        DevProfileActions.ChangeVisibilityBottomSheetShare(
+                                            true
+                                        )
+                                    )
+                                },
                                 modifier = Modifier
                                     .padding(horizontal = 16.dp)
                                     .align(Alignment.BottomCenter)
@@ -132,7 +143,7 @@ fun DevProfileScreen(uiState: DevProfileUiState) {
                             ) {
                                 Icon(
                                     Icons.Default.Share,
-                                    contentDescription = context.getString(R.string.shareProfileIconDescription),
+                                    contentDescription = stringResource(R.string.shareProfileIconDescription),
                                     tint = Color.White
                                 )
                             }
@@ -142,9 +153,9 @@ fun DevProfileScreen(uiState: DevProfileUiState) {
 
 
                     Spacer(modifier = Modifier.height(100.dp))
-                    Text(text = context.getString(R.string.repositoriesTitle), fontSize = 20.sp)
+                    Text(text = stringResource(R.string.repositoriesTitle), fontSize = 20.sp)
                     LazyRow {
-                        uiState.repositories?.let { repositoriesNonNull ->
+                        state.repositories?.let { repositoriesNonNull ->
                             items(repositoriesNonNull) { repository ->
                                 Surface(
                                     color = MaterialTheme.colorScheme.primary,
@@ -195,7 +206,7 @@ fun DevProfileScreen(uiState: DevProfileUiState) {
                                             Spacer(modifier = Modifier.height(20.dp))
                                             repository.htmlUrl?.let {
                                                 Button(onClick = { context.goToUri(it) }) {
-                                                    Text(text = context.getString(R.string.repositoryURItext))
+                                                    Text(text = stringResource(R.string.repositoryURItext))
                                                 }
                                             }
                                         }
@@ -208,8 +219,14 @@ fun DevProfileScreen(uiState: DevProfileUiState) {
 
                 if (uiState.showBottomSheetShareProfile) {
                     ModalBottomSheetShareDevProfile(
-                        qrCodeText = context.getString(R.string.LinkedinProfileUrl),
-                        onDismissRequest = { uiState.changeVisibilityBottomSheetShareProfile(false) },
+                        qrCodeText = stringResource(R.string.LinkedinProfileUrl),
+                        onDismissRequest = {
+                            onAction(
+                                DevProfileActions.ChangeVisibilityBottomSheetShare(
+                                    false
+                                )
+                            )
+                        },
                         onclickShareButton = {
                             with(context) {
                                 shareSheetText(

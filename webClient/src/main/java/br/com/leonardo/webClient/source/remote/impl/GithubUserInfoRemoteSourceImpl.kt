@@ -27,21 +27,3 @@ class GithubUserInfoRemoteSourceImpl(
             mapper.toModel(githubRepositoryInfoListResponse = response)
         }
 }
-
-
-//RE = Response type
-suspend fun <RE> requestNotNullable(
-    block: suspend () -> RE?,
-): Result<RE> {
-    return try {
-        val response = block()
-        if (response != null) {
-            Result.success(value = response)
-        } else {
-            Result.failure(exception = EmptyResponseException())
-        }
-    } catch (e: Exception) {
-        Result.failure(exception = e)
-    }
-
-}
