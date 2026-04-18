@@ -62,7 +62,7 @@ val webClientModule = module {
     single<GithubUserInfoMapper> { GithubUserInfoMapperImpl() }
     single<GithubUserInfoRemoteSource> { GithubUserInfoRemoteSourceImpl(get(), get()) }
     single<GithubUserRepository> { GithubUserRepositoryImpl(get()) }
-    single<GetUserProfileInfoUseCase> { GetUserProfileInfoUseCaseImpl(get()) }
-    single<GetUserRepositoriesInfoUseCase> { GetUserRepositoriesInfoUseCaseImpl(get()) }
+    factory<GetUserProfileInfoUseCase> { GetUserProfileInfoUseCaseImpl(get()) }
+    factory<GetUserRepositoriesInfoUseCase> { GetUserRepositoriesInfoUseCaseImpl(get()) }
     single<NetworkMonitor> { NetworkMonitorImpl(get<ConnectivityManager>()) }
 }

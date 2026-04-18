@@ -1,6 +1,6 @@
 package br.com.leonardo.hexagonapp.ui.screens.devProfile
 
-import br.com.leonardo.hexagonapp.ui.screens.utils.HexagonState
+import br.com.leonardo.ui.data.state.HexagonState
 import br.com.leonardo.webClient.models.model.GitHubProfileInfoModel
 import br.com.leonardo.webClient.models.model.GithubRepositoryInfoModel
 

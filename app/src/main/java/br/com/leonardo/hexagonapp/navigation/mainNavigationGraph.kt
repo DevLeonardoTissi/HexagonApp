@@ -10,9 +10,9 @@ object MainGraph
 
 fun NavGraphBuilder.mainNavigationGraph(navController: NavController) {
     navigation<MainGraph>(startDestination = HomeRoute) {
-        homeScreen(navController)
+        activesScreen(navController)
         formScreen(navController)
-        inactiveScreen(navController)
+        inactivesScreen(navController)
         devProfileScreen()
     }
 }

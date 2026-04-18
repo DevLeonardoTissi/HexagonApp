@@ -63,6 +63,9 @@ dependencies {
     //localData module
     implementation(project(":localData"))
 
+    //ui
+    implementation(project(":ui"))
+
     //Kotlin Serialization (for navigation version)
     implementation(libs.kotlinx.serialization.json)
 

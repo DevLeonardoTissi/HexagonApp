@@ -67,6 +67,7 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 import kotlinx.coroutines.launch
+import androidx.compose.ui.res.stringResource
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
@@ -102,6 +103,7 @@ fun MainScreen(
         }
     }
 
+    @Composable
     fun topAppBarTitle(): String {
         val titleResId = when (appUiState.currentRoute) {
             AppRoute.Form -> R.string.topAppBarFormTitle
@@ -109,7 +111,7 @@ fun MainScreen(
             AppRoute.DevProfile -> R.string.topAppBarDevProfileTitle
             AppRoute.Home -> R.string.topAppBarActiveTitle
         }
-        return context.getString(titleResId)
+        return stringResource(titleResId)
     }
 
     if (appUiState.showBottomSheetDialogInfoAndConfig) {
@@ -140,7 +142,7 @@ fun MainScreen(
                     ) {
                         Icon(
                             Icons.Default.Close,
-                            contentDescription = context.getString(R.string.iconCloseForCloseMenuDrawer)
+                            contentDescription = stringResource(R.string.iconCloseForCloseMenuDrawer)
                         )
                     }
                 }
@@ -150,10 +152,10 @@ fun MainScreen(
                     icon = {
                         IconSecondaryColor(
                             imageVector = Icons.Default.Home,
-                            contentDescription = context.getString(R.string.iconHomeForNavigateToHomeScreenMenuDrawer)
+                            contentDescription = stringResource(R.string.iconHomeForNavigateToHomeScreenMenuDrawer)
                         )
                     },
-                    label = { Text(context.getString(R.string.menuDrawerHomeOption)) },
+                    label = { Text(stringResource(R.string.menuDrawerHomeOption)) },
                     selected = appUiState.isHomeScreen(),
                     onClick = {
                         navController.navigate(HomeRoute, navOptions {
@@ -171,10 +173,10 @@ fun MainScreen(
                     icon = {
                         IconSecondaryColor(
                             Icons.Default.AddCircle,
-                            contentDescription = context.getString(R.string.iconAddForNavigateToFormScreenMenuDrawer)
+                            contentDescription = stringResource(R.string.iconAddForNavigateToFormScreenMenuDrawer)
                         )
                     },
-                    label = { Text(context.getString(R.string.menuDrawerInsertOption)) },
+                    label = { Text(stringResource(R.string.menuDrawerInsertOption)) },
                     selected = appUiState.isFormScreen(),
                     onClick = {
                         navController.navigate(FormRoute())
@@ -185,10 +187,10 @@ fun MainScreen(
                     icon = {
                         IconSecondaryColor(
                             Icons.Default.AccountCircle,
-                            contentDescription = context.getString(R.string.iconForNavigateToInactiveScreenMenuDrawer)
+                            contentDescription = stringResource(R.string.iconForNavigateToInactiveScreenMenuDrawer)
                         )
                     },
-                    label = { Text(context.getString(R.string.menuDrawerInactiveOption)) },
+                    label = { Text(stringResource(R.string.menuDrawerInactiveOption)) },
                     selected = appUiState.isInactiveScreen(),
                     onClick = {
                         navController.navigate(InactiveRoute)
@@ -199,10 +201,10 @@ fun MainScreen(
                     icon = {
                         IconSecondaryColor(
                             Icons.Default.Face,
-                            contentDescription = context.getString(R.string.iconForNavigateToDevProfileScreenMenuDrawer)
+                            contentDescription = stringResource(R.string.iconForNavigateToDevProfileScreenMenuDrawer)
                         )
                     },
-                    label = { Text(context.getString(R.string.menuDrawerDevProfileOption)) },
+                    label = { Text(stringResource(R.string.menuDrawerDevProfileOption)) },
                     selected = appUiState.isDevProfileScreen(),
                     onClick = {
                         navController.navigate(DevProfileRoute)
@@ -215,10 +217,10 @@ fun MainScreen(
                     icon = {
                         IconSecondaryColor(
                             Icons.Default.Info,
-                            contentDescription = context.getString(R.string.iconForHelpMenuDrawer)
+                            contentDescription = stringResource(R.string.iconForHelpMenuDrawer)
                         )
                     },
-                    label = { Text(context.getString(R.string.menuDrawerHelpOption)) },
+                    label = { Text(stringResource(R.string.menuDrawerHelpOption)) },
                     selected = false,
                     onClick = {
                         showSnackBar()
@@ -232,7 +234,7 @@ fun MainScreen(
                     FloatingActionButton(onClick = { navController.navigate(FormRoute()) }) {
                         Icon(
                             Icons.Default.Add,
-                            contentDescription = context.getString(R.string.iconAddForNavigateToFormFloatingButton)
+                            contentDescription = stringResource(R.string.iconAddForNavigateToFormFloatingButton)
                         )
                     }
                 }
@@ -259,7 +261,7 @@ fun MainScreen(
                         }) {
                             Icon(
                                 Icons.Default.MoreVert,
-                                contentDescription = context.getString(R.string.iconMoreForInfoAndConfiguration)
+                                contentDescription = stringResource(R.string.iconMoreForInfoAndConfiguration)
                             )
                         }
                     },
@@ -275,12 +277,12 @@ fun MainScreen(
                             if (appUiState.isHomeScreen()) {
                                 Icon(
                                     Icons.AutoMirrored.Filled.List,
-                                    contentDescription = context.getString(R.string.iconListForOpenMenuDrawer)
+                                    contentDescription = stringResource(R.string.iconListForOpenMenuDrawer)
                                 )
                             } else {
                                 Icon(
                                     Icons.AutoMirrored.Filled.ArrowBack,
-                                    contentDescription = context.getString(R.string.iconBackForNavigateUp)
+                                    contentDescription = stringResource(R.string.iconBackForNavigateUp)
                                 )
                             }
                         }

@@ -1,7 +1,7 @@
 package br.com.leonardo.hexagonapp.ui.screens.devProfile
 
-import br.com.leonardo.hexagonapp.ui.screens.utils.HexagonViewModel
 import br.com.leonardo.hexagonapp.utils.DevProfileScreenState
+import br.com.leonardo.ui.viewmodel.HexagonViewModel
 import br.com.leonardo.webClient.models.model.GitHubProfileInfoModel
 import br.com.leonardo.webClient.models.model.GithubRepositoryInfoModel
 import br.com.leonardo.webClient.usecase.GetUserProfileInfoUseCase

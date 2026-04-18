@@ -1,6 +1,6 @@
 package br.com.leonardo.hexagonapp.ui.screens.devProfile
 
-import br.com.leonardo.hexagonapp.ui.screens.utils.HexagonAction
+import br.com.leonardo.ui.action.HexagonAction
 
 sealed class DevProfileActions : HexagonAction() {
     object Load: DevProfileActions()

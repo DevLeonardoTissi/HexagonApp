@@ -8,8 +8,8 @@ import br.com.leonardo.hexagonapp.usecase.impl.NotificationUseCaseImpl
 import br.com.leonardo.hexagonapp.ui.activity.AppViewModel
 import br.com.leonardo.hexagonapp.ui.screens.devProfile.DevProfileViewModel
 import br.com.leonardo.hexagonapp.ui.screens.form.PersonalProfileFormViewModel
-import br.com.leonardo.hexagonapp.ui.screens.home.HomeScreenViewModel
-import br.com.leonardo.hexagonapp.ui.screens.inactive.InactiveProfilesViewModel
+import br.com.leonardo.hexagonapp.ui.screens.actives.ActivesProfilesViewModel
+import br.com.leonardo.hexagonapp.ui.screens.inactives.InactivesProfilesViewModel
 import br.com.leonardo.hexagonapp.usecase.BatteryMonitorUseCase
 import br.com.leonardo.hexagonapp.usecase.BatteryMonitorUseCaseImpl
 import br.com.leonardo.hexagonapp.usecase.CheckNotificationPermissionUseCase
@@ -54,9 +54,9 @@ val appUseCaseModules = module {
 
 
 val viewModelModule = module {
-    viewModelOf(::HomeScreenViewModel)
+    viewModelOf(::ActivesProfilesViewModel)
     viewModelOf(::PersonalProfileFormViewModel)
-    viewModelOf(::InactiveProfilesViewModel)
+    viewModelOf(::InactivesProfilesViewModel)
     viewModelOf(::AppViewModel)
     viewModelOf(::DevProfileViewModel)
 
