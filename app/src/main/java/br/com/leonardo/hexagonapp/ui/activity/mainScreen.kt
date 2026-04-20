@@ -47,19 +47,20 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.navOptions
 import br.com.leonardo.hexagonapp.R
-import br.com.leonardo.hexagonapp.navigation.DevProfileRoute
-import br.com.leonardo.hexagonapp.navigation.FormRoute
 import br.com.leonardo.hexagonapp.navigation.HexagonAppNavHost
-import br.com.leonardo.hexagonapp.navigation.HomeRoute
-import br.com.leonardo.hexagonapp.navigation.InactiveRoute
 import br.com.leonardo.hexagonapp.ui.APP_NAME
 import br.com.leonardo.hexagonapp.ui.components.IconSecondaryColor
 import br.com.leonardo.hexagonapp.ui.components.ModalBottomSheetMore
+import br.com.leonardo.hexagonapp.ui.screens.actives.ActivesProfilesScreen
+import br.com.leonardo.hexagonapp.ui.screens.devProfile.DevProfileScreen
+import br.com.leonardo.hexagonapp.ui.screens.form.PersonalProfileFormScreen
+import br.com.leonardo.hexagonapp.ui.screens.inactives.InactivesProfilesScreen
 import br.com.leonardo.hexagonapp.utils.AppRoute
 import br.com.leonardo.webClient.utils.NetworkState
 import com.airbnb.lottie.compose.LottieAnimation
@@ -67,7 +68,6 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 import kotlinx.coroutines.launch
-import androidx.compose.ui.res.stringResource
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
@@ -158,9 +158,9 @@ fun MainScreen(
                     label = { Text(stringResource(R.string.menuDrawerHomeOption)) },
                     selected = appUiState.isHomeScreen(),
                     onClick = {
-                        navController.navigate(HomeRoute, navOptions {
+                        navController.navigate(ActivesProfilesScreen.HomeRoute, navOptions {
                             popUpTo(
-                                HomeRoute
+                                ActivesProfilesScreen.HomeRoute
                             ) {
                                 inclusive = true
                             }
@@ -179,7 +179,7 @@ fun MainScreen(
                     label = { Text(stringResource(R.string.menuDrawerInsertOption)) },
                     selected = appUiState.isFormScreen(),
                     onClick = {
-                        navController.navigate(FormRoute())
+                        navController.navigate(PersonalProfileFormScreen.FormRoute())
                         onUpdateDrawerState()
                     })
 
@@ -193,7 +193,7 @@ fun MainScreen(
                     label = { Text(stringResource(R.string.menuDrawerInactiveOption)) },
                     selected = appUiState.isInactiveScreen(),
                     onClick = {
-                        navController.navigate(InactiveRoute)
+                        navController.navigate(InactivesProfilesScreen.InactiveRoute)
                         onUpdateDrawerState()
                     })
 
@@ -207,7 +207,7 @@ fun MainScreen(
                     label = { Text(stringResource(R.string.menuDrawerDevProfileOption)) },
                     selected = appUiState.isDevProfileScreen(),
                     onClick = {
-                        navController.navigate(DevProfileRoute)
+                        navController.navigate(DevProfileScreen.DevProfileRoute)
                         onUpdateDrawerState()
                     })
 
@@ -231,7 +231,8 @@ fun MainScreen(
 
             Scaffold(floatingActionButton = {
                 if (appUiState.showAddFloatingActionButton) {
-                    FloatingActionButton(onClick = { navController.navigate(FormRoute()) }) {
+                    FloatingActionButton(onClick = { navController.navigate(
+                        PersonalProfileFormScreen.FormRoute()) }) {
                         Icon(
                             Icons.Default.Add,
                             contentDescription = stringResource(R.string.iconAddForNavigateToFormFloatingButton)

@@ -18,6 +18,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.rememberNavController
 import br.com.leonardo.hexagonapp.R
 import br.com.leonardo.hexagonapp.broadcasReceiver.BatteryStatusBroadcastReceiver
@@ -48,7 +49,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
 
-            val appUiState by appViewModel.uiState.collectAsState()
+            val appUiState by appViewModel.uiState.collectAsStateWithLifecycle()
             val navController = rememberNavController()
             val coroutineScope = rememberCoroutineScope()
 

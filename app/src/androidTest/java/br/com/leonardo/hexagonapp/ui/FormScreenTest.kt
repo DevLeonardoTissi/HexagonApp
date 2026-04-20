@@ -15,7 +15,7 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.test.printToLog
 import br.com.leonardo.hexagonapp.ui.activity.MainActivity
-import br.com.leonardo.hexagonapp.ui.screens.form.PersonalProfileFormScreen
+import br.com.leonardo.hexagonapp.ui.screens.form.PersonalProfileFormScreenn
 import br.com.leonardo.hexagonapp.ui.screens.form.PersonalProfileFormUiState
 import br.com.leonardo.hexagonapp.ui.screens.form.PersonalProfileFormViewModel
 import br.com.leonardo.hexagonapp.ui.theme.HexagonAppTheme
@@ -44,7 +44,7 @@ class FormScreenTest {
             val uiState: PersonalProfileFormUiState by viewModel.uiState.collectAsState()
             HexagonAppTheme {
                 Surface {
-                    PersonalProfileFormScreen(
+                    PersonalProfileFormScreenn(
                         uiState = uiState,
                         onPopBackStack = {}
                     )

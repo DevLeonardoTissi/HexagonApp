@@ -3,6 +3,9 @@ plugins {
 
     //compose compiler
     alias(libs.plugins.compose.compiler)
+
+    //Kotlin Serialization (for navigation version)
+    kotlin("plugin.serialization") version "2.3.10"
 }
 
 android {
@@ -48,6 +51,13 @@ dependencies {
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
+
+
+    //Kotlin Serialization (for navigation version)
+    implementation(libs.kotlinx.serialization.json)
+
+    //Navigation for compose
+    implementation(libs.androidx.navigation.compose)
 
     implementation(libs.androidx.material3)
     testImplementation(libs.junit)

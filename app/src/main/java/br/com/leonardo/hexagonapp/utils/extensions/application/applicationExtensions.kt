@@ -3,6 +3,7 @@ package br.com.leonardo.hexagonapp.utils.extensions.application
 import android.app.Application
 import br.com.leonardo.hexagonapp.di.modules.appUseCaseModules
 import br.com.leonardo.hexagonapp.di.modules.notificationModule
+import br.com.leonardo.hexagonapp.di.modules.screensModule
 import br.com.leonardo.hexagonapp.di.modules.utilsModule
 import br.com.leonardo.hexagonapp.di.modules.viewModelModule
 import br.com.leonardo.localData.di.modules.localDataModule
@@ -17,7 +18,8 @@ fun getAppModules(): List<Module> = listOf(
     webClientModule,
     notificationModule,
     utilsModule,
-    appUseCaseModules
+    appUseCaseModules,
+    screensModule
 )
 
 fun Application.startKoinModules() {
