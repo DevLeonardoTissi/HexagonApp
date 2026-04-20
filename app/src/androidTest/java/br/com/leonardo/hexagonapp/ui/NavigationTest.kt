@@ -11,6 +11,7 @@ import androidx.compose.ui.test.performClick
 import androidx.navigation.compose.ComposeNavigator
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.testing.TestNavHostController
+import br.com.leonardo.hexagonapp.navigation.HexagonNavigatorImpl
 import br.com.leonardo.hexagonapp.ui.activity.AppViewModel
 import br.com.leonardo.hexagonapp.ui.activity.MainScreen
 import br.com.leonardo.hexagonapp.ui.theme.HexagonAppTheme
@@ -26,6 +27,8 @@ class NavigationTest {
     val composeTestRule = createComposeRule()
     private lateinit var navController: TestNavHostController
 
+   val controller = HexagonNavigatorImpl()
+
     @Before
     fun setupAppNavHost() {
         composeTestRule.setContent {
@@ -40,6 +43,7 @@ class NavigationTest {
 
             HexagonAppTheme(darkTheme = appUiState.isDarkMode) {
                 MainScreen(
+                    navigator = controller,
                     navController = navController,
                     appUiState = appUiState,
                     onCurrentRouteChange = { appUiState.onCurrentRouteChange(it) },
