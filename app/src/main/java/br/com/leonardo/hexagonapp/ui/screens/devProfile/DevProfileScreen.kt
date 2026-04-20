@@ -38,7 +38,7 @@ class DevProfileScreen : HexagonScreen {
                 contentProvider = contentProvider,
                 modifier = Modifier.fillMaxSize(),
                 onActions = { action ->
-                    (action as? DevProfileActions)?.let { viewModel.handleAction(it) }
+                    (action as? DevProfileActions)?.let { viewModel.executeAction(it) }
                 }
             )
     }

@@ -54,6 +54,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.navOptions
 import br.com.leonardo.hexagonapp.R
 import br.com.leonardo.hexagonapp.navigation.HexagonAppNavHost
+import br.com.leonardo.hexagonapp.navigation.HexagonNavigatorImpl
 import br.com.leonardo.hexagonapp.ui.APP_NAME
 import br.com.leonardo.hexagonapp.ui.components.IconSecondaryColor
 import br.com.leonardo.hexagonapp.ui.components.ModalBottomSheetMore
@@ -62,6 +63,7 @@ import br.com.leonardo.hexagonapp.ui.screens.devProfile.DevProfileScreen
 import br.com.leonardo.hexagonapp.ui.screens.form.PersonalProfileFormScreen
 import br.com.leonardo.hexagonapp.ui.screens.inactives.InactivesProfilesScreen
 import br.com.leonardo.hexagonapp.utils.AppRoute
+import br.com.leonardo.ui.navigator.HexagonNavigator
 import br.com.leonardo.webClient.utils.NetworkState
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
@@ -72,6 +74,7 @@ import kotlinx.coroutines.launch
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 fun MainScreen(
+    navigator: HexagonNavigator,
     navController: NavHostController,
     appUiState: AppUiState,
     onCurrentRouteChange: (String) -> Unit,
@@ -158,7 +161,7 @@ fun MainScreen(
                     label = { Text(stringResource(R.string.menuDrawerHomeOption)) },
                     selected = appUiState.isHomeScreen(),
                     onClick = {
-                        navController.navigate(ActivesProfilesScreen.HomeRoute, navOptions {
+                        navigator.navigateTo(ActivesProfilesScreen.HomeRoute, navOptions {
                             popUpTo(
                                 ActivesProfilesScreen.HomeRoute
                             ) {
@@ -179,7 +182,7 @@ fun MainScreen(
                     label = { Text(stringResource(R.string.menuDrawerInsertOption)) },
                     selected = appUiState.isFormScreen(),
                     onClick = {
-                        navController.navigate(PersonalProfileFormScreen.FormRoute())
+                        navigator.navigateTo(PersonalProfileFormScreen.FormRoute())
                         onUpdateDrawerState()
                     })
 
@@ -193,7 +196,7 @@ fun MainScreen(
                     label = { Text(stringResource(R.string.menuDrawerInactiveOption)) },
                     selected = appUiState.isInactiveScreen(),
                     onClick = {
-                        navController.navigate(InactivesProfilesScreen.InactiveRoute)
+                        navigator.navigateTo(InactivesProfilesScreen.InactiveRoute)
                         onUpdateDrawerState()
                     })
 
@@ -207,7 +210,7 @@ fun MainScreen(
                     label = { Text(stringResource(R.string.menuDrawerDevProfileOption)) },
                     selected = appUiState.isDevProfileScreen(),
                     onClick = {
-                        navController.navigate(DevProfileScreen.DevProfileRoute)
+                        navigator.navigateTo(DevProfileScreen.DevProfileRoute)
                         onUpdateDrawerState()
                     })
 
@@ -231,7 +234,7 @@ fun MainScreen(
 
             Scaffold(floatingActionButton = {
                 if (appUiState.showAddFloatingActionButton) {
-                    FloatingActionButton(onClick = { navController.navigate(
+                    FloatingActionButton(onClick = { navigator.navigateTo(
                         PersonalProfileFormScreen.FormRoute()) }) {
                         Icon(
                             Icons.Default.Add,
@@ -272,7 +275,7 @@ fun MainScreen(
                             if (appUiState.isHomeScreen()) {
                                 onUpdateDrawerState()
                             } else {
-                                navController.navigateUp()
+                                navigator.popUp()
                             }
                         }) {
                             if (appUiState.isHomeScreen()) {

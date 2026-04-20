@@ -40,7 +40,7 @@ class InactivesProfilesScreen : HexagonScreen {
             modifier = Modifier.fillMaxSize(),
             onActions = { inactivesActions ->
                 (inactivesActions as? InactivesProfilesActions)?.let {
-                    viewModel.handleAction(it)
+                    viewModel.executeAction(it)
                 }
             }
         )

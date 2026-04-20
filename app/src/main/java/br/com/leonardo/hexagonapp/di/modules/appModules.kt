@@ -2,6 +2,7 @@ package br.com.leonardo.hexagonapp.di.modules
 
 import android.app.NotificationManager
 import android.content.Context
+import br.com.leonardo.hexagonapp.navigation.HexagonNavigatorImpl
 import br.com.leonardo.hexagonapp.ui.screens.devProfile.DevProfileScreen
 import br.com.leonardo.hexagonapp.notification.CreateNotificationChannel
 import br.com.leonardo.hexagonapp.usecase.NotificationUseCase
@@ -20,6 +21,7 @@ import br.com.leonardo.hexagonapp.usecase.CheckNotificationPermissionUseCase
 import br.com.leonardo.hexagonapp.usecase.impl.CheckNotificationPermissionUseCaseImpl
 import br.com.leonardo.hexagonapp.utils.AndroidPermissionChecker
 import br.com.leonardo.hexagonapp.utils.AndroidPermissionCheckerImpl
+import br.com.leonardo.ui.navigator.HexagonNavigator
 import br.com.leonardo.ui.screen.HexagonScreen
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.bind
@@ -71,12 +73,17 @@ val viewModelModule = module {
 }
 
 val screensModule = module {
-    registerScreen{ DevProfileScreen() }
-    registerScreen{ ActivesProfilesScreen() }
-    registerScreen{ InactivesProfilesScreen() }
-    registerScreen{ PersonalProfileFormScreen() }
+    registerScreen { DevProfileScreen() }
+    registerScreen { ActivesProfilesScreen() }
+    registerScreen { InactivesProfilesScreen() }
+    registerScreen { PersonalProfileFormScreen() }
 
 }
+
+val navigatorModule = module {
+    single<HexagonNavigator> { HexagonNavigatorImpl() }
+}
+
 
 inline fun <reified T : HexagonScreen> Module.registerScreen(crossinline instance: () -> T) {
     single(named(T::class.java.name)) { instance() } bind HexagonScreen::class

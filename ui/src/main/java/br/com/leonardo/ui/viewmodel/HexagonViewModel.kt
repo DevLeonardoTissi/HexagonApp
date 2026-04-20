@@ -7,10 +7,15 @@ import br.com.leonardo.ui.data.data.HexagonData
 import br.com.leonardo.ui.data.state.HexagonState
 import br.com.leonardo.ui.data.uidata.HexagonUIData
 import br.com.leonardo.ui.data.uistate.HexagonUIState
+import br.com.leonardo.ui.navigator.HexagonNavigator
 import kotlinx.coroutines.launch
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 abstract class HexagonViewModel<A : HexagonAction, S : HexagonState, D : HexagonData<S>, UI : HexagonUIState, UID : HexagonUIData<UI>> :
-    ViewModel() {
+   ViewModel(), KoinComponent {
+
+    val navigator : HexagonNavigator by inject()
 
     abstract val data: D
     abstract val uiData: UID

@@ -16,7 +16,7 @@ class InactivesProfilesListSectionView : HexagonSectionView<InactivesProfilesLis
         PersonalProfileList(
             list = render.inactivesProfilesList,
             onCLickItem = { profileId ->
-                // onClickItem(profileId)
+                onActions(InactivesProfilesActions.ClickProfile(profileId))
             }, onDelete = { profile ->
                 onActions(InactivesProfilesActions.DeleteProfile(profile))
             }, onUpdate = { profile -> onActions(InactivesProfilesActions.UpdateProfile(profile)) }

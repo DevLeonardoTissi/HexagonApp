@@ -16,7 +16,7 @@ class ActivesProfilesListSectionView : HexagonSectionView<ActivesProfilesListSec
         PersonalProfileList(
             list = render.activesProfilesList,
             onCLickItem = { profileId ->
-                // onClickItem(profileId)
+                onActions(ActivesProfilesActions.ClickProfile(profileId))
             }, onDelete = { profile ->
                 onActions(ActivesProfilesActions.DeleteProfile(profile))
             }, onUpdate = { profile -> onActions(ActivesProfilesActions.UpdateProfile(profile)) }

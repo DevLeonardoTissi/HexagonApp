@@ -5,11 +5,14 @@ import br.com.leonardo.localData.model.PersonalProfile
 import br.com.leonardo.localData.usecase.DeleteProfileUseCase
 import br.com.leonardo.localData.usecase.GetInactivesProfilesUseCase
 import br.com.leonardo.localData.usecase.UpdateProfileUseCase
+import br.com.leonardo.ui.navigator.HexagonNavigator
 import br.com.leonardo.ui.viewmodel.HexagonViewModel
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import org.koin.core.component.inject
+import kotlin.getValue
 
 class InactivesProfilesViewModel(
     private val getInactivesProfilesUseCase: GetInactivesProfilesUseCase,

@@ -52,6 +52,8 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
 
+    implementation(libs.koin.androidx.compose)
+
 
     //Kotlin Serialization (for navigation version)
     implementation(libs.kotlinx.serialization.json)
