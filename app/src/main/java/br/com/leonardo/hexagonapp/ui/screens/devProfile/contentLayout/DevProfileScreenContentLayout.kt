@@ -18,10 +18,9 @@ import br.com.leonardo.ui.content.layout.content.HexagonSwipeRefreshContentLayou
 class DevProfileScreenContentLayout(
     override val contentLayout: HexagonBaseContentLayout<DevProfileState, DevProfileUIState> = HexagonColumnContentLayout(
         horizontalAlignment = Alignment.CenterHorizontally
-    ),
-    override val onRefreshAction: HexagonAction = DevProfileActions.Refresh
-
+    )
 ) : HexagonSwipeRefreshContentLayout<DevProfileState, DevProfileUIState>(contentLayout = contentLayout) {
+    override val onRefreshAction: HexagonAction = DevProfileActions.Refresh
 
     @Composable
     override fun Modifier.contentSwipeModifier(

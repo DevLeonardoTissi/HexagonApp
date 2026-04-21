@@ -16,4 +16,6 @@ abstract class HexagonData<S : HexagonState>(initialValue: S) {
         }
     }
 
+    fun getState(): S = privateState.value
+
 }

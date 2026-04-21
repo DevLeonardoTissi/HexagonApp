@@ -2,14 +2,12 @@ package br.com.leonardo.hexagonapp.ui.screens.form
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
-import br.com.leonardo.hexagonapp.ui.screens.actives.ActivesProfilesActions
 import br.com.leonardo.hexagonapp.ui.screens.form.contentLayout.PersonalProfileFormScreenContentLayout
 import br.com.leonardo.hexagonapp.ui.screens.form.contentProvider.PersonalProfileFormScreenContentProvider
 import br.com.leonardo.ui.screen.HexagonScreen
@@ -20,7 +18,7 @@ import org.koin.core.parameter.parametersOf
 class PersonalProfileFormScreen : HexagonScreen {
 
     @Serializable
-    data class FormRoute (val profileId : String? = null)
+    data class FormRoute(val profileId: String? = null)
 
     override fun registerScreen(navGraphBuilder: NavGraphBuilder) {
         navGraphBuilder.composable<FormRoute> { backStackEntry ->

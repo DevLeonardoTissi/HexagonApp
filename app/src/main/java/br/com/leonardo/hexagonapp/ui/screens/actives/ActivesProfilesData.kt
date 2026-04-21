@@ -7,6 +7,6 @@ class ActivesProfilesData(initialState: ActivesProfilesState) :
     HexagonData<ActivesProfilesState>(initialState) {
 
     fun updateProfilesList(profilesList: List<PersonalProfile>) {
-        updateState { it.copy(inactiveList = profilesList) }
+        updateState { it.copy(activeList = profilesList) }
     }
 }

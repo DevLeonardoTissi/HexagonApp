@@ -4,5 +4,5 @@ import br.com.leonardo.localData.model.PersonalProfile
 import br.com.leonardo.ui.data.state.HexagonState
 
 data class ActivesProfilesState(
-    val inactiveList: List<PersonalProfile> = emptyList()
+    val activeList: List<PersonalProfile> = emptyList()
 ): HexagonState

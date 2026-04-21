@@ -24,5 +24,8 @@ class DevProfileUIData(initialState: DevProfileUIState) :
         updateUIState { it.copy(screenState = DevProfileScreenState.Loading) }
     }
 
+    fun updateBottomSheetShareProfileVisibility(show: Boolean) {
+        updateUIState { it.copy(showBottomSheetShareProfile = show) }
+    }
 
 }

@@ -13,6 +13,6 @@ class ActivesProfilesListSectionMapper :
         uiState: ActivesProfilesUiState
     ): ActivesProfilesListSectionRender =
         with(state) {
-            ActivesProfilesListSectionRender(activesProfilesList = inactiveList)
+            ActivesProfilesListSectionRender(activesProfilesList = activeList)
         }
 }

@@ -47,7 +47,7 @@ class DevProfileViewModel(
     }
 
     private fun setVisibilityBottomSheetShareProfile(show: Boolean) {
-        uiData.updateUIState { it.copy(showBottomSheetShareProfile = show) }
+        uiData.updateBottomSheetShareProfileVisibility(show)
     }
 
     fun loadUserInfo(isRefreshing: Boolean? = false) {
@@ -73,6 +73,7 @@ class DevProfileViewModel(
 
     private fun onErrorGetUserInfo() {
         uiData.error()
+        uiData.refresh(false)
     }
 
     private fun getUserRepositories(
