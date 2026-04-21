@@ -29,11 +29,11 @@ abstract class HexagonScaffoldContentLayout<S : HexagonState, UI : HexagonUIStat
         Scaffold(
             topBar = {
                 (contentProvider as? HexagonScaffoldContentProvider)?.let { content ->
-                    content.topContent?.let {
+                    content.topContent?.let { topContent ->
                         topLayout?.Layout(
                             state = state,
                             uiState = uiState,
-                            contentProvider = content,
+                            contentProvider = topContent,
                             onActions = onActions,
                             modifier = Modifier.topModifier(state, uiState)
                         )
@@ -42,11 +42,11 @@ abstract class HexagonScaffoldContentLayout<S : HexagonState, UI : HexagonUIStat
             },
             bottomBar = {
                 (contentProvider as? HexagonScaffoldContentProvider)?.let { content ->
-                    content.bottomContent?.let {
+                    content.bottomContent?.let { bottomContent->
                         bottomLayout?.Layout(
                             state = state,
                             uiState = uiState,
-                            contentProvider = content,
+                            contentProvider = bottomContent,
                             onActions = onActions,
                             modifier = Modifier.bottomModifier(state, uiState)
                         )
@@ -55,11 +55,11 @@ abstract class HexagonScaffoldContentLayout<S : HexagonState, UI : HexagonUIStat
             }
         ) { innerPadding ->
             (contentProvider as? HexagonScaffoldContentProvider)?.let { content ->
-                content.contentContent?.let {
+                content.contentContent?.let { contentContent ->
                     contentLayout?.Layout(
                         state = state,
                         uiState = uiState,
-                        contentProvider = content,
+                        contentProvider = contentContent,
                         onActions = onActions,
                         modifier = Modifier
                             .padding(innerPadding)
@@ -70,8 +70,13 @@ abstract class HexagonScaffoldContentLayout<S : HexagonState, UI : HexagonUIStat
         }
     }
 
+    @Composable
     open fun Modifier.topModifier(state: S, uiState: UI): Modifier = this
+
+    @Composable
     open fun Modifier.bottomModifier(state: S, uiState: UI): Modifier = this
+
+    @Composable
     open fun Modifier.contentModifier(state: S, uiState: UI): Modifier = this
 
 }

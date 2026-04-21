@@ -19,7 +19,7 @@ interface PersonalProfileDao {
     fun getActives(): Flow<List<PersonalProfile>>
 
     @Query("SELECT * FROM PersonalProfile WHERE id = :id")
-    suspend fun getById(id: String): PersonalProfile
+    suspend fun getById(id: String): PersonalProfile?
 
     @Insert(onConflict = REPLACE)
     suspend fun insert(personalProfile: PersonalProfile)

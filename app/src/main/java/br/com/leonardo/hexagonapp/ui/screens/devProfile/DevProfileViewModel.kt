@@ -1,14 +1,11 @@
 package br.com.leonardo.hexagonapp.ui.screens.devProfile
 
-import br.com.leonardo.hexagonapp.utils.DevProfileScreenState
-import br.com.leonardo.ui.navigator.HexagonNavigator
+import br.com.leonardo.hexagonapp.ui.screens.devProfile.model.DevProfileScreenState
 import br.com.leonardo.ui.viewmodel.HexagonViewModel
 import br.com.leonardo.webClient.models.model.GitHubProfileInfoModel
 import br.com.leonardo.webClient.models.model.GithubRepositoryInfoModel
 import br.com.leonardo.webClient.usecase.GetUserProfileInfoUseCase
 import br.com.leonardo.webClient.usecase.GetUserRepositoriesInfoUseCase
-import org.koin.core.component.inject
-import kotlin.getValue
 
 class DevProfileViewModel(
     private val getUserProfileInfoUseCase: GetUserProfileInfoUseCase,

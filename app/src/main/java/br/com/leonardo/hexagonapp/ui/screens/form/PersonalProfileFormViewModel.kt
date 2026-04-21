@@ -1,82 +1,98 @@
 package br.com.leonardo.hexagonapp.ui.screens.form
 
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import br.com.leonardo.hexagonapp.utils.extensions.long.toBrazilianDateFormat
-import br.com.leonardo.localData.model.PersonalProfile
 import br.com.leonardo.localData.usecase.GetProfileByIdUseCase
 import br.com.leonardo.localData.usecase.InsertProfileUseCase
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
+import br.com.leonardo.ui.viewmodel.HexagonViewModel
 import kotlinx.coroutines.launch
 
 class PersonalProfileFormViewModel(
     private val insertProfileUseCase: InsertProfileUseCase,
     private val getProfileByIdUseCase: GetProfileByIdUseCase,
     savedStateHandle: SavedStateHandle
-) :
-    ViewModel() {
+) : HexagonViewModel<
+        PersonalProfileFormActions,
+        PersonalProfileFormState,
+        PersonalProfileFormData,
+        PersonalProfileFormUIState,
+        PersonalProfileFormUiData>() {
 
-    private val _uiState = MutableStateFlow(PersonalProfileFormUiState())
-    val uiState = _uiState.asStateFlow()
+    override val data = PersonalProfileFormData(initialState = PersonalProfileFormState())
+    override val uiData = PersonalProfileFormUiData(initialState = PersonalProfileFormUIState())
+
+    override fun handleAction(action: PersonalProfileFormActions) {
+        when (action) {
+            is PersonalProfileFormActions.FieldNameChanged -> handleFieldNameChangedAction(action)
+            is PersonalProfileFormActions.FieldCPFChanged -> handleFieldCPFChangedAction(action)
+            is PersonalProfileFormActions.FieldCityChanged -> handleFieldCityChangedAction(action)
+            is PersonalProfileFormActions.FieldDateOfBirthChangedChanged -> handleFieldDateOfBirthChangedAction(
+                action
+            )
+
+            is PersonalProfileFormActions.InsertPhoto -> handleInsertPhotoAction(action)
+            is PersonalProfileFormActions.OnSwitchChange -> handleOnSwitchChangeAction(action)
+            is PersonalProfileFormActions.SaveButtonClick -> handleSaveButtonClickAction(action)
+            is PersonalProfileFormActions.InputDateClick -> handleInputDateClickAction(action)
+            is PersonalProfileFormActions.ModalConfirmClick -> handleModalConfirmClickAction()
+            is PersonalProfileFormActions.ModalDismiss -> handleModalDismissAction()
+            is PersonalProfileFormActions.DismissDatePicker -> handleDismissDatePickerAction(action)
+        }
+    }
+
+    private fun handleFieldNameChangedAction(action: PersonalProfileFormActions.FieldNameChanged) {
+        data.updateName(action.value)
+    }
+
+    private fun handleFieldCPFChangedAction(action: PersonalProfileFormActions.FieldCPFChanged) {
+        data.updateCpf(action.value)
+    }
+
+    private fun handleFieldCityChangedAction(action: PersonalProfileFormActions.FieldCityChanged) {
+        data.updateCity(action.value)
+    }
+
+    private fun handleFieldDateOfBirthChangedAction(action: PersonalProfileFormActions.FieldDateOfBirthChangedChanged) {
+        data.updateDateOfBirth(action.value)
+    }
+
+    private fun handleInsertPhotoAction(action: PersonalProfileFormActions.InsertPhoto) {
+        data.updatePhoto(action.value)
+    }
+
+    private fun handleOnSwitchChangeAction(action: PersonalProfileFormActions.OnSwitchChange) {
+        data.updateActive(action.value)
+    }
+
+    private fun handleSaveButtonClickAction(action: PersonalProfileFormActions.SaveButtonClick) {
+        if (checkFields()) {
+            uiData.updateConfirmDialogVisibility(true)
+        }
+
+    }
+
+    private fun handleInputDateClickAction(action: PersonalProfileFormActions.InputDateClick) {
+        uiData.updateDatePickerVisibility(true)
+    }
+
+    private fun handleModalConfirmClickAction() {
+        uiData.updateConfirmDialogVisibility(false)
+        insert()
+        navigator.goBack()
+    }
+
+    private fun handleModalDismissAction() {
+        uiData.updateConfirmDialogVisibility(false)
+    }
+
+
+    private fun handleDismissDatePickerAction(action: PersonalProfileFormActions.DismissDatePicker) {
+        uiData.updateDatePickerVisibility(false)
+    }
+
     private val id: String? = savedStateHandle["profileId"]
 
     init {
-        _uiState.update { currentState ->
-            currentState.copy(
-                onNameChanged = { name ->
-                    _uiState.value = _uiState.value.copy(name = name)
-                },
-                onCpfChanged = { cpf ->
-                    _uiState.value = _uiState.value.copy(cpf = cpf)
-                },
-                onCityChanged = { city ->
-                    _uiState.value = _uiState.value.copy(city = city)
-                },
-                onDateOfBirthChanged = { dateOfBirth ->
-                    _uiState.value =
-                        _uiState.value.copy(
-                            dateOfBirth = dateOfBirth,
-                            dateOfBirthPresentation = dateOfBirth.toBrazilianDateFormat()
-                        )
-                },
-                onPhotoChanged = { photo ->
-                    _uiState.value = _uiState.value.copy(photo = photo)
-                },
-                onActiveChanged = { active ->
-                    _uiState.value = _uiState.value.copy(active = active)
-                },
-                onSave = {
-                    insert()
-                },
-                onShowDatePickerDialog = {
-                    _uiState.value = _uiState.value.copy(showDatePickerDialog = it)
-                },
-                onShowConfirmDialog = {
-                    _uiState.value = _uiState.value.copy(showConfirmDialog = it)
-                },
-                onFieldNameErrorChanged = {
-                    _uiState.value = _uiState.value.copy(fieldNameError = it)
-                },
-                onFieldCPFErrorChanged = {
-                    _uiState.value = _uiState.value.copy(fieldCPFError = it)
-                },
-                onFieldCityErrorChanged = {
-                    _uiState.value = _uiState.value.copy(fieldCityError = it)
-                },
-                onFieldDateOfBirthErrorChanged = {
-                    _uiState.value = _uiState.value.copy(fieldDateOfBirthError = it)
-                },
-                checkFields = {
-                    if (checkFields()) {
-                        _uiState.value.onShowConfirmDialog(true)
-                    }
-                }
-
-            )
-        }
 
         id?.let {
             searchById(it)
@@ -86,16 +102,9 @@ class PersonalProfileFormViewModel(
     private fun searchById(id: String) {
         viewModelScope.launch {
             with(getProfileByIdUseCase(id = id)) {
-                _uiState.value = _uiState.value.copy(
-                    id = this.id,
-                    name = name,
-                    cpf = cpf.filter { it.isDigit() },
-                    city = city,
-                    dateOfBirth = dateOfBirth,
-                    dateOfBirthPresentation = dateOfBirth.toBrazilianDateFormat(),
-                    photo = photo,
-                    active = active
-                )
+                this?.let {
+                    data.updateUserProfile(this)
+                } ?: navigator.goBack()
             }
         }
     }
@@ -104,25 +113,17 @@ class PersonalProfileFormViewModel(
 
     private fun checkFields(): Boolean {
         val fieldsToCheck = listOf(
-            Pair(uiState.value.name.isBlank()) { isError: Boolean ->
-                _uiState.value.onFieldNameErrorChanged(
-                    isError
-                )
+            Pair(data.getUserName().isBlank()) { isError: Boolean ->
+                uiData.setFieldNameError(isError)
             },
-            Pair(invalidCpf(uiState.value.cpf)) { isError: Boolean ->
-                _uiState.value.onFieldCPFErrorChanged(
-                    isError
-                )
+            Pair(invalidCpf(data.getUserCpf())) { isError: Boolean ->
+                uiData.setFieldCPFError(isError)
             },
-            Pair(uiState.value.city.isBlank()) { isError: Boolean ->
-                _uiState.value.onFieldCityErrorChanged(
-                    isError
-                )
+            Pair(data.getUserCity().isBlank()) { isError: Boolean ->
+                uiData.setFieldCityError(isError)
             },
-            Pair(uiState.value.dateOfBirth == 0L) { isError: Boolean ->
-                _uiState.value.onFieldDateOfBirthErrorChanged(
-                    isError
-                )
+            Pair(data.getUserDateOfBirth() == 0L) { isError: Boolean ->
+                uiData.setFieldDateOfBirthError(isError)
             }
         )
 
@@ -141,17 +142,7 @@ class PersonalProfileFormViewModel(
 
     private fun insert() {
         viewModelScope.launch {
-            insertProfileUseCase(
-                PersonalProfile(
-                    id = uiState.value.id,
-                    name = uiState.value.name,
-                    cpf = uiState.value.cpf,
-                    city = uiState.value.city,
-                    photo = uiState.value.photo,
-                    dateOfBirth = uiState.value.dateOfBirth,
-                    active = uiState.value.active
-                )
-            )
+            insertProfileUseCase(data.getUserInfo())
         }
     }
 }

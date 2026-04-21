@@ -1,11 +1,17 @@
 package br.com.leonardo.hexagonapp.ui.screens.form
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
+import br.com.leonardo.hexagonapp.ui.screens.actives.ActivesProfilesActions
+import br.com.leonardo.hexagonapp.ui.screens.form.contentLayout.PersonalProfileFormScreenContentLayout
+import br.com.leonardo.hexagonapp.ui.screens.form.contentProvider.PersonalProfileFormScreenContentProvider
 import br.com.leonardo.ui.screen.HexagonScreen
 import kotlinx.serialization.Serializable
 import org.koin.androidx.compose.koinViewModel
@@ -29,10 +35,27 @@ class PersonalProfileFormScreen : HexagonScreen {
         val viewModel: PersonalProfileFormViewModel = koinViewModel<PersonalProfileFormViewModel>(
             parameters = { parametersOf(id) }
         )
-        val uiState: PersonalProfileFormUiState by viewModel.uiState.collectAsState()
-        PersonalProfileFormScreenn(uiState = uiState, onPopBackStack = {
-            //navController.navigateUp()
-        })
+        val state: PersonalProfileFormState by viewModel.data.state.collectAsStateWithLifecycle()
+        val uiState: PersonalProfileFormUIState by viewModel.uiData.uiState.collectAsStateWithLifecycle()
+
+        val contentLayout = PersonalProfileFormScreenContentLayout()
+        val contentProvider = PersonalProfileFormScreenContentProvider()
+
+        contentLayout.Layout(
+            state = state,
+            uiState = uiState,
+            contentProvider = contentProvider,
+            modifier = Modifier.fillMaxSize(),
+            onActions = { formActions ->
+                (formActions as? PersonalProfileFormActions)?.let {
+                    viewModel.executeAction(it)
+                }
+            }
+        )
+
+//        PersonalProfileFormScreenn(uiState = uiState, onPopBackStack = {
+//            //navController.navigateUp()
+//        })
     }
 
 }

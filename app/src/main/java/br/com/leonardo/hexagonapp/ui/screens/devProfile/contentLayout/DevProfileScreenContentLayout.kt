@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import br.com.leonardo.hexagonapp.ui.screens.devProfile.DevProfileActions
 import br.com.leonardo.hexagonapp.ui.screens.devProfile.DevProfileState
 import br.com.leonardo.hexagonapp.ui.screens.devProfile.DevProfileUIState
-import br.com.leonardo.hexagonapp.utils.DevProfileScreenState
+import br.com.leonardo.hexagonapp.ui.screens.devProfile.model.DevProfileScreenState
 import br.com.leonardo.ui.action.HexagonAction
 import br.com.leonardo.ui.content.layout.content.HexagonBaseContentLayout
 import br.com.leonardo.ui.content.layout.content.HexagonColumnContentLayout

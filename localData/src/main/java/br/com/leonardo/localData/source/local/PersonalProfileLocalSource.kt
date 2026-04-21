@@ -9,7 +9,7 @@ interface PersonalProfileLocalSource {
 
     fun getActives() : Flow<List<PersonalProfile>>
 
-    suspend fun getById(id: String) : PersonalProfile
+    suspend fun getById(id: String) : PersonalProfile?
 
     suspend fun insert(personalProfile: PersonalProfile)
 

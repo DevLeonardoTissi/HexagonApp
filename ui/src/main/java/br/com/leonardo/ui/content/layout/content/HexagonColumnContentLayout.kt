@@ -11,7 +11,7 @@ import br.com.leonardo.ui.data.uistate.HexagonUIState
 
 
 open class HexagonColumnContentLayout<S : HexagonState, UI : HexagonUIState>(
-    private val horizontalAlignment: Alignment.Horizontal = Alignment.Start
+    open val horizontalAlignment: Alignment.Horizontal = Alignment.Start
 ) : HexagonBaseContentLayout<S, UI> {
 
     @Composable

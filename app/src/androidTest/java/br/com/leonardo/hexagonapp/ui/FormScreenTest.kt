@@ -16,7 +16,7 @@ import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.test.printToLog
 import br.com.leonardo.hexagonapp.ui.activity.MainActivity
 import br.com.leonardo.hexagonapp.ui.screens.form.PersonalProfileFormScreenn
-import br.com.leonardo.hexagonapp.ui.screens.form.PersonalProfileFormUiState
+import br.com.leonardo.hexagonapp.ui.screens.form.PersonalProfileFormState
 import br.com.leonardo.hexagonapp.ui.screens.form.PersonalProfileFormViewModel
 import br.com.leonardo.hexagonapp.ui.theme.HexagonAppTheme
 import org.junit.Rule
@@ -41,7 +41,7 @@ class FormScreenTest {
                 koinViewModel<PersonalProfileFormViewModel>(
                     parameters = { parametersOf(null) }
                 )
-            val uiState: PersonalProfileFormUiState by viewModel.uiState.collectAsState()
+            val uiState: PersonalProfileFormState by viewModel.uiState.collectAsState()
             HexagonAppTheme {
                 Surface {
                     PersonalProfileFormScreenn(

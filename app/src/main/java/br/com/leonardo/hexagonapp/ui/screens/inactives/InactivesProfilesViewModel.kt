@@ -1,6 +1,7 @@
 package br.com.leonardo.hexagonapp.ui.screens.inactives
 
 import androidx.lifecycle.viewModelScope
+import br.com.leonardo.hexagonapp.ui.screens.form.PersonalProfileFormScreen
 import br.com.leonardo.localData.model.PersonalProfile
 import br.com.leonardo.localData.usecase.DeleteProfileUseCase
 import br.com.leonardo.localData.usecase.GetInactivesProfilesUseCase
@@ -29,7 +30,7 @@ class InactivesProfilesViewModel(
         when (action) {
             is InactivesProfilesActions.DeleteProfile -> remove(action.profile)
             is InactivesProfilesActions.UpdateProfile -> update(action.profile)
-            else -> {}
+            is InactivesProfilesActions.ClickProfile -> navigateToEdit(action.profileId)
         }
     }
 
@@ -40,6 +41,10 @@ class InactivesProfilesViewModel(
     override val uiData = InactivesProfilesUiData(
         initialState = InactivesProfilesUiState()
     )
+
+    fun navigateToEdit(profileId:String){
+        navigator.navigateTo(PersonalProfileFormScreen.FormRoute(profileId = profileId))
+    }
 
     fun remove(profile: PersonalProfile) {
         viewModelScope.launch {
