@@ -58,8 +58,8 @@
 //import androidx.compose.ui.unit.dp
 //import androidx.compose.ui.window.DialogProperties
 //import br.com.leonardo.hexagonapp.R
-//import br.com.leonardo.hexagonapp.ui.components.AnimatedAlertDialogWithConfirmButton
-//import br.com.leonardo.hexagonapp.ui.components.SearchTextField
+//import br.com.leonardo.hexagonapp.ui.screens.form.sections.form.components.AnimatedAlertDialogWithConfirmButton
+//import br.com.leonardo.hexagonapp.ui.screens.form.sections.form.components.SearchTextField
 //import br.com.leonardo.hexagonapp.ui.components.SubComposeAsyncImage
 //import java.time.LocalDate
 //import androidx.compose.ui.res.stringResource

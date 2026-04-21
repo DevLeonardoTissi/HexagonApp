@@ -1,4 +1,4 @@
-package br.com.leonardo.hexagonapp.ui.components
+package br.com.leonardo.hexagonapp.ui.screens.devProfile.sections.loading.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

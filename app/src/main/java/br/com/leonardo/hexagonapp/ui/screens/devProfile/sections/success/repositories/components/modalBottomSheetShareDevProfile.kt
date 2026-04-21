@@ -1,4 +1,4 @@
-package br.com.leonardo.hexagonapp.ui.components
+package br.com.leonardo.hexagonapp.ui.screens.devProfile.sections.success.repositories.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column

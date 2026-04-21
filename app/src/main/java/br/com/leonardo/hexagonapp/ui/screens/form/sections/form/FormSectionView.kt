@@ -1,35 +1,21 @@
 package br.com.leonardo.hexagonapp.ui.screens.form.sections.form
 
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.PickVisualMediaRequest
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
-import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Button
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SelectableDates
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
@@ -37,9 +23,7 @@ import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.onFocusEvent
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
@@ -52,9 +36,8 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import br.com.leonardo.hexagonapp.R
-import br.com.leonardo.hexagonapp.ui.components.AnimatedAlertDialogWithConfirmButton
-import br.com.leonardo.hexagonapp.ui.components.SearchTextField
-import br.com.leonardo.hexagonapp.ui.components.SubComposeAsyncImage
+import br.com.leonardo.hexagonapp.ui.screens.form.sections.form.components.AnimatedAlertDialogWithConfirmButton
+import br.com.leonardo.hexagonapp.ui.screens.form.sections.form.components.HexagonTextField
 import br.com.leonardo.hexagonapp.ui.screens.form.PersonalProfileFormActions
 import br.com.leonardo.ui.action.HexagonAction
 import br.com.leonardo.ui.content.layout.section.HexagonSectionView
@@ -77,13 +60,11 @@ class FormSectionView : HexagonSectionView<FormSectionRender>() {
             }
         )
 
-
         val focusManager = LocalFocusManager.current
-
 
         Spacer(modifier = Modifier.height(80.dp))
 
-        SearchTextField(
+        HexagonTextField(
             iconDescription = stringResource(R.string.profileIcon),
             modifier = Modifier
                 .fillMaxWidth()
@@ -97,7 +78,7 @@ class FormSectionView : HexagonSectionView<FormSectionRender>() {
             inError = render.fieldNameError
         )
 
-        SearchTextField(
+        HexagonTextField(
             iconDescription = stringResource(R.string.cpfIcon),
             modifier = Modifier
                 .fillMaxWidth()
@@ -118,7 +99,7 @@ class FormSectionView : HexagonSectionView<FormSectionRender>() {
             visualTransformation = cpfVisualTransformation()
         )
 
-        SearchTextField(
+        HexagonTextField(
             iconDescription = stringResource(R.string.locationIcon),
             modifier = Modifier
                 .fillMaxWidth()
@@ -132,7 +113,7 @@ class FormSectionView : HexagonSectionView<FormSectionRender>() {
             inError = render.fieldCityError
         )
 
-        SearchTextField(
+        HexagonTextField(
             iconDescription = stringResource(R.string.dateIcon),
             modifier = Modifier
                 .fillMaxWidth()

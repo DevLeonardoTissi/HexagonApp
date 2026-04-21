@@ -1,4 +1,4 @@
-package br.com.leonardo.hexagonapp.ui.components
+package br.com.leonardo.hexagonapp.ui.screens.devProfile.sections.error.components
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text

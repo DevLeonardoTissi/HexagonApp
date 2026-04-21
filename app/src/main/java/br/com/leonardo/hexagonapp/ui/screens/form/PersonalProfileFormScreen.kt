@@ -52,10 +52,5 @@ class PersonalProfileFormScreen : HexagonScreen {
                 }
             }
         )
-
-//        PersonalProfileFormScreenn(uiState = uiState, onPopBackStack = {
-//            //navController.navigateUp()
-//        })
     }
-
 }

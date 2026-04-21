@@ -26,7 +26,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.leonardo.hexagonapp.R
-import br.com.leonardo.hexagonapp.ui.components.ModalBottomSheetShareDevProfile
+import br.com.leonardo.hexagonapp.ui.screens.devProfile.sections.success.repositories.components.ModalBottomSheetShareDevProfile
 import br.com.leonardo.hexagonapp.ui.screens.devProfile.DevProfileActions
 import br.com.leonardo.hexagonapp.utils.extensions.context.copyToClipboard
 import br.com.leonardo.hexagonapp.utils.extensions.context.goToUri
