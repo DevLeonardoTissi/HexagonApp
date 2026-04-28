@@ -1,19 +1,16 @@
 package br.com.leonardo.hexagonapp.ui.screens.inactives
 
 import androidx.lifecycle.viewModelScope
-import br.com.leonardo.hexagonapp.ui.screens.form.PersonalProfileFormScreen
+import br.com.leonardo.hexagonapp.ui.screens.form.navigation.route.FormRoute
 import br.com.leonardo.localData.model.PersonalProfile
 import br.com.leonardo.localData.usecase.DeleteProfileUseCase
 import br.com.leonardo.localData.usecase.GetInactivesProfilesUseCase
 import br.com.leonardo.localData.usecase.UpdateProfileUseCase
-import br.com.leonardo.ui.navigator.HexagonNavigator
 import br.com.leonardo.ui.viewmodel.HexagonViewModel
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import org.koin.core.component.inject
-import kotlin.getValue
 
 class InactivesProfilesViewModel(
     private val getInactivesProfilesUseCase: GetInactivesProfilesUseCase,
@@ -43,7 +40,7 @@ class InactivesProfilesViewModel(
     )
 
     fun navigateToEdit(profileId:String){
-        navigator.navigateTo(PersonalProfileFormScreen.FormRoute(profileId = profileId))
+        navigator.navigateTo(FormRoute(profileId = profileId))
     }
 
     fun remove(profile: PersonalProfile) {

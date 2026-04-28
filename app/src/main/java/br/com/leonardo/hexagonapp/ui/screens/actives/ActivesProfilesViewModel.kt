@@ -2,6 +2,7 @@ package br.com.leonardo.hexagonapp.ui.screens.actives
 
 import androidx.lifecycle.viewModelScope
 import br.com.leonardo.hexagonapp.ui.screens.form.PersonalProfileFormScreen
+import br.com.leonardo.hexagonapp.ui.screens.form.navigation.route.FormRoute
 import br.com.leonardo.localData.model.PersonalProfile
 import br.com.leonardo.localData.usecase.DeleteProfileUseCase
 import br.com.leonardo.localData.usecase.GetActivesProfilesUseCase
@@ -56,7 +57,7 @@ class ActivesProfilesViewModel(
     }
 
     fun navigateToEdit(profileId:String){
-        navigator.navigateTo(PersonalProfileFormScreen.FormRoute(profileId = profileId))
+        navigator.navigateTo(FormRoute(profileId = profileId))
     }
 
     init {

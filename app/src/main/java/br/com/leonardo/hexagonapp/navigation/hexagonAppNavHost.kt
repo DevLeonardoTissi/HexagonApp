@@ -27,6 +27,6 @@ fun HexagonAppNavHost(navController: NavHostController) {
         navController = navController,
         startDestination = navigationManager.startDestination
     ) {
-        navigationManager.registerAppGraph(this)
+        navigationManager.registerAppGraph(navGraphBuilder = this)
     }
 }

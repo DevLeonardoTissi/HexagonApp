@@ -9,22 +9,16 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import br.com.leonardo.hexagonapp.ui.screens.devProfile.contentLayout.DevProfileScreenContentLayout
 import br.com.leonardo.hexagonapp.ui.screens.devProfile.contentProvider.DevProfileScreenContentProvider
+import br.com.leonardo.hexagonapp.ui.screens.devProfile.navigator.route.DevProfileScreenRoute
+import br.com.leonardo.hexagonapp.ui.screens.form.navigation.route.FormRoute
 import br.com.leonardo.ui.screen.HexagonScreen
 import kotlinx.serialization.Serializable
 import org.koin.compose.viewmodel.koinViewModel
 
-class DevProfileScreen : HexagonScreen {
-    @Serializable
-    object DevProfileRoute
-
-    override fun registerScreen(navGraphBuilder: NavGraphBuilder) {
-        navGraphBuilder.composable<DevProfileRoute> {
-            Content()
-        }
-    }
+class DevProfileScreen : HexagonScreen<DevProfileScreenRoute> {
 
     @Composable
-    override fun Content(arguments: Any?) {
+    override fun Content(arguments: DevProfileScreenRoute?) {
             val viewModel: DevProfileViewModel = koinViewModel()
             val state by viewModel.data.state.collectAsStateWithLifecycle()
             val uiState by viewModel.uiData.uiState.collectAsStateWithLifecycle()

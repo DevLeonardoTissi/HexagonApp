@@ -2,19 +2,18 @@ package br.com.leonardo.ui.navigator
 
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
-import br.com.leonardo.ui.screen.HexagonScreen
 import kotlinx.coroutines.flow.Flow
 
 interface HexagonNavigator {
 
     val navigationEvents: Flow<NavEvent>
-    val screens: List<HexagonScreen>
+    val screenNavigators: List<ScreenNavigator<*>>
     val startDestination: Any
 
     fun registerAppGraph(navGraphBuilder: NavGraphBuilder)
 
 
-    fun navigateTo(route: Any,  navOptions: NavOptions? = null)
+    fun navigateTo(route: Route,  navOptions: NavOptions? = null)
 
     fun goBack()
 

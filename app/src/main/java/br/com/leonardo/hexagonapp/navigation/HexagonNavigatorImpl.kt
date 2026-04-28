@@ -3,13 +3,15 @@ package br.com.leonardo.hexagonapp.navigation
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.navigation
-import br.com.leonardo.hexagonapp.ui.screens.actives.ActivesProfilesScreen
+import br.com.leonardo.hexagonapp.ui.screens.actives.navigator.route.HomeRoute
 import br.com.leonardo.ui.navigator.HexagonNavigator
 import br.com.leonardo.ui.navigator.NavEvent
-import br.com.leonardo.ui.screen.HexagonScreen
+import br.com.leonardo.ui.navigator.Route
+import br.com.leonardo.ui.navigator.ScreenNavigator
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.serialization.Serializable
+
 import org.koin.java.KoinJavaComponent
 
 class HexagonNavigatorImpl : HexagonNavigator {
@@ -20,19 +22,19 @@ class HexagonNavigatorImpl : HexagonNavigator {
     private val _navigationEvents = Channel<NavEvent>(Channel.BUFFERED)
     override val navigationEvents = _navigationEvents.receiveAsFlow()
 
-    override val screens: List<HexagonScreen> = KoinJavaComponent.getKoin().getAll<HexagonScreen>()
+    override val screenNavigators: List<ScreenNavigator<*>> = KoinJavaComponent.getKoin().getAll<ScreenNavigator<*>>()
 
     override val startDestination = MainGraph
 
     override fun registerAppGraph(navGraphBuilder: NavGraphBuilder) {
-        navGraphBuilder.navigation<MainGraph>(startDestination = ActivesProfilesScreen.HomeRoute) {
-            screens.forEach { screen ->
-                screen.registerScreen(this)
+        navGraphBuilder.navigation<MainGraph>(startDestination = HomeRoute) {
+            screenNavigators.forEach { navigator ->
+                navigator.registerScreenNavigator(navGraphBuilder = this)
             }
         }
     }
 
-    override fun navigateTo(route: Any, navOptions: NavOptions?) {
+    override fun navigateTo(route: Route, navOptions: NavOptions?) {
         _navigationEvents.trySend(NavEvent.To(route, navOptions))
     }
 

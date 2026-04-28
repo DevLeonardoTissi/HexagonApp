@@ -2,6 +2,7 @@ package br.com.leonardo.hexagonapp.di.modules
 
 import android.app.NotificationManager
 import android.content.Context
+import br.com.leonardo.hexagonapp.di.modules.registerScreenNavigation
 import br.com.leonardo.hexagonapp.navigation.HexagonNavigatorImpl
 import br.com.leonardo.hexagonapp.ui.screens.devProfile.DevProfileScreen
 import br.com.leonardo.hexagonapp.notification.CreateNotificationChannel
@@ -12,9 +13,12 @@ import br.com.leonardo.hexagonapp.ui.screens.actives.ActivesProfilesScreen
 import br.com.leonardo.hexagonapp.ui.screens.devProfile.DevProfileViewModel
 import br.com.leonardo.hexagonapp.ui.screens.form.PersonalProfileFormViewModel
 import br.com.leonardo.hexagonapp.ui.screens.actives.ActivesProfilesViewModel
-import br.com.leonardo.hexagonapp.ui.screens.form.PersonalProfileFormScreen
+import br.com.leonardo.hexagonapp.ui.screens.actives.navigator.ActivesProfilesScreenNavigator
+import br.com.leonardo.hexagonapp.ui.screens.devProfile.navigator.DevProfileScreenNavigator
+import br.com.leonardo.hexagonapp.ui.screens.form.navigation.PersonalProfileFormScreenNavigator
 import br.com.leonardo.hexagonapp.ui.screens.inactives.InactivesProfilesScreen
 import br.com.leonardo.hexagonapp.ui.screens.inactives.InactivesProfilesViewModel
+import br.com.leonardo.hexagonapp.ui.screens.inactives.navigator.InactivesProfilesScreenNavigator
 import br.com.leonardo.hexagonapp.usecase.BatteryMonitorUseCase
 import br.com.leonardo.hexagonapp.usecase.BatteryMonitorUseCaseImpl
 import br.com.leonardo.hexagonapp.usecase.CheckNotificationPermissionUseCase
@@ -22,7 +26,7 @@ import br.com.leonardo.hexagonapp.usecase.impl.CheckNotificationPermissionUseCas
 import br.com.leonardo.hexagonapp.utils.AndroidPermissionChecker
 import br.com.leonardo.hexagonapp.utils.AndroidPermissionCheckerImpl
 import br.com.leonardo.ui.navigator.HexagonNavigator
-import br.com.leonardo.ui.screen.HexagonScreen
+import br.com.leonardo.ui.navigator.ScreenNavigator
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.singleOf
@@ -63,21 +67,37 @@ val appUseCaseModules = module {
 }
 
 
-val viewModelModule = module {
-    viewModelOf(::ActivesProfilesViewModel)
-    viewModelOf(::PersonalProfileFormViewModel)
-    viewModelOf(::InactivesProfilesViewModel)
-    viewModelOf(::AppViewModel)
-    viewModelOf(::DevProfileViewModel)
 
+val screenModules = module {
+    activesProfilesScreen()
+    devProfileScreen()
+    inactivesProfilesScreen()
+    personalProfileFormScreen()
 }
 
 val screensModule = module {
-    registerScreen { DevProfileScreen() }
-    registerScreen { ActivesProfilesScreen() }
-    registerScreen { InactivesProfilesScreen() }
-    registerScreen { PersonalProfileFormScreen() }
+    viewModelOf(::AppViewModel)
+}
 
+fun Module.personalProfileFormScreen(){
+        registerScreenNavigation { PersonalProfileFormScreenNavigator() }
+        viewModelOf(::PersonalProfileFormViewModel)
+}
+
+fun Module.devProfileScreen(){
+        registerScreenNavigation { DevProfileScreenNavigator() }
+        viewModelOf(::DevProfileViewModel)
+}
+
+
+fun Module.inactivesProfilesScreen(){
+        registerScreenNavigation { InactivesProfilesScreenNavigator() }
+        viewModelOf(::InactivesProfilesViewModel)
+}
+
+fun Module.activesProfilesScreen(){
+        registerScreenNavigation { ActivesProfilesScreenNavigator() }
+        viewModelOf(::ActivesProfilesViewModel)
 }
 
 val navigatorModule = module {
@@ -85,6 +105,6 @@ val navigatorModule = module {
 }
 
 
-inline fun <reified T : HexagonScreen> Module.registerScreen(crossinline instance: () -> T) {
-    single(named(T::class.java.name)) { instance() } bind HexagonScreen::class
+inline fun <reified T : ScreenNavigator<*>> Module.registerScreenNavigation(crossinline instance: () -> T) {
+    single(named(T::class.java.name)) { instance() } bind ScreenNavigator::class
 }

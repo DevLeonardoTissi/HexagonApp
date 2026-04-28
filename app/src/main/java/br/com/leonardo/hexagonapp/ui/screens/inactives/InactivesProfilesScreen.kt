@@ -9,23 +9,15 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import br.com.leonardo.hexagonapp.ui.screens.inactives.contentLayout.InactivesProfilesScreenContentLayout
 import br.com.leonardo.hexagonapp.ui.screens.inactives.contentProvider.InactivesProfilesScreenContentProvider
+import br.com.leonardo.hexagonapp.ui.screens.inactives.navigator.route.InactiveRoute
 import br.com.leonardo.ui.screen.HexagonScreen
 import kotlinx.serialization.Serializable
 import org.koin.androidx.compose.koinViewModel
 
-class InactivesProfilesScreen : HexagonScreen {
-
-    @Serializable
-    object InactiveRoute
-
-    override fun registerScreen(navGraphBuilder: NavGraphBuilder) {
-        navGraphBuilder.composable<InactiveRoute> {
-            Content()
-        }
-    }
+class InactivesProfilesScreen : HexagonScreen<InactiveRoute> {
 
     @Composable
-    override fun Content(arguments: Any?) {
+    override fun Content(arguments:InactiveRoute?) {
         val viewModel: InactivesProfilesViewModel = koinViewModel()
         val state: InactivesProfilesState by viewModel.data.state.collectAsStateWithLifecycle()
         val uiState: InactivesProfilesUiState by viewModel.uiData.uiState.collectAsStateWithLifecycle()

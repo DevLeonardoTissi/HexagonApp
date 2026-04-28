@@ -59,9 +59,13 @@ import br.com.leonardo.hexagonapp.ui.APP_NAME
 import br.com.leonardo.hexagonapp.ui.components.IconSecondaryColor
 import br.com.leonardo.hexagonapp.ui.components.ModalBottomSheetMore
 import br.com.leonardo.hexagonapp.ui.screens.actives.ActivesProfilesScreen
+import br.com.leonardo.hexagonapp.ui.screens.actives.navigator.route.HomeRoute
 import br.com.leonardo.hexagonapp.ui.screens.devProfile.DevProfileScreen
+import br.com.leonardo.hexagonapp.ui.screens.devProfile.navigator.route.DevProfileScreenRoute
 import br.com.leonardo.hexagonapp.ui.screens.form.PersonalProfileFormScreen
+import br.com.leonardo.hexagonapp.ui.screens.form.navigation.route.FormRoute
 import br.com.leonardo.hexagonapp.ui.screens.inactives.InactivesProfilesScreen
+import br.com.leonardo.hexagonapp.ui.screens.inactives.navigator.route.InactiveRoute
 import br.com.leonardo.hexagonapp.utils.AppRoute
 import br.com.leonardo.ui.navigator.HexagonNavigator
 import br.com.leonardo.webClient.utils.NetworkState
@@ -161,9 +165,9 @@ fun MainScreen(
                     label = { Text(stringResource(R.string.menuDrawerHomeOption)) },
                     selected = appUiState.isHomeScreen(),
                     onClick = {
-                        navigator.navigateTo(ActivesProfilesScreen.HomeRoute, navOptions {
+                        navigator.navigateTo(HomeRoute, navOptions {
                             popUpTo(
-                                ActivesProfilesScreen.HomeRoute
+                                HomeRoute
                             ) {
                                 inclusive = true
                             }
@@ -182,7 +186,7 @@ fun MainScreen(
                     label = { Text(stringResource(R.string.menuDrawerInsertOption)) },
                     selected = appUiState.isFormScreen(),
                     onClick = {
-                        navigator.navigateTo(PersonalProfileFormScreen.FormRoute())
+                        navigator.navigateTo(FormRoute())
                         onUpdateDrawerState()
                     })
 
@@ -196,7 +200,7 @@ fun MainScreen(
                     label = { Text(stringResource(R.string.menuDrawerInactiveOption)) },
                     selected = appUiState.isInactiveScreen(),
                     onClick = {
-                        navigator.navigateTo(InactivesProfilesScreen.InactiveRoute)
+                        navigator.navigateTo(InactiveRoute)
                         onUpdateDrawerState()
                     })
 
@@ -210,7 +214,7 @@ fun MainScreen(
                     label = { Text(stringResource(R.string.menuDrawerDevProfileOption)) },
                     selected = appUiState.isDevProfileScreen(),
                     onClick = {
-                        navigator.navigateTo(DevProfileScreen.DevProfileRoute)
+                        navigator.navigateTo(DevProfileScreenRoute)
                         onUpdateDrawerState()
                     })
 
@@ -235,7 +239,7 @@ fun MainScreen(
             Scaffold(floatingActionButton = {
                 if (appUiState.showAddFloatingActionButton) {
                     FloatingActionButton(onClick = { navigator.navigateTo(
-                        PersonalProfileFormScreen.FormRoute()) }) {
+                        FormRoute()) }) {
                         Icon(
                             Icons.Default.Add,
                             contentDescription = stringResource(R.string.iconAddForNavigateToFormFloatingButton)
