@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 interface HexagonNavigator {
 
     val navigationEvents: Flow<NavEvent>
-    val screenNavigators: List<ScreenNavigator<*>>
+    val screenNavigators:  List<ScreenNavigator<*, *>>
     val startDestination: Any
 
     fun registerAppGraph(navGraphBuilder: NavGraphBuilder)

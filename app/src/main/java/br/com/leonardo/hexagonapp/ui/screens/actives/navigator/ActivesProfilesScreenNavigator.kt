@@ -6,11 +6,9 @@ import br.com.leonardo.hexagonapp.ui.screens.actives.ActivesProfilesScreen
 import br.com.leonardo.hexagonapp.ui.screens.actives.navigator.route.HomeRoute
 import br.com.leonardo.ui.navigator.ScreenNavigator
 
-class ActivesProfilesScreenNavigator : ScreenNavigator<HomeRoute> {
+class ActivesProfilesScreenNavigator : ScreenNavigator<HomeRoute, ActivesProfilesScreen> {
 
     override val screen = ActivesProfilesScreen()
-
-    override val destination = HomeRoute
 
     override fun registerScreenNavigator(navGraphBuilder: NavGraphBuilder) {
         navGraphBuilder.composable<HomeRoute> {

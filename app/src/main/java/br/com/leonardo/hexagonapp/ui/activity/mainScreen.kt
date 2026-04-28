@@ -61,6 +61,7 @@ import br.com.leonardo.hexagonapp.ui.components.ModalBottomSheetMore
 import br.com.leonardo.hexagonapp.ui.screens.actives.ActivesProfilesScreen
 import br.com.leonardo.hexagonapp.ui.screens.actives.navigator.route.HomeRoute
 import br.com.leonardo.hexagonapp.ui.screens.devProfile.DevProfileScreen
+import br.com.leonardo.hexagonapp.ui.screens.devProfile.navigator.DevProfileScreenNavigator
 import br.com.leonardo.hexagonapp.ui.screens.devProfile.navigator.route.DevProfileScreenRoute
 import br.com.leonardo.hexagonapp.ui.screens.form.PersonalProfileFormScreen
 import br.com.leonardo.hexagonapp.ui.screens.form.navigation.route.FormRoute

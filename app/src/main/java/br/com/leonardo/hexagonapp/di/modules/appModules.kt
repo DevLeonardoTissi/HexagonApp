@@ -105,6 +105,6 @@ val navigatorModule = module {
 }
 
 
-inline fun <reified T : ScreenNavigator<*>> Module.registerScreenNavigation(crossinline instance: () -> T) {
+inline fun <reified T : ScreenNavigator<*, *>> Module.registerScreenNavigation(crossinline instance: () -> T) {
     single(named(T::class.java.name)) { instance() } bind ScreenNavigator::class
 }

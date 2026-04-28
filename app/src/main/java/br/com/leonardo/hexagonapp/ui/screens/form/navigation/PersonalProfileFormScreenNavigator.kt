@@ -7,10 +7,9 @@ import br.com.leonardo.hexagonapp.ui.screens.form.PersonalProfileFormScreen
 import br.com.leonardo.hexagonapp.ui.screens.form.navigation.route.FormRoute
 import br.com.leonardo.ui.navigator.ScreenNavigator
 
-class PersonalProfileFormScreenNavigator : ScreenNavigator<FormRoute> {
-    override val screen = PersonalProfileFormScreen()
+class PersonalProfileFormScreenNavigator : ScreenNavigator<FormRoute, PersonalProfileFormScreen> {
 
-    override val destination = FormRoute()
+    override val screen = PersonalProfileFormScreen()
 
     override fun registerScreenNavigator(navGraphBuilder: NavGraphBuilder) {
         navGraphBuilder.composable<FormRoute> { backStackEntry ->

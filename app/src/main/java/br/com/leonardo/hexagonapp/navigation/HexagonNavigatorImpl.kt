@@ -22,7 +22,7 @@ class HexagonNavigatorImpl : HexagonNavigator {
     private val _navigationEvents = Channel<NavEvent>(Channel.BUFFERED)
     override val navigationEvents = _navigationEvents.receiveAsFlow()
 
-    override val screenNavigators: List<ScreenNavigator<*>> = KoinJavaComponent.getKoin().getAll<ScreenNavigator<*>>()
+    override val screenNavigators: List<ScreenNavigator<*, *>> = KoinJavaComponent.getKoin().getAll()
 
     override val startDestination = MainGraph
 
