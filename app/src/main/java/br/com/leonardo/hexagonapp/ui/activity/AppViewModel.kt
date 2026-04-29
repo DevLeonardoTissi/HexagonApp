@@ -181,4 +181,9 @@ class AppViewModel(
     private fun setBottomSheetVisibility(show: Boolean) {
         _uiState.update { it.copy(showBottomSheetDialogInfoAndConfig = show) }
     }
+
+    override fun onCleared() {
+        super.onCleared()
+        unregisterReceivers()
+    }
 }

@@ -90,13 +90,6 @@ class MainActivity : ComponentActivity() {
         this.toast(getString(R.string.main_activity_toast_message_notifications_permission_not_granted))
     }
 
-
-
-    override fun onDestroy() {
-        appViewModel.unregisterReceivers()
-        super.onDestroy()
-    }
-
 }
 
 
