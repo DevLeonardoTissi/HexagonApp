@@ -14,7 +14,7 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.test.printToLog
-import br.com.leonardo.hexagonapp.ui.activity.MainActivity
+import br.com.leonardo.hexagonapp.ui.screens.main.MainActivity
 import br.com.leonardo.hexagonapp.ui.screens.form.PersonalProfileFormScreenn
 import br.com.leonardo.hexagonapp.ui.screens.form.PersonalProfileFormState
 import br.com.leonardo.hexagonapp.ui.screens.form.PersonalProfileFormViewModel

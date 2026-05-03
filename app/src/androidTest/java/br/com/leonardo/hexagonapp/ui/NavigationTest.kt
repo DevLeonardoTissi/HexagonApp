@@ -12,8 +12,8 @@ import androidx.navigation.compose.ComposeNavigator
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.testing.TestNavHostController
 import br.com.leonardo.hexagonapp.navigation.HexagonNavigatorImpl
-import br.com.leonardo.hexagonapp.ui.activity.AppViewModel
-import br.com.leonardo.hexagonapp.ui.activity.MainScreen
+import br.com.leonardo.hexagonapp.ui.screens.main.MainViewModel
+import br.com.leonardo.hexagonapp.ui.screens.main.MainScreen
 import br.com.leonardo.hexagonapp.ui.theme.HexagonAppTheme
 import kotlinx.coroutines.launch
 import org.junit.Before
@@ -36,7 +36,7 @@ class NavigationTest {
             navController = TestNavHostController(LocalContext.current)
             navController.navigatorProvider.addNavigator(ComposeNavigator())
 
-            val appViewModel: AppViewModel = koinViewModel()
+            val appViewModel: MainViewModel = koinViewModel()
             val appUiState by appViewModel.uiState.collectAsState()
             val navController = rememberNavController()
             val coroutineScope = rememberCoroutineScope()

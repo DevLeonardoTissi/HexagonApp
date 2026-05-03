@@ -10,6 +10,8 @@ class ActivesProfilesScreenNavigator : ScreenNavigator<HomeRoute, ActivesProfile
 
     override val screen = ActivesProfilesScreen()
 
+    override val route = HomeRoute
+
     override fun registerScreenNavigator(navGraphBuilder: NavGraphBuilder) {
         navGraphBuilder.composable<HomeRoute> {
             screen.Content()

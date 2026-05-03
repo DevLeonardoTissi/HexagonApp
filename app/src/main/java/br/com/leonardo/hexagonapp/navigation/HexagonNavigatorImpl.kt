@@ -11,7 +11,6 @@ import br.com.leonardo.ui.navigator.ScreenNavigator
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.serialization.Serializable
-
 import org.koin.java.KoinJavaComponent
 
 class HexagonNavigatorImpl : HexagonNavigator {
@@ -22,7 +21,8 @@ class HexagonNavigatorImpl : HexagonNavigator {
     private val _navigationEvents = Channel<NavEvent>(Channel.BUFFERED)
     override val navigationEvents = _navigationEvents.receiveAsFlow()
 
-    override val screenNavigators: List<ScreenNavigator<*, *>> = KoinJavaComponent.getKoin().getAll()
+    override val screenNavigators: List<ScreenNavigator<*, *>> =
+        KoinJavaComponent.getKoin().getAll()
 
     override val startDestination = MainGraph
 
@@ -32,6 +32,10 @@ class HexagonNavigatorImpl : HexagonNavigator {
                 navigator.registerScreenNavigator(navGraphBuilder = this)
             }
         }
+    }
+
+    override fun routeResolver(route: String): Route? {
+        return mapToRoute(route)
     }
 
     override fun navigateTo(route: Route, navOptions: NavOptions?) {
@@ -46,4 +50,11 @@ class HexagonNavigatorImpl : HexagonNavigator {
         _navigationEvents.trySend(NavEvent.PopUp)
     }
 
+    private fun mapToRoute(stringRoute: String): Route? {
+        val routeWithoutParams = stringRoute.substringBefore("/").substringBefore("?")
+        val targetSampleName = routeWithoutParams.substringAfterLast(".")
+        return screenNavigators
+            .map { it.route }
+            .firstOrNull { it::class.simpleName == (targetSampleName) }
+    }
 }

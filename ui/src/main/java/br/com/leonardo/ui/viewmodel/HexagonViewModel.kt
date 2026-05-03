@@ -13,9 +13,9 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 abstract class HexagonViewModel<A : HexagonAction, S : HexagonState, D : HexagonData<S>, UI : HexagonUIState, UID : HexagonUIData<UI>> :
-   ViewModel(), KoinComponent {
+    ViewModel(), KoinComponent {
 
-    val navigator : HexagonNavigator by inject()
+    val navigator: HexagonNavigator by inject()
 
     abstract val data: D
     abstract val uiData: UID
@@ -26,10 +26,20 @@ abstract class HexagonViewModel<A : HexagonAction, S : HexagonState, D : Hexagon
         handleAction(action)
     }
 
+    fun executeBlock(block: suspend () -> Unit, onError: (Throwable) -> Unit = {}) {
+        viewModelScope.launch {
+            try {
+                block.invoke()
+            } catch (e: Throwable) {
+                onError(e)
+            }
+        }
+    }
+
     fun <MO> executeBlock(
         block: suspend () -> Result<MO>,
-        onSuccess: (MO) -> Unit,
-        onError: (Throwable) -> Unit
+        onSuccess: (MO) -> Unit = {},
+        onError: (Throwable) -> Unit = {}
     ) {
         viewModelScope.launch {
             block.invoke().fold(

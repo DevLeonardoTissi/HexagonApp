@@ -44,15 +44,15 @@ class InactivesProfilesViewModel(
     }
 
     fun remove(profile: PersonalProfile) {
-        viewModelScope.launch {
-            deleteProfileUseCase(profile)
-        }
+        executeBlock(
+            block = {  deleteProfileUseCase(profile)}
+        )
     }
 
     fun update(profile: PersonalProfile) {
-        viewModelScope.launch {
-            updateProfileUseCase(profile)
-        }
+        executeBlock(
+            block = { updateProfileUseCase(profile)}
+        )
     }
 
     init {

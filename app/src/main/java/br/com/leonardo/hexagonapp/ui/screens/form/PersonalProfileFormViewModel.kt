@@ -1,11 +1,9 @@
 package br.com.leonardo.hexagonapp.ui.screens.form
 
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.viewModelScope
 import br.com.leonardo.localData.usecase.GetProfileByIdUseCase
 import br.com.leonardo.localData.usecase.InsertProfileUseCase
 import br.com.leonardo.ui.viewmodel.HexagonViewModel
-import kotlinx.coroutines.launch
 
 class PersonalProfileFormViewModel(
     private val insertProfileUseCase: InsertProfileUseCase,
@@ -100,13 +98,15 @@ class PersonalProfileFormViewModel(
     }
 
     private fun searchById(id: String) {
-        viewModelScope.launch {
-            with(getProfileByIdUseCase(id = id)) {
-                this?.let {
-                    data.updateUserProfile(this)
-                } ?: navigator.goBack()
+        executeBlock(
+            block = {
+                with(getProfileByIdUseCase(id = id)) {
+                    this?.let {
+                        data.updateUserProfile(this)
+                    } ?: navigator.goBack()
+                }
             }
-        }
+        )
     }
 
     private fun invalidCpf(cpf: String): Boolean = cpf.isBlank() || cpf.length != 11
@@ -141,8 +141,10 @@ class PersonalProfileFormViewModel(
     }
 
     private fun insert() {
-        viewModelScope.launch {
-            insertProfileUseCase(data.getUserInfo())
-        }
+        executeBlock(
+            block = {
+                insertProfileUseCase(data.getUserInfo())
+            }
+        )
     }
 }

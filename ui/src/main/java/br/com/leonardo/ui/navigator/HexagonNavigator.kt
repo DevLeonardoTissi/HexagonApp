@@ -19,4 +19,6 @@ interface HexagonNavigator {
 
     fun popUp()
 
+    fun routeResolver(route: String): Route?
+
 }

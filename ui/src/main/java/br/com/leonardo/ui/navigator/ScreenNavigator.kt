@@ -7,6 +7,8 @@ interface ScreenNavigator<R: Route, S : HexagonScreen<R>> {
 
     val screen: S
 
+    val route:R
+
     fun registerScreenNavigator(navGraphBuilder: NavGraphBuilder)
 
 }

@@ -11,6 +11,8 @@ class PersonalProfileFormScreenNavigator : ScreenNavigator<FormRoute, PersonalPr
 
     override val screen = PersonalProfileFormScreen()
 
+    override val route =  FormRoute()
+
     override fun registerScreenNavigator(navGraphBuilder: NavGraphBuilder) {
         navGraphBuilder.composable<FormRoute> { backStackEntry ->
             val route = backStackEntry.toRoute<FormRoute>()

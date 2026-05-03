@@ -1,4 +1,4 @@
-package br.com.leonardo.hexagonapp.ui.activity
+package br.com.leonardo.hexagonapp.ui.screens.main
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -22,6 +22,7 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.HorizontalDivider
@@ -39,6 +40,7 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -54,21 +56,14 @@ import androidx.navigation.NavHostController
 import androidx.navigation.navOptions
 import br.com.leonardo.hexagonapp.R
 import br.com.leonardo.hexagonapp.navigation.HexagonAppNavHost
-import br.com.leonardo.hexagonapp.navigation.HexagonNavigatorImpl
 import br.com.leonardo.hexagonapp.ui.APP_NAME
 import br.com.leonardo.hexagonapp.ui.components.IconSecondaryColor
 import br.com.leonardo.hexagonapp.ui.components.ModalBottomSheetMore
-import br.com.leonardo.hexagonapp.ui.screens.actives.ActivesProfilesScreen
 import br.com.leonardo.hexagonapp.ui.screens.actives.navigator.route.HomeRoute
-import br.com.leonardo.hexagonapp.ui.screens.devProfile.DevProfileScreen
-import br.com.leonardo.hexagonapp.ui.screens.devProfile.navigator.DevProfileScreenNavigator
 import br.com.leonardo.hexagonapp.ui.screens.devProfile.navigator.route.DevProfileScreenRoute
-import br.com.leonardo.hexagonapp.ui.screens.form.PersonalProfileFormScreen
 import br.com.leonardo.hexagonapp.ui.screens.form.navigation.route.FormRoute
-import br.com.leonardo.hexagonapp.ui.screens.inactives.InactivesProfilesScreen
 import br.com.leonardo.hexagonapp.ui.screens.inactives.navigator.route.InactiveRoute
-import br.com.leonardo.hexagonapp.utils.AppRoute
-import br.com.leonardo.ui.navigator.HexagonNavigator
+import br.com.leonardo.ui.action.HexagonAction
 import br.com.leonardo.webClient.utils.NetworkState
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
@@ -79,28 +74,25 @@ import kotlinx.coroutines.launch
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 fun MainScreen(
-    navigator: HexagonNavigator,
     navController: NavHostController,
-    appUiState: AppUiState,
-    onCurrentRouteChange: (String) -> Unit,
-    changeVisibilityBottomSheetConfigAndInfo: (Boolean) -> Unit,
-    onUpdateDarkMode: (Boolean) -> Unit,
-    onUpdateDrawerState: () -> Unit,
-    onUpdateShowNotification: (Boolean) -> Unit
+    appUiState: MainScreenUiState,
+    appState: MainScreenState,
+    onActions: (HexagonAction) -> Unit,
 ) {
 
     val snackBarHost = remember { SnackbarHostState() }
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
-
+    val drawerState = rememberDrawerState(DrawerValue.Closed)
 
     LaunchedEffect(navController) {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             destination.route?.let {
-                onCurrentRouteChange(it)
+                onActions(MainScreenActions.CurrentRouteChanged(it))
             }
         }
     }
+
 
     fun showSnackBar() {
         coroutineScope.launch {
@@ -111,28 +103,42 @@ fun MainScreen(
         }
     }
 
+    fun changeDrawer() {
+        coroutineScope.launch {
+            if (drawerState.isOpen) {
+                drawerState.close()
+            } else {
+                drawerState.open()
+            }
+        }
+    }
+
     @Composable
     fun topAppBarTitle(): String {
         val titleResId = when (appUiState.currentRoute) {
-            AppRoute.Form -> R.string.topAppBarFormTitle
-            AppRoute.Inactive -> R.string.topAppBarInactiveTitle
-            AppRoute.DevProfile -> R.string.topAppBarDevProfileTitle
-            AppRoute.Home -> R.string.topAppBarActiveTitle
+            FormRoute() -> R.string.topAppBarFormTitle
+            InactiveRoute -> R.string.topAppBarInactiveTitle
+            DevProfileScreenRoute -> R.string.topAppBarDevProfileTitle
+            HomeRoute -> R.string.topAppBarActiveTitle
+
+            else -> {
+                R.string.app_name
+            }
         }
         return stringResource(titleResId)
     }
 
-    if (appUiState.showBottomSheetDialogInfoAndConfig) {
+    if (appUiState.visibilityBottomSheetConfig) {
         ModalBottomSheetMore(
             onDismissRequest = {
-                changeVisibilityBottomSheetConfigAndInfo(false)
+                onActions(MainScreenActions.DisplayedBottomSheet(false))
             },
             isDarkMode = appUiState.isDarkMode, onDarkModeChange = { isDarkMode ->
-                onUpdateDarkMode(isDarkMode)
+                onActions(MainScreenActions.ChangeDarkMode(isDarkMode))
             },
-            showNotifications = appUiState.showNotifications,
-            onShowNotificationChange = { showNotification ->
-                onUpdateShowNotification(showNotification)
+            showNotifications = appState.notificationsIsEnable,
+            onShowNotificationChange = { enableNotifications ->
+                onActions(MainScreenActions.ChangeNotificationsSettings(showNotifications = enableNotifications))
             }
         )
     }
@@ -146,7 +152,9 @@ fun MainScreen(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(APP_NAME, modifier = Modifier.padding(16.dp))
-                    IconButton(onClick = { onUpdateDrawerState() }
+                    IconButton(onClick = {
+                        changeDrawer()
+                    }
                     ) {
                         Icon(
                             Icons.Default.Close,
@@ -164,17 +172,17 @@ fun MainScreen(
                         )
                     },
                     label = { Text(stringResource(R.string.menuDrawerHomeOption)) },
-                    selected = appUiState.isHomeScreen(),
+                    selected = appUiState.currentRoute is HomeRoute,
                     onClick = {
-                        navigator.navigateTo(HomeRoute, navOptions {
+                        onActions(MainScreenActions.NavigateToRoute(HomeRoute, navOptions {
                             popUpTo(
                                 HomeRoute
                             ) {
                                 inclusive = true
                             }
                             launchSingleTop = true
-                        })
-                        onUpdateDrawerState()
+                        }))
+                        changeDrawer()
                     })
 
                 NavigationDrawerItem(
@@ -185,10 +193,10 @@ fun MainScreen(
                         )
                     },
                     label = { Text(stringResource(R.string.menuDrawerInsertOption)) },
-                    selected = appUiState.isFormScreen(),
+                    selected = appUiState.currentRoute is FormRoute,
                     onClick = {
-                        navigator.navigateTo(FormRoute())
-                        onUpdateDrawerState()
+                        onActions(MainScreenActions.NavigateToRoute(FormRoute()))
+                        changeDrawer()
                     })
 
                 NavigationDrawerItem(
@@ -199,10 +207,10 @@ fun MainScreen(
                         )
                     },
                     label = { Text(stringResource(R.string.menuDrawerInactiveOption)) },
-                    selected = appUiState.isInactiveScreen(),
+                    selected = appUiState.currentRoute is InactiveRoute,
                     onClick = {
-                        navigator.navigateTo(InactiveRoute)
-                        onUpdateDrawerState()
+                        onActions(MainScreenActions.NavigateToRoute(InactiveRoute))
+                        changeDrawer()
                     })
 
                 NavigationDrawerItem(
@@ -213,10 +221,10 @@ fun MainScreen(
                         )
                     },
                     label = { Text(stringResource(R.string.menuDrawerDevProfileOption)) },
-                    selected = appUiState.isDevProfileScreen(),
+                    selected = appUiState.currentRoute is DevProfileScreenRoute,
                     onClick = {
-                        navigator.navigateTo(DevProfileScreenRoute)
-                        onUpdateDrawerState()
+                        onActions(MainScreenActions.NavigateToRoute(DevProfileScreenRoute))
+                        changeDrawer()
                     })
 
                 Spacer(modifier = Modifier.weight(1f))
@@ -232,15 +240,20 @@ fun MainScreen(
                     selected = false,
                     onClick = {
                         showSnackBar()
-                        onUpdateDrawerState()
+                        changeDrawer()
                     })
             }
-        }, drawerState = appUiState.drawerState) {
+        }, drawerState = drawerState) {
 
             Scaffold(floatingActionButton = {
-                if (appUiState.showAddFloatingActionButton) {
-                    FloatingActionButton(onClick = { navigator.navigateTo(
-                        FormRoute()) }) {
+                if (appUiState.currentRoute is HomeRoute) {
+                    FloatingActionButton(onClick = {
+                        onActions(
+                            MainScreenActions.NavigateToRoute(
+                                FormRoute()
+                            )
+                        )
+                    }) {
                         Icon(
                             Icons.Default.Add,
                             contentDescription = stringResource(R.string.iconAddForNavigateToFormFloatingButton)
@@ -266,7 +279,7 @@ fun MainScreen(
                     ),
                     actions = {
                         IconButton(onClick = {
-                            changeVisibilityBottomSheetConfigAndInfo(true)
+                            onActions(MainScreenActions.DisplayedBottomSheet(true))
                         }) {
                             Icon(
                                 Icons.Default.MoreVert,
@@ -277,13 +290,13 @@ fun MainScreen(
                     navigationIcon = {
                         IconButton(onClick = {
 
-                            if (appUiState.isHomeScreen()) {
-                                onUpdateDrawerState()
+                            if (appUiState.currentRoute is HomeRoute) {
+                                changeDrawer()
                             } else {
-                                navigator.popUp()
+                                onActions(MainScreenActions.NavigatePop)
                             }
                         }) {
-                            if (appUiState.isHomeScreen()) {
+                            if (appUiState.currentRoute is HomeRoute) {
                                 Icon(
                                     Icons.AutoMirrored.Filled.List,
                                     contentDescription = stringResource(R.string.iconListForOpenMenuDrawer)
@@ -309,7 +322,7 @@ fun MainScreen(
                     ) {
 
                         Column {
-                            if (appUiState.networkStatus is NetworkState.Lost) {
+                            if (appState.networkStatus is NetworkState.Lost) {
                                 val composition by rememberLottieComposition(
                                     spec = LottieCompositionSpec.RawRes(
                                         R.raw.no_wifi_icon
@@ -321,7 +334,7 @@ fun MainScreen(
                                     modifier = Modifier.size(60.dp)
                                 )
                             }
-                            if (appUiState.batteryIsLow) {
+                            if (appState.batteryIsLow) {
                                 val composition by rememberLottieComposition(
                                     spec = LottieCompositionSpec.RawRes(
                                         R.raw.low_battery

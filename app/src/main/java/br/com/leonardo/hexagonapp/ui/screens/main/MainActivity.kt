@@ -1,12 +1,14 @@
-package br.com.leonardo.hexagonapp.ui.activity
+package br.com.leonardo.hexagonapp.ui.screens.main
 
 import android.Manifest
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.tooling.preview.Preview
@@ -14,18 +16,17 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.rememberNavController
 import br.com.leonardo.hexagonapp.R
-import br.com.leonardo.hexagonapp.navigation.HexagonNavigatorImpl
 import br.com.leonardo.hexagonapp.ui.theme.HexagonAppTheme
 import br.com.leonardo.hexagonapp.utils.extensions.context.toast
 import br.com.leonardo.ui.navigator.HexagonNavigator
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
+import org.koin.androidx.compose.koinViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : ComponentActivity() {
 
-    private val appViewModel: AppViewModel by viewModel()
-    private val navigator : HexagonNavigator by inject()
+    private val appViewModel: MainViewModel by viewModel()
 
     private val requestPermissionNotificationsLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission(),
@@ -44,29 +45,18 @@ class MainActivity : ComponentActivity() {
         requestNotificationIfNeeded()
 
         setContent {
-
-            val appUiState by appViewModel.uiState.collectAsStateWithLifecycle()
+            val uiState by appViewModel.uiData.uiState.collectAsStateWithLifecycle()
+            val state by appViewModel.data.state.collectAsStateWithLifecycle()
             val navController = rememberNavController()
-            val coroutineScope = rememberCoroutineScope()
 
-            HexagonAppTheme(darkTheme = appUiState.isDarkMode) {
+            HexagonAppTheme(darkTheme = uiState.isDarkMode) {
                 MainScreen(
-                    navigator,
                     navController,
-                    appUiState,
-                    onCurrentRouteChange = { appUiState.onCurrentRouteChange(it) },
-                    changeVisibilityBottomSheetConfigAndInfo = {
-                        appUiState.changeVisibilityBottomSheetDialogInfoAndConfig(it)
+                    uiState,
+                    state,
+                    onActions = { action ->
+                        (action as? MainScreenActions)?.let { appViewModel.executeAction(it) }
                     },
-                    onUpdateDarkMode = { appUiState.onDarkModeChange(it) },
-                    onUpdateDrawerState = {
-                        coroutineScope.launch {
-                            appUiState.updateDrawer()
-                        }
-                    },
-                    onUpdateShowNotification = {
-                        appUiState.onShowNotificationsChange(it)
-                    }
                 )
             }
         }
@@ -80,7 +70,6 @@ class MainActivity : ComponentActivity() {
     }
 
 
-
     private fun onNotificationPermissionGranted() {
         this.toast(getString(R.string.main_activity_toast_message_notifications_permission_granted))
 
@@ -88,15 +77,5 @@ class MainActivity : ComponentActivity() {
 
     private fun onNotificationPermissionNotGranted() {
         this.toast(getString(R.string.main_activity_toast_message_notifications_permission_not_granted))
-    }
-
-}
-
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    HexagonAppTheme {
-
     }
 }

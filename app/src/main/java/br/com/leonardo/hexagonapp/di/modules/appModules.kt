@@ -2,21 +2,17 @@ package br.com.leonardo.hexagonapp.di.modules
 
 import android.app.NotificationManager
 import android.content.Context
-import br.com.leonardo.hexagonapp.di.modules.registerScreenNavigation
 import br.com.leonardo.hexagonapp.navigation.HexagonNavigatorImpl
-import br.com.leonardo.hexagonapp.ui.screens.devProfile.DevProfileScreen
 import br.com.leonardo.hexagonapp.notification.CreateNotificationChannel
 import br.com.leonardo.hexagonapp.usecase.NotificationUseCase
 import br.com.leonardo.hexagonapp.usecase.impl.NotificationUseCaseImpl
-import br.com.leonardo.hexagonapp.ui.activity.AppViewModel
-import br.com.leonardo.hexagonapp.ui.screens.actives.ActivesProfilesScreen
+import br.com.leonardo.hexagonapp.ui.screens.main.MainViewModel
 import br.com.leonardo.hexagonapp.ui.screens.devProfile.DevProfileViewModel
 import br.com.leonardo.hexagonapp.ui.screens.form.PersonalProfileFormViewModel
 import br.com.leonardo.hexagonapp.ui.screens.actives.ActivesProfilesViewModel
 import br.com.leonardo.hexagonapp.ui.screens.actives.navigator.ActivesProfilesScreenNavigator
 import br.com.leonardo.hexagonapp.ui.screens.devProfile.navigator.DevProfileScreenNavigator
 import br.com.leonardo.hexagonapp.ui.screens.form.navigation.PersonalProfileFormScreenNavigator
-import br.com.leonardo.hexagonapp.ui.screens.inactives.InactivesProfilesScreen
 import br.com.leonardo.hexagonapp.ui.screens.inactives.InactivesProfilesViewModel
 import br.com.leonardo.hexagonapp.ui.screens.inactives.navigator.InactivesProfilesScreenNavigator
 import br.com.leonardo.hexagonapp.usecase.BatteryMonitorUseCase
@@ -76,7 +72,7 @@ val screenModules = module {
 }
 
 val screensModule = module {
-    viewModelOf(::AppViewModel)
+    viewModelOf(::MainViewModel)
 }
 
 fun Module.personalProfileFormScreen(){

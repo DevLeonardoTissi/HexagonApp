@@ -10,6 +10,8 @@ class InactivesProfilesScreenNavigator : ScreenNavigator<InactiveRoute, Inactive
 
     override val screen = InactivesProfilesScreen()
 
+    override val route = InactiveRoute
+
     override fun registerScreenNavigator(navGraphBuilder: NavGraphBuilder) {
         navGraphBuilder.composable<InactiveRoute> {
             screen.Content()
