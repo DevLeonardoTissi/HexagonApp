@@ -104,10 +104,10 @@ fun MainScreen(
     @Composable
     fun topAppBarTitle(): String {
         val titleResId = when (appUiState.currentRoute) {
-            FormRoute() -> R.string.topAppBarFormTitle
-            InactiveRoute -> R.string.topAppBarInactiveTitle
-            DevProfileScreenRoute -> R.string.topAppBarDevProfileTitle
-            HomeRoute -> R.string.topAppBarActiveTitle
+            is FormRoute -> R.string.topAppBarFormTitle
+            is InactiveRoute -> R.string.topAppBarInactiveTitle
+            is DevProfileScreenRoute -> R.string.topAppBarDevProfileTitle
+            is HomeRoute -> R.string.topAppBarActiveTitle
 
             else -> {
                 R.string.app_name

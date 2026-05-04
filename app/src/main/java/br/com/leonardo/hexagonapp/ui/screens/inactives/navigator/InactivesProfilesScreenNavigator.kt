@@ -13,11 +13,9 @@ class InactivesProfilesScreenNavigator : ScreenNavigator<InactiveRoute, Inactive
     override val screen = InactivesProfilesScreen()
 
     @OptIn(KoinExperimentalAPI::class)
-    override fun registerNavigationModule(): Module {
-        return module {
-            navigation<InactiveRoute>{
-                screen.Content()
-            }
+    override fun registerNavigationModule(): Module = module {
+        navigation<InactiveRoute> { arguments ->
+            screen.Content(arguments = arguments)
         }
     }
 }

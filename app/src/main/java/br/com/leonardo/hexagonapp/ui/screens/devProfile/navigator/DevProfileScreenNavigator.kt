@@ -20,28 +20,26 @@ class DevProfileScreenNavigator : ScreenNavigator<DevProfileScreenRoute, DevProf
     override val screen = DevProfileScreen()
 
     @OptIn(KoinExperimentalAPI::class)
-    override fun registerNavigationModule(): Module {
-        return module {
-            navigation<DevProfileScreenRoute>(
-                metadata = NavDisplay.transitionSpec {
-                    slideInVertically(
-                        initialOffsetY = {it},
-                        animationSpec = tween(1000)
-                    ) togetherWith ExitTransition.KeepUntilTransitionsFinished
-                } + NavDisplay.popTransitionSpec {
-                    EnterTransition.None togetherWith slideOutVertically(
-                        targetOffsetY = {it},
-                        animationSpec = tween(1000)
-                    )
-                } + NavDisplay.predictivePopTransitionSpec {
-                    EnterTransition.None togetherWith slideOutVertically(
-                        targetOffsetY = {it},
-                        animationSpec = tween (1000)
-                    )
-                }
-            ){
-                screen.Content()
+    override fun registerNavigationModule(): Module = module {
+        navigation<DevProfileScreenRoute>(
+            metadata = NavDisplay.transitionSpec {
+                slideInVertically(
+                    initialOffsetY = { it },
+                    animationSpec = tween(1000)
+                ) togetherWith ExitTransition.KeepUntilTransitionsFinished
+            } + NavDisplay.popTransitionSpec {
+                EnterTransition.None togetherWith slideOutVertically(
+                    targetOffsetY = { it },
+                    animationSpec = tween(1000)
+                )
+            } + NavDisplay.predictivePopTransitionSpec {
+                EnterTransition.None togetherWith slideOutVertically(
+                    targetOffsetY = { it },
+                    animationSpec = tween(1000)
+                )
             }
+        ) { arguments ->
+            screen.Content(arguments = arguments)
         }
     }
 }

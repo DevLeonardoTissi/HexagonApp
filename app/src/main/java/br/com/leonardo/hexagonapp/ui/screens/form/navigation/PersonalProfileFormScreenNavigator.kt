@@ -13,11 +13,9 @@ class PersonalProfileFormScreenNavigator : ScreenNavigator<FormRoute, PersonalPr
     override val screen = PersonalProfileFormScreen()
 
     @OptIn(KoinExperimentalAPI::class)
-    override fun registerNavigationModule(): Module {
-        return module {
-            navigation<FormRoute>{ formRoute ->
-                screen.Content(arguments = formRoute)
-            }
+    override fun registerNavigationModule(): Module = module {
+        navigation<FormRoute> { arguments ->
+            screen.Content(arguments = arguments)
         }
     }
 }
