@@ -8,7 +8,7 @@ import br.com.leonardo.ui.viewmodel.HexagonViewModel
 class PersonalProfileFormViewModel(
     private val insertProfileUseCase: InsertProfileUseCase,
     private val getProfileByIdUseCase: GetProfileByIdUseCase,
-    savedStateHandle: SavedStateHandle
+    id:String? = null
 ) : HexagonViewModel<
         PersonalProfileFormActions,
         PersonalProfileFormState,
@@ -88,10 +88,8 @@ class PersonalProfileFormViewModel(
         uiData.updateDatePickerVisibility(false)
     }
 
-    private val id: String? = savedStateHandle["profileId"]
 
     init {
-
         id?.let {
             searchById(it)
         }

@@ -52,14 +52,19 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
 
+    //koin for compose
     implementation(libs.koin.androidx.compose)
+    implementation(libs.koin.compose.navigation3)
+
+    //Navigation 3
+    implementation(libs.androidx.navigation3.ui)
+    implementation(libs.androidx.navigation3.runtime)
+    implementation(libs.androidx.lifecycle.viewmodel.navigation3)
 
 
     //Kotlin Serialization (for navigation version)
     implementation(libs.kotlinx.serialization.json)
 
-    //Navigation for compose
-    implementation(libs.androidx.navigation.compose)
 
     implementation(libs.androidx.material3)
     testImplementation(libs.junit)

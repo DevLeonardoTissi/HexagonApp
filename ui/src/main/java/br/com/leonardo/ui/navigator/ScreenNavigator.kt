@@ -1,14 +1,14 @@
 package br.com.leonardo.ui.navigator
 
-import androidx.navigation.NavGraphBuilder
 import br.com.leonardo.ui.screen.HexagonScreen
+import org.koin.core.annotation.KoinExperimentalAPI
+import org.koin.core.module.Module
 
 interface ScreenNavigator<R: Route, S : HexagonScreen<R>> {
 
     val screen: S
 
-    val route:R
-
-    fun registerScreenNavigator(navGraphBuilder: NavGraphBuilder)
+    @OptIn(KoinExperimentalAPI::class)
+    fun registerNavigationModule() : Module
 
 }

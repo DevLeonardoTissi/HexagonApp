@@ -5,14 +5,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavGraphBuilder
-import androidx.navigation.compose.composable
-import androidx.navigation.toRoute
 import br.com.leonardo.hexagonapp.ui.screens.form.contentLayout.PersonalProfileFormScreenContentLayout
 import br.com.leonardo.hexagonapp.ui.screens.form.contentProvider.PersonalProfileFormScreenContentProvider
 import br.com.leonardo.hexagonapp.ui.screens.form.navigation.route.FormRoute
 import br.com.leonardo.ui.screen.HexagonScreen
-import kotlinx.serialization.Serializable
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
 
@@ -21,9 +17,9 @@ class PersonalProfileFormScreen : HexagonScreen<FormRoute> {
     @Composable
     override fun Content(arguments: FormRoute?) {
         val id = arguments?.profileId
-        val viewModel: PersonalProfileFormViewModel = koinViewModel<PersonalProfileFormViewModel>(
-            parameters = { parametersOf(id) }
-        )
+        val viewModel: PersonalProfileFormViewModel = koinViewModel<PersonalProfileFormViewModel> {
+            parametersOf(id)
+        }
         val state: PersonalProfileFormState by viewModel.data.state.collectAsStateWithLifecycle()
         val uiState: PersonalProfileFormUIState by viewModel.uiData.uiState.collectAsStateWithLifecycle()
 

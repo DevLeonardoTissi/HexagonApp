@@ -69,13 +69,9 @@ dependencies {
     //Kotlin Serialization (for navigation version)
     implementation(libs.kotlinx.serialization.json)
 
-    //Navigation for compose
-    implementation(libs.androidx.navigation.compose)
-
     //Coil for compose
     implementation(libs.coil3.coil.compose)
     implementation(libs.coil.network.okhttp)
-
 
     //Lottie animation for compose
     implementation(libs.lottie.compose)
@@ -85,6 +81,7 @@ dependencies {
 
     //koin for compose
     implementation(libs.koin.androidx.compose)
+    implementation(libs.koin.compose.navigation3)
 
     //Firebase DOM
     implementation(platform(libs.firebase.bom))
@@ -110,7 +107,10 @@ dependencies {
     implementation (libs.androidx.adaptive.layout)
     implementation (libs.androidx.adaptive.navigation)
 
-
+    //Navigation 3
+    implementation(libs.androidx.navigation3.ui)
+    implementation(libs.androidx.navigation3.runtime)
+    implementation(libs.androidx.lifecycle.viewmodel.navigation3)
 
     //Browser
     implementation(libs.androidx.browser)
@@ -125,7 +125,7 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
 
     //Navigation Test
-    androidTestImplementation (libs.androidx.navigation.testing)
+
 
 
 

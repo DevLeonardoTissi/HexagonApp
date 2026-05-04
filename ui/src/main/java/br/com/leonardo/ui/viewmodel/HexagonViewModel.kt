@@ -16,7 +16,6 @@ abstract class HexagonViewModel<A : HexagonAction, S : HexagonState, D : Hexagon
     ViewModel(), KoinComponent {
 
     val navigator: HexagonNavigator by inject()
-
     abstract val data: D
     abstract val uiData: UID
 

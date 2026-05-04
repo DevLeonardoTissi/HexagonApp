@@ -1,5 +1,8 @@
 package br.com.leonardo.hexagonapp.ui.screens.main
 
+import android.util.Log
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
 import androidx.lifecycle.viewModelScope
 import br.com.leonardo.hexagonapp.R
 import br.com.leonardo.hexagonapp.ui.NOTIFICATIONS_NETWORK_ERROR_IDENTIFIER
@@ -13,6 +16,7 @@ import br.com.leonardo.ui.viewmodel.HexagonViewModel
 import br.com.leonardo.webClient.utils.networkMonitor.NetworkMonitor
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 
 class MainViewModel(
     private val searchSettingsUseCase: SearchSettingsUseCase,
@@ -33,17 +37,9 @@ class MainViewModel(
             is MainScreenActions.ChangeDarkMode -> toggleDarkMode(action.isDarkMode)
             is MainScreenActions.ChangeNotificationsSettings -> toggleNotifications(action.showNotifications)
             is MainScreenActions.DisplayedBottomSheet -> executeDisplayedBottomSheetAction(action)
-            is MainScreenActions.CurrentRouteChanged -> executeOnRouteChangedAction(action)
-            is MainScreenActions.NavigateToRoute -> navigator.navigateTo(action.route, action.navOptions)
+            is MainScreenActions.NavigateToRoute -> navigator.navigateTo(action.route)
             is MainScreenActions.NavigateBack -> navigator.goBack()
-            is MainScreenActions.NavigatePop -> navigator.popUp()
-        }
-    }
-
-    private fun executeOnRouteChangedAction(action: MainScreenActions.CurrentRouteChanged) {
-        val route = navigator.routeResolver(action.route)
-        route?.let {
-            uiData.updateCurrentRoute(it)
+            is MainScreenActions.NavigatePop -> navigator.goBack()
         }
     }
 
@@ -53,9 +49,21 @@ class MainViewModel(
 
 
     init {
+        observerNavigation()
         observerSettings()
         networkMonitor()
         batteryMonitor()
+    }
+
+    fun observerNavigation(){
+        viewModelScope.launch {
+            navigator.currentRouteFlow.collect { currentRoute->
+                currentRoute?.let {
+                    uiData.updateCurrentRoute(it)
+                }
+            }
+        }
+
     }
 
     fun unregisterReceivers() {

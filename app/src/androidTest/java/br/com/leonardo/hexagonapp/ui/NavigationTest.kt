@@ -11,7 +11,6 @@ import androidx.compose.ui.test.performClick
 import androidx.navigation.compose.ComposeNavigator
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.testing.TestNavHostController
-import br.com.leonardo.hexagonapp.navigation.HexagonNavigatorImpl
 import br.com.leonardo.hexagonapp.ui.screens.main.MainViewModel
 import br.com.leonardo.hexagonapp.ui.screens.main.MainScreen
 import br.com.leonardo.hexagonapp.ui.theme.HexagonAppTheme

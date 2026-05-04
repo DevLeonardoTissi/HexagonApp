@@ -7,7 +7,6 @@ import br.com.leonardo.localData.model.PersonalProfile
 import br.com.leonardo.localData.usecase.DeleteProfileUseCase
 import br.com.leonardo.localData.usecase.GetActivesProfilesUseCase
 import br.com.leonardo.localData.usecase.UpdateProfileUseCase
-import br.com.leonardo.ui.navigator.HexagonNavigator
 import br.com.leonardo.ui.viewmodel.HexagonViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.distinctUntilChanged

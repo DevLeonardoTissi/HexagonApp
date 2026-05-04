@@ -9,9 +9,6 @@ browser = "1.9.0"
 #Firebase DOM
 firebaseBom = "34.10.0"
 
-#Navigation for compose
-navigationCompose = "2.8.0-beta04"
-
 #Mockk
 mockk = "1.14.9"
 
@@ -38,10 +35,11 @@ roomRuntime = "2.8.4"
 crashlytics = "3.0.6"
 
 #Koin
-koinAndroidxCompose = "4.1.1"
+koinAndroidxCompose = "4.2.1"
+koinComposeNavigation3 = "4.2.1"
 
 #koin test
-koinTest = "4.1.1"
+koinTest = "4.2.1"
 
 #Kotlin coroutines test
 kotlinxCoroutinesTest = "1.10.2"
@@ -67,6 +65,10 @@ zxingVersion = "3.5.4"
 
 #Material adaptative
 adaptive = "1.2.0"
+
+#NAvigation 3
+nav3Core = "1.1.1"
+lifecycleViewmodelNav3 = "2.11.0-beta01"
 
 
 coreKtx = "1.18.0"
@@ -101,9 +103,6 @@ androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref =
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomRuntime" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
 
-#NAVIGATION AND NAVIGATION TEST
-androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
-androidx-navigation-testing = { module = "androidx.navigation:navigation-testing", version.ref = "navigationCompose" }
 
 #Kotlin Serialization (for navigation version)
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
@@ -126,6 +125,7 @@ lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "
 
 #Koin
 koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koinAndroidxCompose" }
+koin-compose-navigation3 = { module = "io.insert-koin:koin-compose-navigation3", version.ref = "koinComposeNavigation3" }
 
 #koin tests
 koin-test = { module = "io.insert-koin:koin-test", version.ref = "koinTest" }
@@ -154,6 +154,12 @@ androidx-ui-text-google-fonts = { group = "androidx.compose.ui", name = "ui-text
 
 #ZXing - Qr code generator
 core = { module = "com.google.zxing:core", version.ref = "zxingVersion" }
+
+#Navigation 3
+androidx-navigation3-runtime = { module = "androidx.navigation3:navigation3-runtime", version.ref = "nav3Core" }
+androidx-navigation3-ui = { module = "androidx.navigation3:navigation3-ui", version.ref = "nav3Core" }
+androidx-lifecycle-viewmodel-navigation3 = { module = "androidx.lifecycle:lifecycle-viewmodel-navigation3", version.ref = "lifecycleViewmodelNav3" }
+
 
 
 junit = { group = "junit", name = "junit", version.ref = "junit" }

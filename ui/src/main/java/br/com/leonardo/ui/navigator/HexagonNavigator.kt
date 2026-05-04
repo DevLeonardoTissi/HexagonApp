@@ -1,24 +1,23 @@
 package br.com.leonardo.ui.navigator
 
-import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavOptions
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.snapshotFlow
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import kotlinx.coroutines.flow.Flow
 
-interface HexagonNavigator {
+ class HexagonNavigator(val startDestination: Route) {
+    val backstack: SnapshotStateList<Route> = mutableStateListOf(startDestination)
+    val currentRouteFlow: Flow<Route?> = snapshotFlow { backstack.lastOrNull() }
 
-    val navigationEvents: Flow<NavEvent>
-    val screenNavigators:  List<ScreenNavigator<*, *>>
-    val startDestination: Any
+    fun navigateTo(destination: Route) {
+      if(destination == startDestination){
+          backstack.clear()
+      }
+        backstack.add(destination)
+    }
 
-    fun registerAppGraph(navGraphBuilder: NavGraphBuilder)
-
-
-    fun navigateTo(route: Route,  navOptions: NavOptions? = null)
-
-    fun goBack()
-
-    fun popUp()
-
-    fun routeResolver(route: String): Route?
+    fun goBack() {
+        backstack.removeLastOrNull()
+    }
 
 }

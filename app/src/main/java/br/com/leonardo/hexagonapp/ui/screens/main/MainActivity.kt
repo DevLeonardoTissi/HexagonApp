@@ -3,25 +3,15 @@ package br.com.leonardo.hexagonapp.ui.screens.main
 import android.Manifest
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.compose.rememberNavController
 import br.com.leonardo.hexagonapp.R
 import br.com.leonardo.hexagonapp.ui.theme.HexagonAppTheme
 import br.com.leonardo.hexagonapp.utils.extensions.context.toast
-import br.com.leonardo.ui.navigator.HexagonNavigator
-import kotlinx.coroutines.launch
-import org.koin.android.ext.android.inject
-import org.koin.androidx.compose.koinViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : ComponentActivity() {
@@ -47,11 +37,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             val uiState by appViewModel.uiData.uiState.collectAsStateWithLifecycle()
             val state by appViewModel.data.state.collectAsStateWithLifecycle()
-            val navController = rememberNavController()
 
             HexagonAppTheme(darkTheme = uiState.isDarkMode) {
                 MainScreen(
-                    navController,
                     uiState,
                     state,
                     onActions = { action ->

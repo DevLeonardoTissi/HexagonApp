@@ -1,21 +1,23 @@
 package br.com.leonardo.hexagonapp.ui.screens.inactives.navigator
 
-import androidx.navigation.NavGraphBuilder
-import androidx.navigation.compose.composable
 import br.com.leonardo.hexagonapp.ui.screens.inactives.InactivesProfilesScreen
 import br.com.leonardo.hexagonapp.ui.screens.inactives.navigator.route.InactiveRoute
 import br.com.leonardo.ui.navigator.ScreenNavigator
+import org.koin.core.annotation.KoinExperimentalAPI
+import org.koin.core.module.Module
+import org.koin.dsl.module
+import org.koin.dsl.navigation3.navigation
 
 class InactivesProfilesScreenNavigator : ScreenNavigator<InactiveRoute, InactivesProfilesScreen> {
 
     override val screen = InactivesProfilesScreen()
 
-    override val route = InactiveRoute
-
-    override fun registerScreenNavigator(navGraphBuilder: NavGraphBuilder) {
-        navGraphBuilder.composable<InactiveRoute> {
-            screen.Content()
+    @OptIn(KoinExperimentalAPI::class)
+    override fun registerNavigationModule(): Module {
+        return module {
+            navigation<InactiveRoute>{
+                screen.Content()
+            }
         }
     }
-
 }

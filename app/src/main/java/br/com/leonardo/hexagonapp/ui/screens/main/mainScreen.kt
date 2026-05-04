@@ -42,7 +42,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -52,10 +51,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
-import androidx.navigation.navOptions
 import br.com.leonardo.hexagonapp.R
-import br.com.leonardo.hexagonapp.navigation.HexagonAppNavHost
 import br.com.leonardo.hexagonapp.ui.APP_NAME
 import br.com.leonardo.hexagonapp.ui.components.IconSecondaryColor
 import br.com.leonardo.hexagonapp.ui.components.ModalBottomSheetMore
@@ -64,6 +60,7 @@ import br.com.leonardo.hexagonapp.ui.screens.devProfile.navigator.route.DevProfi
 import br.com.leonardo.hexagonapp.ui.screens.form.navigation.route.FormRoute
 import br.com.leonardo.hexagonapp.ui.screens.inactives.navigator.route.InactiveRoute
 import br.com.leonardo.ui.action.HexagonAction
+import br.com.leonardo.ui.navigator.HexagonNavigator3
 import br.com.leonardo.webClient.utils.NetworkState
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
@@ -74,7 +71,6 @@ import kotlinx.coroutines.launch
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 fun MainScreen(
-    navController: NavHostController,
     appUiState: MainScreenUiState,
     appState: MainScreenState,
     onActions: (HexagonAction) -> Unit,
@@ -84,14 +80,6 @@ fun MainScreen(
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
     val drawerState = rememberDrawerState(DrawerValue.Closed)
-
-    LaunchedEffect(navController) {
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-            destination.route?.let {
-                onActions(MainScreenActions.CurrentRouteChanged(it))
-            }
-        }
-    }
 
 
     fun showSnackBar() {
@@ -174,14 +162,7 @@ fun MainScreen(
                     label = { Text(stringResource(R.string.menuDrawerHomeOption)) },
                     selected = appUiState.currentRoute is HomeRoute,
                     onClick = {
-                        onActions(MainScreenActions.NavigateToRoute(HomeRoute, navOptions {
-                            popUpTo(
-                                HomeRoute
-                            ) {
-                                inclusive = true
-                            }
-                            launchSingleTop = true
-                        }))
+                        onActions(MainScreenActions.NavigateToRoute(HomeRoute))
                         changeDrawer()
                     })
 
@@ -312,7 +293,7 @@ fun MainScreen(
             }) { paddingValues ->
                 Box(modifier = Modifier.fillMaxSize()) {
                     Box(modifier = Modifier.padding(paddingValues)) {
-                        HexagonAppNavHost(navController = navController)
+                        HexagonNavigator3()
                     }
 
                     Box(

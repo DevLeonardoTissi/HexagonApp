@@ -5,13 +5,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavGraphBuilder
-import androidx.navigation.compose.composable
 import br.com.leonardo.hexagonapp.ui.screens.inactives.contentLayout.InactivesProfilesScreenContentLayout
 import br.com.leonardo.hexagonapp.ui.screens.inactives.contentProvider.InactivesProfilesScreenContentProvider
 import br.com.leonardo.hexagonapp.ui.screens.inactives.navigator.route.InactiveRoute
 import br.com.leonardo.ui.screen.HexagonScreen
-import kotlinx.serialization.Serializable
 import org.koin.androidx.compose.koinViewModel
 
 class InactivesProfilesScreen : HexagonScreen<InactiveRoute> {
