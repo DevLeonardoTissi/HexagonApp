@@ -1,8 +1,5 @@
 package br.com.leonardo.hexagonapp.ui.screens.main
 
-import android.util.Log
-import androidx.compose.runtime.derivedStateOf
-import androidx.compose.runtime.getValue
 import androidx.lifecycle.viewModelScope
 import br.com.leonardo.hexagonapp.R
 import br.com.leonardo.hexagonapp.ui.NOTIFICATIONS_NETWORK_ERROR_IDENTIFIER
@@ -163,7 +160,6 @@ class MainViewModel(
     private fun notificationsEnabled(): Boolean = data.getState().notificationsIsEnable
 
     override fun onCleared() {
-        super.onCleared()
         unregisterReceivers()
     }
 }

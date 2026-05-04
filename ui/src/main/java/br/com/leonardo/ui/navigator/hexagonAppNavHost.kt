@@ -12,7 +12,7 @@ import org.koin.core.annotation.KoinExperimentalAPI
 @OptIn(KoinExperimentalAPI::class)
 @Composable
 fun HexagonNavigator3() {
-    val entryProvider = koinEntryProvider<Any>()
+    val entryProvider = koinEntryProvider<Route>()
     val navigator = koinInject<HexagonNavigator>()
 
     NavDisplay(

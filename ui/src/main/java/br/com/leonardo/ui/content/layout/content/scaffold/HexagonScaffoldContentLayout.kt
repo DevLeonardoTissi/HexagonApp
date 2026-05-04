@@ -1,5 +1,6 @@
 package br.com.leonardo.ui.content.layout.content.scaffold
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -62,8 +63,7 @@ abstract class HexagonScaffoldContentLayout<S : HexagonState, UI : HexagonUIStat
                         contentProvider = contentContent,
                         onActions = onActions,
                         modifier = Modifier
-                            .padding(innerPadding)
-                            .contentModifier(state, uiState)
+                            .contentModifier(state, uiState, innerPadding)
                     )
                 }
             }
@@ -77,6 +77,6 @@ abstract class HexagonScaffoldContentLayout<S : HexagonState, UI : HexagonUIStat
     open fun Modifier.bottomModifier(state: S, uiState: UI): Modifier = this
 
     @Composable
-    open fun Modifier.contentModifier(state: S, uiState: UI): Modifier = this
+    open fun Modifier.contentModifier(state: S, uiState: UI, innerPadding: PaddingValues): Modifier = this
 
 }

@@ -1,5 +1,6 @@
 package br.com.leonardo.hexagonapp.ui.screens.form.contentLayout
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -27,8 +28,9 @@ class PersonalProfileFormScreenContentLayout(
     @Composable
     override fun Modifier.contentModifier(
         state: PersonalProfileFormState,
-        uiState: PersonalProfileFormUIState
-    ) =
+        uiState: PersonalProfileFormUIState,
+        innerPadding: PaddingValues
+    ): Modifier =
         this
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
