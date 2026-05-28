@@ -1,6 +1,5 @@
 package br.com.leonardo.hexagonapp.ui.screens.form
 
-import androidx.lifecycle.SavedStateHandle
 import br.com.leonardo.localData.usecase.GetProfileByIdUseCase
 import br.com.leonardo.localData.usecase.InsertProfileUseCase
 import br.com.leonardo.ui.viewmodel.HexagonViewModel
@@ -8,7 +7,7 @@ import br.com.leonardo.ui.viewmodel.HexagonViewModel
 class PersonalProfileFormViewModel(
     private val insertProfileUseCase: InsertProfileUseCase,
     private val getProfileByIdUseCase: GetProfileByIdUseCase,
-    id:String? = null
+    id: String? = null
 ) : HexagonViewModel<
         PersonalProfileFormActions,
         PersonalProfileFormState,
