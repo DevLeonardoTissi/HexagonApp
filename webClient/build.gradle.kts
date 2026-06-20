@@ -6,6 +6,8 @@ android {
     namespace = "br.com.leonardo.webClient"
     compileSdk = 36
 
+    buildFeatures { buildConfig = true }
+
     defaultConfig {
         minSdk = 28
 
@@ -14,12 +16,18 @@ android {
     }
 
     buildTypes {
+
+        debug {
+            buildConfigField("boolean", "ENABLE_HTTP_LOG", "true")
+        }
+
         release {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField("boolean", "ENABLE_HTTP_LOG", "false")
         }
     }
     compileOptions {
@@ -38,7 +46,7 @@ dependencies {
     testImplementation(libs.koin.test.junit4)
 
     //Kotlin coroutines tests
-    testImplementation (libs.kotlinx.coroutines.test)
+    testImplementation(libs.kotlinx.coroutines.test)
 
     testImplementation(libs.mockk)
 
