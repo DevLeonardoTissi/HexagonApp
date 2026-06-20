@@ -9,14 +9,22 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.getValue
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import br.com.leonardo.hexagonapp.R
 import br.com.leonardo.hexagonapp.ui.theme.HexagonAppTheme
 import br.com.leonardo.hexagonapp.utils.extensions.context.toast
+import br.com.leonardo.ui.action.HandleAction
+import br.com.leonardo.ui.action.HexagonAction
+import br.com.leonardo.ui.action.HexagonNavigationAction
+import br.com.leonardo.ui.navigator.HexagonNavigator
+import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : ComponentActivity() {
 
     private val appViewModel: MainViewModel by viewModel()
+    private val navigator: HexagonNavigator by inject()
 
     private val requestPermissionNotificationsLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission(),
@@ -34,7 +42,28 @@ class MainActivity : ComponentActivity() {
         installSplashScreen()
         requestNotificationIfNeeded()
 
+        appViewModel.setObserver(
+            object : HandleAction {
+                override fun handleAction(action: HexagonAction) {
+                    if (action is HexagonNavigationAction) {
+                        navigator.handleNavigatorAction(action)
+                        return
+                    }
+                    appViewModel.handleAction(action)
+                }
+            }
+        )
+
+        lifecycleScope.launch {
+            navigator.currentRouteFlow.collect { currentRoute ->
+                currentRoute?.let {
+                    appViewModel.handleAction(MainScreenActions.CurrencyRouteChanged(it))
+                }
+            }
+        }
+
         setContent {
+
             val uiState by appViewModel.uiData.uiState.collectAsStateWithLifecycle()
             val state by appViewModel.data.state.collectAsStateWithLifecycle()
 
@@ -43,7 +72,7 @@ class MainActivity : ComponentActivity() {
                     uiState,
                     state,
                     onActions = { action ->
-                        (action as? MainScreenActions)?.let { appViewModel.executeAction(it) }
+                        appViewModel.executeAction(action)
                     },
                 )
             }
@@ -56,7 +85,6 @@ class MainActivity : ComponentActivity() {
             requestPermissionNotificationsLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
         }
     }
-
 
     private fun onNotificationPermissionGranted() {
         this.toast(getString(R.string.main_activity_toast_message_notifications_permission_granted))

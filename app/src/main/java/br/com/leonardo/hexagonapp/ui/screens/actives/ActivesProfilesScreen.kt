@@ -9,7 +9,6 @@ import org.koin.compose.viewmodel.koinViewModel
 
 class ActivesProfilesScreen : HexagonScreen<
         HomeRoute,
-        ActivesProfilesActions,
         ActivesProfilesState,
         ActivesProfilesUiState,
         ActivesProfilesViewModel,

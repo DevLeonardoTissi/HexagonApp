@@ -1,6 +1,7 @@
 package br.com.leonardo.hexagonapp.ui.screens.devProfile
 
 import br.com.leonardo.hexagonapp.ui.screens.devProfile.model.DevProfileScreenState
+import br.com.leonardo.ui.action.HexagonAction
 import br.com.leonardo.ui.viewmodel.HexagonViewModel
 import br.com.leonardo.webClient.models.model.GitHubProfileInfoModel
 import br.com.leonardo.webClient.models.model.GithubRepositoryInfoModel
@@ -11,7 +12,6 @@ class DevProfileViewModel(
     private val getUserProfileInfoUseCase: GetUserProfileInfoUseCase,
     private val getUserRepositoriesInfoUseCase: GetUserRepositoriesInfoUseCase,
 ) : HexagonViewModel<
-        DevProfileActions,
         DevProfileState,
         DevProfileData,
         DevProfileUIState,
@@ -27,7 +27,7 @@ class DevProfileViewModel(
     )
 
 
-    override fun handleAction(action: DevProfileActions) {
+    override fun handleAction(action: HexagonAction) {
         when (action) {
             is DevProfileActions.ChangeVisibilityBottomSheetShare -> setVisibilityBottomSheetShareProfile(
                 action.visibility

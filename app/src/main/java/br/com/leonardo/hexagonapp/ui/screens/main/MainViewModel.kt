@@ -9,11 +9,16 @@ import br.com.leonardo.hexagonapp.usecase.NotificationUseCase
 import br.com.leonardo.localData.model.Settings
 import br.com.leonardo.localData.usecase.SearchSettingsUseCase
 import br.com.leonardo.localData.usecase.UpdateSettingsUseCase
+import br.com.leonardo.ui.action.HexagonAction
+import br.com.leonardo.ui.action.HexagonNavigationAction
+import br.com.leonardo.ui.navigator.HexagonNavigator
 import br.com.leonardo.ui.viewmodel.HexagonViewModel
 import br.com.leonardo.webClient.utils.networkMonitor.NetworkMonitor
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 class MainViewModel(
     private val searchSettingsUseCase: SearchSettingsUseCase,
@@ -22,21 +27,18 @@ class MainViewModel(
     private val notificationUseCase: NotificationUseCase,
     private val checkNotificationPermissionUseCase: CheckNotificationPermissionUseCase,
     private val batteryMonitorUseCase: BatteryMonitorUseCase
-) : HexagonViewModel<MainScreenActions, MainScreenState, MainScreenData, MainScreenUiState, MainScreenUiData>() {
+) : HexagonViewModel<MainScreenState, MainScreenData, MainScreenUiState, MainScreenUiData>(),
+    KoinComponent {
 
     override val data = MainScreenData(MainScreenState())
-
     override val uiData = MainScreenUiData(MainScreenUiState())
 
-    override fun handleAction(action: MainScreenActions) {
-
+    override fun handleAction(action: HexagonAction) {
         when (action) {
             is MainScreenActions.ChangeDarkMode -> toggleDarkMode(action.isDarkMode)
             is MainScreenActions.ChangeNotificationsSettings -> toggleNotifications(action.showNotifications)
             is MainScreenActions.DisplayedBottomSheet -> executeDisplayedBottomSheetAction(action)
-            is MainScreenActions.NavigateToRoute -> navigator.navigateTo(action.route)
-            is MainScreenActions.NavigateBack -> navigator.goBack()
-            is MainScreenActions.NavigatePop -> navigator.goBack()
+            is MainScreenActions.CurrencyRouteChanged -> onCurrentRouteChanged(action)
         }
     }
 
@@ -44,23 +46,14 @@ class MainViewModel(
         uiData.updateBottomSheetVisibility(action.displayed)
     }
 
-
     init {
-        observerNavigation()
         observerSettings()
         networkMonitor()
         batteryMonitor()
     }
 
-    fun observerNavigation(){
-        viewModelScope.launch {
-            navigator.currentRouteFlow.collect { currentRoute->
-                currentRoute?.let {
-                    uiData.updateCurrentRoute(it)
-                }
-            }
-        }
-
+    fun onCurrentRouteChanged(action: MainScreenActions.CurrencyRouteChanged){
+        uiData.updateCurrentRoute(action.route)
     }
 
     fun unregisterReceivers() {
@@ -104,7 +97,6 @@ class MainViewModel(
                 if (notificationsEnabled()) {
                     launchNotConnectionNotification()
                 }
-
             }
         )
     }
@@ -145,7 +137,6 @@ class MainViewModel(
 
     private fun cancelNotConnectionNotification() {
         notificationUseCase.cancel(NOTIFICATIONS_NETWORK_ERROR_IDENTIFIER)
-
     }
 
     private fun launchNotConnectionNotification() {

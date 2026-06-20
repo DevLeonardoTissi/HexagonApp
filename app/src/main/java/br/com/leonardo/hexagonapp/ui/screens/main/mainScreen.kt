@@ -60,6 +60,7 @@ import br.com.leonardo.hexagonapp.ui.screens.devProfile.navigator.route.DevProfi
 import br.com.leonardo.hexagonapp.ui.screens.form.navigation.route.FormRoute
 import br.com.leonardo.hexagonapp.ui.screens.inactives.navigator.route.InactiveRoute
 import br.com.leonardo.ui.action.HexagonAction
+import br.com.leonardo.ui.action.HexagonNavigationAction
 import br.com.leonardo.ui.navigator.HexagonNavigator3
 import br.com.leonardo.webClient.utils.NetworkState
 import com.airbnb.lottie.compose.LottieAnimation
@@ -162,7 +163,7 @@ fun MainScreen(
                     label = { Text(stringResource(R.string.menuDrawerHomeOption)) },
                     selected = appUiState.currentRoute is HomeRoute,
                     onClick = {
-                        onActions(MainScreenActions.NavigateToRoute(HomeRoute))
+                        onActions(HexagonNavigationAction.NavigateTo(HomeRoute))
                         changeDrawer()
                     })
 
@@ -176,7 +177,7 @@ fun MainScreen(
                     label = { Text(stringResource(R.string.menuDrawerInsertOption)) },
                     selected = appUiState.currentRoute is FormRoute,
                     onClick = {
-                        onActions(MainScreenActions.NavigateToRoute(FormRoute()))
+                        onActions(HexagonNavigationAction.NavigateTo(FormRoute()))
                         changeDrawer()
                     })
 
@@ -190,7 +191,7 @@ fun MainScreen(
                     label = { Text(stringResource(R.string.menuDrawerInactiveOption)) },
                     selected = appUiState.currentRoute is InactiveRoute,
                     onClick = {
-                        onActions(MainScreenActions.NavigateToRoute(InactiveRoute))
+                        onActions(HexagonNavigationAction.NavigateTo(InactiveRoute))
                         changeDrawer()
                     })
 
@@ -204,7 +205,7 @@ fun MainScreen(
                     label = { Text(stringResource(R.string.menuDrawerDevProfileOption)) },
                     selected = appUiState.currentRoute is DevProfileScreenRoute,
                     onClick = {
-                        onActions(MainScreenActions.NavigateToRoute(DevProfileScreenRoute))
+                        onActions(HexagonNavigationAction.NavigateTo(DevProfileScreenRoute))
                         changeDrawer()
                     })
 
@@ -230,9 +231,7 @@ fun MainScreen(
                 if (appUiState.currentRoute is HomeRoute) {
                     FloatingActionButton(onClick = {
                         onActions(
-                            MainScreenActions.NavigateToRoute(
-                                FormRoute()
-                            )
+                            HexagonNavigationAction.NavigateTo(FormRoute())
                         )
                     }) {
                         Icon(
@@ -274,7 +273,7 @@ fun MainScreen(
                             if (appUiState.currentRoute is HomeRoute) {
                                 changeDrawer()
                             } else {
-                                onActions(MainScreenActions.NavigatePop)
+                                onActions(HexagonNavigationAction.GoBack)
                             }
                         }) {
                             if (appUiState.currentRoute is HomeRoute) {

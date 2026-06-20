@@ -1,27 +1,24 @@
 package br.com.leonardo.hexagonapp.ui.screens.actives
 
 import androidx.lifecycle.viewModelScope
-import br.com.leonardo.hexagonapp.ui.screens.form.PersonalProfileFormScreen
 import br.com.leonardo.hexagonapp.ui.screens.form.navigation.route.FormRoute
 import br.com.leonardo.localData.model.PersonalProfile
 import br.com.leonardo.localData.usecase.DeleteProfileUseCase
 import br.com.leonardo.localData.usecase.GetActivesProfilesUseCase
 import br.com.leonardo.localData.usecase.UpdateProfileUseCase
+import br.com.leonardo.ui.action.HexagonAction
+import br.com.leonardo.ui.action.HexagonNavigationAction
 import br.com.leonardo.ui.viewmodel.HexagonViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 
 class ActivesProfilesViewModel(
     private val getActivesProfilesUseCase: GetActivesProfilesUseCase,
     private val deleteProfileUseCase: DeleteProfileUseCase,
     private val updateProfileUseCase: UpdateProfileUseCase
 ) : HexagonViewModel<
-        ActivesProfilesActions,
         ActivesProfilesState,
         ActivesProfilesData,
         ActivesProfilesUiState,
@@ -35,7 +32,7 @@ class ActivesProfilesViewModel(
     )
 
 
-    override fun handleAction(action: ActivesProfilesActions) {
+    override fun handleAction(action: HexagonAction) {
         when (action) {
             is ActivesProfilesActions.DeleteProfile -> remove(action.profile)
             is ActivesProfilesActions.UpdateProfile -> update(action.profile)
@@ -51,12 +48,12 @@ class ActivesProfilesViewModel(
 
     fun update(profile: PersonalProfile) {
         executeBlock(
-            block = { updateProfileUseCase(profile)}
+            block = { updateProfileUseCase(profile) }
         )
     }
 
-    fun navigateToEdit(profileId:String){
-        navigator.navigateTo(FormRoute(profileId = profileId))
+    fun navigateToEdit(profileId: String) {
+        executeAction(HexagonNavigationAction.NavigateTo(FormRoute(profileId = profileId)))
     }
 
     init {

@@ -9,7 +9,6 @@ import org.koin.compose.viewmodel.koinViewModel
 
 class DevProfileScreen : HexagonScreen<
         DevProfileScreenRoute,
-        DevProfileActions,
         DevProfileState,
         DevProfileUIState,
         DevProfileViewModel,

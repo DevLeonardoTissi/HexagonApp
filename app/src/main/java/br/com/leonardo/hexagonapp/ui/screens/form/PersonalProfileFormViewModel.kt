@@ -2,6 +2,8 @@ package br.com.leonardo.hexagonapp.ui.screens.form
 
 import br.com.leonardo.localData.usecase.GetProfileByIdUseCase
 import br.com.leonardo.localData.usecase.InsertProfileUseCase
+import br.com.leonardo.ui.action.HexagonAction
+import br.com.leonardo.ui.action.HexagonNavigationAction
 import br.com.leonardo.ui.viewmodel.HexagonViewModel
 
 class PersonalProfileFormViewModel(
@@ -9,7 +11,6 @@ class PersonalProfileFormViewModel(
     private val getProfileByIdUseCase: GetProfileByIdUseCase,
     id: String? = null
 ) : HexagonViewModel<
-        PersonalProfileFormActions,
         PersonalProfileFormState,
         PersonalProfileFormData,
         PersonalProfileFormUIState,
@@ -18,7 +19,7 @@ class PersonalProfileFormViewModel(
     override val data = PersonalProfileFormData(initialState = PersonalProfileFormState())
     override val uiData = PersonalProfileFormUiData(initialState = PersonalProfileFormUIState())
 
-    override fun handleAction(action: PersonalProfileFormActions) {
+    override fun handleAction(action: HexagonAction) {
         when (action) {
             is PersonalProfileFormActions.FieldNameChanged -> handleFieldNameChangedAction(action)
             is PersonalProfileFormActions.FieldCPFChanged -> handleFieldCPFChangedAction(action)
@@ -75,7 +76,7 @@ class PersonalProfileFormViewModel(
     private fun handleModalConfirmClickAction() {
         uiData.updateConfirmDialogVisibility(false)
         insert()
-        navigator.goBack()
+        executeAction(HexagonNavigationAction.GoBack)
     }
 
     private fun handleModalDismissAction() {
@@ -100,7 +101,7 @@ class PersonalProfileFormViewModel(
                 with(getProfileByIdUseCase(id = id)) {
                     this?.let {
                         data.updateUserProfile(this)
-                    } ?: navigator.goBack()
+                    } ?: executeAction(HexagonNavigationAction.GoBack)
                 }
             }
         )

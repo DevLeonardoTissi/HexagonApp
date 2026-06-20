@@ -9,11 +9,5 @@ sealed class MainScreenActions : HexagonAction() {
     class ChangeNotificationsSettings(val showNotifications: Boolean) : MainScreenActions()
 
     class DisplayedBottomSheet(val displayed: Boolean) : MainScreenActions()
-
-    class NavigateToRoute(val route: Route) :
-        MainScreenActions()
-
-    object NavigateBack : MainScreenActions()
-    object NavigatePop : MainScreenActions()
-
+    class CurrencyRouteChanged(val route: Route): MainScreenActions()
 }

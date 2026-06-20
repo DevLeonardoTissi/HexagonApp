@@ -8,16 +8,11 @@ import br.com.leonardo.ui.screen.HexagonScreen
 import org.koin.androidx.compose.koinViewModel
 
 class InactivesProfilesScreen : HexagonScreen<InactiveRoute,
-        InactivesProfilesActions,
         InactivesProfilesState,
-
         InactivesProfilesUiState,
         InactivesProfilesViewModel,
         InactivesProfilesScreenContentLayout,
-        InactivesProfilesScreenContentProvider
-
-
-        >() {
+        InactivesProfilesScreenContentProvider>() {
     @Composable
     override fun provideViewModel(arguments: InactiveRoute?): InactivesProfilesViewModel {
         return koinViewModel<InactivesProfilesViewModel>()
