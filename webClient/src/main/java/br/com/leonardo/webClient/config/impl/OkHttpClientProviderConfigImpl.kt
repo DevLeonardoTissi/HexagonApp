@@ -16,9 +16,9 @@ class OkHttpClientProviderConfigImpl(
 
     override operator fun invoke(): OkHttpClient {
         return OkHttpClient.Builder().apply {
-            connectTimeout(60, TimeUnit.SECONDS)
-            readTimeout(60, TimeUnit.SECONDS)
-            writeTimeout(60, TimeUnit.SECONDS)
+            connectTimeout(CONNECTION_TIMEOUT, TimeUnit.SECONDS)
+            readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
+            writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
             retryOnConnectionFailure(true)
             addInterceptor(networkStatusInterceptor)
             addInterceptor(loggingInterceptor)
@@ -26,3 +26,7 @@ class OkHttpClientProviderConfigImpl(
         }.build()
     }
 }
+
+private const val CONNECTION_TIMEOUT = 60L
+private const val READ_TIMEOUT = 60L
+private const val WRITE_TIMEOUT = 60L
