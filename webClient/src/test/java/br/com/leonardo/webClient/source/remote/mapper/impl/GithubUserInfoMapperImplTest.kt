@@ -99,7 +99,7 @@ class GithubUserInfoMapperImplTest {
         val modelList = Mocks.repositoriesModelList
 
         val modelMapperList =
-            githubUserInfoMapperImpl.toModel(githubRepositoryInfoListResponse = entityList)
+            githubUserInfoMapperImpl.toModel(githubRepositoryInfoListResponse = entityList.body()!!)
         assertEquals(modelMapperList, modelList)
     }
 }

@@ -4,6 +4,7 @@ import br.com.leonardo.webClient.models.entity.response.GitHubProfileInfoRespons
 import br.com.leonardo.webClient.models.entity.response.GithubRepositoryInfoResponse
 import br.com.leonardo.webClient.models.model.GitHubProfileInfoModel
 import br.com.leonardo.webClient.models.model.GithubRepositoryInfoModel
+import retrofit2.Response
 
 object Mocks {
     val defaultProfileModel
@@ -29,18 +30,20 @@ object Mocks {
         )
 
     val profileResponse
-        get() = GitHubProfileInfoResponse(
-            avatarUrl = "",
-            htmlUrl = "https://github.com/leonardo",
-            name = "Leonardo",
-            blog = "www.leonardo.com",
-            location = "Brasil",
-            bio = "Android Developer",
-            publicRepos = 10
+        get() = Response.success(
+            GitHubProfileInfoResponse(
+                avatarUrl = "",
+                htmlUrl = "https://github.com/leonardo",
+                name = "Leonardo",
+                blog = "www.leonardo.com",
+                location = "Brasil",
+                bio = "Android Developer",
+                publicRepos = 10
+            )
         )
 
     val repositoriesResponseList
-        get() = listOf(
+        get() = Response.success(listOf(
             GithubRepositoryInfoResponse(
                 name = "Repo 1",
                 htmlUrl = "url/1",
@@ -61,7 +64,7 @@ object Mocks {
                 htmlUrl = "url/4",
                 description = "Desc 4"
             )
-        )
+        ))
 
     val repositoriesModelList
         get() = listOf(

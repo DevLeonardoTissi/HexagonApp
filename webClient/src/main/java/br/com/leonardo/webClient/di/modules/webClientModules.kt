@@ -26,6 +26,8 @@ import br.com.leonardo.webClient.usecase.impl.GetUserRepositoriesInfoUseCaseImpl
 import br.com.leonardo.webClient.utils.GITHUB_API_BASE_URL
 import br.com.leonardo.webClient.utils.networkMonitor.NetworkMonitor
 import br.com.leonardo.webClient.utils.networkMonitor.impl.NetworkMonitorImpl
+import br.com.leonardo.webClient.utils.urlMap.URLMap
+import br.com.leonardo.webClient.utils.urlMap.impl.URLMapImpl
 import okhttp3.OkHttpClient
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -65,4 +67,5 @@ val webClientModule = module {
     factory<GetUserProfileInfoUseCase> { GetUserProfileInfoUseCaseImpl(get()) }
     factory<GetUserRepositoriesInfoUseCase> { GetUserRepositoriesInfoUseCaseImpl(get()) }
     single<NetworkMonitor> { NetworkMonitorImpl(get<ConnectivityManager>()) }
+    factory<URLMap>{ URLMapImpl(get()) }
 }
