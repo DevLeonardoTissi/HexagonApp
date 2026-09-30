@@ -1,11 +1,10 @@
 package br.com.leonardo.webClient.source.remote
 
 import br.com.leonardo.webClient.exception.EmptyResponseException
-import org.koin.core.component.KoinComponent
 import retrofit2.HttpException
 import retrofit2.Response
 
-interface RemoteSource : KoinComponent {
+interface RemoteSource {
 
     suspend fun <E, M> requestNotNullable(
         call: suspend () -> Response<E>,
