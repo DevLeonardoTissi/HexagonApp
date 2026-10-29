@@ -10,6 +10,14 @@ import br.com.leonardo.ui.data.state.HexagonState
 import br.com.leonardo.ui.data.uistate.HexagonUIState
 
 
+/**
+ * Hexagon column content layout
+ *
+ * @param S
+ * @param UI
+ * @constructor Creates a new HexagonColumnContentLayout
+ * @property horizontalAlignment the horizontal alignment
+ */
 open class HexagonColumnContentLayout<S : HexagonState, UI : HexagonUIState>(
     open val horizontalAlignment: Alignment.Horizontal = Alignment.Start
 ) : HexagonBaseContentLayout<S, UI> {

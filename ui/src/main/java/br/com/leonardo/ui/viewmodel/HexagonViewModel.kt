@@ -13,6 +13,16 @@ import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
+/**
+ * Hexagon view model
+ * Android [ViewModel] — survives configuration changes and exposes observable UI state.
+ *
+ * @param S
+ * @param D
+ * @param UI
+ * @param UID
+ * @constructor Creates a new HexagonViewModel
+ */
 abstract class HexagonViewModel< S : HexagonState, D : HexagonData<S>, UI : HexagonUIState, UID : HexagonUIData<UI>> :
     ViewModel(), HandleAction, KoinComponent {
 
@@ -21,10 +31,20 @@ abstract class HexagonViewModel< S : HexagonState, D : HexagonData<S>, UI : Hexa
 
     private var observer: HandleAction? = null
 
+    /**
+     * Handles the action
+     *
+     * @param action
+     */
     fun executeAction(action: HexagonAction) {
         observer?.handleAction(action)
     }
 
+    /**
+     * Sets the observer
+     *
+     * @param observer
+     */
     fun setObserver(observer: HandleAction) {
         this.observer = observer
     }
@@ -33,6 +53,14 @@ abstract class HexagonViewModel< S : HexagonState, D : HexagonData<S>, UI : Hexa
     }
 
 
+    /**
+     * Handles the block
+     *
+     * @param block
+     * @receiver
+     * @param onError the on error
+     * @receiver
+     */
     fun executeBlock(block: suspend () -> Unit, onError: (Throwable) -> Unit = {}) {
         viewModelScope.launch {
             try {
@@ -43,6 +71,17 @@ abstract class HexagonViewModel< S : HexagonState, D : HexagonData<S>, UI : Hexa
         }
     }
 
+    /**
+     * Handles the block
+     *
+     * @param MO
+     * @param block
+     * @receiver
+     * @param onSuccess the on success
+     * @receiver
+     * @param onError the on error
+     * @receiver
+     */
     fun <MO> executeBlock(
         block: suspend () -> Result<MO>,
         onSuccess: (MO) -> Unit = {},

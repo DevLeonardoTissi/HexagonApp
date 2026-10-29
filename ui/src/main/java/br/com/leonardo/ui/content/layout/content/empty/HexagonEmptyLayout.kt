@@ -8,6 +8,13 @@ import br.com.leonardo.ui.content.provider.HexagonContentProvider
 import br.com.leonardo.ui.data.state.HexagonState
 import br.com.leonardo.ui.data.uistate.HexagonUIState
 
+/**
+ * Hexagon empty layout
+ *
+ * @param S
+ * @param UI
+ * @constructor Creates a new HexagonEmptyLayout
+ */
 class HexagonEmptyLayout<S: HexagonState, UI: HexagonUIState> : HexagonBaseContentLayout<S, UI> {
 
     @Composable

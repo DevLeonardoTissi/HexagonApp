@@ -13,6 +13,16 @@ import br.com.leonardo.ui.content.provider.HexagonScaffoldContentProvider
 import br.com.leonardo.ui.data.state.HexagonState
 import br.com.leonardo.ui.data.uistate.HexagonUIState
 
+/**
+ * Hexagon scaffold content layout
+ *
+ * @param S
+ * @param UI
+ * @constructor Creates a new HexagonScaffoldContentLayout
+ * @property topLayout the top layout
+ * @property bottomLayout the bottom layout
+ * @property contentLayout the content layout
+ */
 abstract class HexagonScaffoldContentLayout<S : HexagonState, UI : HexagonUIState>(
     open val topLayout: HexagonBaseContentLayout<S, UI>? = HexagonEmptyLayout(),
     open val bottomLayout: HexagonBaseContentLayout<S, UI>? = HexagonEmptyLayout(),
@@ -70,12 +80,37 @@ abstract class HexagonScaffoldContentLayout<S : HexagonState, UI : HexagonUIStat
         }
     }
 
+    /**
+     * Top modifier on the receiver [Modifier]
+     * Composable function — emits UI and is re-invoked (recomposed) when its inputs change.
+     *
+     * @param state
+     * @param uiState the ui state
+     * @return the modifier
+     */
     @Composable
     open fun Modifier.topModifier(state: S, uiState: UI): Modifier = this
 
+    /**
+     * Bottom modifier on the receiver [Modifier]
+     * Composable function — emits UI and is re-invoked (recomposed) when its inputs change.
+     *
+     * @param state
+     * @param uiState the ui state
+     * @return the modifier
+     */
     @Composable
     open fun Modifier.bottomModifier(state: S, uiState: UI): Modifier = this
 
+    /**
+     * Content modifier on the receiver [Modifier]
+     * Composable function — emits UI and is re-invoked (recomposed) when its inputs change.
+     *
+     * @param state
+     * @param uiState the ui state
+     * @param innerPadding the inner padding
+     * @return the modifier
+     */
     @Composable
     open fun Modifier.contentModifier(state: S, uiState: UI, innerPadding: PaddingValues): Modifier = this
 

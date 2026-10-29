@@ -8,6 +8,14 @@ import br.com.leonardo.ui.content.provider.HexagonContentProvider
 import br.com.leonardo.ui.data.state.HexagonState
 import br.com.leonardo.ui.data.uistate.HexagonRefreshableUIState
 
+/**
+ * Hexagon swipe refresh content layout
+ *
+ * @param S
+ * @param UI
+ * @constructor Creates a new HexagonSwipeRefreshContentLayout
+ * @property contentLayout the content layout
+ */
 abstract class HexagonSwipeRefreshContentLayout<S : HexagonState, UI : HexagonRefreshableUIState>(
     open val contentLayout: HexagonBaseContentLayout<S, UI> = HexagonColumnContentLayout()
 ) : HexagonBaseContentLayout<S, UI> {
@@ -40,6 +48,14 @@ abstract class HexagonSwipeRefreshContentLayout<S : HexagonState, UI : HexagonRe
         }
     }
 
+    /**
+     * Content swipe modifier on the receiver [Modifier]
+     * Composable function — emits UI and is re-invoked (recomposed) when its inputs change.
+     *
+     * @param state
+     * @param uiState the ui state
+     * @return the modifier
+     */
     @Composable
     open fun Modifier.contentSwipeModifier(state: S, uiState: UI) : Modifier = this
 

@@ -19,6 +19,17 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 
+/**
+ * Hexagon screen
+ *
+ * @param R
+ * @param S
+ * @param UIS
+ * @param VM
+ * @param CL
+ * @param CP
+ * @constructor Creates a new HexagonScreen
+ */
 abstract class HexagonScreen<
         R : Route,
         S : HexagonState,
@@ -30,6 +41,13 @@ abstract class HexagonScreen<
 
     private val navigator: HexagonNavigator by inject()
 
+    /**
+     * Provide view model
+     * Composable function — emits UI and is re-invoked (recomposed) when its inputs change.
+     *
+     * @param arguments
+     * @return the vm
+     */
     @Composable
     protected abstract fun provideViewModel(
         arguments: R?
@@ -41,6 +59,12 @@ abstract class HexagonScreen<
 
     var viewModel: VM? = null
 
+    /**
+     * Content
+     * Composable function — emits UI and is re-invoked (recomposed) when its inputs change.
+     *
+     * @param arguments
+     */
     @Composable
     fun Content(arguments: R? = null) {
         viewModel = provideViewModel(arguments)
@@ -73,5 +97,10 @@ abstract class HexagonScreen<
         handleAction(action)
     }
 
+    /**
+     * Handles the action
+     *
+     * @param action
+     */
     open fun handleAction(action: HexagonAction) {}
 }

@@ -3,6 +3,12 @@ package br.com.leonardo.webClient.utils.urlMap.impl
 import android.content.Context
 import br.com.leonardo.webClient.utils.urlMap.URLMap
 
+/**
+ * Url map impl
+ *
+ * @constructor Creates a new URLMapImpl
+ * @property context
+ */
 class URLMapImpl(
     private val context: Context
 ) : URLMap {

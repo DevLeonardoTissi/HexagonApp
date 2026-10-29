@@ -6,6 +6,16 @@ import br.com.leonardo.ui.content.layout.content.HexagonContent
 import br.com.leonardo.ui.data.state.HexagonState
 import br.com.leonardo.ui.data.uistate.HexagonUIState
 
+/**
+ * Hexagon section
+ *
+ * @param S
+ * @param UI
+ * @param R
+ * @constructor Creates a new HexagonSection
+ * @property view
+ * @property mapper
+ */
 abstract class HexagonSection<S, UI, R>(
     private val view: HexagonSectionView<R>,
     private val mapper: HexagonSectionMapper<S, UI, R>
