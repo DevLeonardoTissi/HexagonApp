@@ -16,9 +16,6 @@ import br.com.leonardo.ui.viewmodel.HexagonViewModel
 import br.com.leonardo.webClient.utils.networkMonitor.NetworkMonitor
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 
 @Suppress("detekt.TooManyFunctions")
 class MainViewModel(
@@ -28,8 +25,7 @@ class MainViewModel(
     private val notificationUseCase: NotificationUseCase,
     private val checkNotificationPermissionUseCase: CheckNotificationPermissionUseCase,
     private val batteryMonitorUseCase: BatteryMonitorUseCase
-) : HexagonViewModel<MainScreenState, MainScreenData, MainScreenUiState, MainScreenUiData>(),
-    KoinComponent {
+) : HexagonViewModel<MainScreenState, MainScreenData, MainScreenUiState, MainScreenUiData>() {
 
     override val data = MainScreenData(MainScreenState())
     override val uiData = MainScreenUiData(MainScreenUiState())
@@ -53,7 +49,7 @@ class MainViewModel(
         batteryMonitor()
     }
 
-    fun onCurrentRouteChanged(action: MainScreenActions.CurrencyRouteChanged){
+    fun onCurrentRouteChanged(action: MainScreenActions.CurrencyRouteChanged) {
         uiData.updateCurrentRoute(action.route)
     }
 
