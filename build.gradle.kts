@@ -1,4 +1,3 @@
-
 plugins {
     alias(libs.plugins.androidApplication) apply false
 
@@ -17,4 +16,11 @@ plugins {
     //Firebase crashlytics
     alias(libs.plugins.crashlytics) apply false
     alias(libs.plugins.android.library) apply false
+
+    //Detekt
+    alias(libs.plugins.detekt) apply false
+}
+
+subprojects {
+    apply(from = rootProject.file("config/detekt/detekt.gradle"))
 }

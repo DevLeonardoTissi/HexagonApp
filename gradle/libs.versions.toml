@@ -66,9 +66,12 @@ zxingVersion = "3.5.4"
 #Material adaptative
 adaptive = "1.3.0"
 
-#NAvigation 3
+#Navigation 3
 nav3Core = "1.2.0"
 lifecycleViewmodelNav3 = "2.11.0"
+
+#Detekt
+detekt = "2.0.0-alpha.6"
 
 
 coreKtx = "1.19.1"
@@ -199,3 +202,5 @@ crashlytics = {id = "com.google.firebase.crashlytics" , version.ref = "crashlyti
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 
+#Detekt
+detekt = { id = "dev.detekt", version.ref = "detekt" }
