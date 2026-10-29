@@ -4,6 +4,7 @@ import br.com.leonardo.hexagonapp.utils.extensions.long.toBrazilianDateFormat
 import br.com.leonardo.localData.model.PersonalProfile
 import br.com.leonardo.ui.data.data.HexagonData
 
+@Suppress("detekt.TooManyFunctions")
 class PersonalProfileFormData(initialState: PersonalProfileFormState) :
     HexagonData<PersonalProfileFormState>(initialValue = initialState) {
 

@@ -6,6 +6,7 @@ import br.com.leonardo.ui.action.HexagonAction
 import br.com.leonardo.ui.action.HexagonNavigationAction
 import br.com.leonardo.ui.viewmodel.HexagonViewModel
 
+@Suppress("detekt.TooManyFunctions")
 class PersonalProfileFormViewModel(
     private val insertProfileUseCase: InsertProfileUseCase,
     private val getProfileByIdUseCase: GetProfileByIdUseCase,

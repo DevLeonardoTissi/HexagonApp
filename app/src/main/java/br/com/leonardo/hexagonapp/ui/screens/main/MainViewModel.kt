@@ -20,6 +20,7 @@ import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
+@Suppress("detekt.TooManyFunctions")
 class MainViewModel(
     private val searchSettingsUseCase: SearchSettingsUseCase,
     private val updateSettingsUseCase: UpdateSettingsUseCase,
