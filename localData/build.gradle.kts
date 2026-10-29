@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "br.com.leonardo.localData"
-    compileSdk = 36
+    compileSdk = 37
 
     defaultConfig {
         minSdk = 28

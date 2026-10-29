@@ -5,13 +5,13 @@ plugins {
     alias(libs.plugins.compose.compiler)
 
     //Kotlin Serialization (for navigation version)
-    kotlin("plugin.serialization") version "2.3.10"
+    alias(libs.plugins.kotlinSerialization)
 }
 
 android {
     namespace = "br.com.leonardo.ui"
     compileSdk {
-        version = release(36)
+        version = release(37)
     }
 
     defaultConfig {

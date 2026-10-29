@@ -2,6 +2,9 @@
 plugins {
     alias(libs.plugins.androidApplication) apply false
 
+    //Kotlin
+    alias(libs.plugins.kotlinSerialization) apply false
+
     //New compose compile plugin
     alias(libs.plugins.compose.compiler) apply false
 

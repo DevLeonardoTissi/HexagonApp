@@ -4,7 +4,7 @@ plugins {
 
 android {
     namespace = "br.com.leonardo.webClient"
-    compileSdk = 36
+    compileSdk = 37
 
     buildFeatures { buildConfig = true }
 

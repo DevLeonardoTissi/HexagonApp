@@ -1,7 +1,6 @@
 plugins {
     alias(libs.plugins.androidApplication)
 
-
     //New compose compile plugin
     alias(libs.plugins.compose.compiler)
 
@@ -12,12 +11,12 @@ plugins {
     alias(libs.plugins.crashlytics)
 
     //Kotlin Serialization (for navigation version)
-    kotlin("plugin.serialization") version "2.3.10"
+    alias(libs.plugins.kotlinSerialization)
 }
 
 android {
     namespace = "br.com.leonardo.hexagonapp"
-    compileSdk = 36
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "br.com.leonardo.hexagonapp"
