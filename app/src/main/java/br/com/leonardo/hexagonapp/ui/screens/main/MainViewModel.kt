@@ -10,8 +10,6 @@ import br.com.leonardo.localData.model.Settings
 import br.com.leonardo.localData.usecase.SearchSettingsUseCase
 import br.com.leonardo.localData.usecase.UpdateSettingsUseCase
 import br.com.leonardo.ui.action.HexagonAction
-import br.com.leonardo.ui.action.HexagonNavigationAction
-import br.com.leonardo.ui.navigator.HexagonNavigator
 import br.com.leonardo.ui.viewmodel.HexagonViewModel
 import br.com.leonardo.webClient.utils.networkMonitor.NetworkMonitor
 import kotlinx.coroutines.flow.launchIn
