@@ -2,6 +2,9 @@ plugins {
     alias(libs.plugins.android.library)
 }
 
+//my scripts
+apply(from = rootProject.file("config/detekt/detekt.gradle"))
+
 android {
     namespace = "br.com.leonardo.webClient"
     compileSdk = 37

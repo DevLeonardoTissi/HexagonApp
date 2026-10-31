@@ -21,6 +21,5 @@ plugins {
     alias(libs.plugins.detekt) apply false
 }
 
-subprojects {
-    apply(from = rootProject.file("config/detekt/detekt.gradle"))
-}
+//my scripts
+apply(from = rootProject.file("gradleConfig/scripts/scripts.gradle"))

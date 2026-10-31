@@ -5,6 +5,9 @@ plugins {
     alias(libs.plugins.ksp)
 }
 
+//my scripts
+apply(from = rootProject.file("config/detekt/detekt.gradle"))
+
 android {
     namespace = "br.com.leonardo.localData"
     compileSdk = 37
