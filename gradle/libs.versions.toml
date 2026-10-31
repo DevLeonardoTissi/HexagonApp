@@ -73,6 +73,9 @@ lifecycleViewmodelNav3 = "2.11.0"
 #Detekt
 detekt = "2.0.0-alpha.6"
 
+#ktlint
+ktlint  = "14.2.0"
+
 
 coreKtx = "1.19.1"
 junit = "4.13.2"
@@ -204,3 +207,6 @@ android-library = { id = "com.android.library", version.ref = "agp" }
 
 #Detekt
 detekt = { id = "dev.detekt", version.ref = "detekt" }
+
+#KLint
+ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }

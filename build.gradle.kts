@@ -19,7 +19,10 @@ plugins {
 
     //Detekt
     alias(libs.plugins.detekt) apply false
+
+    //KtLint
+    alias(libs.plugins.ktlint) apply false
 }
 
 //my scripts
-apply(from = rootProject.file("gradleConfig/scripts/scripts.gradle"))
+apply(from = rootProject.file("gradleConfig/scripts/scripts-hooks.gradle"))

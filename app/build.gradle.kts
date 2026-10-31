@@ -12,9 +12,14 @@ plugins {
 
     //Kotlin Serialization (for navigation version)
     alias(libs.plugins.kotlinSerialization)
+
+    //ktlint
+    alias(libs.plugins.ktlint)
 }
 
 //my scripts
+
+//detekt
 apply(from = rootProject.file("config/detekt/detekt.gradle"))
 
 android {

@@ -1,8 +1,13 @@
 plugins {
     alias(libs.plugins.android.library)
+
+    //ktlint
+    alias(libs.plugins.ktlint)
 }
 
 //my scripts
+
+//detekt
 apply(from = rootProject.file("config/detekt/detekt.gradle"))
 
 android {

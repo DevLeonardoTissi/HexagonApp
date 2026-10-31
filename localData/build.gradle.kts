@@ -3,9 +3,14 @@ plugins {
 
     //KSP - processor
     alias(libs.plugins.ksp)
+
+    //ktlint
+    alias(libs.plugins.ktlint)
 }
 
 //my scripts
+
+//detekt
 apply(from = rootProject.file("config/detekt/detekt.gradle"))
 
 android {

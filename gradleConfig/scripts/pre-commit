@@ -1,9 +1,23 @@
 #!/bin/bash
+
 echo "***********************"
 echo "Running Detekt"
 echo "***********************"
 
-./gradlew detektDebug --continue
-RESULT=$?
+./gradlew detektDebug
+DETEKT_RESULT=$?
 
-exit $RESULT
+echo "***********************"
+echo "Running Ktlint"
+echo "***********************"
+
+./gradlew ktlintCheck
+KTLINT_RESULT=$?
+
+if [ $DETEKT_RESULT -ne 0 ] || [ $KTLINT_RESULT -ne 0 ]; then
+    echo "Some code quality checks failed!"
+    exit 1
+fi
+
+echo "All checks passed!"
+exit 0
