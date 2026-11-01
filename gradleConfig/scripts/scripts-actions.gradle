@@ -6,6 +6,22 @@ tasks.register('installGithubActions', Copy) {
     from new File(rootProject.rootDir, 'gradleConfig/scripts/github/workflows/unit-tests.yml')
     into new File(rootProject.rootDir, '.github/workflows')
     filePermissions { unix(0774) }
+
+    // Força o Gradle a executar a task sempre (ignorando o cache up-to-date)
+    outputs.upToDateWhen { false }
+
+    filter { line ->
+        if (line.startsWith("name:")) {
+            "# ========================================================\n" +
+                    "# ATENCAO: Este arquivo foi gerado automaticamente pelo Gradle.\n" +
+                    "# NAO EDITE ESTE ARQUIVO DIRETAMENTE.\n" +
+                    "# Edite o molde em: gradleConfig/scripts/github/workflows/\n" +
+                    "# ========================================================\n\n" + line
+        } else {
+            line
+        }
+    }
+
 }
 
 tasks.getByPath(':app:preBuild')
