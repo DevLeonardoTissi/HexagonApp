@@ -3,7 +3,7 @@
 tasks.register('installGithubActions', Copy) {
     group = 'github'
     description = 'Install the github actions'
-    from new File(rootProject.rootDir, 'gradleConfig/scripts/github/workflows/unit-tests.yml')
+    from new File(rootProject.rootDir, 'gradleConfig/scripts/github/workflows/ci.yml')
     into new File(rootProject.rootDir, '.github/workflows')
     filePermissions { unix(0774) }
 
