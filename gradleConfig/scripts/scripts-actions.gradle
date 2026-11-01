@@ -1,0 +1,12 @@
+// install installGithubActions
+
+tasks.register('installGithubActions', Copy) {
+    group = 'github'
+    description = 'Install the github actions'
+    from new File(rootProject.rootDir, 'gradleConfig/scripts/github/workflows/unit-tests.yml')
+    into new File(rootProject.rootDir, '.github/workflows')
+    filePermissions { unix(0774) }
+}
+
+tasks.getByPath(':app:preBuild')
+        .dependsOn(installGithubActions)

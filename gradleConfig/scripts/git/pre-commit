@@ -1,5 +1,11 @@
 #!/bin/bash
 
+
+echo "***********************"
+echo "Running code inspector"
+echo "***********************"
+
+
 echo "***********************"
 echo "Running Detekt"
 echo "***********************"

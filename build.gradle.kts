@@ -26,3 +26,4 @@ plugins {
 
 //my scripts
 apply(from = rootProject.file("gradleConfig/scripts/scripts-hooks.gradle"))
+apply(from = rootProject.file("gradleConfig/scripts/scripts-actions.gradle"))

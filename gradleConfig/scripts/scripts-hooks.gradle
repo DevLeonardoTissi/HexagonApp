@@ -3,7 +3,7 @@
 tasks.register('installPreCommitGitHooks', Copy) {
     group = 'git'
     description = 'Install the pre-commit git hook'
-    from new File(rootProject.rootDir, 'gradleConfig/scripts/pre-commit')
+    from new File(rootProject.rootDir, 'gradleConfig/scripts/git/pre-commit')
     into new File(rootProject.rootDir, '.git/hooks')
     filePermissions { unix(0774) }
 }
