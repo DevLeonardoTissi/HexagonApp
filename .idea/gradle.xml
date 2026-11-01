@@ -11,6 +11,11 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/appCore" />
+            <option value="$PROJECT_DIR$/appCore/data" />
+            <option value="$PROJECT_DIR$/appCore/di" />
+            <option value="$PROJECT_DIR$/appCore/domain" />
+            <option value="$PROJECT_DIR$/appCore/presentation" />
             <option value="$PROJECT_DIR$/localData" />
             <option value="$PROJECT_DIR$/ui" />
             <option value="$PROJECT_DIR$/webClient" />

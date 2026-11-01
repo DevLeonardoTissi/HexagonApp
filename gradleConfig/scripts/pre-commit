@@ -4,7 +4,7 @@ echo "***********************"
 echo "Running Detekt"
 echo "***********************"
 
-./gradlew detektDebug
+./gradlew detektDebug --continue
 DETEKT_RESULT=$?
 
 echo "***********************"
