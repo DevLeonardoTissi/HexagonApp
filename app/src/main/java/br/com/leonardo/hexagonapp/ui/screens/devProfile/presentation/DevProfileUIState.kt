@@ -1,0 +1,10 @@
+package br.com.leonardo.hexagonapp.ui.screens.devProfile
+
+import br.com.leonardo.hexagonapp.ui.screens.devProfile.model.DevProfileScreenState
+import br.com.leonardo.appcore.presentation.data.uistate.HexagonRefreshableUIState
+
+data class DevProfileUIState(
+    override val isRefreshing: Boolean = false,
+    val screenState: DevProfileScreenState = DevProfileScreenState.Loading,
+    val showBottomSheetShareProfile: Boolean = false,
+): HexagonRefreshableUIState
