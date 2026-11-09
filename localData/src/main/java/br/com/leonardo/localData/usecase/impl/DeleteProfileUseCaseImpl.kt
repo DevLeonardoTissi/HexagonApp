@@ -4,6 +4,7 @@ import br.com.leonardo.localData.model.PersonalProfile
 import br.com.leonardo.localData.repository.PersonalProfileRepository
 import br.com.leonardo.localData.usecase.DeleteProfileUseCase
 
+/** Implementation of [DeleteProfileUseCase] delegating to [PersonalProfileRepository]. */
 class DeleteProfileUseCaseImpl(
     private val repository: PersonalProfileRepository,
 ) : DeleteProfileUseCase {

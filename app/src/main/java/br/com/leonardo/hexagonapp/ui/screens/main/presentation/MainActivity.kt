@@ -21,6 +21,10 @@ import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+/**
+ * Main activity entry point for the application.
+ * Hosts Compose UI tree, Navigation Drawer, and handles runtime permission requests.
+ */
 class MainActivity : ComponentActivity() {
     private val appViewModel: MainViewModel by viewModel()
     private val navigator: HexagonNavigator by inject()

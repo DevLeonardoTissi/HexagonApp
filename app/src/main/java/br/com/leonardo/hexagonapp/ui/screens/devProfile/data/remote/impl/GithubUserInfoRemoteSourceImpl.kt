@@ -8,6 +8,12 @@ import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.services.GithubApiS
 import br.com.leonardo.hexagonapp.ui.screens.devProfile.domain.model.GitHubProfileInfoModel
 import br.com.leonardo.hexagonapp.ui.screens.devProfile.domain.model.GithubRepositoryInfoModel
 
+/**
+ * Implementation of [GithubUserInfoRemoteSource] executing Retrofit requests to GitHub API.
+ *
+ * @property githubProfileService Retrofit API service for GitHub.
+ * @property mapper Data mapper for converting response DTOs into domain models.
+ */
 class GithubUserInfoRemoteSourceImpl(
     private val githubProfileService: GithubApiService,
     private val mapper: GithubUserInfoMapper,

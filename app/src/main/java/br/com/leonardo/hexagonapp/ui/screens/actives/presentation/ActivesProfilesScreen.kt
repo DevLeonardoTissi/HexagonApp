@@ -7,6 +7,7 @@ import br.com.leonardo.hexagonapp.ui.screens.actives.presentation.contentProvide
 import br.com.leonardo.hexagonapp.ui.screens.actives.presentation.navigation.route.HomeRoute
 import org.koin.compose.viewmodel.koinViewModel
 
+/** Main screen composable for displaying active personal profiles. */
 class ActivesProfilesScreen :
     HexagonScreen<
         HomeRoute,

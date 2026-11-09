@@ -6,6 +6,9 @@ import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.response.GithubRepo
 import br.com.leonardo.hexagonapp.ui.screens.devProfile.domain.model.GitHubProfileInfoModel
 import br.com.leonardo.hexagonapp.ui.screens.devProfile.domain.model.GithubRepositoryInfoModel
 
+/**
+ * Implementation of [GithubUserInfoMapper].
+ */
 class GithubUserInfoMapperImpl : GithubUserInfoMapper {
     override fun toModel(githubProfileInfoResponse: GitHubProfileInfoResponse): GitHubProfileInfoModel =
         with(githubProfileInfoResponse) {

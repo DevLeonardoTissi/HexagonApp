@@ -4,6 +4,7 @@ import br.com.leonardo.appcore.domain.utils.extensions.EMPTY_STRING
 import br.com.leonardo.appcore.presentation.data.state.HexagonState
 import java.util.UUID
 
+/** Data state holding form field values for personal profile registration. */
 data class PersonalProfileFormState(
     var id: String = UUID.randomUUID().toString(),
     var name: String = String.EMPTY_STRING,

@@ -4,6 +4,7 @@ import br.com.leonardo.localData.model.PersonalProfile
 import br.com.leonardo.localData.repository.PersonalProfileRepository
 import br.com.leonardo.localData.usecase.UpdateProfileUseCase
 
+/** Implementation of [UpdateProfileUseCase] delegating to [PersonalProfileRepository]. */
 class UpdateProfileUseCaseImpl(
     private val repository: PersonalProfileRepository,
 ) : UpdateProfileUseCase {

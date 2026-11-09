@@ -69,6 +69,13 @@ import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 import kotlinx.coroutines.launch
 
+/**
+ * Root Composable container rendering top app bar, navigation drawer, snackbar host, and navigation host.
+ *
+ * @param appUiState UI state containing dark mode and current route.
+ * @param appState System state containing battery and network status.
+ * @param onActions Callback for handling user actions.
+ */
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 fun MainScreen(

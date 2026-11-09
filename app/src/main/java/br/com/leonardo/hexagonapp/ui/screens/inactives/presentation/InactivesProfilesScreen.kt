@@ -7,6 +7,7 @@ import br.com.leonardo.hexagonapp.ui.screens.inactives.presentation.contentProvi
 import br.com.leonardo.hexagonapp.ui.screens.inactives.presentation.navigation.route.InactiveRoute
 import org.koin.androidx.compose.koinViewModel
 
+/** Main screen composable for displaying inactive personal profiles. */
 class InactivesProfilesScreen :
     HexagonScreen<
         InactiveRoute,

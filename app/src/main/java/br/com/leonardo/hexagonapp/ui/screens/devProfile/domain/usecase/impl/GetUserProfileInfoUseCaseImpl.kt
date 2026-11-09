@@ -4,6 +4,11 @@ import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.repository.GithubUs
 import br.com.leonardo.hexagonapp.ui.screens.devProfile.domain.model.GitHubProfileInfoModel
 import br.com.leonardo.hexagonapp.ui.screens.devProfile.domain.usecase.GetUserProfileInfoUseCase
 
+/**
+ * Implementation of [GetUserProfileInfoUseCase] delegating to [GithubUserRepository].
+ *
+ * @property repository Developer profile repository.
+ */
 class GetUserProfileInfoUseCaseImpl(
     private val repository: GithubUserRepository,
 ) : GetUserProfileInfoUseCase {

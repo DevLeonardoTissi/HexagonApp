@@ -8,6 +8,7 @@ import br.com.leonardo.hexagonapp.ui.screens.form.presentation.navigation.route.
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
 
+/** Main screen composable for creating or editing personal profile forms. */
 class PersonalProfileFormScreen :
     HexagonScreen<
         FormRoute,

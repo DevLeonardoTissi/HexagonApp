@@ -5,6 +5,11 @@ import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.repository.GithubUs
 import br.com.leonardo.hexagonapp.ui.screens.devProfile.domain.model.GitHubProfileInfoModel
 import br.com.leonardo.hexagonapp.ui.screens.devProfile.domain.model.GithubRepositoryInfoModel
 
+/**
+ * Implementation of [GithubUserRepository] delegating remote calls to [GithubUserInfoRemoteSource].
+ *
+ * @property githubUserInfoRemoteSource Remote data source for GitHub user information.
+ */
 class GithubUserRepositoryImpl(
     private val githubUserInfoRemoteSource: GithubUserInfoRemoteSource,
 ) : GithubUserRepository {

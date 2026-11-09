@@ -5,6 +5,7 @@ import br.com.leonardo.localData.repository.PersonalProfileRepository
 import br.com.leonardo.localData.usecase.GetActivesProfilesUseCase
 import kotlinx.coroutines.flow.Flow
 
+/** Implementation of [GetActivesProfilesUseCase] delegating to [PersonalProfileRepository]. */
 class GetActivesProfilesUseCaseImpl(
     private val repository: PersonalProfileRepository,
 ) : GetActivesProfilesUseCase {
