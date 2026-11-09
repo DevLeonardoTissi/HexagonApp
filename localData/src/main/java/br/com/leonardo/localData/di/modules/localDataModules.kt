@@ -31,6 +31,9 @@ import br.com.leonardo.localData.usecase.impl.UpdateSettingsUseCaseImpl
 import br.com.leonardo.localData.utils.DATABASE_NAME
 import org.koin.dsl.module
 
+/**
+ * Koin module registering database, local sources, repositories, and use cases for localData module.
+ */
 val localDataModule =
     module {
         single {

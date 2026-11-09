@@ -4,6 +4,9 @@ import br.com.leonardo.localData.model.Settings
 import br.com.leonardo.localData.repository.SettingsRepository
 import br.com.leonardo.localData.source.local.SettingsLocalSource
 
+/**
+ * Implementation of [SettingsRepository] delegating to [SettingsLocalSource].
+ */
 class SettingsRepositoryImpl(
     private val settingsLocalSource: SettingsLocalSource,
 ) : SettingsRepository {

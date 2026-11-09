@@ -4,6 +4,9 @@ import br.com.leonardo.localData.model.PersonalProfile
 import br.com.leonardo.localData.repository.PersonalProfileRepository
 import br.com.leonardo.localData.source.local.PersonalProfileLocalSource
 
+/**
+ * Implementation of [PersonalProfileRepository] delegating to [PersonalProfileLocalSource].
+ */
 class PersonalProfileRepositoryImpl(
     private val personalProfileLocalSource: PersonalProfileLocalSource,
 ) : PersonalProfileRepository {
