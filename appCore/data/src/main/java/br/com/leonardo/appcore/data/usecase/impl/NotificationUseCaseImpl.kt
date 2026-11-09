@@ -18,15 +18,27 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+/**
+ * Implementation of [NotificationUseCase] for building and dispatching system notifications.
+ *
+ * @property context Application context.
+ * @property notificationManager Android [NotificationManager] system service.
+ */
 class NotificationUseCaseImpl(
     private val context: Context,
     private val notificationManager: NotificationManager,
 ) : NotificationUseCase {
     companion object {
+        /**
+         * Auto-incrementing notification ID counter.
+         */
         var id = 1
             private set
     }
 
+    /**
+     * Builds and presents a system notification asynchronously.
+     */
     override fun show(
         titleStringId: Int,
         descriptionStringId: Int,
@@ -70,6 +82,11 @@ class NotificationUseCaseImpl(
         }
     }
 
+    /**
+     * Cancels a specific notification by ID.
+     *
+     * @param exclusiveId Optional specific ID to cancel.
+     */
     override fun cancel(exclusiveId: Int?) {
         notificationManager.cancel(exclusiveId ?: id)
     }
@@ -86,6 +103,9 @@ class NotificationUseCaseImpl(
             ?.toBitmap()
     }
 
+    /**
+     * Cancels all currently displayed notifications for this app.
+     */
     override fun cancelAll() {
         notificationManager.cancelAll()
     }

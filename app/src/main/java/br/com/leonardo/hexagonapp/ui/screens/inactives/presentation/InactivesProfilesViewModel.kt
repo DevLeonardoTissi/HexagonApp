@@ -13,6 +13,13 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
+/**
+ * ViewModel managing state and user actions for the Inactive Profiles screen.
+ *
+ * @property getInactivesProfilesUseCase Use case for observing inactive profiles.
+ * @property deleteProfileUseCase Use case for deleting a profile.
+ * @property updateProfileUseCase Use case for updating a profile.
+ */
 class InactivesProfilesViewModel(
     private val getInactivesProfilesUseCase: GetInactivesProfilesUseCase,
     private val deleteProfileUseCase: DeleteProfileUseCase,

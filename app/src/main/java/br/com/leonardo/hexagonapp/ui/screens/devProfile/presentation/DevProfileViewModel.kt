@@ -8,6 +8,12 @@ import br.com.leonardo.hexagonapp.ui.screens.devProfile.domain.usecase.GetUserPr
 import br.com.leonardo.hexagonapp.ui.screens.devProfile.domain.usecase.GetUserRepositoriesInfoUseCase
 import br.com.leonardo.hexagonapp.ui.screens.devProfile.presentation.model.DevProfileScreenState
 
+/**
+ * ViewModel managing state and network requests for the GitHub Developer Profile screen.
+ *
+ * @property getUserProfileInfoUseCase Use case for fetching GitHub user details.
+ * @property getUserRepositoriesInfoUseCase Use case for fetching GitHub repositories.
+ */
 class DevProfileViewModel(
     private val getUserProfileInfoUseCase: GetUserProfileInfoUseCase,
     private val getUserRepositoriesInfoUseCase: GetUserRepositoriesInfoUseCase,

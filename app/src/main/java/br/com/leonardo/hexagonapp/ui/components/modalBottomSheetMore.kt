@@ -29,6 +29,15 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 
+/**
+ * Modal bottom sheet for app configuration and settings (dark mode, notifications).
+ *
+ * @param onDismissRequest Callback invoked when the bottom sheet is dismissed.
+ * @param isDarkMode Current dark theme state.
+ * @param showNotifications Current notification settings state.
+ * @param onDarkModeChange Callback invoked when dark mode is toggled.
+ * @param onShowNotificationChange Callback invoked when notification preference is toggled.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ModalBottomSheetMore(

@@ -6,6 +6,13 @@ import br.com.leonardo.appcore.presentation.viewmodel.HexagonViewModel
 import br.com.leonardo.localData.usecase.GetProfileByIdUseCase
 import br.com.leonardo.localData.usecase.InsertProfileUseCase
 
+/**
+ * ViewModel managing form input validation, state, and persistence for personal profiles.
+ *
+ * @property insertProfileUseCase Use case for creating/updating a profile.
+ * @property getProfileByIdUseCase Use case for retrieving profile details by ID.
+ * @property id Optional profile ID for edit mode.
+ */
 @Suppress("detekt.TooManyFunctions", "detekt.UnusedParameter")
 class PersonalProfileFormViewModel(
     private val insertProfileUseCase: InsertProfileUseCase,

@@ -9,7 +9,16 @@ import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 
+/**
+ * Dependency Injection Module for the notification system.
+ * Provides [NotificationManager] and notification channel creator.
+ */
 class NotificationDI : HexagonLibrary {
+    /**
+     * Returns the Koin module registering notification services.
+     *
+     * @return [Module] configured with notification singletons.
+     */
     override fun getModules(): Module =
         module {
             single<NotificationManager> {

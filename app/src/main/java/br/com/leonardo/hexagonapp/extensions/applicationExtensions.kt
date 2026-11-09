@@ -9,6 +9,11 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.GlobalContext.startKoin
 import org.koin.core.module.Module
 
+/**
+ * Returns the list of all Koin modules required for the application.
+ *
+ * @return [List] of [Module] instances.
+ */
 fun getAppModules(): List<Module> =
     listOf(
         localDataModule,
@@ -17,6 +22,9 @@ fun getAppModules(): List<Module> =
         screensModules,
     )
 
+/**
+ * Starts Koin dependency injection container for the [Application].
+ */
 fun Application.startKoinModules() {
     startKoin {
         androidContext(this@startKoinModules)

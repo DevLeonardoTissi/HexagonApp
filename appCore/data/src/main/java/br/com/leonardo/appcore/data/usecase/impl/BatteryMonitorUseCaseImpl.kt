@@ -7,11 +7,21 @@ import android.os.BatteryManager
 import br.com.leonardo.appcore.data.broadcast.BatteryStatusBroadcastReceiver
 import br.com.leonardo.appcore.domain.usecase.BatteryMonitorUseCase
 
+/**
+ * Implementation of [BatteryMonitorUseCase] that monitors device battery level in real-time.
+ *
+ * @property context Application context.
+ */
 class BatteryMonitorUseCaseImpl(
     private val context: Context,
 ) : BatteryMonitorUseCase {
     private var batteryReceiver: BatteryStatusBroadcastReceiver? = null
 
+    /**
+     * Starts monitoring device battery level and registers receiver for status updates.
+     *
+     * @param batteryLevelChange Callback notified with `true` when battery is low, `false` when normal.
+     */
     override fun monitor(batteryLevelChange: (Boolean) -> Unit) {
         checkBatteryLevel(batteryLevelChange = { batteryLevelChange(it) })
         batteryReceiver =
@@ -19,6 +29,9 @@ class BatteryMonitorUseCaseImpl(
         registerReceiver()
     }
 
+    /**
+     * Registers the broadcast receiver for low battery and battery okay events.
+     */
     override fun registerReceiver() {
         val intentFilter =
             IntentFilter().apply {
@@ -28,6 +41,9 @@ class BatteryMonitorUseCaseImpl(
         context.registerReceiver(batteryReceiver, intentFilter)
     }
 
+    /**
+     * Unregisters the broadcast receiver when battery monitoring stops.
+     */
     override fun unregisterReceiver() {
         context.unregisterReceiver(batteryReceiver)
     }

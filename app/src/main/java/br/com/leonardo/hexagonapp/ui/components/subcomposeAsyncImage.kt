@@ -19,6 +19,13 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 
+/**
+ * Async image loader composable wrapping [SubcomposeAsyncImage] with Lottie loading/error placeholders.
+ *
+ * @param model Image URL or asset target.
+ * @param description Content accessibility description.
+ * @param modifier Composable layout modifier.
+ */
 @Composable
 fun SubComposeAsyncImage(
     model: String?,

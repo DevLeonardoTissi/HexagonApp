@@ -12,7 +12,15 @@ import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 
+/**
+ * Dependency Injection Module for global appCore use cases.
+ */
 class UseCaseDI : HexagonLibrary {
+    /**
+     * Returns the Koin module registering appCore use case implementations.
+     *
+     * @return [Module] binding use cases to domain interfaces.
+     */
     override fun getModules(): Module =
         module {
             singleOf(::NotificationUseCaseImpl) { bind<NotificationUseCase>() }

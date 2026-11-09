@@ -47,6 +47,15 @@ import br.com.leonardo.hexagonapp.ui.theme.customYellow
 import br.com.leonardo.localData.model.PersonalProfile
 import kotlinx.coroutines.delay
 
+/**
+ * Adaptive list component rendering profile items in a grid or column based on window size.
+ * Supports swipe-to-dismiss actions for deleting or updating profiles.
+ *
+ * @param list List of [PersonalProfile] items to display.
+ * @param onCLickItem Callback triggered on item click.
+ * @param onDelete Callback triggered on swipe delete action.
+ * @param onUpdate Callback triggered on swipe update action.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PersonalProfileList(

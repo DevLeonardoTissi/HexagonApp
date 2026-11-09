@@ -4,6 +4,12 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 
+/**
+ * System [BroadcastReceiver] listening for system battery status changes
+ * (`ACTION_BATTERY_LOW` and `ACTION_BATTERY_OKAY`).
+ *
+ * @property onBatteryLowChanged Callback invoked when the battery state changes to low (`true`) or okay (`false`).
+ */
 class BatteryStatusBroadcastReceiver(
     private val onBatteryLowChanged: (Boolean) -> Unit,
 ) : BroadcastReceiver() {

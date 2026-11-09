@@ -26,6 +26,16 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import br.com.leonardo.hexagonapp.R
 
+/**
+ * Card layout displaying user profile details (photo, name, CPF, birth date).
+ *
+ * @param id Profile unique identifier.
+ * @param name Profile full name.
+ * @param cpf Profile CPF document number.
+ * @param dateOfBirth Formatted date of birth string.
+ * @param photo Optional avatar image URL.
+ * @param onClickItem Callback triggered when card is clicked.
+ */
 @Composable
 fun PersonalProfileLayout(
     id: String,

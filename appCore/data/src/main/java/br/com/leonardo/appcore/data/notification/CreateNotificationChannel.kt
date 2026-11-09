@@ -8,10 +8,19 @@ import android.net.Uri
 import androidx.core.net.toUri
 import br.com.leonardo.appcore.data.R
 
+/**
+ * Creates and configures the default application notification channel on Android system service.
+ *
+ * @property context Application context used for accessing resources.
+ * @property manager System [NotificationManager] for registering the notification channel.
+ */
 class CreateNotificationChannel(
     private val context: Context,
     private val manager: NotificationManager,
 ) {
+    /**
+     * Registers the notification channel with custom sound and importance settings.
+     */
     fun create() {
         val name = context.getString(R.string.channel_name)
         val description = context.getString(R.string.channel_description)
@@ -38,6 +47,9 @@ class CreateNotificationChannel(
             .build()
 
     companion object {
+        /**
+         * Unique channel identifier for main application notifications.
+         */
         const val NOTIFICATIONS_CHANNEL_IDENTIFIER = "a11d082b-8a27-4b8f-a5bc-5a17aced5cfc"
     }
 }

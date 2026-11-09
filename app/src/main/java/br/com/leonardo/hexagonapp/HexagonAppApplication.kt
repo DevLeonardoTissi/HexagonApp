@@ -5,6 +5,10 @@ import br.com.leonardo.appcore.data.notification.CreateNotificationChannel
 import br.com.leonardo.hexagonapp.extensions.startKoinModules
 import org.koin.android.ext.android.inject
 
+/**
+ * Main [Application] class for HexagonApp.
+ * Initializes Koin dependency injection and system notification channels.
+ */
 class HexagonAppApplication : Application() {
     override fun onCreate() {
         super.onCreate()

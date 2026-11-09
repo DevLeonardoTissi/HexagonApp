@@ -14,6 +14,16 @@ import br.com.leonardo.localData.usecase.UpdateSettingsUseCase
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
+/**
+ * ViewModel managing root application state, network status, battery monitoring, and settings.
+ *
+ * @property searchSettingsUseCase Use case for loading app settings.
+ * @property updateSettingsUseCase Use case for saving app settings.
+ * @property networkMonitor Real-time network connectivity status monitor.
+ * @property notificationUseCase Service for dispatching notifications.
+ * @property checkNotificationPermissionUseCase Verifier for notification permission.
+ * @property batteryMonitorUseCase Real-time device battery monitor.
+ */
 @Suppress("detekt.TooManyFunctions")
 class MainViewModel(
     private val searchSettingsUseCase: SearchSettingsUseCase,

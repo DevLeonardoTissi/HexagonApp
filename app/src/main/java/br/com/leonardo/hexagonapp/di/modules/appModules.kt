@@ -9,6 +9,9 @@ import br.com.leonardo.hexagonapp.ui.screens.inactives.lib.InactivesProfilesScre
 import br.com.leonardo.hexagonapp.ui.screens.main.lib.MainScreenDiLibrary
 import org.koin.dsl.module
 
+/**
+ * Aggregated Koin module containing all screen-level DI definitions.
+ */
 val screensModules =
     module {
         includes(ActivesProfilesScreenDiLibrary().getModules())
@@ -18,6 +21,9 @@ val screensModules =
         includes(MainScreenDiLibrary().getModules())
     }
 
+/**
+ * Koin module providing the global [HexagonNavigator] instance.
+ */
 val navigatorModule =
     module {
         single { HexagonNavigator(startDestination = HomeRoute) }
