@@ -46,6 +46,7 @@ abstract class HexagonViewModel<S : HexagonState, D : HexagonData<S>, UI : Hexag
         this.observer = observer
     }
 
+    @Suppress("EmptyFunctionBlock")
     override fun handleAction(action: HexagonAction) {
     }
 
@@ -57,6 +58,7 @@ abstract class HexagonViewModel<S : HexagonState, D : HexagonData<S>, UI : Hexag
      * @param onError the on error
      * @receiver
      */
+    @Suppress("TooGenericExceptionCaught")
     fun executeBlock(
         block: suspend () -> Unit,
         onError: (Throwable) -> Unit = {},

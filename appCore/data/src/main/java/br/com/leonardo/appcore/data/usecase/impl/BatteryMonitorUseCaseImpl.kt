@@ -46,6 +46,8 @@ class BatteryMonitorUseCaseImpl(
         val level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)
         val scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
         val batteryPct = level / scale.toFloat()
-        return batteryPct <= 0.15f
+        return batteryPct <= BATTERY_LOW_THRESHOLD
     }
 }
+
+private const val BATTERY_LOW_THRESHOLD = 0.15f

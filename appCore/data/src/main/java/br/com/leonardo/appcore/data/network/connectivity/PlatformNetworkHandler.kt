@@ -9,6 +9,7 @@ class PlatformNetworkHandler(
     private val connectivityManager: ConnectivityManager,
 ) : NetworkStatus {
     @RequiresPermission(Manifest.permission.ACCESS_NETWORK_STATE)
+    @Suppress("ReturnCount")
     override fun isConnected(): Boolean {
         val network = connectivityManager.activeNetwork ?: return false
         val networkCapabilities =

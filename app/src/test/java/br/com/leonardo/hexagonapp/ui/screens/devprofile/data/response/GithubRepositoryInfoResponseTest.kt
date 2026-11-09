@@ -1,4 +1,4 @@
-package br.com.leonardo.hexagonapp.ui.screens.devProfile.data.models.entity.response
+package br.com.leonardo.hexagonapp.ui.screens.devProfile.data.response
 
 import org.junit.Assert
 import org.junit.Test

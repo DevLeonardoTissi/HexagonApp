@@ -1,7 +1,6 @@
 package br.com.leonardo.appcore.presentation.navigator
 
 import br.com.leonardo.appcore.presentation.screen.HexagonScreen
-import org.koin.core.annotation.KoinExperimentalAPI
 import org.koin.core.module.Module
 
 /**

@@ -82,7 +82,7 @@ fun PersonalProfileList(
                     .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            list?.let { list ->
+            list?.let { profileList ->
 
                 if (isMediumDp) {
                     LazyVerticalGrid(
@@ -91,7 +91,7 @@ fun PersonalProfileList(
                         verticalArrangement = Arrangement.spacedBy(8.dp),
                         horizontalArrangement = Arrangement.spacedBy(8.dp),
                     ) {
-                        items(list, key = { it.id }) { profile ->
+                        items(profileList, key = { it.id }) { profile ->
                             val swipeToDismissBoxState = rememberSwipeToDismissBoxState()
 
                             LaunchedEffect(swipeToDismissBoxState.currentValue) {

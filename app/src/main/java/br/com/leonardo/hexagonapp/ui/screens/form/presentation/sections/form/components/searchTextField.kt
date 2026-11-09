@@ -28,7 +28,7 @@ fun HexagonTextField(
     OutlinedTextField(
         isError = inError,
         readOnly = readonly ?: false,
-        value = searchText ?: "",
+        value = searchText.orEmpty(),
         onValueChange = { newValue ->
             onSearchChange(newValue)
         },

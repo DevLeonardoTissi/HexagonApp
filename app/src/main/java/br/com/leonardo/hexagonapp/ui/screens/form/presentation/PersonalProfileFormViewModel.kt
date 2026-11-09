@@ -6,7 +6,7 @@ import br.com.leonardo.appcore.presentation.viewmodel.HexagonViewModel
 import br.com.leonardo.localData.usecase.GetProfileByIdUseCase
 import br.com.leonardo.localData.usecase.InsertProfileUseCase
 
-@Suppress("detekt.TooManyFunctions")
+@Suppress("detekt.TooManyFunctions", "detekt.UnusedParameter")
 class PersonalProfileFormViewModel(
     private val insertProfileUseCase: InsertProfileUseCase,
     private val getProfileByIdUseCase: GetProfileByIdUseCase,

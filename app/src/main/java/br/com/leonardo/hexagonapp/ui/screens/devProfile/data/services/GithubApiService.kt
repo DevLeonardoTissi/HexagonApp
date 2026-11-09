@@ -1,7 +1,7 @@
 package br.com.leonardo.hexagonapp.ui.screens.devProfile.data.services
 
-import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.models.entity.response.GitHubProfileInfoResponse
-import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.models.entity.response.GithubRepositoryInfoResponse
+import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.response.GitHubProfileInfoResponse
+import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.response.GithubRepositoryInfoResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

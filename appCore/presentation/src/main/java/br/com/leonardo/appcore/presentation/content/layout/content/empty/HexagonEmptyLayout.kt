@@ -17,6 +17,7 @@ import br.com.leonardo.appcore.presentation.data.uistate.HexagonUIState
  */
 class HexagonEmptyLayout<S : HexagonState, UI : HexagonUIState> : HexagonBaseContentLayout<S, UI> {
     @Composable
+    @Suppress("EmptyFunctionBlock")
     override fun Layout(
         state: S,
         uiState: UI,

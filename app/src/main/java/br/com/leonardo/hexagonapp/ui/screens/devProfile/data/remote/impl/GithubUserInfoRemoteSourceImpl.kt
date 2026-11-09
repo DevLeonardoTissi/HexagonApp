@@ -19,7 +19,7 @@ class GithubUserInfoRemoteSourceImpl(
                     path =
                         buildPath(
                             urlID = R.string.dev_leonardo_tissi_url,
-                            params = listOf(userParam to "devleonardotissi"),
+                            params = listOf(USER_PARAM to "devleonardotissi"),
                         ),
                 )
             },
@@ -35,10 +35,10 @@ class GithubUserInfoRemoteSourceImpl(
                     path =
                         buildPath(
                             urlID = R.string.dev_leonardo_tissi_repos,
-                            params = listOf(userParam to "devleonardotissi"),
+                            params = listOf(USER_PARAM to "devleonardotissi"),
                         ),
-                    sort = sortCreated,
-                    direction = directionDesc,
+                    sort = SORT_CREATED,
+                    direction = DIRECTION_DESC,
                 )
             },
             onSuccess = { _, response ->
@@ -47,6 +47,6 @@ class GithubUserInfoRemoteSourceImpl(
         )
 }
 
-private const val userParam = "user"
-private const val sortCreated = "created"
-private const val directionDesc = "desc"
+private const val USER_PARAM = "user"
+private const val SORT_CREATED = "created"
+private const val DIRECTION_DESC = "desc"

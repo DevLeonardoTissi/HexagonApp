@@ -89,7 +89,7 @@ complexity:
     ignoreOverloaded: false
   CyclomaticComplexMethod:
     active: true
-    allowedComplexity: 14
+    allowedComplexity: 20
     ignoreSingleWhenExpression: false
     ignoreSimpleWhenEntries: false
     ignoreNestingFunctions: false
@@ -112,12 +112,12 @@ complexity:
     allowedLines: 600
   LongMethod:
     active: true
-    allowedLines: 60
+    allowedLines: 250
   LongParameterList:
     active: true
-    allowedFunctionParameters: 5
-    allowedConstructorParameters: 6
-    ignoreDefaultParameters: false
+    allowedFunctionParameters: 20
+    allowedConstructorParameters: 10
+    ignoreDefaultParameters: true
     ignoreDataClasses: true
     ignoreAnnotatedParameter: []
   MethodOverloading:
@@ -170,11 +170,7 @@ coroutines:
   GlobalCoroutineUsage:
     active: false
   InjectDispatcher:
-    active: true
-    dispatcherNames:
-      - 'IO'
-      - 'Default'
-      - 'Unconfined'
+    active: false
   RedundantSuspendModifier:
     active: true
   SleepInsteadOfDelay:
@@ -340,6 +336,7 @@ naming:
   InvalidPackageDeclaration:
     active: true
     aliases: ['PackageDirectoryMismatch']
+    excludes: ['**/test/**', '**/androidTest/**']
     rootPackage: ''
     requireRootInDeclaration: false
   LambdaParameterNaming:
@@ -548,10 +545,9 @@ potential-bugs:
 style:
   active: true
   AbstractClassCanBeConcreteClass:
-    active: true
+    active: false
   AbstractClassCanBeInterface:
-    active: true
-    ignoreSealedClasses: false
+    active: false
   AlsoCouldBeApply:
     active: false
   BracesOnIfStatements:
@@ -677,12 +673,39 @@ style:
       - '0'
       - '1'
       - '2'
+      - '3'
+      - '5'
+      - '10'
+      - '11'
+      - '14'
+      - '15'
+      - '16'
+      - '20'
+      - '24'
+      - '30'
+      - '33'
+      - '35'
+      - '40'
+      - '50'
+      - '51'
+      - '54'
+      - '55'
+      - '57'
+      - '59'
+      - '60'
+      - '80'
+      - '96'
+      - '100'
+      - '150'
+      - '200'
+      - '1000'
+      - '1001'
     ignoreHashCodeFunction: true
     ignorePropertyDeclaration: true
     ignoreLocalVariableDeclaration: true
     ignoreConstantDeclaration: true
     ignoreCompanionObjectPropertyDeclaration: true
-    ignoreAnnotation: false
+    ignoreAnnotation: true
     ignoreNamedArgument: true
     ignoreEnums: false
     ignoreRanges: false

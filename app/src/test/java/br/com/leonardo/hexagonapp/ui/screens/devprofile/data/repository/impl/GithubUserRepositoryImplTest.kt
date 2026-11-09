@@ -15,7 +15,8 @@ import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 class GithubUserRepositoryImplTest : KoinTest {
-    // APENAS PARA VER QUE PODEMOS UTILIZAR MODULOS DINAMICOS DO KOIN (MAS NÂO INDICADO AQUI, APENAS EM TESTES INSTRUMENTADOS)
+    // APENAS PARA VER QUE PODEMOS UTILIZAR MODULOS DINAMICOS DO KOIN
+    // (MAS NÃO INDICADO AQUI, APENAS EM TESTES INSTRUMENTADOS)
 //    @get:Rule
 //    val koinTestRule = KoinTestRule.create {
     // ESSA LINHA PARA MOCKAR UMA CLASSE COM O KOIN

@@ -145,8 +145,8 @@ class NotificationUseCaseImpl(
         title: String?,
         intent: PendingIntent?,
     ) {
-        if (listOf(icon, title, intent).all { it != null }) {
-            builder.addAction(icon!!, title, intent)
+        if (icon != null && title != null && intent != null) {
+            builder.addAction(icon, title, intent)
         }
     }
 }

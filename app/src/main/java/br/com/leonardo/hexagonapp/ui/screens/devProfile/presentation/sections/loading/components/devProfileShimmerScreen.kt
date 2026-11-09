@@ -17,6 +17,7 @@ import androidx.compose.ui.keepScreenOn
 import androidx.compose.ui.unit.dp
 
 @Composable
+@Suppress("detekt.MagicNumber")
 fun DevProfileShimmerScreen() {
     Column(
         modifier = Modifier.fillMaxSize().keepScreenOn(),

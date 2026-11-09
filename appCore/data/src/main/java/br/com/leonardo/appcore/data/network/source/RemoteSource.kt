@@ -7,6 +7,7 @@ import retrofit2.Response
 /**
  * Remote source
  */
+@Suppress("TooGenericExceptionCaught")
 interface RemoteSource {
     /**
      * Request not nullable

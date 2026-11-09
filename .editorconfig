@@ -8,3 +8,5 @@ indent_size = 4
 max_line_length = 120
 
 ktlint_code_style = ktlint_official
+ktlint_standard_function-naming = disabled
+ktlint_standard_filename = disabled

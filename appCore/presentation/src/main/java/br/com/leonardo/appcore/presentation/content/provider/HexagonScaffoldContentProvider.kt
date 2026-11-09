@@ -22,5 +22,5 @@ abstract class HexagonScaffoldContentProvider<S : HexagonState, UI : HexagonUISt
     override fun getContent(
         state: S,
         uiState: UI,
-    ): List<HexagonContent> = contentContent?.getContent(state, uiState) ?: emptyList()
+    ): List<HexagonContent> = contentContent?.getContent(state, uiState).orEmpty()
 }
