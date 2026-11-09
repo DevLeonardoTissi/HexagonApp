@@ -1,4 +1,4 @@
-package br.com.leonardo.hexagonapp.ui.screens.devProfile.sections.loading.components
+package br.com.leonardo.hexagonapp.ui.screens.devProfile.presentation.sections.loading.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -18,27 +18,26 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun DevProfileShimmerScreen() {
-
     Column(
         modifier = Modifier.fillMaxSize().keepScreenOn(),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-
         ShimmerPlaceholder(
-            modifier = Modifier
-                .size(200.dp)
-                .offset(y = 50.dp)
-                .clip(shape = CircleShape)
+            modifier =
+                Modifier
+                    .size(200.dp)
+                    .offset(y = 50.dp)
+                    .clip(shape = CircleShape),
         )
 
         Spacer(modifier = Modifier.height(100.dp))
         ShimmerPlaceholder(
-            modifier = Modifier
-                .fillMaxWidth(0.5f)
-                .height(20.dp)
-                .clip(RoundedCornerShape(4.dp))
+            modifier =
+                Modifier
+                    .fillMaxWidth(0.5f)
+                    .height(20.dp)
+                    .clip(RoundedCornerShape(4.dp)),
         )
         ShimmerList()
     }
-
 }

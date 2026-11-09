@@ -1,9 +1,9 @@
-package br.com.leonardo.hexagonapp.ui.screens.devProfile.sections.error
+package br.com.leonardo.hexagonapp.ui.screens.devProfile.presentation.sections.error
 
 import br.com.leonardo.appcore.presentation.content.layout.section.HexagonSectionRender
 
 data class ErrorSectionRender(
     val buttonText: String,
     val errorTexts: List<String>,
-    val iconRefreshDescription: String
+    val iconRefreshDescription: String,
 ) : HexagonSectionRender

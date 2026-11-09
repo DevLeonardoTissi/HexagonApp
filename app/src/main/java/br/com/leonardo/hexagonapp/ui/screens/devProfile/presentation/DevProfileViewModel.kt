@@ -1,12 +1,12 @@
-package br.com.leonardo.hexagonapp.ui.screens.devProfile
+package br.com.leonardo.hexagonapp.ui.screens.devProfile.presentation
 
-import br.com.leonardo.hexagonapp.ui.screens.devProfile.model.DevProfileScreenState
 import br.com.leonardo.appcore.presentation.action.HexagonAction
 import br.com.leonardo.appcore.presentation.viewmodel.HexagonViewModel
-import br.com.leonardo.webClient.models.model.GitHubProfileInfoModel
-import br.com.leonardo.webClient.models.model.GithubRepositoryInfoModel
-import br.com.leonardo.webClient.usecase.GetUserProfileInfoUseCase
-import br.com.leonardo.webClient.usecase.GetUserRepositoriesInfoUseCase
+import br.com.leonardo.hexagonapp.ui.screens.devProfile.domain.model.GitHubProfileInfoModel
+import br.com.leonardo.hexagonapp.ui.screens.devProfile.domain.model.GithubRepositoryInfoModel
+import br.com.leonardo.hexagonapp.ui.screens.devProfile.domain.usecase.GetUserProfileInfoUseCase
+import br.com.leonardo.hexagonapp.ui.screens.devProfile.domain.usecase.GetUserRepositoriesInfoUseCase
+import br.com.leonardo.hexagonapp.ui.screens.devProfile.presentation.model.DevProfileScreenState
 
 class DevProfileViewModel(
     private val getUserProfileInfoUseCase: GetUserProfileInfoUseCase,
@@ -15,23 +15,24 @@ class DevProfileViewModel(
         DevProfileState,
         DevProfileData,
         DevProfileUIState,
-        DevProfileUIData
-        >() {
+        DevProfileUIData,
+    >() {
+    override val data =
+        DevProfileData(
+            initialState = DevProfileState(),
+        )
 
-    override val data = DevProfileData(
-        initialState = DevProfileState()
-    )
-
-    override val uiData = DevProfileUIData(
-        initialState = DevProfileUIState(screenState = DevProfileScreenState.Loading)
-    )
-
+    override val uiData =
+        DevProfileUIData(
+            initialState = DevProfileUIState(screenState = DevProfileScreenState.Loading),
+        )
 
     override fun handleAction(action: HexagonAction) {
         when (action) {
-            is DevProfileActions.ChangeVisibilityBottomSheetShare -> setVisibilityBottomSheetShareProfile(
-                action.visibility
-            )
+            is DevProfileActions.ChangeVisibilityBottomSheetShare ->
+                setVisibilityBottomSheetShareProfile(
+                    action.visibility,
+                )
 
             is DevProfileActions.Load -> loadUserInfo()
             is DevProfileActions.Refresh -> refreshingPerform()
@@ -55,15 +56,16 @@ class DevProfileViewModel(
         getUserInfo()
     }
 
-    private fun getUserInfo(
-    ) {
+    private fun getUserInfo() {
         executeBlock(
             block = getUserProfileInfoUseCase::invoke,
             onSuccess = { userProfile ->
                 onSuccessGetUserInfo(userProfile)
-            }, onError = {
+            },
+            onError = {
                 onErrorGetUserInfo()
-            })
+            },
+        )
     }
 
     private fun onSuccessGetUserInfo(userInfo: GitHubProfileInfoModel) {
@@ -76,8 +78,7 @@ class DevProfileViewModel(
         uiData.refresh(false)
     }
 
-    private fun getUserRepositories(
-    ) {
+    private fun getUserRepositories() {
         executeBlock(
             block = getUserRepositoriesInfoUseCase::invoke,
             onSuccess = { userRepositories ->
@@ -85,7 +86,8 @@ class DevProfileViewModel(
             },
             onError = {
                 onErrorGetUserRepositories()
-            })
+            },
+        )
     }
 
     private fun onSuccessGetUserRepositories(repositories: List<GithubRepositoryInfoModel>) {

@@ -6,7 +6,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
 
 @Composable
-fun IconSecondaryColor(imageVector: ImageVector, contentDescription:String){
+fun IconSecondaryColor(
+    imageVector: ImageVector,
+    contentDescription: String,
+) {
     Icon(imageVector = imageVector, contentDescription = contentDescription, tint = MaterialTheme.colorScheme.secondary)
-
 }

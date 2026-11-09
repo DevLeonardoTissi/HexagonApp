@@ -1,6 +1,7 @@
-package br.com.leonardo.webClient.exception
+package br.com.leonardo.appcore.data.network.exception
 
-import br.com.leonardo.webClient.utils.EMPTY_RESPONSE_EXCEPTION_MESSAGE
+import br.com.leonardo.appcore.data.network.utils.EMPTY_RESPONSE_EXCEPTION_MESSAGE
 
-class EmptyResponseException(message: String = EMPTY_RESPONSE_EXCEPTION_MESSAGE) :
-    Exception(message)
+class EmptyResponseException(
+    message: String = EMPTY_RESPONSE_EXCEPTION_MESSAGE,
+) : Exception(message)

@@ -1,6 +1,6 @@
-package br.com.leonardo.webClient.utils.networkMonitor
+package br.com.leonardo.appcore.data.network.utils.networkMonitor
 
-import br.com.leonardo.webClient.utils.NetworkState
+import br.com.leonardo.appcore.data.network.utils.NetworkState
 
 interface NetworkMonitor {
     fun monitor(

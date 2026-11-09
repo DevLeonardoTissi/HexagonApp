@@ -26,36 +26,38 @@ fun SubComposeAsyncImage(
     modifier: Modifier,
 ) {
     SubcomposeAsyncImage(
-        model = if(model.isNullOrBlank()) R.drawable.placeholder else model,
+        model = if (model.isNullOrBlank()) R.drawable.placeholder else model,
         contentDescription = description,
         loading = {
             val composition by rememberLottieComposition(spec = LottieCompositionSpec.RawRes(R.raw.load))
             Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(MaterialTheme.colorScheme.background),
+                modifier =
+                    Modifier
+                        .fillMaxSize()
+                        .background(MaterialTheme.colorScheme.background),
                 verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 LottieAnimation(
                     composition = composition,
                     iterations = LottieConstants.IterateForever,
-                    modifier = Modifier.size(150.dp)
+                    modifier = Modifier.size(150.dp),
                 )
             }
         },
         error = {
             val composition by rememberLottieComposition(spec = LottieCompositionSpec.RawRes(R.raw.load_error))
             Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(MaterialTheme.colorScheme.background),
+                modifier =
+                    Modifier
+                        .fillMaxSize()
+                        .background(MaterialTheme.colorScheme.background),
                 verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 LottieAnimation(
                     composition = composition,
-                    modifier = Modifier.size(80.dp)
+                    modifier = Modifier.size(80.dp),
                 )
             }
         },

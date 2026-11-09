@@ -1,7 +1,6 @@
-package br.com.leonardo.appcore.data.network.utils.di
+package br.com.leonardo.appcore.di.module.utils
 
 import org.koin.core.context.GlobalContext
-
 
 /**
  * My inject
@@ -9,6 +8,4 @@ import org.koin.core.context.GlobalContext
  * @param T
  * @return the t
  */
-inline fun <reified T : Any> myInject(): T {
-    return GlobalContext.get().get<T>()
-}
+inline fun <reified T : Any> myInject(): T = GlobalContext.get().get()

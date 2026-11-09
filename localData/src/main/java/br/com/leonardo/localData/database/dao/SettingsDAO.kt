@@ -8,11 +8,9 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface SettingsDAO {
-
     @Update
     suspend fun updateSettings(settings: Settings)
 
     @Query("SELECT * FROM settings")
     fun searchSettings(): Flow<Settings>
-
 }

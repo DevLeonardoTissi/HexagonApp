@@ -1,6 +1,6 @@
-package br.com.leonardo.webClient.source.remote
+package br.com.leonardo.appcore.data.network.source
 
-import br.com.leonardo.webClient.exception.EmptyResponseException
+import br.com.leonardo.appcore.data.network.exception.EmptyResponseException
 import retrofit2.HttpException
 import retrofit2.Response
 
@@ -8,7 +8,6 @@ import retrofit2.Response
  * Remote source
  */
 interface RemoteSource {
-
     /**
      * Request not nullable
      * Suspending function — must be called from a coroutine or another suspending function.
@@ -28,31 +27,32 @@ interface RemoteSource {
         onSuccess: (code: Int, response: E) -> M,
         onError: (code: Int, callThrowable: Throwable) -> Throwable = { _, callThrowable ->
             callThrowable
-        }
-    ): Result<M> {
-        return try {
+        },
+    ): Result<M> =
+        try {
             val response = call()
             if (response.isSuccessful) {
                 response.body()?.let { bodyNonNull ->
                     Result.success(
-                        value = onSuccess(
-                            response.code(),
-                            bodyNonNull
-                        )
+                        value =
+                            onSuccess(
+                                response.code(),
+                                bodyNonNull,
+                            ),
                     )
                 } ?: Result.failure(exception = EmptyResponseException())
             } else {
                 Result.failure(
-                    exception = onError(
-                        response.code(),
-                        HttpException(response)
-                    )
+                    exception =
+                        onError(
+                            response.code(),
+                            HttpException(response),
+                        ),
                 )
             }
         } catch (e: Exception) {
             Result.failure(e)
         }
-    }
 
     /**
      * Request nullable
@@ -73,28 +73,28 @@ interface RemoteSource {
         onSuccess: (code: Int, response: E?) -> M,
         onError: (code: Int, callThrowable: Throwable) -> Throwable = { _, callThrowable ->
             callThrowable
-        }
-    ): Result<M> {
-        return try {
+        },
+    ): Result<M> =
+        try {
             val response = call()
             if (response.isSuccessful) {
                 Result.success(
-                    value = onSuccess(
-                        response.code(),
-                        response.body()
-                    )
+                    value =
+                        onSuccess(
+                            response.code(),
+                            response.body(),
+                        ),
                 )
             } else {
                 Result.failure(
-                    exception = onError(
-                        response.code(),
-                        HttpException(response)
-                    )
+                    exception =
+                        onError(
+                            response.code(),
+                            HttpException(response),
+                        ),
                 )
             }
         } catch (e: Exception) {
             Result.failure(e)
         }
-    }
-
 }

@@ -1,4 +1,4 @@
-package br.com.leonardo.webClient.models.entity.response
+package br.com.leonardo.hexagonapp.ui.screens.devProfile.data.models.entity.response
 
 import com.google.gson.annotations.SerializedName
 
@@ -9,5 +9,5 @@ data class GitHubProfileInfoResponse(
     val blog: String? = null,
     val location: String? = null,
     val bio: String? = null,
-    @SerializedName("public_repos") val publicRepos: Int? = null
+    @SerializedName("public_repos") val publicRepos: Int? = null,
 )

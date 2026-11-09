@@ -1,11 +1,11 @@
-package br.com.leonardo.hexagonapp.ui.screens.devProfile
+package br.com.leonardo.hexagonapp.ui.screens.devProfile.presentation
 
-import br.com.leonardo.hexagonapp.ui.screens.devProfile.model.DevProfileScreenState
 import br.com.leonardo.appcore.presentation.data.uidata.HexagonUIData
+import br.com.leonardo.hexagonapp.ui.screens.devProfile.presentation.model.DevProfileScreenState
 
-class DevProfileUIData(initialState: DevProfileUIState) :
-    HexagonUIData<DevProfileUIState>(initialValue = initialState) {
-
+class DevProfileUIData(
+    initialState: DevProfileUIState,
+) : HexagonUIData<DevProfileUIState>(initialValue = initialState) {
     fun error() {
         updateUIState {
             it.copy(screenState = DevProfileScreenState.Error)
@@ -27,5 +27,4 @@ class DevProfileUIData(initialState: DevProfileUIState) :
     fun updateBottomSheetShareProfileVisibility(show: Boolean) {
         updateUIState { it.copy(showBottomSheetShareProfile = show) }
     }
-
 }

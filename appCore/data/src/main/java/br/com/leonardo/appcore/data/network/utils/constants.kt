@@ -1,6 +1,4 @@
-package br.com.leonardo.webClient.utils
-
-internal const val GITHUB_API_BASE_URL = "https://api.github.com/users/"
+package br.com.leonardo.appcore.data.network.utils
 
 internal const val UNAUTHORIZED_EXCEPTION_MESSAGE = "Session Unauthorized"
 internal const val FORBIDDEN_EXCEPTION_MESSAGE = "Session Forbidden"

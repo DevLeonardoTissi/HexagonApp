@@ -11,7 +11,6 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface PersonalProfileDao {
-
     @Query("SELECT * FROM PersonalProfile WHERE active = 0")
     fun getInactive(): Flow<List<PersonalProfile>>
 
@@ -29,5 +28,4 @@ interface PersonalProfileDao {
 
     @Update
     suspend fun update(personalProfile: PersonalProfile)
-
 }

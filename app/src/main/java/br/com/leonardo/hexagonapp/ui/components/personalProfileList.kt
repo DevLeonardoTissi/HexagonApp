@@ -40,10 +40,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.window.core.layout.WindowSizeClass
+import br.com.leonardo.appcore.presentation.utils.extensions.toDateFormat
 import br.com.leonardo.hexagonapp.R
 import br.com.leonardo.hexagonapp.ui.theme.customRed
 import br.com.leonardo.hexagonapp.ui.theme.customYellow
-import br.com.leonardo.hexagonapp.utils.extensions.long.toDateFormat
 import br.com.leonardo.localData.model.PersonalProfile
 import kotlinx.coroutines.delay
 
@@ -53,7 +53,7 @@ fun PersonalProfileList(
     list: List<PersonalProfile>?,
     onCLickItem: (profileID: String) -> Unit,
     onDelete: (profile: PersonalProfile) -> Unit,
-    onUpdate: (profile: PersonalProfile) -> Unit
+    onUpdate: (profile: PersonalProfile) -> Unit,
 ) {
     val context = LocalContext.current
     var visible by remember { mutableStateOf(false) }
@@ -74,14 +74,14 @@ fun PersonalProfileList(
     AnimatedVisibility(
         visible = visible,
         enter = slideInVertically(initialOffsetY = { it }),
-        exit = slideOutVertically(targetOffsetY = { -it })
+        exit = slideOutVertically(targetOffsetY = { -it }),
     ) {
         Column(
-            modifier = Modifier
-                .fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally
+            modifier =
+                Modifier
+                    .fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-
             list?.let { list ->
 
                 if (isMediumDp) {
@@ -89,9 +89,8 @@ fun PersonalProfileList(
                         columns = GridCells.Fixed(2),
                         contentPadding = PaddingValues(16.dp),
                         verticalArrangement = Arrangement.spacedBy(8.dp),
-                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
                     ) {
-
                         items(list, key = { it.id }) { profile ->
                             val swipeToDismissBoxState = rememberSwipeToDismissBoxState()
 
@@ -115,7 +114,6 @@ fun PersonalProfileList(
 
                                     SwipeToDismissBoxValue.Settled -> {}
                                 }
-
                             }, enableDismissFromStartToEnd = true) {
                                 PersonalProfileLayout(
                                     id = profile.id,
@@ -125,18 +123,16 @@ fun PersonalProfileList(
                                     cpf = profile.cpf,
                                     onClickItem = { profileId ->
                                         onCLickItem(profileId)
-                                    }
+                                    },
                                 )
                             }
                         }
                     }
-
                 } else {
                     LazyColumn {
                         items(list, key = { it.id }) { profile ->
                             val swipeToDismissBoxState = rememberSwipeToDismissBoxState()
 
-
                             LaunchedEffect(swipeToDismissBoxState.currentValue) {
                                 if (swipeToDismissBoxState.currentValue === SwipeToDismissBoxValue.EndToStart) {
                                     onDelete(profile)
@@ -157,7 +153,6 @@ fun PersonalProfileList(
 
                                     SwipeToDismissBoxValue.Settled -> {}
                                 }
-
                             }, enableDismissFromStartToEnd = true) {
                                 PersonalProfileLayout(
                                     id = profile.id,
@@ -167,7 +162,7 @@ fun PersonalProfileList(
                                     cpf = profile.cpf,
                                     onClickItem = { profileId ->
                                         onCLickItem(profileId)
-                                    }
+                                    },
                                 )
                             }
                         }
@@ -176,69 +171,79 @@ fun PersonalProfileList(
             }
         }
     }
-
-
 }
 
 @Composable
 fun RemoveBox(context: Context) {
     Box(
-        modifier = Modifier
-            .padding(16.dp)
-            .background(customRed, RoundedCornerShape(16.dp))
-            .fillMaxSize()
-
+        modifier =
+            Modifier
+                .padding(16.dp)
+                .background(customRed, RoundedCornerShape(16.dp))
+                .fillMaxSize(),
     ) {
         Column(
-            modifier = Modifier
-                .align(Alignment.CenterEnd)
-                .padding(16.dp)
+            modifier =
+                Modifier
+                    .align(Alignment.CenterEnd)
+                    .padding(16.dp),
         ) {
             Text(
                 text = context.getString(R.string.swipeToDismissBoxLabelDelete),
                 color = Color.White,
-                modifier = Modifier
-                    .align(Alignment.CenterHorizontally)
+                modifier =
+                    Modifier
+                        .align(Alignment.CenterHorizontally),
             )
             Icon(
                 Icons.Default.Delete,
                 contentDescription = context.getString(R.string.swipeToDismissBoxIconDescriptionDelete),
-                modifier = Modifier
-                    .align(Alignment.CenterHorizontally), tint = Color.White
+                modifier =
+                    Modifier
+                        .align(Alignment.CenterHorizontally),
+                tint = Color.White,
             )
         }
     }
 }
 
 @Composable
-fun AlterBox(context: Context, active: Boolean) {
+fun AlterBox(
+    context: Context,
+    active: Boolean,
+) {
     Box(
-        modifier = Modifier
-            .padding(16.dp)
-            .background(customYellow, RoundedCornerShape(16.dp))
-            .fillMaxSize()
-
+        modifier =
+            Modifier
+                .padding(16.dp)
+                .background(customYellow, RoundedCornerShape(16.dp))
+                .fillMaxSize(),
     ) {
         Column(
-            modifier = Modifier
-                .align(Alignment.CenterStart)
-                .padding(16.dp)
+            modifier =
+                Modifier
+                    .align(Alignment.CenterStart)
+                    .padding(16.dp),
         ) {
             Text(
-                text = if (active) {
-                    context.getString(R.string.swipeToDismissBoxLabelInactive)
-                } else {
-                    context.getString(R.string.swipeToDismissBoxLabelActivate)
-                },
+                text =
+                    if (active) {
+                        context.getString(R.string.swipeToDismissBoxLabelInactive)
+                    } else {
+                        context.getString(R.string.swipeToDismissBoxLabelActivate)
+                    },
                 color = Color.White,
-                modifier = Modifier
-                    .align(Alignment.CenterHorizontally)
+                modifier =
+                    Modifier
+                        .align(Alignment.CenterHorizontally),
             )
             Icon(
                 Icons.Rounded.ThumbsUpDown,
                 contentDescription = context.getString(R.string.swipeToDismissBoxIconDescriptionUpdate),
-                modifier = Modifier
-                    .align(Alignment.CenterHorizontally), tint = Color.White
+                modifier =
+                    Modifier
+                        .align(Alignment.CenterHorizontally),
+                tint = Color.White,
             )
         }
     }

@@ -1,6 +1,12 @@
 plugins {
     alias(libs.plugins.android.library)
+
+    // ktlint
+    alias(libs.plugins.ktlint)
 }
+
+// detekt
+apply(from = rootProject.file("config/detekt/detekt.gradle"))
 
 android {
     namespace = "br.com.leonardo.appcore.di"
@@ -17,13 +23,17 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-
 }
 
 dependencies {
-    implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.material)
+
+    // koin for compose
+    api(libs.koin.androidx.compose)
+
+    api(libs.androidx.appcompat)
+    api(libs.androidx.core.ktx)
+    api(libs.material)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.junit)

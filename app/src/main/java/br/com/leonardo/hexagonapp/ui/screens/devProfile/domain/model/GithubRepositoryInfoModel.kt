@@ -1,4 +1,4 @@
-package br.com.leonardo.webClient.models.model
+package br.com.leonardo.hexagonapp.ui.screens.devProfile.domain.model
 
 import androidx.compose.runtime.Stable
 
@@ -6,5 +6,5 @@ import androidx.compose.runtime.Stable
 data class GithubRepositoryInfoModel(
     val name: String,
     val htmlUrl: String,
-    val description: String
+    val description: String,
 )

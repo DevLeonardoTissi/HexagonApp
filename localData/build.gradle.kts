@@ -1,16 +1,16 @@
 plugins {
     alias(libs.plugins.android.library)
 
-    //KSP - processor
+    // KSP - processor
     alias(libs.plugins.ksp)
 
-    //ktlint
+    // ktlint
     alias(libs.plugins.ktlint)
 }
 
-//my scripts
+// my scripts
 
-//detekt
+// detekt
 apply(from = rootProject.file("config/detekt/detekt.gradle"))
 
 android {
@@ -29,7 +29,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
@@ -41,17 +41,17 @@ android {
 
 dependencies {
 
-    //koin for compose
+    // koin for compose
     implementation(libs.koin.androidx.compose)
 
-    //koin tests
+    // koin tests
     testImplementation(libs.koin.test)
     testImplementation(libs.koin.test.junit4)
 
-    //Kotlin coroutines tests
-    testImplementation (libs.kotlinx.coroutines.test)
+    // Kotlin coroutines tests
+    testImplementation(libs.kotlinx.coroutines.test)
 
-    //Room database
+    // Room database
     implementation(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)

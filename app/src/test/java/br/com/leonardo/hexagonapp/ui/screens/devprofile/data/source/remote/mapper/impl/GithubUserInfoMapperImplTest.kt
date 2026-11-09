@@ -1,8 +1,8 @@
-package br.com.leonardo.webClient.source.remote.mapper.impl
+package br.com.leonardo.hexagonapp.ui.screens.devProfile.data.remote.mapper.impl
 
-import br.com.leonardo.webClient.mock.Mocks
-import br.com.leonardo.webClient.models.entity.response.GitHubProfileInfoResponse
-import br.com.leonardo.webClient.models.entity.response.GithubRepositoryInfoResponse
+import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.models.entity.response.GitHubProfileInfoResponse
+import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.models.entity.response.GithubRepositoryInfoResponse
+import br.com.leonardo.hexagonapp.ui.screens.devProfile.mock.Mocks
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -10,7 +10,6 @@ import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 class GithubUserInfoMapperImplTest {
-
     private lateinit var githubUserInfoMapperImpl: GithubUserInfoMapperImpl
 
     @Before
@@ -28,15 +27,16 @@ class GithubUserInfoMapperImplTest {
         val fieldBioExample = "bio example"
         val fieldPublicReposExample = 0
 
-        val entity = GitHubProfileInfoResponse(
-            avatarUrl = fieldAvatarURlExample,
-            htmlUrl = fieldHtmlURlExample,
-            name = fieldNameExample,
-            blog = fieldBlogExample,
-            location = fieldLocationExample,
-            bio = fieldBioExample,
-            publicRepos = fieldPublicReposExample
-        )
+        val entity =
+            GitHubProfileInfoResponse(
+                avatarUrl = fieldAvatarURlExample,
+                htmlUrl = fieldHtmlURlExample,
+                name = fieldNameExample,
+                blog = fieldBlogExample,
+                location = fieldLocationExample,
+                bio = fieldBioExample,
+                publicRepos = fieldPublicReposExample,
+            )
 
         val model = githubUserInfoMapperImpl.toModel(githubProfileInfoResponse = entity)
         Assert.assertEquals(fieldAvatarURlExample, model.avatarUrl)
@@ -68,13 +68,14 @@ class GithubUserInfoMapperImplTest {
         val fieldNameExample = "name"
         val fieldDescriptionExample = "description example"
 
-        val entityList = listOf(
-            GithubRepositoryInfoResponse(
-                htmlUrl = fieldHtmlURlExample,
-                name = fieldNameExample,
-                description = fieldDescriptionExample
+        val entityList =
+            listOf(
+                GithubRepositoryInfoResponse(
+                    htmlUrl = fieldHtmlURlExample,
+                    name = fieldNameExample,
+                    description = fieldDescriptionExample,
+                ),
             )
-        )
 
         val modelList =
             githubUserInfoMapperImpl.toModel(githubRepositoryInfoListResponse = entityList)
@@ -103,4 +104,3 @@ class GithubUserInfoMapperImplTest {
         assertEquals(modelMapperList, modelList)
     }
 }
-

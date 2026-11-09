@@ -1,4 +1,4 @@
-package br.com.leonardo.hexagonapp.ui.screens.devProfile.sections.success.repositories
+package br.com.leonardo.hexagonapp.ui.screens.devProfile.presentation.sections.success.repositories
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -25,22 +25,23 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import br.com.leonardo.hexagonapp.R
-import br.com.leonardo.hexagonapp.ui.screens.devProfile.sections.success.repositories.components.ModalBottomSheetShareDevProfile
-import br.com.leonardo.hexagonapp.ui.screens.devProfile.DevProfileActions
-import br.com.leonardo.hexagonapp.utils.extensions.context.copyToClipboard
-import br.com.leonardo.hexagonapp.utils.extensions.context.goToUri
-import br.com.leonardo.hexagonapp.utils.extensions.context.shareSheetText
 import br.com.leonardo.appcore.presentation.action.HexagonAction
 import br.com.leonardo.appcore.presentation.content.layout.section.HexagonSectionView
+import br.com.leonardo.appcore.presentation.utils.extensions.copyToClipboard
+import br.com.leonardo.appcore.presentation.utils.extensions.goToUri
+import br.com.leonardo.appcore.presentation.utils.extensions.shareSheetText
+import br.com.leonardo.hexagonapp.R
+import br.com.leonardo.hexagonapp.ui.screens.devProfile.presentation.DevProfileActions
+import br.com.leonardo.hexagonapp.ui.screens.devProfile.presentation.sections.success.repositories.components.ModalBottomSheetShareDevProfile
 
 class RepositoriesSectionView : HexagonSectionView<RepositoriesSectionRender>() {
-
     @Composable
-    override fun Show(render: RepositoriesSectionRender, onActions: (HexagonAction) -> Unit) {
+    override fun Show(
+        render: RepositoriesSectionRender,
+        onActions: (HexagonAction) -> Unit,
+    ) {
         val context = LocalContext.current
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-
             Spacer(modifier = Modifier.height(100.dp))
             Text(text = render.title, fontSize = 20.sp)
 
@@ -55,41 +56,41 @@ class RepositoriesSectionView : HexagonSectionView<RepositoriesSectionRender>() 
                         ) {
                             Row(modifier = Modifier.padding(start = 15.dp)) {
                                 Column(
-                                    modifier = Modifier
-                                        .width(300.dp)
-                                        .height(250.dp)
-                                        .background(MaterialTheme.colorScheme.primaryContainer)
-                                        .padding(10.dp),
+                                    modifier =
+                                        Modifier
+                                            .width(300.dp)
+                                            .height(250.dp)
+                                            .background(MaterialTheme.colorScheme.primaryContainer)
+                                            .padding(10.dp),
                                     verticalArrangement = Arrangement.Center,
-                                    horizontalAlignment = Alignment.CenterHorizontally
-
+                                    horizontalAlignment = Alignment.CenterHorizontally,
                                 ) {
-
                                     repository.name.let {
                                         Text(
                                             text = it,
                                             maxLines = 1,
                                             overflow = TextOverflow.Ellipsis,
                                             color = MaterialTheme.colorScheme.secondary,
-                                            modifier = Modifier.padding(8.dp)
+                                            modifier = Modifier.padding(8.dp),
                                         )
                                     }
 
                                     HorizontalDivider(color = MaterialTheme.colorScheme.primary)
                                     Spacer(modifier = Modifier.height(20.dp))
                                     Column(
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .height(100.dp),
+                                        modifier =
+                                            Modifier
+                                                .fillMaxWidth()
+                                                .height(100.dp),
                                         verticalArrangement = Arrangement.Center,
-                                        horizontalAlignment = Alignment.CenterHorizontally
+                                        horizontalAlignment = Alignment.CenterHorizontally,
                                     ) {
                                         repository.description.let {
                                             Text(
                                                 text = it,
                                                 color = MaterialTheme.colorScheme.secondary,
                                                 maxLines = 4,
-                                                overflow = TextOverflow.Ellipsis
+                                                overflow = TextOverflow.Ellipsis,
                                             )
                                         }
                                     }
@@ -112,15 +113,15 @@ class RepositoriesSectionView : HexagonSectionView<RepositoriesSectionRender>() 
                     onDismissRequest = {
                         onActions(
                             DevProfileActions.ChangeVisibilityBottomSheetShare(
-                                false
-                            )
+                                false,
+                            ),
                         )
                     },
                     onclickShareButton = {
                         with(context) {
                             shareSheetText(
                                 R.string.shareSheetProfileUrlTile,
-                                getString(R.string.LinkedinProfileUrl)
+                                getString(R.string.LinkedinProfileUrl),
                             )
                         }
                     },
@@ -129,14 +130,12 @@ class RepositoriesSectionView : HexagonSectionView<RepositoriesSectionRender>() 
                             copyToClipboard(
                                 R.string.copyToClipboardToastMessageLabel,
                                 getString(R.string.LinkedinProfileUrl),
-                                R.string.copyToClipboardToastMessage
+                                R.string.copyToClipboardToastMessage,
                             )
                         }
-                    })
+                    },
+                )
             }
-
         }
-
     }
-
 }

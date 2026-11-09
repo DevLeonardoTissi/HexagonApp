@@ -1,4 +1,4 @@
-package br.com.leonardo.webClient.models.model
+package br.com.leonardo.hexagonapp.ui.screens.devProfile.domain.model
 
 import androidx.compose.runtime.Stable
 

@@ -31,28 +31,30 @@ import br.com.leonardo.localData.usecase.impl.UpdateSettingsUseCaseImpl
 import br.com.leonardo.localData.utils.DATABASE_NAME
 import org.koin.dsl.module
 
+val localDataModule =
+    module {
+        single {
+            Room
+                .databaseBuilder(
+                    get<Context>(),
+                    AppDatabase::class.java,
+                    DATABASE_NAME,
+                ).addCallback(DatabaseSettingsCallback())
+                .build()
+        }
 
-val localDataModule = module {
-    single {
-        Room.databaseBuilder(
-            get<Context>(),
-            AppDatabase::class.java,
-            DATABASE_NAME
-        ).addCallback(DatabaseSettingsCallback()).build()
+        single { get<AppDatabase>().personalProfileDao }
+        single { get<AppDatabase>().settingsDao }
+        single<PersonalProfileLocalSource> { PersonalProfileLocalSourceImpl(get()) }
+        single<PersonalProfileRepository> { PersonalProfileRepositoryImpl(get()) }
+        single<GetActivesProfilesUseCase> { GetActivesProfilesUseCaseImpl(get()) }
+        single<UpdateProfileUseCase> { UpdateProfileUseCaseImpl(get()) }
+        single<GetInactivesProfilesUseCase> { GetInactivesProfilesUseCaseImpl(get()) }
+        single<GetProfileByIdUseCase> { GetProfileByIdUseCaseImpl(get()) }
+        single<DeleteProfileUseCase> { DeleteProfileUseCaseImpl(get()) }
+        single<InsertProfileUseCase> { InsertProfileUseCaseImpl(get()) }
+        single<SettingsLocalSource> { SettingsLocalSourceImpl(get()) }
+        single<SettingsRepository> { SettingsRepositoryImpl(get()) }
+        single<SearchSettingsUseCase> { SearchSettingsUseCaseImpl(get()) }
+        single<UpdateSettingsUseCase> { UpdateSettingsUseCaseImpl(get()) }
     }
-
-    single { get<AppDatabase>().personalProfileDao }
-    single { get<AppDatabase>().settingsDao }
-    single<PersonalProfileLocalSource> { PersonalProfileLocalSourceImpl(get()) }
-    single<PersonalProfileRepository> { PersonalProfileRepositoryImpl(get()) }
-    single<GetActivesProfilesUseCase> { GetActivesProfilesUseCaseImpl(get()) }
-    single<UpdateProfileUseCase> { UpdateProfileUseCaseImpl(get()) }
-    single<GetInactivesProfilesUseCase> { GetInactivesProfilesUseCaseImpl(get()) }
-    single<GetProfileByIdUseCase> { GetProfileByIdUseCaseImpl(get()) }
-    single<DeleteProfileUseCase> { DeleteProfileUseCaseImpl(get()) }
-    single<InsertProfileUseCase> { InsertProfileUseCaseImpl(get()) }
-    single<SettingsLocalSource> { SettingsLocalSourceImpl(get()) }
-    single<SettingsRepository> { SettingsRepositoryImpl(get()) }
-    single<SearchSettingsUseCase> { SearchSettingsUseCaseImpl(get()) }
-    single<UpdateSettingsUseCase> { UpdateSettingsUseCaseImpl(get()) }
-}

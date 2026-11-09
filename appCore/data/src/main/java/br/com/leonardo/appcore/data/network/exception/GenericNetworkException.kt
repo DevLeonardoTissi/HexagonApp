@@ -1,6 +1,7 @@
-package br.com.leonardo.webClient.exception
+package br.com.leonardo.appcore.data.network.exception
 
 import java.io.IOException
 
-class GenericNetworkException(message: String) :
-    IOException(message)
+class GenericNetworkException(
+    message: String,
+) : IOException(message)

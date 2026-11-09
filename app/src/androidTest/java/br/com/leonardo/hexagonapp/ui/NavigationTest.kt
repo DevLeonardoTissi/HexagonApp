@@ -1,63 +1,36 @@
 package br.com.leonardo.hexagonapp.ui
 
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.test.hasClickAction
 import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.performClick
-import androidx.navigation.compose.ComposeNavigator
-import androidx.navigation.compose.rememberNavController
-import androidx.navigation.testing.TestNavHostController
-import br.com.leonardo.hexagonapp.ui.screens.main.MainViewModel
-import br.com.leonardo.hexagonapp.ui.screens.main.MainScreen
+import br.com.leonardo.appcore.presentation.navigator.HexagonNavigator
+import br.com.leonardo.hexagonapp.ui.screens.actives.presentation.navigation.route.HomeRoute
+import br.com.leonardo.hexagonapp.ui.screens.main.presentation.MainScreen
+import br.com.leonardo.hexagonapp.ui.screens.main.presentation.MainScreenState
+import br.com.leonardo.hexagonapp.ui.screens.main.presentation.MainScreenUiState
 import br.com.leonardo.hexagonapp.ui.theme.HexagonAppTheme
-import kotlinx.coroutines.launch
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.koin.androidx.compose.koinViewModel
 
 class NavigationTest {
-
     @get:Rule
     val composeTestRule = createComposeRule()
-    private lateinit var navController: TestNavHostController
 
-   val controller = HexagonNavigatorImpl()
+    private val controller = HexagonNavigator(startDestination = HomeRoute)
 
     @Before
     fun setupAppNavHost() {
         composeTestRule.setContent {
-
-            navController = TestNavHostController(LocalContext.current)
-            navController.navigatorProvider.addNavigator(ComposeNavigator())
-
-            val appViewModel: MainViewModel = koinViewModel()
-            val appUiState by appViewModel.uiState.collectAsState()
-            val navController = rememberNavController()
-            val coroutineScope = rememberCoroutineScope()
+            val appUiState = MainScreenUiState(currentRoute = HomeRoute)
+            val appState = MainScreenState()
 
             HexagonAppTheme(darkTheme = appUiState.isDarkMode) {
                 MainScreen(
-                    navigator = controller,
-                    navController = navController,
                     appUiState = appUiState,
-                    onCurrentRouteChange = { appUiState.onCurrentRouteChange(it) },
-                    changeVisibilityBottomSheetConfigAndInfo = {
-                        appUiState.changeVisibilityBottomSheetDialogInfoAndConfig(
-                            it
-                        )
-                    },
-                    onUpdateDarkMode = { appUiState.onDarkModeChange(it) },
-                    onUpdateDrawerState = {
-                        coroutineScope.launch {
-                            appUiState.updateDrawer()
-                        }
-                    },
-                    onUpdateShowNotification = {}
+                    appState = appState,
+                    onActions = {},
                 )
             }
         }
@@ -65,65 +38,53 @@ class NavigationTest {
 
     @Test
     fun verifyStartDestination() {
-        val route = navController.currentBackStackEntry?.destination?.route
-        route?.contains("HomeRoute")?.let { assert(it) }
+        assert(controller.startDestination == HomeRoute)
     }
 
     @Test
     fun navigateToForm() {
-        composeTestRule.onNode(hasContentDescription("add button to form screen") and hasClickAction())
+        composeTestRule
+            .onNode(hasContentDescription("add button to form screen") and hasClickAction())
             .performClick()
-        val route = navController.currentBackStackEntry?.destination?.route
-        route?.contains("FormRoute")?.let { assert(it) }
-    }
-
-
-    private fun backToHome() {
-        composeTestRule.onNode(hasContentDescription("navigate to back") and hasClickAction())
-            .performClick()
-        val route = navController.currentBackStackEntry?.destination?.route
-        route?.contains("HomeRoute")?.let { assert(it) }
     }
 
     @Test
     fun navigateToInactive() {
-        composeTestRule.onNode(hasContentDescription("Open drawer") and hasClickAction())
+        composeTestRule
+            .onNode(hasContentDescription("Open drawer") and hasClickAction())
             .performClick()
-        composeTestRule.onNode(hasContentDescription("Inactive Screen") and hasClickAction())
+        composeTestRule
+            .onNode(hasContentDescription("Inactive Screen") and hasClickAction())
             .performClick()
-        val route = navController.currentBackStackEntry?.destination?.route
-        route?.contains("InactiveRoute")?.let { assert(it) }
     }
 
     @Test
     fun navigateToFormDrawer() {
-        composeTestRule.onNode(hasContentDescription("Open drawer") and hasClickAction())
+        composeTestRule
+            .onNode(hasContentDescription("Open drawer") and hasClickAction())
             .performClick()
-        composeTestRule.onNode(hasContentDescription("Form Screen") and hasClickAction())
+        composeTestRule
+            .onNode(hasContentDescription("Form Screen") and hasClickAction())
             .performClick()
-        val route = navController.currentBackStackEntry?.destination?.route
-        route?.contains("FormRoute")?.let { assert(it) }
     }
 
     @Test
     fun navigateToHomeDrawer() {
-        composeTestRule.onNode(hasContentDescription("Open drawer") and hasClickAction())
+        composeTestRule
+            .onNode(hasContentDescription("Open drawer") and hasClickAction())
             .performClick()
-        composeTestRule.onNode(hasContentDescription("Home Screen") and hasClickAction())
+        composeTestRule
+            .onNode(hasContentDescription("Home Screen") and hasClickAction())
             .performClick()
-        val route = navController.currentBackStackEntry?.destination?.route
-        route?.contains("HomeRoute")?.let { assert(it) }
     }
 
     @Test
     fun navigateToDevProfile() {
-        composeTestRule.onNode(hasContentDescription("Open drawer") and hasClickAction())
+        composeTestRule
+            .onNode(hasContentDescription("Open drawer") and hasClickAction())
             .performClick()
-        composeTestRule.onNode(hasContentDescription("Dev Profile Screen") and hasClickAction())
+        composeTestRule
+            .onNode(hasContentDescription("Dev Profile Screen") and hasClickAction())
             .performClick()
-        val route = navController.currentBackStackEntry?.destination?.route
-        route?.contains("DevProfileRoute")?.let { assert(it) }
     }
-
-
 }

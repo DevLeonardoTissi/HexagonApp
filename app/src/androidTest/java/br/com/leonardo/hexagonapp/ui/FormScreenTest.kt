@@ -1,8 +1,6 @@
 package br.com.leonardo.hexagonapp.ui
 
 import androidx.compose.material3.Surface
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.hasClickAction
 import androidx.compose.ui.test.hasContentDescription
@@ -14,101 +12,101 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.test.printToLog
-import br.com.leonardo.hexagonapp.ui.screens.main.MainActivity
-import br.com.leonardo.hexagonapp.ui.screens.form.PersonalProfileFormScreenn
-import br.com.leonardo.hexagonapp.ui.screens.form.PersonalProfileFormState
-import br.com.leonardo.hexagonapp.ui.screens.form.PersonalProfileFormViewModel
+import br.com.leonardo.hexagonapp.ui.screens.form.presentation.PersonalProfileFormScreen
+import br.com.leonardo.hexagonapp.ui.screens.main.presentation.MainActivity
 import br.com.leonardo.hexagonapp.ui.theme.HexagonAppTheme
 import org.junit.Rule
 import org.junit.Test
-import org.koin.androidx.compose.koinViewModel
-import org.koin.core.parameter.parametersOf
 import java.time.LocalDate
 
 class FormScreenTest {
-
     @get:Rule
     val composeTestRule = createComposeRule()
 
-
-    //corrigir Classe porteriormente
     val composeTestRuleActivity = createAndroidComposeRule<MainActivity>()
 
     @Test
     fun shouldAllowUserToFillAndSubmitFormSuccessfully() {
         composeTestRule.setContent {
-            val viewModel: PersonalProfileFormViewModel =
-                koinViewModel<PersonalProfileFormViewModel>(
-                    parameters = { parametersOf(null) }
-                )
-            val uiState: PersonalProfileFormState by viewModel.uiState.collectAsState()
             HexagonAppTheme {
                 Surface {
-                    PersonalProfileFormScreenn(
-                        uiState = uiState,
-                        onPopBackStack = {}
-                    )
+                    PersonalProfileFormScreen().Content()
                 }
             }
         }
-
 
         val inputName = hasText("Digite seu nome") and hasClickAction()
         val inputCPF = hasText("Digite seu CPF") and hasClickAction()
         val inputCity = hasText("Digite sua cidade") and hasClickAction()
         val inputDateOfBirth = hasText("Data de nascimento") and hasClickAction()
 
-        val datePickerDate = with(DateInDatePicker) {
-            hasText("Today, ${dayOfWeek}, $monthName ${day}, $year") and hasClickAction()
-        }
-        val selectedDate = with(DateInDatePicker) {
-            hasText("${day}/${month}/${year}", substring = true)
-        }
+        val datePickerDate =
+            with(DateInDatePicker) {
+                hasText("Today, $dayOfWeek, $monthName $day, $year") and hasClickAction()
+            }
+        val selectedDate =
+            with(DateInDatePicker) {
+                hasText("$day/$month/$year", substring = true)
+            }
         val saveButton = hasContentDescription("Save button") and hasClickAction()
         val activeSwitch = hasContentDescription("Active switch") and hasClickAction()
 
-        composeTestRule.onNode(inputName)
+        composeTestRule
+            .onNode(inputName)
             .performClick()
             .performTextInput("Leo")
 
-        composeTestRule.onNode(inputCPF)
-            .performClick().performTextInput("12345678900")
+        composeTestRule
+            .onNode(inputCPF)
+            .performClick()
+            .performTextInput("12345678900")
 
-        composeTestRule.onNode(inputCity)
+        composeTestRule
+            .onNode(inputCity)
             .performClick()
             .performTextInput("Pirapetinga")
 
-        composeTestRule.onNode(inputDateOfBirth)
+        composeTestRule
+            .onNode(inputDateOfBirth)
             .performClick()
 
         composeTestRule.onAllNodes(isRoot())[1].printToLog("ESTRUTURA_DATEPICKER")
-        composeTestRule.onNode(datePickerDate)
+        composeTestRule
+            .onNode(datePickerDate)
             .performClick()
 
         composeTestRule.onNodeWithText("Selecionar data").performClick()
 
         composeTestRule.onAllNodes(isRoot())[0].printToLog("ESTRUTURA_TELA")
-        composeTestRule.onNode(selectedDate)
+        composeTestRule
+            .onNode(selectedDate)
             .assertIsDisplayed()
 
-        composeTestRule.onNode(activeSwitch)
+        composeTestRule
+            .onNode(activeSwitch)
             .performClick()
 
-        composeTestRule.onNode(saveButton)
+        composeTestRule
+            .onNode(saveButton)
             .performClick()
 
         composeTestRule
             .onNodeWithText("Confirma a adição?")
             .assertIsDisplayed()
-
     }
 }
 
 object DateInDatePicker {
     val today: LocalDate = LocalDate.now()
-    val dayOfWeek = today.dayOfWeek.name.lowercase().replaceFirstChar { it.uppercase() }
+    val dayOfWeek =
+        today.dayOfWeek.name
+            .lowercase()
+            .replaceFirstChar { it.uppercase() }
     val month = today.monthValue.toString().padStart(2, '0')
     val day = today.dayOfMonth
     val year = today.year
-    val monthName = today.month.name.lowercase().replaceFirstChar { it.uppercase() }
+    val monthName =
+        today.month.name
+            .lowercase()
+            .replaceFirstChar { it.uppercase() }
 }

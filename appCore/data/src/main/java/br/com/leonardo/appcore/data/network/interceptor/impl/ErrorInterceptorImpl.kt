@@ -1,11 +1,11 @@
-package br.com.leonardo.webClient.interceptor.impl
+package br.com.leonardo.appcore.data.network.interceptor.impl
 
-import br.com.leonardo.webClient.exception.ForbiddenException
-import br.com.leonardo.webClient.exception.GenericNetworkException
-import br.com.leonardo.webClient.exception.NotFoundException
-import br.com.leonardo.webClient.exception.ServerException
-import br.com.leonardo.webClient.exception.UnauthorizedException
-import br.com.leonardo.webClient.interceptor.ErrorInterceptor
+import br.com.leonardo.appcore.data.network.exception.ForbiddenException
+import br.com.leonardo.appcore.data.network.exception.GenericNetworkException
+import br.com.leonardo.appcore.data.network.exception.NotFoundException
+import br.com.leonardo.appcore.data.network.exception.ServerException
+import br.com.leonardo.appcore.data.network.exception.UnauthorizedException
+import br.com.leonardo.appcore.data.network.interceptor.ErrorInterceptor
 import okhttp3.Interceptor
 import okhttp3.Response
 

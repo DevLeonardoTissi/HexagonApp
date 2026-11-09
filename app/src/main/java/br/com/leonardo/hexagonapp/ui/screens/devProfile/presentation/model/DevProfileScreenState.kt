@@ -1,7 +1,9 @@
-package br.com.leonardo.hexagonapp.ui.screens.devProfile.model
+package br.com.leonardo.hexagonapp.ui.screens.devProfile.presentation.model
 
 sealed class DevProfileScreenState {
     data object Loading : DevProfileScreenState()
+
     data object Error : DevProfileScreenState()
+
     data object Success : DevProfileScreenState()
 }

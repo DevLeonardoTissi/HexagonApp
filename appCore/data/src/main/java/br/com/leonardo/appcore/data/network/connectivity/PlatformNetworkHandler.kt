@@ -1,11 +1,13 @@
-package br.com.leonardo.webClient.connectivity
+package br.com.leonardo.appcore.data.network.connectivity
 
 import android.Manifest
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import androidx.annotation.RequiresPermission
 
-class PlatformNetworkHandler(private val connectivityManager : ConnectivityManager) : NetworkStatus {
+class PlatformNetworkHandler(
+    private val connectivityManager: ConnectivityManager,
+) : NetworkStatus {
     @RequiresPermission(Manifest.permission.ACCESS_NETWORK_STATE)
     override fun isConnected(): Boolean {
         val network = connectivityManager.activeNetwork ?: return false

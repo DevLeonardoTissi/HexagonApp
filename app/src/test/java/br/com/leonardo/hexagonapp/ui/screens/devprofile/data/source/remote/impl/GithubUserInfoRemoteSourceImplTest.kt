@@ -1,14 +1,15 @@
-package br.com.leonardo.webClient.source.remote.impl
+package br.com.leonardo.hexagonapp.ui.screens.devprofile.data.source.remote.impl
 
 import br.com.leonardo.appcore.data.network.exception.EmptyResponseException
 import br.com.leonardo.appcore.data.network.exception.NetworkException
 import br.com.leonardo.appcore.data.network.utils.urlMap.URLMap
-import br.com.leonardo.webClient.mock.Mocks
-import br.com.leonardo.webClient.models.entity.response.GitHubProfileInfoResponse
-import br.com.leonardo.webClient.models.entity.response.GithubRepositoryInfoResponse
-import br.com.leonardo.webClient.services.GithubApiService
-import br.com.leonardo.webClient.source.remote.GithubUserInfoRemoteSource
-import br.com.leonardo.webClient.source.remote.mapper.GithubUserInfoMapper
+import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.models.entity.response.GitHubProfileInfoResponse
+import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.models.entity.response.GithubRepositoryInfoResponse
+import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.remote.GithubUserInfoRemoteSource
+import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.remote.impl.GithubUserInfoRemoteSourceImpl
+import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.remote.mapper.GithubUserInfoMapper
+import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.services.GithubApiService
+import br.com.leonardo.hexagonapp.ui.screens.devProfile.mock.Mocks
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.every
@@ -21,12 +22,12 @@ import org.junit.Test
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
 import org.koin.dsl.module
+import retrofit2.Response
 import kotlin.test.assertEquals
 import kotlin.test.assertIs
 import kotlin.test.assertTrue
 
 class GithubUserInfoRemoteSourceImplTest {
-
     private val githubApiService = mockk<GithubApiService>()
     private val mapper = mockk<GithubUserInfoMapper>()
     private val urlMap = mockk<URLMap>()
@@ -43,21 +44,22 @@ class GithubUserInfoRemoteSourceImplTest {
                     single<URLMap> {
                         urlMap
                     }
-                }
+                },
             )
         }
 
         every {
             urlMap.map(
                 any(),
-                any()
+                any(),
             )
         } returns mockedPath
 
-        githubUserInfoRemoteSource = GithubUserInfoRemoteSourceImpl(
-            githubProfileService = githubApiService,
-            mapper = mapper
-        )
+        githubUserInfoRemoteSource =
+            GithubUserInfoRemoteSourceImpl(
+                githubProfileService = githubApiService,
+                mapper = mapper,
+            )
     }
 
     @After
@@ -78,13 +80,13 @@ class GithubUserInfoRemoteSourceImplTest {
 
             coEvery {
                 githubApiService.getUserProfileInfo(
-                    path = mockedPath
+                    path = mockedPath,
                 )
             } returns mockResponse
 
             every {
                 mapper.toModel(
-                    githubProfileInfoResponse = mockBody
+                    githubProfileInfoResponse = mockBody,
                 )
             } returns mockModel
 
@@ -94,7 +96,7 @@ class GithubUserInfoRemoteSourceImplTest {
             assertTrue(result.isSuccess)
             assertEquals(
                 mockModel,
-                result.getOrNull()
+                result.getOrNull(),
             )
         }
 
@@ -107,13 +109,13 @@ class GithubUserInfoRemoteSourceImplTest {
 
             coEvery {
                 githubApiService.getUserProfileInfo(
-                    path = mockedPath
+                    path = mockedPath,
                 )
             } returns mockResponse
 
             every {
                 mapper.toModel(
-                    githubProfileInfoResponse = mockBody
+                    githubProfileInfoResponse = mockBody,
                 )
             } returns mockModel
 
@@ -121,7 +123,7 @@ class GithubUserInfoRemoteSourceImplTest {
 
             verify(exactly = 1) {
                 mapper.toModel(
-                    githubProfileInfoResponse = mockBody
+                    githubProfileInfoResponse = mockBody,
                 )
             }
         }
@@ -135,13 +137,13 @@ class GithubUserInfoRemoteSourceImplTest {
 
             coEvery {
                 githubApiService.getUserProfileInfo(
-                    path = mockedPath
+                    path = mockedPath,
                 )
             } returns mockResponse
 
             every {
                 mapper.toModel(
-                    githubProfileInfoResponse = mockBody
+                    githubProfileInfoResponse = mockBody,
                 )
             } returns mockModel
 
@@ -149,7 +151,7 @@ class GithubUserInfoRemoteSourceImplTest {
 
             coVerify(exactly = 1) {
                 githubApiService.getUserProfileInfo(
-                    path = mockedPath
+                    path = mockedPath,
                 )
             }
         }
@@ -159,7 +161,7 @@ class GithubUserInfoRemoteSourceImplTest {
         runTest {
             coEvery {
                 githubApiService.getUserProfileInfo(
-                    path = mockedPath
+                    path = mockedPath,
                 )
             } throws NetworkException()
 
@@ -168,7 +170,7 @@ class GithubUserInfoRemoteSourceImplTest {
 
             assertTrue(result.isFailure)
             assertIs<NetworkException>(
-                result.exceptionOrNull()
+                result.exceptionOrNull(),
             )
         }
 
@@ -177,7 +179,7 @@ class GithubUserInfoRemoteSourceImplTest {
         runTest {
             coEvery {
                 githubApiService.getUserProfileInfo(
-                    path = mockedPath
+                    path = mockedPath,
                 )
             } throws NetworkException()
 
@@ -186,7 +188,7 @@ class GithubUserInfoRemoteSourceImplTest {
             verify(exactly = 0) {
                 mapper.toModel(
                     githubProfileInfoResponse =
-                        any<GitHubProfileInfoResponse>()
+                        any<GitHubProfileInfoResponse>(),
                 )
             }
         }
@@ -195,13 +197,13 @@ class GithubUserInfoRemoteSourceImplTest {
     fun `should return failure when api returns empty profile response`() =
         runTest {
             val emptyResponse =
-                retrofit2.Response.success<GitHubProfileInfoResponse>(
-                    null
+                Response.success<GitHubProfileInfoResponse>(
+                    null,
                 )
 
             coEvery {
                 githubApiService.getUserProfileInfo(
-                    path = mockedPath
+                    path = mockedPath,
                 )
             } returns emptyResponse
 
@@ -210,7 +212,7 @@ class GithubUserInfoRemoteSourceImplTest {
 
             assertTrue(result.isFailure)
             assertIs<EmptyResponseException>(
-                result.exceptionOrNull()
+                result.exceptionOrNull(),
             )
         }
 
@@ -218,13 +220,13 @@ class GithubUserInfoRemoteSourceImplTest {
     fun `should not call mapper when api returns empty profile response`() =
         runTest {
             val emptyResponse =
-                retrofit2.Response.success<GitHubProfileInfoResponse>(
-                    null
+                Response.success<GitHubProfileInfoResponse>(
+                    null,
                 )
 
             coEvery {
                 githubApiService.getUserProfileInfo(
-                    path = mockedPath
+                    path = mockedPath,
                 )
             } returns emptyResponse
 
@@ -233,7 +235,7 @@ class GithubUserInfoRemoteSourceImplTest {
             verify(exactly = 0) {
                 mapper.toModel(
                     githubProfileInfoResponse =
-                        any<GitHubProfileInfoResponse>()
+                        any<GitHubProfileInfoResponse>(),
                 )
             }
         }
@@ -253,13 +255,13 @@ class GithubUserInfoRemoteSourceImplTest {
                 githubApiService.getUserRepositoriesInfo(
                     path = mockedPath,
                     sort = "created",
-                    direction = "desc"
+                    direction = "desc",
                 )
             } returns mockResponse
 
             every {
                 mapper.toModel(
-                    githubRepositoryInfoListResponse = mockBody
+                    githubRepositoryInfoListResponse = mockBody,
                 )
             } returns mockModelList
 
@@ -269,7 +271,7 @@ class GithubUserInfoRemoteSourceImplTest {
             assertTrue(result.isSuccess)
             assertEquals(
                 mockModelList,
-                result.getOrNull()
+                result.getOrNull(),
             )
         }
 
@@ -284,13 +286,13 @@ class GithubUserInfoRemoteSourceImplTest {
                 githubApiService.getUserRepositoriesInfo(
                     path = mockedPath,
                     sort = "created",
-                    direction = "desc"
+                    direction = "desc",
                 )
             } returns mockResponse
 
             every {
                 mapper.toModel(
-                    githubRepositoryInfoListResponse = mockBody
+                    githubRepositoryInfoListResponse = mockBody,
                 )
             } returns mockModelList
 
@@ -298,7 +300,7 @@ class GithubUserInfoRemoteSourceImplTest {
 
             verify(exactly = 1) {
                 mapper.toModel(
-                    githubRepositoryInfoListResponse = mockBody
+                    githubRepositoryInfoListResponse = mockBody,
                 )
             }
         }
@@ -314,13 +316,13 @@ class GithubUserInfoRemoteSourceImplTest {
                 githubApiService.getUserRepositoriesInfo(
                     path = mockedPath,
                     sort = "created",
-                    direction = "desc"
+                    direction = "desc",
                 )
             } returns mockResponse
 
             every {
                 mapper.toModel(
-                    githubRepositoryInfoListResponse = mockBody
+                    githubRepositoryInfoListResponse = mockBody,
                 )
             } returns mockModelList
 
@@ -330,7 +332,7 @@ class GithubUserInfoRemoteSourceImplTest {
                 githubApiService.getUserRepositoriesInfo(
                     path = mockedPath,
                     sort = "created",
-                    direction = "desc"
+                    direction = "desc",
                 )
             }
         }
@@ -342,7 +344,7 @@ class GithubUserInfoRemoteSourceImplTest {
                 githubApiService.getUserRepositoriesInfo(
                     path = mockedPath,
                     sort = "created",
-                    direction = "desc"
+                    direction = "desc",
                 )
             } throws NetworkException()
 
@@ -351,7 +353,7 @@ class GithubUserInfoRemoteSourceImplTest {
 
             assertTrue(result.isFailure)
             assertIs<NetworkException>(
-                result.exceptionOrNull()
+                result.exceptionOrNull(),
             )
         }
 
@@ -362,7 +364,7 @@ class GithubUserInfoRemoteSourceImplTest {
                 githubApiService.getUserRepositoriesInfo(
                     path = mockedPath,
                     sort = "created",
-                    direction = "desc"
+                    direction = "desc",
                 )
             } throws NetworkException()
 
@@ -371,7 +373,7 @@ class GithubUserInfoRemoteSourceImplTest {
             verify(exactly = 0) {
                 mapper.toModel(
                     githubRepositoryInfoListResponse =
-                        any<List<GithubRepositoryInfoResponse>>()
+                        any<List<GithubRepositoryInfoResponse>>(),
                 )
             }
         }
@@ -380,15 +382,15 @@ class GithubUserInfoRemoteSourceImplTest {
     fun `should return failure when api returns empty repositories response`() =
         runTest {
             val emptyResponse =
-                retrofit2.Response.success<List<GithubRepositoryInfoResponse>>(
-                    null
+                Response.success<List<GithubRepositoryInfoResponse>>(
+                    null,
                 )
 
             coEvery {
                 githubApiService.getUserRepositoriesInfo(
                     path = mockedPath,
                     sort = "created",
-                    direction = "desc"
+                    direction = "desc",
                 )
             } returns emptyResponse
 
@@ -397,7 +399,7 @@ class GithubUserInfoRemoteSourceImplTest {
 
             assertTrue(result.isFailure)
             assertIs<EmptyResponseException>(
-                result.exceptionOrNull()
+                result.exceptionOrNull(),
             )
         }
 
@@ -405,15 +407,15 @@ class GithubUserInfoRemoteSourceImplTest {
     fun `should not call mapper when api returns empty repositories response`() =
         runTest {
             val emptyResponse =
-                retrofit2.Response.success<List<GithubRepositoryInfoResponse>>(
-                    null
+                Response.success<List<GithubRepositoryInfoResponse>>(
+                    null,
                 )
 
             coEvery {
                 githubApiService.getUserRepositoriesInfo(
                     path = mockedPath,
                     sort = "created",
-                    direction = "desc"
+                    direction = "desc",
                 )
             } returns emptyResponse
 
@@ -422,10 +424,8 @@ class GithubUserInfoRemoteSourceImplTest {
             verify(exactly = 0) {
                 mapper.toModel(
                     githubRepositoryInfoListResponse =
-                        any<List<GithubRepositoryInfoResponse>>()
+                        any<List<GithubRepositoryInfoResponse>>(),
                 )
             }
         }
-
-
 }

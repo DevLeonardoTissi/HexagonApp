@@ -1,5 +1,5 @@
-package br.com.leonardo.webClient.interceptor
+package br.com.leonardo.appcore.data.network.interceptor
 
 import okhttp3.Interceptor
 
-interface LoggingInterceptor: Interceptor
+interface LoggingInterceptor : Interceptor

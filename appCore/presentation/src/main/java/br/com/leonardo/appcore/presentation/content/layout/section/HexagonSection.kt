@@ -1,0 +1,42 @@
+package br.com.leonardo.appcore.presentation.content.layout.section
+
+import androidx.compose.runtime.Composable
+import br.com.leonardo.appcore.presentation.action.HexagonAction
+import br.com.leonardo.appcore.presentation.content.layout.content.HexagonContent
+import br.com.leonardo.appcore.presentation.data.state.HexagonState
+import br.com.leonardo.appcore.presentation.data.uistate.HexagonUIState
+
+/**
+ * Hexagon section
+ *
+ * @param S
+ * @param UI
+ * @param R
+ * @constructor Creates a new HexagonSection
+ * @property view
+ * @property mapper
+ */
+abstract class HexagonSection<S, UI, R>(
+    private val view: HexagonSectionView<R>,
+    private val mapper: HexagonSectionMapper<S, UI, R>,
+) : HexagonContent where S : HexagonState, UI : HexagonUIState, R : HexagonSectionRender {
+    @Composable
+    override fun Show(
+        state: HexagonState,
+        uiState: HexagonUIState,
+        onActions: (HexagonAction) -> Unit,
+    ) {
+        (state as? S)?.let { sectionState ->
+            (uiState as? UI)?.let { sectionUiState ->
+                view.Show(
+                    render =
+                        mapper.map(
+                            state = sectionState,
+                            uiState = sectionUiState,
+                        ),
+                    onActions = onActions,
+                )
+            }
+        }
+    }
+}

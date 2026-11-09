@@ -1,4 +1,4 @@
-package br.com.leonardo.webClient.models.entity.response
+package br.com.leonardo.hexagonapp.ui.screens.devProfile.data.models.entity.response
 
 import com.google.gson.annotations.SerializedName
 

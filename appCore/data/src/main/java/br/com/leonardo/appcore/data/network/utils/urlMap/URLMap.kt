@@ -1,11 +1,10 @@
-package br.com.leonardo.webClient.utils.urlMap
+package br.com.leonardo.appcore.data.network.utils.urlMap
 
 /**
  * Url map
  *
  */
 interface URLMap {
-
     /**
      * Converts
      *
@@ -13,6 +12,8 @@ interface URLMap {
      * @param params
      * @return the string
      */
-    fun map (pathId: Int, params: Map<String, String> = mapOf()): String
-
+    fun map(
+        pathId: Int,
+        params: Map<String, String> = mapOf(),
+    ): String
 }

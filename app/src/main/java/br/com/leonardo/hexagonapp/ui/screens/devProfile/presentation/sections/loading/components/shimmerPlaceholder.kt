@@ -1,4 +1,4 @@
-package br.com.leonardo.hexagonapp.ui.screens.devProfile.sections.loading.components
+package br.com.leonardo.hexagonapp.ui.screens.devProfile.presentation.sections.loading.components
 
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateFloat
@@ -18,33 +18,36 @@ import androidx.compose.ui.graphics.Color
 @Composable
 fun ShimmerPlaceholder(
     modifier: Modifier = Modifier,
-    paddingModifier: Modifier = Modifier
+    paddingModifier: Modifier = Modifier,
 ) {
-
-    val shimmerColors = listOf(
-        Color.LightGray.copy(alpha = 0.6f),
-        Color.LightGray.copy(alpha = 0.2f),
-        Color.LightGray.copy(alpha = 0.6f)
-    )
+    val shimmerColors =
+        listOf(
+            Color.LightGray.copy(alpha = 0.6f),
+            Color.LightGray.copy(alpha = 0.2f),
+            Color.LightGray.copy(alpha = 0.6f),
+        )
 
     val transition = rememberInfiniteTransition()
     val translateAnim by transition.animateFloat(
         initialValue = 0f,
         targetValue = 1000f,
-        animationSpec = infiniteRepeatable(
-            animation = tween(durationMillis = 1000, easing = LinearEasing)
-        )
+        animationSpec =
+            infiniteRepeatable(
+                animation = tween(durationMillis = 1000, easing = LinearEasing),
+            ),
     )
 
-    val brush = Brush.linearGradient(
-        colors = shimmerColors,
-        start = Zero,
-        end = Offset(x = translateAnim, y = translateAnim)
-    )
+    val brush =
+        Brush.linearGradient(
+            colors = shimmerColors,
+            start = Zero,
+            end = Offset(x = translateAnim, y = translateAnim),
+        )
 
     Spacer(
-        modifier = modifier
-            .background(brush = brush)
-            .then(paddingModifier)
+        modifier =
+            modifier
+                .background(brush = brush)
+                .then(paddingModifier),
     )
 }

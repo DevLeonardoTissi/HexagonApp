@@ -1,4 +1,4 @@
-package br.com.leonardo.hexagonapp.ui.screens.devProfile.sections.error
+package br.com.leonardo.hexagonapp.ui.screens.devProfile.presentation.sections.error
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,34 +16,35 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import br.com.leonardo.hexagonapp.R
-import br.com.leonardo.hexagonapp.ui.screens.devProfile.sections.error.components.TypewriterText
-import br.com.leonardo.hexagonapp.ui.screens.devProfile.DevProfileActions
 import br.com.leonardo.appcore.presentation.action.HexagonAction
 import br.com.leonardo.appcore.presentation.content.layout.section.HexagonSectionView
+import br.com.leonardo.hexagonapp.R
+import br.com.leonardo.hexagonapp.ui.screens.devProfile.presentation.DevProfileActions
+import br.com.leonardo.hexagonapp.ui.screens.devProfile.presentation.sections.error.components.TypewriterText
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 
 class ErrorSectionView : HexagonSectionView<ErrorSectionRender>() {
-
     @Composable
-    override fun Show(render: ErrorSectionRender, onActions: (HexagonAction) -> Unit) {
+    override fun Show(
+        render: ErrorSectionRender,
+        onActions: (HexagonAction) -> Unit,
+    ) {
         with(render) {
-
             val composition by rememberLottieComposition(spec = LottieCompositionSpec.RawRes(R.raw.error))
             Column(
-                modifier = Modifier
-                    .fillMaxSize(),
+                modifier =
+                    Modifier
+                        .fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
+                verticalArrangement = Arrangement.Center,
             ) {
-
                 LottieAnimation(
                     composition = composition,
                     iterations = LottieConstants.IterateForever,
-                    modifier = Modifier.size(200.dp)
+                    modifier = Modifier.size(200.dp),
                 )
 
                 TypewriterText(texts = errorTexts)
@@ -52,7 +53,7 @@ class ErrorSectionView : HexagonSectionView<ErrorSectionRender>() {
                     Text(text = buttonText)
                     Icon(
                         Icons.Default.Refresh,
-                        contentDescription = iconRefreshDescription
+                        contentDescription = iconRefreshDescription,
                     )
                 }
             }

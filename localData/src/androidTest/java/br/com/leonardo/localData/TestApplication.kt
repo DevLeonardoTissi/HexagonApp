@@ -6,7 +6,7 @@ class TestApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        //To not use dynamic modules
+        // To not use dynamic modules
 //        startKoin {
 //            modules(localDataRepositoryModuleTest)
 //        }

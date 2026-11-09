@@ -1,7 +1,8 @@
-package br.com.leonardo.webClient.exception
+package br.com.leonardo.appcore.data.network.exception
 
-import br.com.leonardo.webClient.utils.FORBIDDEN_EXCEPTION_MESSAGE
+import br.com.leonardo.appcore.data.network.utils.FORBIDDEN_EXCEPTION_MESSAGE
 import java.io.IOException
 
-class ForbiddenException(message: String = FORBIDDEN_EXCEPTION_MESSAGE) :
-    IOException(message)
+class ForbiddenException(
+    message: String = FORBIDDEN_EXCEPTION_MESSAGE,
+) : IOException(message)

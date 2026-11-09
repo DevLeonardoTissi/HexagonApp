@@ -33,8 +33,7 @@ fun PersonalProfileLayout(
     cpf: String,
     dateOfBirth: String,
     photo: String?,
-
-    onClickItem: (profileId: String) -> Unit
+    onClickItem: (profileId: String) -> Unit,
 ) {
     val context = LocalContext.current
 
@@ -42,81 +41,86 @@ fun PersonalProfileLayout(
         shape = RoundedCornerShape(15.dp),
         shadowElevation = 4.dp,
         modifier = Modifier.padding(15.dp),
-        onClick = { onClickItem(id) }
+        onClick = { onClickItem(id) },
     ) {
         Column(
-
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(150.dp)
-                .background(Color.Blue), verticalArrangement = Arrangement.Center
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .height(150.dp)
+                    .background(Color.Blue),
+            verticalArrangement = Arrangement.Center,
         ) {
             Row(
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .background(Color.Gray), verticalAlignment = Alignment.CenterVertically
+                modifier =
+                    Modifier
+                        .fillMaxHeight()
+                        .background(Color.Gray),
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 SubComposeAsyncImage(
                     model = photo,
                     description = context.getString(R.string.personalProfileImageDescription),
-                    modifier = Modifier.size(150.dp)
+                    modifier = Modifier.size(150.dp),
                 )
 
                 Column(
-                    modifier = Modifier
-                        .fillMaxHeight()
-                        .padding(8.dp),
+                    modifier =
+                        Modifier
+                            .fillMaxHeight()
+                            .padding(8.dp),
                     verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
+                    horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
-
                     Text(
                         maxLines = 2,
                         overflow = TextOverflow.Ellipsis,
                         text = name,
                         textAlign = TextAlign.Center,
                         modifier = Modifier.fillMaxWidth(),
-                        color = Color.White
+                        color = Color.White,
                     )
 
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
                     ) {
                         Icon(
                             imageVector = Icons.Default.DateRange,
                             contentDescription = context.getString(R.string.personalProfileDateOfBirthDescription),
-                            tint = Color.White
+                            tint = Color.White,
                         )
                         Text(
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis,
                             text = dateOfBirth,
                             textAlign = TextAlign.Center,
-                            modifier = Modifier
-                                .weight(1f)
-                                .padding(start = 5.dp),
-                            color = Color.White
+                            modifier =
+                                Modifier
+                                    .weight(1f)
+                                    .padding(start = 5.dp),
+                            color = Color.White,
                         )
                     }
 
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
                     ) {
                         Icon(
                             imageVector = Icons.Default.AccountBox,
                             contentDescription = context.getString(R.string.personalProfileCPFDescription),
-                            tint = Color.White
+                            tint = Color.White,
                         )
                         Text(
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis,
                             text = cpf,
                             textAlign = TextAlign.Center,
-                            modifier = Modifier
-                                .weight(1f)
-                                .padding(start = 5.dp),
+                            modifier =
+                                Modifier
+                                    .weight(1f)
+                                    .padding(start = 5.dp),
                             color = Color.White,
                         )
                     }

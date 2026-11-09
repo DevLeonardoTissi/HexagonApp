@@ -26,15 +26,14 @@ abstract class HexagonScaffoldContentLayout<S : HexagonState, UI : HexagonUIStat
     open val topLayout: HexagonBaseContentLayout<S, UI>? = HexagonEmptyLayout(),
     open val bottomLayout: HexagonBaseContentLayout<S, UI>? = HexagonEmptyLayout(),
     open val contentLayout: HexagonBaseContentLayout<S, UI>? = HexagonEmptyLayout(),
-    ) : HexagonBaseContentLayout<S, UI> {
-
+) : HexagonBaseContentLayout<S, UI> {
     @Composable
     override fun Layout(
         state: S,
         uiState: UI,
         contentProvider: HexagonContentProvider<S, UI>?,
         onActions: (HexagonAction) -> Unit,
-        modifier: Modifier
+        modifier: Modifier,
     ) {
         Scaffold(
             topBar = {
@@ -45,24 +44,24 @@ abstract class HexagonScaffoldContentLayout<S : HexagonState, UI : HexagonUIStat
                             uiState = uiState,
                             contentProvider = topContent,
                             onActions = onActions,
-                            modifier = Modifier.topModifier(state, uiState)
+                            modifier = Modifier.topModifier(state, uiState),
                         )
                     }
                 }
             },
             bottomBar = {
                 (contentProvider as? HexagonScaffoldContentProvider)?.let { content ->
-                    content.bottomContent?.let { bottomContent->
+                    content.bottomContent?.let { bottomContent ->
                         bottomLayout?.Layout(
                             state = state,
                             uiState = uiState,
                             contentProvider = bottomContent,
                             onActions = onActions,
-                            modifier = Modifier.bottomModifier(state, uiState)
+                            modifier = Modifier.bottomModifier(state, uiState),
                         )
                     }
                 }
-            }
+            },
         ) { innerPadding ->
             (contentProvider as? HexagonScaffoldContentProvider)?.let { content ->
                 content.contentContent?.let { contentContent ->
@@ -71,8 +70,9 @@ abstract class HexagonScaffoldContentLayout<S : HexagonState, UI : HexagonUIStat
                         uiState = uiState,
                         contentProvider = contentContent,
                         onActions = onActions,
-                        modifier = Modifier
-                            .contentModifier(state, uiState, innerPadding)
+                        modifier =
+                            Modifier
+                                .contentModifier(state, uiState, innerPadding),
                     )
                 }
             }
@@ -88,7 +88,10 @@ abstract class HexagonScaffoldContentLayout<S : HexagonState, UI : HexagonUIStat
      * @return the modifier
      */
     @Composable
-    open fun Modifier.topModifier(state: S, uiState: UI): Modifier = this
+    open fun Modifier.topModifier(
+        state: S,
+        uiState: UI,
+    ): Modifier = this
 
     /**
      * Bottom modifier on the receiver [Modifier]
@@ -99,7 +102,10 @@ abstract class HexagonScaffoldContentLayout<S : HexagonState, UI : HexagonUIStat
      * @return the modifier
      */
     @Composable
-    open fun Modifier.bottomModifier(state: S, uiState: UI): Modifier = this
+    open fun Modifier.bottomModifier(
+        state: S,
+        uiState: UI,
+    ): Modifier = this
 
     /**
      * Content modifier on the receiver [Modifier]
@@ -111,6 +117,9 @@ abstract class HexagonScaffoldContentLayout<S : HexagonState, UI : HexagonUIStat
      * @return the modifier
      */
     @Composable
-    open fun Modifier.contentModifier(state: S, uiState: UI, innerPadding: PaddingValues): Modifier = this
-
+    open fun Modifier.contentModifier(
+        state: S,
+        uiState: UI,
+        innerPadding: PaddingValues,
+    ): Modifier = this
 }

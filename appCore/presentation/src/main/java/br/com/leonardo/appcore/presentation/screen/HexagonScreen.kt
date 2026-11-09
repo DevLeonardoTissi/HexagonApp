@@ -1,0 +1,104 @@
+package br.com.leonardo.appcore.presentation.screen
+
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import br.com.leonardo.appcore.presentation.action.HandleAction
+import br.com.leonardo.appcore.presentation.action.HexagonAction
+import br.com.leonardo.appcore.presentation.action.HexagonNavigationAction
+import br.com.leonardo.appcore.presentation.content.layout.content.HexagonBaseContentLayout
+import br.com.leonardo.appcore.presentation.content.provider.HexagonContentProvider
+import br.com.leonardo.appcore.presentation.data.state.HexagonState
+import br.com.leonardo.appcore.presentation.data.uistate.HexagonUIState
+import br.com.leonardo.appcore.presentation.navigator.HexagonNavigator
+import br.com.leonardo.appcore.presentation.navigator.Route
+import br.com.leonardo.appcore.presentation.viewmodel.HexagonViewModel
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
+
+/**
+ * Hexagon screen
+ *
+ * @param R
+ * @param S
+ * @param UIS
+ * @param VM
+ * @param CL
+ * @param CP
+ * @constructor Creates a new HexagonScreen
+ */
+abstract class HexagonScreen<
+    R : Route,
+    S : HexagonState,
+    UIS : HexagonUIState,
+    VM : HexagonViewModel<S, *, UIS, *>,
+    CL : HexagonBaseContentLayout<S, UIS>,
+    CP : HexagonContentProvider<S, UIS>,
+> : KoinComponent {
+    private val navigator: HexagonNavigator by inject()
+
+    /**
+     * Provide view model
+     * Composable function — emits UI and is re-invoked (recomposed) when its inputs change.
+     *
+     * @param arguments
+     * @return the vm
+     */
+    @Composable
+    protected abstract fun provideViewModel(arguments: R?): VM
+
+    abstract val provideContentLayout: CL
+
+    abstract val provideContentProvider: CP
+
+    var viewModel: VM? = null
+
+    /**
+     * Content
+     * Composable function — emits UI and is re-invoked (recomposed) when its inputs change.
+     *
+     * @param arguments
+     */
+    @Composable
+    fun Content(arguments: R? = null) {
+        viewModel = provideViewModel(arguments)
+        viewModel?.let {
+            it.setObserver(
+                object : HandleAction {
+                    override fun handleAction(action: HexagonAction) {
+                        onAction(action)
+                    }
+                },
+            )
+            val state: S by it.data.state.collectAsStateWithLifecycle()
+            val uiState: UIS by it.uiData.uiState.collectAsStateWithLifecycle()
+            provideContentLayout.Layout(
+                state = state,
+                uiState = uiState,
+                contentProvider = provideContentProvider,
+                modifier = Modifier.fillMaxSize(),
+                onActions = { action ->
+                    onAction(action)
+                },
+            )
+        }
+    }
+
+    private fun onAction(action: HexagonAction) {
+        if (action is HexagonNavigationAction) {
+            navigator.handleNavigatorAction(action)
+            return
+        }
+        viewModel?.handleAction(action)
+        handleAction(action)
+    }
+
+    /**
+     * Handles the action
+     *
+     * @param action
+     */
+    open fun handleAction(action: HexagonAction) {}
+}

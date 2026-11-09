@@ -13,5 +13,5 @@ data class PersonalProfile(
     val city: String,
     val dateOfBirth: Long,
     val active: Boolean = true,
-    val photo: String? = null
+    val photo: String? = null,
 )

@@ -1,4 +1,4 @@
-package br.com.leonardo.hexagonapp.ui.screens.devProfile.sections.success.repositories.components
+package br.com.leonardo.hexagonapp.ui.screens.devProfile.presentation.sections.success.repositories.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
@@ -20,9 +20,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import br.com.leonardo.appcore.presentation.utils.generateQrCode
 import br.com.leonardo.hexagonapp.R
 import br.com.leonardo.hexagonapp.ui.theme.HexagonAppTheme
-import br.com.leonardo.hexagonapp.utils.generateQrCode
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -30,24 +30,24 @@ fun ModalBottomSheetShareDevProfile(
     qrCodeText: String,
     onDismissRequest: () -> Unit,
     onClickCopyButton: () -> Unit,
-    onclickShareButton: () -> Unit
+    onclickShareButton: () -> Unit,
 ) {
-
     val context = LocalContext.current
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
     HexagonAppTheme {
         ModalBottomSheet(onDismissRequest = { onDismissRequest() }, sheetState = sheetState) {
             Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(12.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(12.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Text(
                     textAlign = TextAlign.Center,
                     fontSize = 20.sp,
-                    text = context.getString(R.string.ModalBottomSheetShareTitleText)
+                    text = context.getString(R.string.ModalBottomSheetShareTitleText),
                 )
 
                 Spacer(Modifier.height(20.dp))
@@ -55,7 +55,7 @@ fun ModalBottomSheetShareDevProfile(
                 Image(
                     bitmap = generateQrCode(qrCodeText).asImageBitmap(),
                     contentDescription = context.getString(R.string.qrCodeDescriptionText),
-                    modifier = Modifier.size(220.dp)
+                    modifier = Modifier.size(220.dp),
                 )
 
                 Spacer(Modifier.height(20.dp))
@@ -71,7 +71,6 @@ fun ModalBottomSheetShareDevProfile(
                 }) {
                     Text(context.getString(R.string.ModalBottomSheetShareCopyButtonText))
                 }
-
             }
         }
     }

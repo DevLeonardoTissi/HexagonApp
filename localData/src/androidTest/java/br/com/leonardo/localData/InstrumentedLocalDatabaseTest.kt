@@ -18,12 +18,10 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import java.time.Instant
 
-
 @RunWith(AndroidJUnit4::class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class InstrumentedLocalDatabaseTest : KoinComponent {
-
-    //If you don't want dynamic modules, you don't need to create this rule
+    // If you don't want dynamic modules, you don't need to create this rule
     @get:Rule
     val koinTestRule = KoinTestRule(listOf(localDataModuleTest))
 
@@ -33,7 +31,6 @@ class InstrumentedLocalDatabaseTest : KoinComponent {
 
     private val currencyTime = Instant.now().toEpochMilli()
 
-
     @Test
     fun test_a_defaultSettingsShouldHaveDarkModeDisabled() =
         runBlocking {
@@ -41,78 +38,82 @@ class InstrumentedLocalDatabaseTest : KoinComponent {
         }
 
     @Test
-    fun test_b_settingsShouldReflectChangesAfterUpdate() = runBlocking {
-        settingsRepository.updateSettings(Settings(1, true))
-        val currentSettings = settingsRepository.searchSettings()
-        assertEquals(true, currentSettings.first().darkMode)
-    }
+    fun test_b_settingsShouldReflectChangesAfterUpdate() =
+        runBlocking {
+            settingsRepository.updateSettings(Settings(1, true))
+            val currentSettings = settingsRepository.searchSettings()
+            assertEquals(true, currentSettings.first().darkMode)
+        }
 
     @Test
-    fun test_c_userProfileShouldBeCorrectlyCreated() = runBlocking {
-        personalProfileRepository.insert(
-            PersonalProfile(
-                cpf = "123",
-                name = "Test",
-                city = "CityTest",
-                active = true,
-                dateOfBirth = currencyTime
+    fun test_c_userProfileShouldBeCorrectlyCreated() =
+        runBlocking {
+            personalProfileRepository.insert(
+                PersonalProfile(
+                    cpf = "123",
+                    name = "Test",
+                    city = "CityTest",
+                    active = true,
+                    dateOfBirth = currencyTime,
+                ),
             )
-        )
-        val currentSettings = personalProfileRepository.getActives()
-        assertEquals("Test", currentSettings.first().first().name)
-    }
+            val currentSettings = personalProfileRepository.getActives()
+            assertEquals("Test", currentSettings.first().first().name)
+        }
 
     @Test
-    fun test_d_userProfileShouldBeCorrectlyDeleted() = runBlocking {
-        personalProfileRepository.remove(
-            PersonalProfile(
-                cpf = "123",
-                name = "Test",
-                city = "CityTest",
-                active = true,
-                dateOfBirth = currencyTime
+    fun test_d_userProfileShouldBeCorrectlyDeleted() =
+        runBlocking {
+            personalProfileRepository.remove(
+                PersonalProfile(
+                    cpf = "123",
+                    name = "Test",
+                    city = "CityTest",
+                    active = true,
+                    dateOfBirth = currencyTime,
+                ),
             )
-        )
 
-        val currentActivesProfiles = personalProfileRepository.getActives().first()
-        assertTrue(currentActivesProfiles.isEmpty())
-    }
+            val currentActivesProfiles = personalProfileRepository.getActives().first()
+            assertTrue(currentActivesProfiles.isEmpty())
+        }
 
     @Test
-    fun test_e_userProfileInactiveShouldBeCorrectlyCreated() = runBlocking {
-        personalProfileRepository.insert(
-            PersonalProfile(
-                cpf = "123",
-                name = "TestInactive",
-                city = "CityTest",
-                active = false,
-                dateOfBirth = currencyTime
+    fun test_e_userProfileInactiveShouldBeCorrectlyCreated() =
+        runBlocking {
+            personalProfileRepository.insert(
+                PersonalProfile(
+                    cpf = "123",
+                    name = "TestInactive",
+                    city = "CityTest",
+                    active = false,
+                    dateOfBirth = currencyTime,
+                ),
             )
-        )
-        val currentInactivesProfiles = personalProfileRepository.getInactives()
-        assertEquals("TestInactive", currentInactivesProfiles.first().first().name)
-    }
+            val currentInactivesProfiles = personalProfileRepository.getInactives()
+            assertEquals("TestInactive", currentInactivesProfiles.first().first().name)
+        }
 
     @Test
-    fun test_f_userProfileShouldBeCorrectlyUpdated() = runBlocking {
+    fun test_f_userProfileShouldBeCorrectlyUpdated() =
+        runBlocking {
+            val profileTest =
+                PersonalProfile(
+                    cpf = "123",
+                    name = "TestInactive",
+                    city = "CityTest",
+                    active = false,
+                    dateOfBirth = currencyTime,
+                )
 
-        val profileTest = PersonalProfile(
-            cpf = "123",
-            name = "TestInactive",
-            city = "CityTest",
-            active = false,
-            dateOfBirth = currencyTime
-        )
+            personalProfileRepository.insert(
+                profileTest,
+            )
+            val currentInactivesProfiles = personalProfileRepository.getInactives()
+            assertEquals("TestInactive", currentInactivesProfiles.first().first().name)
 
-        personalProfileRepository.insert(
-            profileTest
-        )
-        val currentInactivesProfiles = personalProfileRepository.getInactives()
-        assertEquals("TestInactive", currentInactivesProfiles.first().first().name)
-
-        personalProfileRepository.update(profileTest.copy(active = true))
-        val currentActivesProfiles = personalProfileRepository.getActives()
-        assertEquals(true, currentActivesProfiles.first().first().active)
-    }
-
+            personalProfileRepository.update(profileTest.copy(active = true))
+            val currentActivesProfiles = personalProfileRepository.getActives()
+            assertEquals(true, currentActivesProfiles.first().first().active)
+        }
 }

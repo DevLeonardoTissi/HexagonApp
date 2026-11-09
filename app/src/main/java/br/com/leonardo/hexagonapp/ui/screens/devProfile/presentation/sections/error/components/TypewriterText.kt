@@ -1,4 +1,4 @@
-package br.com.leonardo.hexagonapp.ui.screens.devProfile.sections.error.components
+package br.com.leonardo.hexagonapp.ui.screens.devProfile.presentation.sections.error.components
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
@@ -17,9 +17,7 @@ import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.delay
 
 @Composable
-fun TypewriterText(
-    texts: List<String>,
-) {
+fun TypewriterText(texts: List<String>) {
     var textIndex by remember {
         mutableIntStateOf(0)
     }
@@ -32,11 +30,12 @@ fun TypewriterText(
     ) {
         while (textIndex < texts.size) {
             texts[textIndex].forEachIndexed { charIndex, _ ->
-                textToDisplay = texts[textIndex]
-                    .substring(
-                        startIndex = 0,
-                        endIndex = charIndex + 1,
-                    )
+                textToDisplay =
+                    texts[textIndex]
+                        .substring(
+                            startIndex = 0,
+                            endIndex = charIndex + 1,
+                        )
                 delay(80)
             }
             textIndex = (textIndex + 1) % texts.size
@@ -49,6 +48,6 @@ fun TypewriterText(
         fontSize = 18.sp,
         fontWeight = FontWeight.Light,
         textAlign = TextAlign.Center,
-        modifier = Modifier.padding(16.dp)
+        modifier = Modifier.padding(16.dp),
     )
 }

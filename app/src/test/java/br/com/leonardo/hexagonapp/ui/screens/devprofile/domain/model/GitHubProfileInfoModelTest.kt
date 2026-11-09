@@ -1,10 +1,9 @@
-package br.com.leonardo.webClient.models.model
+package br.com.leonardo.hexagonapp.ui.screens.devProfile.domain.model
 
 import org.junit.Assert
 import org.junit.Test
 
 class GitHubProfileInfoModelTest {
-
     private val fieldAvatarURlExample = "https:avatarUrl.com"
     private val fieldHtmlURlExample = "https:htmlUrl.com"
     private val fieldNameExample = "name"
@@ -15,15 +14,16 @@ class GitHubProfileInfoModelTest {
 
     @Test
     fun `should return all the correct fields`() {
-        val entity = GitHubProfileInfoModel(
-            avatarUrl = fieldAvatarURlExample,
-            htmlUrl = fieldHtmlURlExample,
-            name = fieldNameExample,
-            blog = fieldBlogExample,
-            location = fieldLocationExample,
-            bio = fieldBioExample,
-            publicRepos = fieldPublicReposExample
-        )
+        val entity =
+            GitHubProfileInfoModel(
+                avatarUrl = fieldAvatarURlExample,
+                htmlUrl = fieldHtmlURlExample,
+                name = fieldNameExample,
+                blog = fieldBlogExample,
+                location = fieldLocationExample,
+                bio = fieldBioExample,
+                publicRepos = fieldPublicReposExample,
+            )
 
         Assert.assertEquals(fieldAvatarURlExample, entity.avatarUrl)
         Assert.assertEquals(fieldHtmlURlExample, entity.htmlUrl)
@@ -36,65 +36,70 @@ class GitHubProfileInfoModelTest {
 
     @Test
     fun `assert not equals method`() {
-        val entity1 = GitHubProfileInfoModel(
-            avatarUrl = fieldAvatarURlExample,
-            htmlUrl = fieldHtmlURlExample,
-            name = fieldNameExample,
-            blog = fieldBlogExample,
-            location = fieldLocationExample,
-            bio = fieldBioExample,
-            publicRepos = fieldPublicReposExample
-        )
+        val entity1 =
+            GitHubProfileInfoModel(
+                avatarUrl = fieldAvatarURlExample,
+                htmlUrl = fieldHtmlURlExample,
+                name = fieldNameExample,
+                blog = fieldBlogExample,
+                location = fieldLocationExample,
+                bio = fieldBioExample,
+                publicRepos = fieldPublicReposExample,
+            )
 
-        val entity2 = GitHubProfileInfoModel(
-            avatarUrl = "https:avatarUrl2.com.br",
-            htmlUrl = "https:htmlUrl.com.br",
-            name = "name2",
-            blog = "blog2",
-            location = "location2",
-            bio = "bio example2",
-            publicRepos = 1
-        )
+        val entity2 =
+            GitHubProfileInfoModel(
+                avatarUrl = "https:avatarUrl2.com.br",
+                htmlUrl = "https:htmlUrl.com.br",
+                name = "name2",
+                blog = "blog2",
+                location = "location2",
+                bio = "bio example2",
+                publicRepos = 1,
+            )
 
         Assert.assertNotEquals(entity1, entity2)
     }
 
     @Test
     fun `assert equals method`() {
-        val entity1 = GitHubProfileInfoModel(
-            avatarUrl = fieldAvatarURlExample,
-            htmlUrl = fieldHtmlURlExample,
-            name = fieldNameExample,
-            blog = fieldBlogExample,
-            location = fieldLocationExample,
-            bio = fieldBioExample,
-            publicRepos = fieldPublicReposExample
-        )
+        val entity1 =
+            GitHubProfileInfoModel(
+                avatarUrl = fieldAvatarURlExample,
+                htmlUrl = fieldHtmlURlExample,
+                name = fieldNameExample,
+                blog = fieldBlogExample,
+                location = fieldLocationExample,
+                bio = fieldBioExample,
+                publicRepos = fieldPublicReposExample,
+            )
 
-        val entity2 = GitHubProfileInfoModel(
-            avatarUrl = fieldAvatarURlExample,
-            htmlUrl = fieldHtmlURlExample,
-            name = fieldNameExample,
-            blog = fieldBlogExample,
-            location = fieldLocationExample,
-            bio = fieldBioExample,
-            publicRepos = fieldPublicReposExample
-        )
+        val entity2 =
+            GitHubProfileInfoModel(
+                avatarUrl = fieldAvatarURlExample,
+                htmlUrl = fieldHtmlURlExample,
+                name = fieldNameExample,
+                blog = fieldBlogExample,
+                location = fieldLocationExample,
+                bio = fieldBioExample,
+                publicRepos = fieldPublicReposExample,
+            )
 
         Assert.assertEquals(entity1, entity2)
     }
 
     @Test
     fun `assert null and non null values`() {
-        val entityWithNullValues = GitHubProfileInfoModel(
-            avatarUrl = fieldAvatarURlExample,
-            htmlUrl = fieldHtmlURlExample,
-            name = fieldNameExample,
-            blog = fieldBlogExample,
-            location = fieldLocationExample,
-            bio = fieldBioExample,
-            publicRepos = null
-        )
+        val entityWithNullValues =
+            GitHubProfileInfoModel(
+                avatarUrl = fieldAvatarURlExample,
+                htmlUrl = fieldHtmlURlExample,
+                name = fieldNameExample,
+                blog = fieldBlogExample,
+                location = fieldLocationExample,
+                bio = fieldBioExample,
+                publicRepos = null,
+            )
 
         Assert.assertNotNull(entityWithNullValues.avatarUrl)
         Assert.assertNotNull(entityWithNullValues.htmlUrl)
@@ -104,5 +109,4 @@ class GitHubProfileInfoModelTest {
         Assert.assertNotNull(entityWithNullValues.bio)
         Assert.assertNull(entityWithNullValues.publicRepos)
     }
-
 }

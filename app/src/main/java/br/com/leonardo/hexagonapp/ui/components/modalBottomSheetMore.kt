@@ -29,36 +29,37 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ModalBottomSheetMore(
     onDismissRequest: () -> Unit,
     isDarkMode: Boolean,
-    showNotifications:Boolean,
+    showNotifications: Boolean,
     onDarkModeChange: (Boolean) -> Unit,
-    onShowNotificationChange: (Boolean) -> Unit
+    onShowNotificationChange: (Boolean) -> Unit,
 ) {
     HexagonAppTheme {
         ModalBottomSheet(
-            onDismissRequest = { onDismissRequest() }
+            onDismissRequest = { onDismissRequest() },
         ) {
             val composition by rememberLottieComposition(spec = LottieCompositionSpec.RawRes(R.raw.settings))
             val context = LocalContext.current
 
             Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp), horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Row(
-                    modifier = Modifier
+                modifier =
+                    Modifier
                         .fillMaxWidth()
                         .padding(16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                Row(
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
+                    horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
-
                     Text(
                         text = context.getString(R.string.bottomSheetSettingsTitle),
                         modifier = Modifier.padding(16.dp),
@@ -70,50 +71,56 @@ fun ModalBottomSheetMore(
                     LottieAnimation(
                         composition = composition,
                         iterations = LottieConstants.IterateForever,
-                        modifier = Modifier.size(50.dp)
+                        modifier = Modifier.size(50.dp),
                     )
                 }
 
                 Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp),
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
+                    horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
-
                     Text(
                         text = context.getString(R.string.bottomSheetSettingsSwitchDarkModeLabel),
                         modifier = Modifier.padding(16.dp),
                         textAlign = TextAlign.Center,
-                        fontSize = 18.sp
+                        fontSize = 18.sp,
                     )
                     Switch(checked = isDarkMode, thumbContent = {
                         Icon(
                             imageVector = Icons.Default.Check,
-                            contentDescription = context.getString(R.string.bottomSheetSettingsSwitchIconCheckDescription)
+                            contentDescription =
+                                context.getString(
+                                    R.string.bottomSheetSettingsSwitchIconCheckDescription,
+                                ),
                         )
                     }, onCheckedChange = { onDarkModeChange(it) })
                 }
 
                 Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp),
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
+                    horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
-
                     Text(
                         text = context.getString(R.string.bottomSheetSettingsSwitchShowNotificationsLabel),
                         modifier = Modifier.padding(16.dp),
                         textAlign = TextAlign.Center,
-                        fontSize = 18.sp
+                        fontSize = 18.sp,
                     )
                     Switch(checked = showNotifications, thumbContent = {
                         Icon(
                             imageVector = Icons.Default.Check,
-                            contentDescription = context.getString(R.string.bottomSheetSettingsSwitchIconCheckDescription)
+                            contentDescription =
+                                context.getString(
+                                    R.string.bottomSheetSettingsSwitchIconCheckDescription,
+                                ),
                         )
                     }, onCheckedChange = { onShowNotificationChange(it) })
                 }

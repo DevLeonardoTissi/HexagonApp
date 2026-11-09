@@ -1,4 +1,4 @@
-package br.com.leonardo.webClient.exception
+package br.com.leonardo.appcore.data.network.exception
 
 import java.io.IOException
 

@@ -1,93 +1,99 @@
-package br.com.leonardo.webClient.mock
+package br.com.leonardo.hexagonapp.ui.screens.devProfile.mock
 
-import br.com.leonardo.webClient.models.entity.response.GitHubProfileInfoResponse
-import br.com.leonardo.webClient.models.entity.response.GithubRepositoryInfoResponse
-import br.com.leonardo.webClient.models.model.GitHubProfileInfoModel
-import br.com.leonardo.webClient.models.model.GithubRepositoryInfoModel
+import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.models.entity.response.GitHubProfileInfoResponse
+import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.models.entity.response.GithubRepositoryInfoResponse
+import br.com.leonardo.hexagonapp.ui.screens.devProfile.domain.model.GitHubProfileInfoModel
+import br.com.leonardo.hexagonapp.ui.screens.devProfile.domain.model.GithubRepositoryInfoModel
 import retrofit2.Response
 
 object Mocks {
     val defaultProfileModel
-        get() = GitHubProfileInfoModel(
-            avatarUrl = "",
-            htmlUrl = "",
-            name = "",
-            blog = "",
-            location = "",
-            bio = "",
-            publicRepos = null
-        )
+        get() =
+            GitHubProfileInfoModel(
+                avatarUrl = "",
+                htmlUrl = "",
+                name = "",
+                blog = "",
+                location = "",
+                bio = "",
+                publicRepos = null,
+            )
 
     val notDefaultProfileModel
-        get() = GitHubProfileInfoModel(
-            avatarUrl = "",
-            htmlUrl = "https://github.com/leonardo",
-            name = "Leonardo",
-            blog = "www.leonardo.com",
-            location = "Brasil",
-            bio = "Android Developer",
-            publicRepos = 10
-        )
-
-    val profileResponse
-        get() = Response.success(
-            GitHubProfileInfoResponse(
+        get() =
+            GitHubProfileInfoModel(
                 avatarUrl = "",
                 htmlUrl = "https://github.com/leonardo",
                 name = "Leonardo",
                 blog = "www.leonardo.com",
                 location = "Brasil",
                 bio = "Android Developer",
-                publicRepos = 10
+                publicRepos = 10,
             )
-        )
+
+    val profileResponse
+        get() =
+            Response.success(
+                GitHubProfileInfoResponse(
+                    avatarUrl = "",
+                    htmlUrl = "https://github.com/leonardo",
+                    name = "Leonardo",
+                    blog = "www.leonardo.com",
+                    location = "Brasil",
+                    bio = "Android Developer",
+                    publicRepos = 10,
+                ),
+            )
 
     val repositoriesResponseList
-        get() = Response.success(listOf(
-            GithubRepositoryInfoResponse(
-                name = "Repo 1",
-                htmlUrl = "url/1",
-                description = "Desc 1"
-            ),
-            GithubRepositoryInfoResponse(
-                name = "Repo 2",
-                htmlUrl = "url/2",
-                description = "Desc 2"
-            ),
-            GithubRepositoryInfoResponse(
-                name = "Repo 3",
-                htmlUrl = "url/3",
-                description = "Desc 3"
-            ),
-            GithubRepositoryInfoResponse(
-                name = "Repo 4",
-                htmlUrl = "url/4",
-                description = "Desc 4"
+        get() =
+            Response.success(
+                listOf(
+                    GithubRepositoryInfoResponse(
+                        name = "Repo 1",
+                        htmlUrl = "url/1",
+                        description = "Desc 1",
+                    ),
+                    GithubRepositoryInfoResponse(
+                        name = "Repo 2",
+                        htmlUrl = "url/2",
+                        description = "Desc 2",
+                    ),
+                    GithubRepositoryInfoResponse(
+                        name = "Repo 3",
+                        htmlUrl = "url/3",
+                        description = "Desc 3",
+                    ),
+                    GithubRepositoryInfoResponse(
+                        name = "Repo 4",
+                        htmlUrl = "url/4",
+                        description = "Desc 4",
+                    ),
+                ),
             )
-        ))
 
     val repositoriesModelList
-        get() = listOf(
-            GithubRepositoryInfoModel(
-                name = "Repo 1",
-                htmlUrl = "url/1",
-                description = "Desc 1"
-            ),
-            GithubRepositoryInfoModel(
-                name = "Repo 2",
-                htmlUrl = "url/2",
-                description = "Desc 2"
-            ),
-            GithubRepositoryInfoModel(
-                name = "Repo 3",
-                htmlUrl = "url/3",
-                description = "Desc 3"
-            ),
-            GithubRepositoryInfoModel(
-                name = "Repo 4",
-                htmlUrl = "url/4",
-                description = "Desc 4"
+        get() =
+            listOf(
+                GithubRepositoryInfoModel(
+                    name = "Repo 1",
+                    htmlUrl = "url/1",
+                    description = "Desc 1",
+                ),
+                GithubRepositoryInfoModel(
+                    name = "Repo 2",
+                    htmlUrl = "url/2",
+                    description = "Desc 2",
+                ),
+                GithubRepositoryInfoModel(
+                    name = "Repo 3",
+                    htmlUrl = "url/3",
+                    description = "Desc 3",
+                ),
+                GithubRepositoryInfoModel(
+                    name = "Repo 4",
+                    htmlUrl = "url/4",
+                    description = "Desc 4",
+                ),
             )
-        )
-
 }

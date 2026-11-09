@@ -1,4 +1,4 @@
-package br.com.leonardo.hexagonapp.ui.screens.devProfile.sections.success.user
+package br.com.leonardo.hexagonapp.ui.screens.devProfile.presentation.sections.success.user
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -23,84 +23,84 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import br.com.leonardo.hexagonapp.ui.components.SubComposeAsyncImage
-import br.com.leonardo.hexagonapp.ui.screens.devProfile.DevProfileActions
 import br.com.leonardo.appcore.presentation.action.HexagonAction
 import br.com.leonardo.appcore.presentation.content.layout.section.HexagonSectionView
+import br.com.leonardo.hexagonapp.ui.components.SubComposeAsyncImage
+import br.com.leonardo.hexagonapp.ui.screens.devProfile.presentation.DevProfileActions
 
 class UserSectionView : HexagonSectionView<UserSectionRender>() {
-
     @Composable
-    override fun Show(render: UserSectionRender, onActions: (HexagonAction) -> Unit) {
-
+    override fun Show(
+        render: UserSectionRender,
+        onActions: (HexagonAction) -> Unit,
+    ) {
         with(render) {
             Column(
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 userProfile?.let { userProfile ->
                     Box(modifier = Modifier.fillMaxWidth()) {
                         SubComposeAsyncImage(
                             model = userProfile.avatarUrl,
                             description = userImageDescription,
-                            modifier = Modifier
-                                .size(200.dp)
-                                .offset(y = 50.dp)
-                                .align(Alignment.Center)
-                                .clip(shape = CircleShape)
-                                .border(
-                                    BorderStroke(
-                                        2.dp,
-                                        brush = Brush.verticalGradient(
-                                            listOf(
-                                                MaterialTheme.colorScheme.secondaryContainer,
-                                                MaterialTheme.colorScheme.secondary
-                                            )
-                                        )
-                                    ), CircleShape
-                                )
-                                .combinedClickable(
-                                    onClick = {},
-                                    onLongClick = {}
-                                )
+                            modifier =
+                                Modifier
+                                    .size(200.dp)
+                                    .offset(y = 50.dp)
+                                    .align(Alignment.Center)
+                                    .clip(shape = CircleShape)
+                                    .border(
+                                        BorderStroke(
+                                            2.dp,
+                                            brush =
+                                                Brush.verticalGradient(
+                                                    listOf(
+                                                        MaterialTheme.colorScheme.secondaryContainer,
+                                                        MaterialTheme.colorScheme.secondary,
+                                                    ),
+                                                ),
+                                        ),
+                                        CircleShape,
+                                    ).combinedClickable(
+                                        onClick = {},
+                                        onLongClick = {},
+                                    ),
                         )
 
                         IconButton(
                             onClick = {
                                 onActions(
                                     DevProfileActions.ChangeVisibilityBottomSheetShare(
-                                        true
-                                    )
+                                        true,
+                                    ),
                                 )
                             },
-                            modifier = Modifier
-                                .padding(horizontal = 16.dp)
-                                .align(Alignment.BottomCenter)
-                                .offset(y = 50.dp, x = 50.dp)
-                                .size(50.dp)
-                                .background(
-                                    color = MaterialTheme.colorScheme.primary,
-                                    shape = CircleShape
-                                )
-                                .border(
-                                    BorderStroke(
-                                        2.dp,
-                                        color = Color.White
-                                    ), CircleShape
-                                )
+                            modifier =
+                                Modifier
+                                    .padding(horizontal = 16.dp)
+                                    .align(Alignment.BottomCenter)
+                                    .offset(y = 50.dp, x = 50.dp)
+                                    .size(50.dp)
+                                    .background(
+                                        color = MaterialTheme.colorScheme.primary,
+                                        shape = CircleShape,
+                                    ).border(
+                                        BorderStroke(
+                                            2.dp,
+                                            color = Color.White,
+                                        ),
+                                        CircleShape,
+                                    ),
                         ) {
                             Icon(
                                 Icons.Default.Share,
                                 contentDescription = shareIconDescription,
-                                tint = Color.White
+                                tint = Color.White,
                             )
                         }
-
                     }
                 }
             }
-
         }
-
     }
-
 }

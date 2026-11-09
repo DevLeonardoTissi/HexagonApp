@@ -1,10 +1,13 @@
-package br.com.leonardo.hexagonapp.ui.screens.devProfile
+package br.com.leonardo.hexagonapp.ui.screens.devProfile.presentation
 
 import br.com.leonardo.appcore.presentation.action.HexagonAction
 
 sealed class DevProfileActions : HexagonAction() {
-    object Load: DevProfileActions()
-    class ChangeVisibilityBottomSheetShare(val visibility: Boolean): DevProfileActions()
-    object Refresh: DevProfileActions()
+    object Load : DevProfileActions()
 
+    class ChangeVisibilityBottomSheetShare(
+        val visibility: Boolean,
+    ) : DevProfileActions()
+
+    object Refresh : DevProfileActions()
 }

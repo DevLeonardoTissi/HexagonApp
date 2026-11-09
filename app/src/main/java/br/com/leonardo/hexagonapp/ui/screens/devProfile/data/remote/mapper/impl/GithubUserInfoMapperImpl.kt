@@ -1,10 +1,10 @@
-package br.com.leonardo.webClient.source.remote.mapper.impl
+package br.com.leonardo.hexagonapp.ui.screens.devProfile.data.remote.mapper.impl
 
-import br.com.leonardo.webClient.models.entity.response.GitHubProfileInfoResponse
-import br.com.leonardo.webClient.models.entity.response.GithubRepositoryInfoResponse
-import br.com.leonardo.webClient.models.model.GitHubProfileInfoModel
-import br.com.leonardo.webClient.models.model.GithubRepositoryInfoModel
-import br.com.leonardo.webClient.source.remote.mapper.GithubUserInfoMapper
+import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.models.entity.response.GitHubProfileInfoResponse
+import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.models.entity.response.GithubRepositoryInfoResponse
+import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.remote.mapper.GithubUserInfoMapper
+import br.com.leonardo.hexagonapp.ui.screens.devProfile.domain.model.GitHubProfileInfoModel
+import br.com.leonardo.hexagonapp.ui.screens.devProfile.domain.model.GithubRepositoryInfoModel
 
 class GithubUserInfoMapperImpl : GithubUserInfoMapper {
     override fun toModel(githubProfileInfoResponse: GitHubProfileInfoResponse): GitHubProfileInfoModel =
@@ -16,16 +16,18 @@ class GithubUserInfoMapperImpl : GithubUserInfoMapper {
                 blog = blog.orEmpty(),
                 location = location.orEmpty(),
                 bio = bio.orEmpty(),
-                publicRepos = publicRepos
+                publicRepos = publicRepos,
             )
         }
 
-    override fun toModel(githubRepositoryInfoListResponse: List<GithubRepositoryInfoResponse>): List<GithubRepositoryInfoModel> =
+    override fun toModel(
+        githubRepositoryInfoListResponse: List<GithubRepositoryInfoResponse>,
+    ): List<GithubRepositoryInfoModel> =
         githubRepositoryInfoListResponse.map {
             GithubRepositoryInfoModel(
                 name = it.name.orEmpty(),
                 htmlUrl = it.htmlUrl.orEmpty(),
-                description = it.description.orEmpty()
+                description = it.description.orEmpty(),
             )
         }
 }
