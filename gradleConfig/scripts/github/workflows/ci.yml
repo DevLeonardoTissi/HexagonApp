@@ -98,7 +98,7 @@ jobs:
   build:
     name: Build App (Debug)
     runs-on: ubuntu-latest
-    needs: [test]
+    needs: [Instrumented Tests]
 
     steps:
       - name: Checkout repository
