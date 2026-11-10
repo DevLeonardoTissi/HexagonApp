@@ -3,11 +3,11 @@ package br.com.leonardo.hexagonapp.ui.screens.devprofile.data.source.remote.impl
 import br.com.leonardo.appcore.data.network.exception.EmptyResponseException
 import br.com.leonardo.appcore.data.network.exception.NetworkException
 import br.com.leonardo.appcore.data.network.utils.urlMap.URLMap
+import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.entity.response.GitHubProfileInfoResponseEntity
+import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.entity.response.GithubRepositoryInfoResponseEntity
 import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.remote.GithubUserInfoRemoteSource
 import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.remote.impl.GithubUserInfoRemoteSourceImpl
 import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.remote.mapper.GithubUserInfoMapper
-import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.entity.response.GitHubProfileInfoResponseEntity
-import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.entity.response.GithubRepositoryInfoResponseEntity
 import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.services.GithubApiService
 import br.com.leonardo.hexagonapp.ui.screens.devProfile.mock.Mocks
 import io.mockk.coEvery

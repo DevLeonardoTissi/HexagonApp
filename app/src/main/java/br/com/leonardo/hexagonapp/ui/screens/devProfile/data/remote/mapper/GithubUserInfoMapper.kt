@@ -12,6 +12,11 @@ interface GithubUserInfoMapper {
     /** Maps [GitHubProfileInfoResponseEntity] DTO to [GitHubProfileInfoModel]. */
     fun toModel(githubProfileInfoResponse: GitHubProfileInfoResponseEntity): GitHubProfileInfoModel
 
-    /** Maps list of [GithubRepositoryInfoResponseEntity] DTOs to list of [GithubRepositoryInfoModel]. */
-    fun toModel(githubRepositoryInfoListResponse: List<GithubRepositoryInfoResponseEntity>): List<GithubRepositoryInfoModel>
+    /**
+     * Maps list of [GithubRepositoryInfoResponseEntity] DTOs
+     * to list of [GithubRepositoryInfoModel].
+     */
+    fun toModel(
+        githubRepositoryInfoListResponse: List<GithubRepositoryInfoResponseEntity>,
+    ): List<GithubRepositoryInfoModel>
 }
