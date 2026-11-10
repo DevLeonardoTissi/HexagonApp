@@ -4,4 +4,5 @@ detekt {
     toolVersion = rootProject.libs.versions.detekt.get()
     config.setFrom(files("$rootDir/config/detekt/detekt.yml"))
     buildUponDefaultConfig = true
+    autoCorrect = true
 }
