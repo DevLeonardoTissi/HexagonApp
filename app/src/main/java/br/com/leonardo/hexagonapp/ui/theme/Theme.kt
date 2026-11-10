@@ -254,6 +254,14 @@ private val highContrastDarkColorScheme =
         surfaceContainerHighest = surfaceContainerHighestDarkHighContrast,
     )
 
+/**
+ * Data class representing a family of harmonized theme colors.
+ *
+ * @property color Base color.
+ * @property onColor Color for text/icons on top of [color].
+ * @property colorContainer Container color.
+ * @property onColorContainer Color for text/icons on top of container.
+ */
 @Immutable
 data class ColorFamily(
     val color: Color,
@@ -262,6 +270,7 @@ data class ColorFamily(
     val onColorContainer: Color,
 )
 
+/** Unspecified fallback color family. */
 val unspecified_scheme =
     ColorFamily(
         Color.Unspecified,
@@ -270,6 +279,13 @@ val unspecified_scheme =
         Color.Unspecified,
     )
 
+/**
+ * Main Material 3 theme composable for HexagonApp.
+ *
+ * @param darkTheme Whether to use dark color scheme.
+ * @param dynamicColor Whether to use dynamic color (Android 12+).
+ * @param content Composable content block.
+ */
 @Composable
 fun HexagonAppTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),

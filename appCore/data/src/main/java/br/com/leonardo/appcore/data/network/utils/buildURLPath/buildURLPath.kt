@@ -5,12 +5,13 @@ import br.com.leonardo.appcore.data.network.utils.urlMap.URLMap
 import br.com.leonardo.appcore.di.module.utils.myInject
 
 /**
- * Creates a new path on the receiver [RemoteSource]
+ * Extension function on [RemoteSource] to build a parameterized URL path string
+ * from string resource IDs and parameter maps.
  *
- * @param urlID the url id
- * @param params
- * @param urlMap the url map
- * @return the string
+ * @param urlID Resource ID of the string URL template.
+ * @param params List of key-value pairs to substitute into the URL template placeholders.
+ * @param urlMap [URLMap] service used to map and format the path.
+ * @return The formatted URL string.
  */
 fun RemoteSource.buildPath(
     urlID: Int,

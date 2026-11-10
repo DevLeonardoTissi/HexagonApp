@@ -7,15 +7,17 @@ import br.com.leonardo.appcore.presentation.action.HexagonNavigationAction
 import kotlinx.coroutines.flow.Flow
 
 /**
- * Hexagon navigator
+ * Navigator handling navigation stacks and navigation actions for Hexagon screens.
  *
- * @constructor Creates a new HexagonNavigator
- * @property startDestination the start destination
+ * @property startDestination The initial [Route] destination.
  */
 class HexagonNavigator(
     val startDestination: Route,
 ) {
+    /** Mutable snapshot state list representing the current navigation backstack. */
     val backstack: SnapshotStateList<Route> = mutableStateListOf(startDestination)
+
+    /** Flow emitting the current active [Route] at the top of the backstack. */
     val currentRouteFlow: Flow<Route?> = snapshotFlow { backstack.lastOrNull() }
 
     private fun navigateTo(destination: Route) {
@@ -30,9 +32,9 @@ class HexagonNavigator(
     }
 
     /**
-     * Handles the navigator action
+     * Handles navigation actions (e.g., [HexagonNavigationAction.NavigateTo] or [HexagonNavigationAction.GoBack]).
      *
-     * @param action
+     * @param action The [HexagonNavigationAction] to handle.
      */
     fun handleNavigatorAction(action: HexagonNavigationAction) {
         when (action) {

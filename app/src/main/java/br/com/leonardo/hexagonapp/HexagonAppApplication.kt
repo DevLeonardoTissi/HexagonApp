@@ -10,6 +10,10 @@ import org.koin.android.ext.android.inject
  * Initializes Koin dependency injection and system notification channels.
  */
 class HexagonAppApplication : Application() {
+    /**
+     * Called when the application is starting, before any activity, service,
+     * or receiver objects have been created.
+     */
     override fun onCreate() {
         super.onCreate()
         startKoinModules()

@@ -7,9 +7,21 @@ import android.net.NetworkRequest
 import br.com.leonardo.appcore.data.network.utils.NetworkState
 import br.com.leonardo.appcore.data.network.utils.networkMonitor.NetworkMonitor
 
+/**
+ * Implementation of [NetworkMonitor] using [ConnectivityManager] and [ConnectivityManager.NetworkCallback].
+ *
+ * @property connectivityManager The system [ConnectivityManager] service.
+ */
 class NetworkMonitorImpl(
     private val connectivityManager: ConnectivityManager,
 ) : NetworkMonitor {
+    /**
+     * Registers a network callback to monitor internet availability, capability changes, and disconnection.
+     *
+     * @param onConnectionAvailable Callback invoked when connection is available.
+     * @param onConnectionCapabilitiesChanged Callback invoked when capabilities change.
+     * @param onConnectionLost Callback invoked when connection is lost.
+     */
     override fun monitor(
         onConnectionAvailable: (NetworkState.Available) -> Unit,
         onConnectionCapabilitiesChanged: (NetworkState) -> Unit,

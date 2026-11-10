@@ -23,7 +23,16 @@ import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 
+/**
+ * Dependency Injection module definition for network layer components,
+ * including [OkHttpClient], [ConnectivityManager], interceptors, retrofit, and network monitors.
+ */
 class NetworkDI : HexagonLibrary {
+    /**
+     * Returns the Koin [Module] containing all network-related dependencies.
+     *
+     * @return [Module] configured with network bindings.
+     */
     override fun getModules(): Module =
         module {
             single<ConnectivityManager> {

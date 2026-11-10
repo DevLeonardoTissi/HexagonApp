@@ -10,9 +10,7 @@ import org.koin.compose.navigation3.koinEntryProvider
 import org.koin.core.annotation.KoinExperimentalAPI
 
 /**
- * Hexagon navigator3
- * Composable function — emits UI and is re-invoked (recomposed) when its inputs change.
- *
+ * Composable host displaying the Hexagon navigation graph using Navigation3 and Koin.
  */
 @OptIn(KoinExperimentalAPI::class)
 @Composable

@@ -1,16 +1,15 @@
 package br.com.leonardo.appcore.data.network.utils.urlMap
 
 /**
- * Url map
- *
+ * Interface for mapping resource-based URL paths with parameter substitution.
  */
 interface URLMap {
     /**
-     * Converts
+     * Retrieves a string URL template from resources and replaces placeholders with provided parameters.
      *
-     * @param pathId the path id
-     * @param params
-     * @return the string
+     * @param pathId The string resource ID representing the URL path.
+     * @param params Map of placeholder keys to substitution values.
+     * @return The formatted URL string.
      */
     fun map(
         pathId: Int,

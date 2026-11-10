@@ -1,14 +1,13 @@
 package br.com.leonardo.appcore.presentation.action
 
 /**
- * Handles the action
- *
+ * Interface for handling UI actions emitted by screens or components.
  */
 interface HandleAction {
     /**
-     * Handles the action
+     * Handles the given [HexagonAction].
      *
-     * @param action
+     * @param action The [HexagonAction] to handle.
      */
     fun handleAction(action: HexagonAction)
 }

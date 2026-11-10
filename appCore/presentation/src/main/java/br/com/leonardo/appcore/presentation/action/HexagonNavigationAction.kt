@@ -3,25 +3,18 @@ package br.com.leonardo.appcore.presentation.action
 import br.com.leonardo.appcore.presentation.navigator.Route
 
 /**
- * Hexagon navigation action
- * Sealed hierarchy — all subtypes are known at compile time, ideal for exhaustive `when`.
- *
- * @constructor Creates a new HexagonNavigationAction
+ * Sealed class representing navigation actions triggered by view models or screens.
  */
 sealed class HexagonNavigationAction : HexagonAction() {
     /**
-     * Go back
-     * Singleton object — a single shared instance.
-     *
-     * @constructor Creates a new GoBack
+     * Action representing a request to navigate back in the navigation stack.
      */
     object GoBack : HexagonNavigationAction()
 
     /**
-     * Navigate to
+     * Action representing a request to navigate to a specific [Route].
      *
-     * @constructor Creates a new NavigateTo
-     * @property route
+     * @property route The target [Route] to navigate to.
      */
     class NavigateTo(
         val route: Route,

@@ -5,23 +5,20 @@ import retrofit2.HttpException
 import retrofit2.Response
 
 /**
- * Remote source
+ * Interface providing helper functions for executing safe network requests
+ * with automatic response handling, body nullability checks, and exception mapping.
  */
 @Suppress("TooGenericExceptionCaught")
 interface RemoteSource {
     /**
-     * Request not nullable
-     * Suspending function — must be called from a coroutine or another suspending function.
+     * Executes a suspending network request expecting a non-nullable response body.
      *
-     * @param E
-     * @param M
-     * @param call
-     * @receiver
-     * @param onSuccess the on success
-     * @receiver
-     * @param onError the on error
-     * @receiver
-     * @return the result
+     * @param E The network response entity type.
+     * @param M The mapped domain model type.
+     * @param call Suspending lambda executing the Retrofit service call.
+     * @param onSuccess Callback invoked upon successful response with status code and body.
+     * @param onError Optional callback invoked upon failure to map or return exceptions.
+     * @return A [Result] containing the mapped model [M] or failure exception.
      */
     suspend fun <E, M> requestNotNullable(
         call: suspend () -> Response<E>,
@@ -56,18 +53,14 @@ interface RemoteSource {
         }
 
     /**
-     * Request nullable
-     * Suspending function — must be called from a coroutine or another suspending function.
+     * Executes a suspending network request allowing nullable response bodies.
      *
-     * @param E
-     * @param M
-     * @param call
-     * @receiver
-     * @param onSuccess the on success
-     * @receiver
-     * @param onError the on error
-     * @receiver
-     * @return the result
+     * @param E The network response entity type (nullable).
+     * @param M The mapped domain model type.
+     * @param call Suspending lambda executing the Retrofit service call.
+     * @param onSuccess Callback invoked upon successful response with status code and nullable body.
+     * @param onError Optional callback invoked upon failure to map or return exceptions.
+     * @return A [Result] containing the mapped model [M] or failure exception.
      */
     suspend fun <E, M> requestNullable(
         call: suspend () -> Response<E?>,

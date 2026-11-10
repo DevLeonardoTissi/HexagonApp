@@ -1,8 +1,6 @@
 package br.com.leonardo.appcore.presentation.action
 
 /**
- * Hexagon action
- *
- * @constructor Creates a new HexagonAction
+ * Base abstract class representing UI actions in the Hexagon architecture.
  */
 abstract class HexagonAction

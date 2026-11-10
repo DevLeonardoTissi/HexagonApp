@@ -4,19 +4,19 @@ import br.com.leonardo.appcore.presentation.screen.HexagonScreen
 import org.koin.core.module.Module
 
 /**
- * Screen navigator
+ * Interface defining a screen navigator providing a screen and its navigation Koin module.
  *
- * @param R
- * @param S
- * @property screen
+ * @param R The [Route] type associated with the screen.
+ * @param S The [HexagonScreen] type.
  */
 interface ScreenNavigator<R : Route, S : HexagonScreen<R, *, *, *, *, *>> {
+    /** The screen instance associated with this navigator. */
     val screen: S
 
     /**
-     * Adds the navigation module
+     * Registers and returns the Koin [Module] required for screen navigation.
      *
-     * @return the module
+     * @return [Module] containing screen dependencies.
      */
     fun registerNavigationModule(): Module
 }

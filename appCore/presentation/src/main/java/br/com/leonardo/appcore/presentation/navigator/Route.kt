@@ -1,7 +1,6 @@
 package br.com.leonardo.appcore.presentation.navigator
 
 /**
- * Route
- *
+ * Marker interface representing a navigation route destination.
  */
 interface Route

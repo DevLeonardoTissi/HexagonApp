@@ -6,6 +6,7 @@ import androidx.compose.ui.text.googlefonts.Font
 import androidx.compose.ui.text.googlefonts.GoogleFont
 import br.com.leonardo.hexagonapp.R
 
+/** Google Font provider using Google Play Services fonts contract. */
 val provider =
     GoogleFont.Provider(
         providerAuthority = "com.google.android.gms.fonts",
@@ -13,6 +14,7 @@ val provider =
         certificates = R.array.com_google_android_gms_fonts_certs,
     )
 
+/** Base body font family using Google Font ABeeZee. */
 val bodyFontFamily =
     FontFamily(
         Font(
@@ -21,6 +23,7 @@ val bodyFontFamily =
         ),
     )
 
+/** Display font family using Google Font Abel. */
 val displayFontFamily =
     FontFamily(
         Font(
@@ -32,6 +35,7 @@ val displayFontFamily =
 // Default Material 3 typography values
 val baseline = Typography()
 
+/** Application Material 3 Typography configuration. */
 val AppTypography =
     Typography(
         displayLarge = baseline.displayLarge.copy(fontFamily = displayFontFamily),
