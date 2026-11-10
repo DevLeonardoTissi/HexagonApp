@@ -1,9 +1,10 @@
-package br.com.leonardo.hexagonapp.ui.screens.devProfile.data.response
+package br.com.leonardo.hexagonapp.ui.screens.devprofile.data.entity.response
 
+import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.entity.response.GitHubProfileInfoResponseEntity
 import org.junit.Assert
 import org.junit.Test
 
-class GitHubProfileInfoResponseTest {
+class GitHubProfileInfoResponseEntityTest {
     private val fieldAvatarURlExample = "https:avatarUrl.com"
     private val fieldHtmlURlExample = "https:htmlUrl.com"
     private val fieldNameExample = "name"
@@ -15,7 +16,7 @@ class GitHubProfileInfoResponseTest {
     @Test
     fun `should return all the correct fields`() {
         val entity =
-            GitHubProfileInfoResponse(
+            GitHubProfileInfoResponseEntity(
                 avatarUrl = fieldAvatarURlExample,
                 htmlUrl = fieldHtmlURlExample,
                 name = fieldNameExample,
@@ -37,7 +38,7 @@ class GitHubProfileInfoResponseTest {
     @Test
     fun `assert not equals method`() {
         val entity1 =
-            GitHubProfileInfoResponse(
+            GitHubProfileInfoResponseEntity(
                 avatarUrl = fieldAvatarURlExample,
                 htmlUrl = fieldHtmlURlExample,
                 name = fieldNameExample,
@@ -48,7 +49,7 @@ class GitHubProfileInfoResponseTest {
             )
 
         val entity2 =
-            GitHubProfileInfoResponse(
+            GitHubProfileInfoResponseEntity(
                 avatarUrl = "https:avatarUrl2.com.br",
                 htmlUrl = "https:htmlUrl.com.br",
                 name = "name2",
@@ -64,7 +65,7 @@ class GitHubProfileInfoResponseTest {
     @Test
     fun `assert equals method`() {
         val entity1 =
-            GitHubProfileInfoResponse(
+            GitHubProfileInfoResponseEntity(
                 avatarUrl = fieldAvatarURlExample,
                 htmlUrl = fieldHtmlURlExample,
                 name = fieldNameExample,
@@ -75,7 +76,7 @@ class GitHubProfileInfoResponseTest {
             )
 
         val entity2 =
-            GitHubProfileInfoResponse(
+            GitHubProfileInfoResponseEntity(
                 avatarUrl = fieldAvatarURlExample,
                 htmlUrl = fieldHtmlURlExample,
                 name = fieldNameExample,
@@ -90,7 +91,7 @@ class GitHubProfileInfoResponseTest {
 
     @Test
     fun `assert null values`() {
-        val entityWithNullValues = GitHubProfileInfoResponse()
+        val entityWithNullValues = GitHubProfileInfoResponseEntity()
 
         Assert.assertNull(entityWithNullValues.avatarUrl)
         Assert.assertNull(entityWithNullValues.htmlUrl)

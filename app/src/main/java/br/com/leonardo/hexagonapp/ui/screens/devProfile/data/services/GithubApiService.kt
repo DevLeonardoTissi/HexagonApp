@@ -1,7 +1,7 @@
 package br.com.leonardo.hexagonapp.ui.screens.devProfile.data.services
 
-import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.response.GitHubProfileInfoResponse
-import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.response.GithubRepositoryInfoResponse
+import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.entity.response.GitHubProfileInfoResponseEntity
+import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.entity.response.GithubRepositoryInfoResponseEntity
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -19,7 +19,7 @@ interface GithubApiService {
     @GET
     suspend fun getUserProfileInfo(
         @Url path: String,
-    ): Response<GitHubProfileInfoResponse>
+    ): Response<GitHubProfileInfoResponseEntity>
 
     /**
      * Fetches list of repositories response.
@@ -33,5 +33,5 @@ interface GithubApiService {
         @Url path: String,
         @Query("sort") sort: String,
         @Query("direction") direction: String,
-    ): Response<List<GithubRepositoryInfoResponse>>
+    ): Response<List<GithubRepositoryInfoResponseEntity>>
 }

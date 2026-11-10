@@ -1,8 +1,8 @@
 package br.com.leonardo.hexagonapp.ui.screens.devProfile.data.remote.mapper.impl
 
 import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.remote.mapper.GithubUserInfoMapper
-import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.response.GitHubProfileInfoResponse
-import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.response.GithubRepositoryInfoResponse
+import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.entity.response.GitHubProfileInfoResponseEntity
+import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.entity.response.GithubRepositoryInfoResponseEntity
 import br.com.leonardo.hexagonapp.ui.screens.devProfile.domain.model.GitHubProfileInfoModel
 import br.com.leonardo.hexagonapp.ui.screens.devProfile.domain.model.GithubRepositoryInfoModel
 
@@ -10,7 +10,7 @@ import br.com.leonardo.hexagonapp.ui.screens.devProfile.domain.model.GithubRepos
  * Implementation of [GithubUserInfoMapper].
  */
 class GithubUserInfoMapperImpl : GithubUserInfoMapper {
-    override fun toModel(githubProfileInfoResponse: GitHubProfileInfoResponse): GitHubProfileInfoModel =
+    override fun toModel(githubProfileInfoResponse: GitHubProfileInfoResponseEntity): GitHubProfileInfoModel =
         with(githubProfileInfoResponse) {
             GitHubProfileInfoModel(
                 avatarUrl = avatarUrl.orEmpty(),
@@ -24,7 +24,7 @@ class GithubUserInfoMapperImpl : GithubUserInfoMapper {
         }
 
     override fun toModel(
-        githubRepositoryInfoListResponse: List<GithubRepositoryInfoResponse>,
+        githubRepositoryInfoListResponse: List<GithubRepositoryInfoResponseEntity>,
     ): List<GithubRepositoryInfoModel> =
         githubRepositoryInfoListResponse.map {
             GithubRepositoryInfoModel(

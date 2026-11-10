@@ -1,9 +1,10 @@
-package br.com.leonardo.hexagonapp.ui.screens.devProfile.data.response
+package br.com.leonardo.hexagonapp.ui.screens.devprofile.data.entity.response
 
+import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.entity.response.GithubRepositoryInfoResponseEntity
 import org.junit.Assert
 import org.junit.Test
 
-class GithubRepositoryInfoResponseTest {
+class GithubRepositoryInfoResponseEntityTest {
     private val fieldHtmlURlExample = "https:htmlUrl.com"
     private val fieldNameExample = "name"
     private val fieldDescriptionExample = "description example"
@@ -11,7 +12,7 @@ class GithubRepositoryInfoResponseTest {
     @Test
     fun `should return all the correct fields`() {
         val entity =
-            GithubRepositoryInfoResponse(
+            GithubRepositoryInfoResponseEntity(
                 htmlUrl = fieldHtmlURlExample,
                 name = fieldNameExample,
                 description = fieldDescriptionExample,
@@ -25,14 +26,14 @@ class GithubRepositoryInfoResponseTest {
     @Test
     fun `assert not equals method`() {
         val entity1 =
-            GithubRepositoryInfoResponse(
+            GithubRepositoryInfoResponseEntity(
                 htmlUrl = fieldHtmlURlExample,
                 name = fieldNameExample,
                 description = fieldDescriptionExample,
             )
 
         val entity2 =
-            GithubRepositoryInfoResponse(
+            GithubRepositoryInfoResponseEntity(
                 htmlUrl = "https:htmlUrl.com.br",
                 name = "repository name",
                 description = "repository description",
@@ -44,14 +45,14 @@ class GithubRepositoryInfoResponseTest {
     @Test
     fun `assert equals method`() {
         val entity1 =
-            GithubRepositoryInfoResponse(
+            GithubRepositoryInfoResponseEntity(
                 htmlUrl = fieldHtmlURlExample,
                 name = fieldNameExample,
                 description = fieldDescriptionExample,
             )
 
         val entity2 =
-            GithubRepositoryInfoResponse(
+            GithubRepositoryInfoResponseEntity(
                 htmlUrl = fieldHtmlURlExample,
                 name = fieldNameExample,
                 description = fieldDescriptionExample,
@@ -62,7 +63,7 @@ class GithubRepositoryInfoResponseTest {
 
     @Test
     fun `assert null values`() {
-        val entityWithNullValues = GithubRepositoryInfoResponse()
+        val entityWithNullValues = GithubRepositoryInfoResponseEntity()
 
         Assert.assertNull(entityWithNullValues.htmlUrl)
         Assert.assertNull(entityWithNullValues.name)

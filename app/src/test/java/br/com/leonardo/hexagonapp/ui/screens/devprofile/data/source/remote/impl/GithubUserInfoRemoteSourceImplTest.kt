@@ -6,8 +6,8 @@ import br.com.leonardo.appcore.data.network.utils.urlMap.URLMap
 import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.remote.GithubUserInfoRemoteSource
 import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.remote.impl.GithubUserInfoRemoteSourceImpl
 import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.remote.mapper.GithubUserInfoMapper
-import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.response.GitHubProfileInfoResponse
-import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.response.GithubRepositoryInfoResponse
+import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.entity.response.GitHubProfileInfoResponseEntity
+import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.entity.response.GithubRepositoryInfoResponseEntity
 import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.services.GithubApiService
 import br.com.leonardo.hexagonapp.ui.screens.devProfile.mock.Mocks
 import io.mockk.coEvery
@@ -188,7 +188,7 @@ class GithubUserInfoRemoteSourceImplTest {
             verify(exactly = 0) {
                 mapper.toModel(
                     githubProfileInfoResponse =
-                        any<GitHubProfileInfoResponse>(),
+                        any<GitHubProfileInfoResponseEntity>(),
                 )
             }
         }
@@ -197,7 +197,7 @@ class GithubUserInfoRemoteSourceImplTest {
     fun `should return failure when api returns empty profile response`() =
         runTest {
             val emptyResponse =
-                Response.success<GitHubProfileInfoResponse>(
+                Response.success<GitHubProfileInfoResponseEntity>(
                     null,
                 )
 
@@ -220,7 +220,7 @@ class GithubUserInfoRemoteSourceImplTest {
     fun `should not call mapper when api returns empty profile response`() =
         runTest {
             val emptyResponse =
-                Response.success<GitHubProfileInfoResponse>(
+                Response.success<GitHubProfileInfoResponseEntity>(
                     null,
                 )
 
@@ -235,7 +235,7 @@ class GithubUserInfoRemoteSourceImplTest {
             verify(exactly = 0) {
                 mapper.toModel(
                     githubProfileInfoResponse =
-                        any<GitHubProfileInfoResponse>(),
+                        any<GitHubProfileInfoResponseEntity>(),
                 )
             }
         }
@@ -373,7 +373,7 @@ class GithubUserInfoRemoteSourceImplTest {
             verify(exactly = 0) {
                 mapper.toModel(
                     githubRepositoryInfoListResponse =
-                        any<List<GithubRepositoryInfoResponse>>(),
+                        any<List<GithubRepositoryInfoResponseEntity>>(),
                 )
             }
         }
@@ -382,7 +382,7 @@ class GithubUserInfoRemoteSourceImplTest {
     fun `should return failure when api returns empty repositories response`() =
         runTest {
             val emptyResponse =
-                Response.success<List<GithubRepositoryInfoResponse>>(
+                Response.success<List<GithubRepositoryInfoResponseEntity>>(
                     null,
                 )
 
@@ -407,7 +407,7 @@ class GithubUserInfoRemoteSourceImplTest {
     fun `should not call mapper when api returns empty repositories response`() =
         runTest {
             val emptyResponse =
-                Response.success<List<GithubRepositoryInfoResponse>>(
+                Response.success<List<GithubRepositoryInfoResponseEntity>>(
                     null,
                 )
 
@@ -424,7 +424,7 @@ class GithubUserInfoRemoteSourceImplTest {
             verify(exactly = 0) {
                 mapper.toModel(
                     githubRepositoryInfoListResponse =
-                        any<List<GithubRepositoryInfoResponse>>(),
+                        any<List<GithubRepositoryInfoResponseEntity>>(),
                 )
             }
         }

@@ -1,7 +1,7 @@
 package br.com.leonardo.hexagonapp.ui.screens.devProfile.mock
 
-import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.response.GitHubProfileInfoResponse
-import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.response.GithubRepositoryInfoResponse
+import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.entity.response.GitHubProfileInfoResponseEntity
+import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.entity.response.GithubRepositoryInfoResponseEntity
 import br.com.leonardo.hexagonapp.ui.screens.devProfile.domain.model.GitHubProfileInfoModel
 import br.com.leonardo.hexagonapp.ui.screens.devProfile.domain.model.GithubRepositoryInfoModel
 import retrofit2.Response
@@ -34,7 +34,7 @@ object Mocks {
     val profileResponse
         get() =
             Response.success(
-                GitHubProfileInfoResponse(
+                GitHubProfileInfoResponseEntity(
                     avatarUrl = "",
                     htmlUrl = "https://github.com/leonardo",
                     name = "Leonardo",
@@ -49,22 +49,22 @@ object Mocks {
         get() =
             Response.success(
                 listOf(
-                    GithubRepositoryInfoResponse(
+                    GithubRepositoryInfoResponseEntity(
                         name = "Repo 1",
                         htmlUrl = "url/1",
                         description = "Desc 1",
                     ),
-                    GithubRepositoryInfoResponse(
+                    GithubRepositoryInfoResponseEntity(
                         name = "Repo 2",
                         htmlUrl = "url/2",
                         description = "Desc 2",
                     ),
-                    GithubRepositoryInfoResponse(
+                    GithubRepositoryInfoResponseEntity(
                         name = "Repo 3",
                         htmlUrl = "url/3",
                         description = "Desc 3",
                     ),
-                    GithubRepositoryInfoResponse(
+                    GithubRepositoryInfoResponseEntity(
                         name = "Repo 4",
                         htmlUrl = "url/4",
                         description = "Desc 4",

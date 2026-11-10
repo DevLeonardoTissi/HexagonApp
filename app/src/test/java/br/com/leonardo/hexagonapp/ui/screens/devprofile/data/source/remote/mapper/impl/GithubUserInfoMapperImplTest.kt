@@ -1,7 +1,7 @@
 package br.com.leonardo.hexagonapp.ui.screens.devProfile.data.remote.mapper.impl
 
-import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.response.GitHubProfileInfoResponse
-import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.response.GithubRepositoryInfoResponse
+import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.entity.response.GitHubProfileInfoResponseEntity
+import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.entity.response.GithubRepositoryInfoResponseEntity
 import br.com.leonardo.hexagonapp.ui.screens.devProfile.mock.Mocks
 import org.junit.Assert
 import org.junit.Before
@@ -28,7 +28,7 @@ class GithubUserInfoMapperImplTest {
         val fieldPublicReposExample = 0
 
         val entity =
-            GitHubProfileInfoResponse(
+            GitHubProfileInfoResponseEntity(
                 avatarUrl = fieldAvatarURlExample,
                 htmlUrl = fieldHtmlURlExample,
                 name = fieldNameExample,
@@ -50,7 +50,7 @@ class GithubUserInfoMapperImplTest {
 
     @Test
     fun `should return correct GitHubProfileInfoModel when null values`() {
-        val entity = GitHubProfileInfoResponse()
+        val entity = GitHubProfileInfoResponseEntity()
 
         val model = githubUserInfoMapperImpl.toModel(githubProfileInfoResponse = entity)
         assertTrue(model.avatarUrl.isEmpty())
@@ -70,7 +70,7 @@ class GithubUserInfoMapperImplTest {
 
         val entityList =
             listOf(
-                GithubRepositoryInfoResponse(
+                GithubRepositoryInfoResponseEntity(
                     htmlUrl = fieldHtmlURlExample,
                     name = fieldNameExample,
                     description = fieldDescriptionExample,
@@ -86,7 +86,7 @@ class GithubUserInfoMapperImplTest {
 
     @Test
     fun `should return correct GithubRepositoryInfoModel when null values`() {
-        val entity = listOf(GithubRepositoryInfoResponse())
+        val entity = listOf(GithubRepositoryInfoResponseEntity())
 
         val model = githubUserInfoMapperImpl.toModel(githubRepositoryInfoListResponse = entity)
         assertTrue(model.first().htmlUrl.isEmpty())
