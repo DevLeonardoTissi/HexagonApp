@@ -1,4 +1,4 @@
-package br.com.leonardo.hexagonapp.ui.screens.devprofile.data.source.remote.impl
+package br.com.leonardo.hexagonapp.ui.screens.devProfile.data.source.remote.impl
 
 import br.com.leonardo.appcore.data.network.exception.EmptyResponseException
 import br.com.leonardo.appcore.data.network.exception.NetworkException

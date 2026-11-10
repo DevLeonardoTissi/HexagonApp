@@ -1,8 +1,7 @@
-package br.com.leonardo.webClient.repository.impl
+package br.com.leonardo.hexagonapp.ui.screens.devProfile.data.repository.impl
 
 import br.com.leonardo.appcore.data.network.exception.NetworkException
 import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.remote.GithubUserInfoRemoteSource
-import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.repository.impl.GithubUserRepositoryImpl
 import br.com.leonardo.hexagonapp.ui.screens.devProfile.mock.Mocks
 import io.mockk.coEvery
 import io.mockk.coVerify

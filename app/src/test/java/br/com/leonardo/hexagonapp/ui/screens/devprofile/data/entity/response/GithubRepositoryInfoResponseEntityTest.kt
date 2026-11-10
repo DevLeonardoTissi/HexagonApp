@@ -1,6 +1,5 @@
-package br.com.leonardo.hexagonapp.ui.screens.devprofile.data.entity.response
+package br.com.leonardo.hexagonapp.ui.screens.devProfile.data.entity.response
 
-import br.com.leonardo.hexagonapp.ui.screens.devProfile.data.entity.response.GithubRepositoryInfoResponseEntity
 import org.junit.Assert
 import org.junit.Test
 
