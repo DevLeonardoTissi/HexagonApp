@@ -1,22 +1,21 @@
 package br.com.leonardo.appcore.presentation.screen
 
+import android.util.Log
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import br.com.leonardo.appcore.presentation.action.HandleAction
 import br.com.leonardo.appcore.presentation.action.HexagonAction
-import br.com.leonardo.appcore.presentation.action.HexagonNavigationAction
 import br.com.leonardo.appcore.presentation.content.layout.content.HexagonBaseContentLayout
 import br.com.leonardo.appcore.presentation.content.provider.HexagonContentProvider
 import br.com.leonardo.appcore.presentation.data.state.HexagonState
 import br.com.leonardo.appcore.presentation.data.uistate.HexagonUIState
-import br.com.leonardo.appcore.presentation.navigator.HexagonNavigator
 import br.com.leonardo.appcore.presentation.navigator.Route
 import br.com.leonardo.appcore.presentation.viewmodel.HexagonViewModel
 import org.koin.core.component.KoinScopeComponent
-import org.koin.core.component.inject
 import org.koin.core.scope.Scope
 
 /**
@@ -38,11 +37,16 @@ abstract class HexagonScreen<
     CL : HexagonBaseContentLayout<S, UIS>,
     CP : HexagonContentProvider<S, UIS>,
 > : KoinScopeComponent {
-    override val scope: Scope by lazy {
-        getKoin().createScope(this)
-    }
+    private var _scope: Scope? = null
 
-    private val navigator: HexagonNavigator by inject()
+    override val scope: Scope
+        get() {
+            val currentScope = _scope
+            if (currentScope == null || currentScope.closed) {
+                return getKoin().createScope(this).also { _scope = it }
+            }
+            return currentScope
+        }
 
     /**
      * Provide view model
@@ -54,13 +58,11 @@ abstract class HexagonScreen<
     @Composable
     protected abstract fun provideViewModel(arguments: R?): VM
 
-    private val provideContentLayout: HexagonBaseContentLayout<S, UIS> by lazy {
-        scope.get()
-    }
+    private val provideContentLayout: HexagonBaseContentLayout<S, UIS>
+        get() = scope.get()
 
-    private val provideContentProvider: HexagonContentProvider<S, UIS> by lazy {
-        scope.get()
-    }
+    private val provideContentProvider: HexagonContentProvider<S, UIS>
+        get() = scope.get()
 
     var viewModel: VM? = null
 
@@ -72,15 +74,23 @@ abstract class HexagonScreen<
      */
     @Composable
     fun Content(arguments: R? = null) {
+        val context = LocalContext.current
+        val activityHandler = context as? HandleAction
+
         viewModel = provideViewModel(arguments)
         viewModel?.let {
             it.setObserver(
                 object : HandleAction {
                     override fun handleAction(action: HexagonAction) {
-                        onAction(action)
+                        onAction(action, activityHandler)
                     }
                 },
             )
+            it.onDestroy = {
+                if (_scope?.closed == false) {
+                    _scope?.close()
+                }
+            }
             val state: S by it.data.state.collectAsStateWithLifecycle()
             val uiState: UIS by it.uiData.uiState.collectAsStateWithLifecycle()
             provideContentLayout.Layout(
@@ -89,17 +99,18 @@ abstract class HexagonScreen<
                 contentProvider = provideContentProvider,
                 modifier = Modifier.fillMaxSize(),
                 onActions = { action ->
-                    onAction(action)
+                    onAction(action, activityHandler)
                 },
             )
         }
     }
 
-    private fun onAction(action: HexagonAction) {
-        if (action is HexagonNavigationAction) {
-            navigator.handleNavigatorAction(action)
-            return
-        }
+    private fun onAction(
+        action: HexagonAction,
+        activityHandler: HandleAction?,
+    ) {
+        Log.d("HexagonAction", "Screen onAction: $action")
+        activityHandler?.handleAction(action)
         viewModel?.handleAction(action)
         handleAction(action)
     }

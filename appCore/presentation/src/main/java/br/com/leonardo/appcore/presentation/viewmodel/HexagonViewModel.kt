@@ -29,6 +29,8 @@ abstract class HexagonViewModel<S : HexagonState, D : HexagonData<S>, UI : Hexag
 
     private var observer: HandleAction? = null
 
+    var onDestroy: (() -> Unit)? = null
+
     /**
      * Executes and forwards the given [HexagonAction] to the registered observer.
      *
@@ -49,6 +51,7 @@ abstract class HexagonViewModel<S : HexagonState, D : HexagonData<S>, UI : Hexag
 
     @Suppress("EmptyFunctionBlock")
     override fun handleAction(action: HexagonAction) {
+        android.util.Log.d("HexagonAction", "ViewModel handleAction: $action")
     }
 
     /**
@@ -90,5 +93,10 @@ abstract class HexagonViewModel<S : HexagonState, D : HexagonData<S>, UI : Hexag
                 onFailure = { exception -> onError(exception) },
             )
         }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        onDestroy?.invoke()
     }
 }

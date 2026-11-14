@@ -3,6 +3,7 @@ package br.com.leonardo.hexagonapp.ui.screens.main.presentation
 import android.Manifest
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
@@ -20,12 +21,19 @@ import br.com.leonardo.hexagonapp.ui.theme.HexagonAppTheme
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.component.KoinScopeComponent
+import org.koin.core.scope.Scope
 
 /**
  * Main activity entry point for the application.
  * Hosts Compose UI tree, Navigation Drawer, and handles runtime permission requests.
  */
-class MainActivity : ComponentActivity() {
+class MainActivity :
+    ComponentActivity(),
+    HandleAction,
+    KoinScopeComponent {
+    override val scope: Scope by lazy { getKoin().createScope(this) }
+
     private val appViewModel: MainViewModel by viewModel()
     private val navigator: HexagonNavigator by inject()
 
@@ -40,8 +48,23 @@ class MainActivity : ComponentActivity() {
             }
         }
 
+    override fun handleAction(action: HexagonAction) {
+        Log.d("HexagonAction", "Activity handleAction: $action")
+        if (action is HexagonNavigationAction) {
+            navigator.handleNavigatorAction(action)
+        } else {
+            handleNotNavigation(action)
+        }
+    }
+
+    fun handleNotNavigation(action: HexagonAction) {
+        Log.d("HexagonAction", "Activity handleNotNavigation: $action")
+        appViewModel.handleAction(action)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        scope.declare(this)
 
         installSplashScreen()
         requestNotificationIfNeeded()
@@ -49,11 +72,7 @@ class MainActivity : ComponentActivity() {
         appViewModel.setObserver(
             object : HandleAction {
                 override fun handleAction(action: HexagonAction) {
-                    if (action is HexagonNavigationAction) {
-                        navigator.handleNavigatorAction(action)
-                        return
-                    }
-                    appViewModel.handleAction(action)
+                    this@MainActivity.handleAction(action)
                 }
             },
         )
