@@ -1,12 +1,12 @@
 package br.com.leonardo.appcore.presentation.screen
 
-import android.util.Log
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import br.com.leonardo.appcore.presentation.action.ActivityHandler
 import br.com.leonardo.appcore.presentation.action.HandleAction
 import br.com.leonardo.appcore.presentation.action.HexagonAction
 import br.com.leonardo.appcore.presentation.content.layout.content.HexagonBaseContentLayout
@@ -75,7 +75,7 @@ abstract class HexagonScreen<
     @Composable
     fun Content(arguments: R? = null) {
         val context = LocalContext.current
-        val activityHandler = context as? HandleAction
+        val activityHandler = (context as? KoinScopeComponent)?.scope?.getOrNull<ActivityHandler>()
 
         viewModel = provideViewModel(arguments)
         viewModel?.let {
@@ -107,10 +107,9 @@ abstract class HexagonScreen<
 
     private fun onAction(
         action: HexagonAction,
-        activityHandler: HandleAction?,
+        activityHandler: ActivityHandler?,
     ) {
-        Log.d("HexagonAction", "Screen onAction: $action")
-        activityHandler?.handleAction(action)
+        activityHandler?.handleScreenAction(action)
         viewModel?.handleAction(action)
         handleAction(action)
     }

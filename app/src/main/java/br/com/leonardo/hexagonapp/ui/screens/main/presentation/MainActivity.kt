@@ -3,7 +3,6 @@ package br.com.leonardo.hexagonapp.ui.screens.main.presentation
 import android.Manifest
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
@@ -11,6 +10,7 @@ import androidx.compose.runtime.getValue
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import br.com.leonardo.appcore.presentation.action.ActivityHandler
 import br.com.leonardo.appcore.presentation.action.HandleAction
 import br.com.leonardo.appcore.presentation.action.HexagonAction
 import br.com.leonardo.appcore.presentation.action.HexagonNavigationAction
@@ -30,6 +30,7 @@ import org.koin.core.scope.Scope
  */
 class MainActivity :
     ComponentActivity(),
+    ActivityHandler,
     HandleAction,
     KoinScopeComponent {
     override val scope: Scope by lazy { getKoin().createScope(this) }
@@ -48,18 +49,24 @@ class MainActivity :
             }
         }
 
-    override fun handleAction(action: HexagonAction) {
-        Log.d("HexagonAction", "Activity handleAction: $action")
+    override fun handleScreenAction(action: HexagonAction) {
         if (action is HexagonNavigationAction) {
             navigator.handleNavigatorAction(action)
         } else {
-            handleNotNavigation(action)
+            handleAction(action)
         }
     }
 
-    fun handleNotNavigation(action: HexagonAction) {
-        Log.d("HexagonAction", "Activity handleNotNavigation: $action")
-        appViewModel.handleAction(action)
+    override fun handleAppViewModelAction(action: HexagonAction) {
+        if (action is HexagonNavigationAction) {
+            navigator.handleNavigatorAction(action)
+        } else {
+            appViewModel.handleAction(action)
+        }
+    }
+
+    @Suppress("EmptyFunctionBlock")
+    override fun handleAction(action: HexagonAction) {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,7 +79,7 @@ class MainActivity :
         appViewModel.setObserver(
             object : HandleAction {
                 override fun handleAction(action: HexagonAction) {
-                    this@MainActivity.handleAction(action)
+                    this@MainActivity.handleAppViewModelAction(action)
                 }
             },
         )
