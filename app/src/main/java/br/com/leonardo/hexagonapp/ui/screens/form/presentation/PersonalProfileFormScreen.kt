@@ -21,13 +21,8 @@ class PersonalProfileFormScreen :
     @Composable
     override fun provideViewModel(arguments: FormRoute?): PersonalProfileFormViewModel {
         val id = arguments?.profileId
-        return koinViewModel<PersonalProfileFormViewModel> {
+        return koinViewModel<PersonalProfileFormViewModel>(scope = scope) {
             parametersOf(id)
         }
     }
-
-    override val provideContentLayout: PersonalProfileFormScreenContentLayout =
-        PersonalProfileFormScreenContentLayout()
-    override val provideContentProvider: PersonalProfileFormScreenContentProvider =
-        PersonalProfileFormScreenContentProvider()
 }

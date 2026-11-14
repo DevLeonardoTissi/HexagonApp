@@ -15,8 +15,9 @@ import br.com.leonardo.appcore.presentation.data.uistate.HexagonUIState
 import br.com.leonardo.appcore.presentation.navigator.HexagonNavigator
 import br.com.leonardo.appcore.presentation.navigator.Route
 import br.com.leonardo.appcore.presentation.viewmodel.HexagonViewModel
-import org.koin.core.component.KoinComponent
+import org.koin.core.component.KoinScopeComponent
 import org.koin.core.component.inject
+import org.koin.core.scope.Scope
 
 /**
  * Hexagon screen
@@ -36,7 +37,11 @@ abstract class HexagonScreen<
     VM : HexagonViewModel<S, *, UIS, *>,
     CL : HexagonBaseContentLayout<S, UIS>,
     CP : HexagonContentProvider<S, UIS>,
-> : KoinComponent {
+> : KoinScopeComponent {
+    override val scope: Scope by lazy {
+        getKoin().createScope(this)
+    }
+
     private val navigator: HexagonNavigator by inject()
 
     /**
@@ -49,9 +54,13 @@ abstract class HexagonScreen<
     @Composable
     protected abstract fun provideViewModel(arguments: R?): VM
 
-    abstract val provideContentLayout: CL
+    private val provideContentLayout: HexagonBaseContentLayout<S, UIS> by lazy {
+        scope.get()
+    }
 
-    abstract val provideContentProvider: CP
+    private val provideContentProvider: HexagonContentProvider<S, UIS> by lazy {
+        scope.get()
+    }
 
     var viewModel: VM? = null
 

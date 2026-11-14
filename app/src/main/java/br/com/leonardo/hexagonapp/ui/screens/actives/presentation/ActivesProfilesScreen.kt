@@ -19,10 +19,5 @@ class ActivesProfilesScreen :
     >() {
     @Composable
     override fun provideViewModel(arguments: HomeRoute?): ActivesProfilesViewModel =
-        koinViewModel<ActivesProfilesViewModel>()
-
-    override val provideContentLayout: ActivesProfilesScreenContentLayout =
-        ActivesProfilesScreenContentLayout()
-    override val provideContentProvider: ActivesProfilesScreenContentProvider =
-        ActivesProfilesScreenContentProvider()
+        koinViewModel<ActivesProfilesViewModel>(scope = scope)
 }

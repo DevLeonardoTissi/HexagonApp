@@ -18,10 +18,5 @@ class DevProfileScreen :
     >() {
     @Composable
     override fun provideViewModel(arguments: DevProfileScreenRoute?): DevProfileViewModel =
-        koinViewModel<DevProfileViewModel>()
-
-    override val provideContentLayout: DevProfileScreenContentLayout =
-        DevProfileScreenContentLayout()
-    override val provideContentProvider: DevProfileScreenContentProvider =
-        DevProfileScreenContentProvider()
+        koinViewModel<DevProfileViewModel>(scope = scope)
 }

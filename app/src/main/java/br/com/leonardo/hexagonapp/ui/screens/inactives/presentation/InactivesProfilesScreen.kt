@@ -19,10 +19,5 @@ class InactivesProfilesScreen :
     >() {
     @Composable
     override fun provideViewModel(arguments: InactiveRoute?): InactivesProfilesViewModel =
-        koinViewModel<InactivesProfilesViewModel>()
-
-    override val provideContentLayout: InactivesProfilesScreenContentLayout =
-        InactivesProfilesScreenContentLayout()
-    override val provideContentProvider: InactivesProfilesScreenContentProvider =
-        InactivesProfilesScreenContentProvider()
+        koinViewModel<InactivesProfilesViewModel>(scope = scope)
 }
