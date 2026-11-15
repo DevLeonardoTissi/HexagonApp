@@ -10,10 +10,10 @@ browser = "1.10.0"
 firebaseBom = "35.1.0"
 
 #Mockk
-mockk = "1.14.11"
+mockk = "1.14.12"
 
 #Kotlin Serialization
-kotlinxSerializationJson = "1.12.0"
+kotlinxSerializationJson = "1.13.0"
 
 #Coil for compose
 coilComposeVersion = "3.6.3"
@@ -25,7 +25,7 @@ ksp = "2.3.6"
 lottieCompose = "6.7.1"
 
 #Google service
-googleServices = "4.5.0"
+googleServices = "4.6.0"
 
 #Room compile - Runtime
 roomCompiler = "2.8.5"
@@ -67,7 +67,7 @@ zxingVersion = "3.5.4"
 adaptive = "1.3.0"
 
 #Navigation 3
-nav3Core = "1.2.0"
+nav3Core = "1.2.1"
 lifecycleViewmodelNav3 = "2.11.0"
 
 #Detekt

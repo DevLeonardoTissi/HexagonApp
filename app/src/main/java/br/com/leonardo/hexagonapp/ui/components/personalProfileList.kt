@@ -25,7 +25,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.SwipeToDismissBox
 import androidx.compose.material3.SwipeToDismissBoxValue
 import androidx.compose.material3.Text
-import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
+import androidx.compose.material3.adaptive.currentWindowAdaptiveInfoV2
 import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -46,6 +46,7 @@ import br.com.leonardo.hexagonapp.ui.theme.customRed
 import br.com.leonardo.hexagonapp.ui.theme.customYellow
 import br.com.leonardo.localData.model.PersonalProfile
 import kotlinx.coroutines.delay
+import kotlin.time.Duration.Companion.milliseconds
 
 /**
  * Adaptive list component rendering profile items in a grid or column based on window size.
@@ -67,7 +68,7 @@ fun PersonalProfileList(
     val context = LocalContext.current
     var visible by remember { mutableStateOf(false) }
 
-    val windowSizeClass = currentWindowAdaptiveInfo().windowSizeClass
+    val windowSizeClass = currentWindowAdaptiveInfoV2().windowSizeClass
 
     val isMediumDp by remember(windowSizeClass) {
         derivedStateOf {
@@ -76,7 +77,7 @@ fun PersonalProfileList(
     }
 
     LaunchedEffect(null) {
-        delay(200)
+        delay(200.milliseconds)
         visible = !visible
     }
 
