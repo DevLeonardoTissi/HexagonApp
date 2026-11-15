@@ -1,4 +1,177 @@
-# 🔷 HexagonApp — Trajetória & Engenharia Android
+# 🔷 HexagonApp — Android Engineering & Developer Evolution
+
+> 🌐 **Language / Idioma:** [ 🇬🇧 English ] | [ 🇧🇷 [Português](#-hexagonapp--trajetória--engenharia-android-1) ]
+
+> 🚀 **A hands-on project focused on my continuous evolution as a Senior-minded Android Developer.**
+
+**HexagonApp** is a showcase laboratory and technical showcase project built 100% in **Kotlin**, designed to apply and solidify state-of-the-art **Android Software Engineering** practices: **Clean Architecture**, **Multi-Module Gradle Architecture**, **Koin Dependency Injection**, **Declarative UI with Jetpack Compose**, and a custom **Hexagon MVI (Unidirectional Data Flow)** presentation pattern.
+
+---
+
+## 📌 Project Status & Continuous Improvement
+
+> 🛠️ **Under Active Development:** This repository reflects my daily journey of technical growth and architectural refinement. New features, code refactorings, performance optimizations, and test suite expansions are continuously applied to align the codebase with high-standard production requirements.
+
+---
+
+## 🌟 Engineering Vision & Technical Evolution
+
+This project represents major milestones in my software development maturity:
+
+- **Mastery of Modern Native Stack**: Transitioned from traditional View-based XML & Fragments to **100% Jetpack Compose**, **Navigation 3** with **Kotlinx Serialization**, and reactive state management powered by **Coroutines & Flow**.
+- **Modular & Scalable Design**: Organized into 7 Gradle subprojects (`:app`, `:appCore:data`, `:appCore:domain`, `:appCore:di`, `:appCore:presentation`, `:localData`), guaranteeing separation of concerns, high code reuse, and fast incremental builds.
+- **Pragmatic Application of S.O.L.I.D.**: Driven by strict decoupling, Dependency Inversion via Koin, and Single Responsibility across UI components and domain logic.
+- **Quality & Automated Testing Culture**: Integrated static analysis with **Detekt** and **Ktlint**, alongside unit testing (**JUnit4 + MockK**) and Compose UI instrumentation tests (**Compose Test Rule**).
+
+---
+
+## 🏗️ Project Modular Architecture
+
+The project is structured into strongly decoupled Gradle subprojects:
+
+```
+HexagonApp/
+ ├── 📱 app/                      # Application Layer (Features, UI & Entry Point)
+ ├── 🧩 appCore/                  # Core Infrastructure & Shared Framework
+ │    ├── 🌐 data/               # Network, Retrofit, Interceptors, Broadcast Receivers, System Monitors
+ │    ├── 🎯 domain/             # Use Cases, Contracts, Interfaces & Pure Domain Logic
+ │    ├── 💉 di/                 # Centralized Koin DI Modules & Extensions
+ │    └── 🎨 presentation/       # Base UI Components, Navigation 3, Themes & Base ViewModels
+ └── 💾 localData/                # Local Persistence Layer (Room Database, DAOs & Sources)
+```
+
+### 🔍 Subproject Breakdown
+
+#### `📱 :app` (Features & Application)
+- **Modularized Feature Presentation**:
+  - `actives`: Reactive listing and removal of active user profiles.
+  - `inactives`: Management of inactive profiles.
+  - `form`: Comprehensive profile creation/edition form featuring profile photo picking, dynamic CPF/Date validations, DatePicker, and confirmation dialogs.
+  - `devProfile`: Remote integration with GitHub REST API to search, inspect, and share developer profile info and repositories.
+  - `main`: Root container orchestrating Dark Theme, connectivity status, battery levels, and navigation.
+
+#### `🧩 :appCore` (Core Infrastructure Framework)
+- **`:appCore:domain`**: Pure Use Case abstractions and contracts (e.g., `BatteryMonitorUseCase`, `NotificationUseCase`, `CheckNotificationPermissionUseCase`).
+- **`:appCore:data`**:
+  - **Resilient Network**: `HexagonRetrofit` client with `RemoteSource` helper, custom interceptors (`LoggingInterceptor`, `ErrorInterceptor`, `NetworkStatusInterceptor`), and typed HTTP exception mapping (`NotFoundException`, `ForbiddenException`, `ServerException`).
+  - **System Monitors**: Real-time battery status receiver (`BatteryMonitorUseCase`) and connectivity callbacks via `NetworkMonitor`.
+  - **Notifications**: Dynamic notification channel initialization for Android 8.0+.
+- **`:appCore:presentation`**:
+  - **Base Infrastructure**: ViewModel state containers (`HexagonViewModel`, `HexagonData`, `HexagonUIData`, `HexagonState`, `HexagonUIState`).
+  - **Navigation 3**: Decoupled route and backstack handling via `HexagonScreenInnerNavigator`.
+  - **Section Componentization**: UI breakdown into 4 clear roles (`HexagonSection`, `HexagonSectionView`, `HexagonSectionMapper`, `HexagonSectionRender`).
+- **`:appCore:di`**: Centralized Koin DI registrations.
+
+#### `💾 :localData` (Room Local Persistence)
+- **Database**: `AppDatabase` setup powered by **Room + KSP**.
+- **Entities & DAOs**: `PersonalProfile` and `Settings` tables, wrapped by Local DataSources and Repositories.
+
+---
+
+## 🏛️ Presentation Architecture Pattern (Hexagon MVI)
+
+The presentation flow enforces **Unidirectional Data Flow (UDF)**:
+
+```mermaid
+graph TD
+    UI[Compose UI / Screen] -->|emits HexagonAction| VM[HexagonViewModel]
+    VM -->|Business Rules| DataState[HexagonData / HexagonState]
+    VM -->|UI Render States| UIDataState[HexagonUIData / HexagonUIState]
+    DataState -->|StateFlow| UI
+    UIDataState -->|StateFlow| UI
+```
+
+1. **`HexagonAction`**: Strongly typed, immutable user intent events.
+2. **`HexagonViewModel`**: Handles user actions and manages concurrent updates across two dedicated state flows:
+   - **`HexagonData`**: Business data state.
+   - **`HexagonUIData`**: Visual render state (Loading, Shimmers, Dialogs, Errors, Dark Mode).
+3. **Modular Sections**: Screens are decomposed into isolated UI sections (e.g., `UserSection`, `RepositoriesSection`, `FormSection`), maximizing testability and readability.
+
+---
+
+## 🛠️ Android Concepts & Technical Competencies
+
+- **Declarative UI**: **Jetpack Compose** with Material Design 3 and Adaptive Layout primitives (`androidx.compose.material3.adaptive`).
+- **Typed Navigation**: **Jetpack Navigation 3** integrated with `kotlinx.serialization` for compile-time safe routes.
+- **Reactive Programming**: **Kotlin Coroutines & Flow** (`StateFlow`, `collectAsStateWithLifecycle`) for lifecycle-aware data consumption.
+- **Dependency Injection**: **Koin** with Activity/Screen scoped lifecycles (`KoinScopeComponent`).
+- **Data Persistence**: Asynchronous **Room Database** powered by **KSP** annotation processing.
+- **REST APIs & Error Resilience**: **Retrofit 2 + OkHttp 3**, Gson serialization, custom request/response interceptors, and typed HTTP exceptions.
+- **Hardware & OS Integration**:
+  - **Broadcast Receivers**: Real-time battery status monitoring (`ACTION_BATTERY_LOW`, `ACTION_BATTERY_OKAY`).
+  - **Network Capabilities**: Active internet connectivity monitoring via `ConnectivityManager`.
+  - **System Notifications**: Notification channels and alert dispatching.
+  - **Runtime Permissions**: Android 13+ runtime notification permission request (`POST_NOTIFICATIONS`).
+  - **Splash Screen API**: Native `core-splashscreen` integration.
+
+---
+
+## 📚 Tech Stack & Open-Source Libraries
+
+| Category | Technology / Library | Version | Project Purpose |
+| :--- | :--- | :--- | :--- |
+| **Language / Core** | `Kotlin` | `2.4.21` | Modern native Android development |
+| **Build System** | `AGP` / `Gradle` | `9.4.1` | Multi-module build management |
+| **UI Framework** | `Jetpack Compose BOM` | `2026.09.00` | Declarative UI rendering |
+| **Design System** | `Material Design 3` | `1.4.0` | Material 3 components |
+| **Adaptive Layout**| `androidx.compose.material3.adaptive` | `1.3.0` | Multi-window and foldable device support |
+| **Navigation** | `Jetpack Navigation 3` | `1.2.0` | Type-safe screen navigation |
+| **DI** | `Koin` | `4.2.2` | Application-wide Dependency Injection |
+| **Local DB** | `Room` | `2.8.5` | SQLite object mapping |
+| **Annotation Engine**| `KSP` | `2.3.6` | Kotlin Symbol Processing for Room & Koin |
+| **HTTP Client** | `Retrofit` / `OkHttp` | `3.0.0` / `5.5.1` | REST API communication and network interceptors |
+| **Image Loading** | `Coil 3` | `3.6.3` | Async image rendering in Compose |
+| **Animations** | `Lottie Compose` | `6.7.1` | Vector animations in Compose |
+| **Utilities** | `ZXing` | `3.5.4` | QR Code generation |
+| **Testing** | `JUnit4`, `MockK`, `Koin Test` | Recent | Unit & Integration testing for ViewModel & Repositories |
+| **Code Quality** | `KtLint` / `Detekt` | `14.2.0` / `2.0.0` | Code formatting & static analysis rules |
+
+---
+
+## 🧪 Code Quality & Automated Testing
+
+- **Unit Tests (`app/src/test`)**: Test coverage for Repositories, Remote Sources, Mappers, and Use Cases using `MockK` and `CoroutinesTest`.
+- **UI Instrumentation Tests (`app/src/androidTest`)**: Compose UI and navigation tests using Compose Test Rule ([FormScreenTest.kt](app/src/androidTest/java/br/com/leonardo/hexagonapp/ui/FormScreenTest.kt) and [NavigationTest.kt](app/src/androidTest/java/br/com/leonardo/hexagonapp/ui/NavigationTest.kt)).
+- **Static Analysis**: Enforced code consistency via **Detekt** and **Ktlint**.
+
+---
+
+## 📈 Roadmap & Continuous Architectural Refinement
+
+As part of my continuous self-evaluation as an engineer, the following refactoring milestones are planned:
+
+1. 🎯 **`:localData` Refinement**: Fully isolate Room entities (`@Entity`) from domain models by creating strict `Entity` ↔ `DomainModel` mappers.
+2. 🎯 **Use Case Decoupling**: Consolidate all pure Use Cases strictly inside the domain layer (`:appCore:domain`), keeping Clean Architecture boundaries spotless.
+3. 🎯 **MVI State Consolidation**: Evolve ViewModel state containers towards unified immutable state representations using Sealed Interfaces.
+4. 🎯 **Test Coverage Expansion**: Increase automated unit testing coverage across all ViewModels and business flows.
+
+---
+
+## 🚀 How to Run the Project
+
+### Prerequisites
+- **Android Studio** Ladybug (2024.2.1) or higher.
+- **JDK**: Java 17 or Java 21 configured in IDE.
+- **Android SDK**: `compileSdk = 37`, `minSdk = 28`, `targetSdk = 35`.
+
+### Setup
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/seu-usuario/HexagonApp.git
+   ```
+2. Open the project in **Android Studio**.
+3. Allow **Gradle Sync** to finish indexing dependencies.
+4. Select the `:app` module and run it on an emulator or physical device running Android 9.0 (API 28) or higher.
+
+---
+
+<br />
+
+---
+
+# 🇧🇷 HexagonApp — Trajetória & Engenharia Android
+
+> 🌐 **Language / Idioma:** [ 🇬🇧 [English](#-hexagonapp--android-engineering--developer-evolution) ] | [ 🇧🇷 Português ]
 
 > 🚀 **Um projeto prático focado na minha evolução contínua como Desenvolvedor Android.**
 
