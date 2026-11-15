@@ -9,18 +9,18 @@ import kotlinx.coroutines.flow.Flow
 /**
  * Navigator handling navigation stacks and navigation actions for Hexagon screens.
  *
- * @property startDestination The initial [Route] destination.
+ * @property startDestination The initial [SubfeatureInnerRoute] destination.
  */
-class HexagonNavigator(
-    val startDestination: Route,
+class HexagonScreenInnerNavigator(
+    val startDestination: SubfeatureInnerRoute,
 ) {
     /** Mutable snapshot state list representing the current navigation backstack. */
-    val backstack: SnapshotStateList<Route> = mutableStateListOf(startDestination)
+    val backstack: SnapshotStateList<SubfeatureInnerRoute> = mutableStateListOf(startDestination)
 
-    /** Flow emitting the current active [Route] at the top of the backstack. */
-    val currentRouteFlow: Flow<Route?> = snapshotFlow { backstack.lastOrNull() }
+    /** Flow emitting the current active [SubfeatureInnerRoute] at the top of the backstack. */
+    val currentRouteFlow: Flow<SubfeatureInnerRoute?> = snapshotFlow { backstack.lastOrNull() }
 
-    private fun navigateTo(destination: Route) {
+    private fun navigateTo(destination: SubfeatureInnerRoute) {
         if (destination == startDestination) {
             backstack.clear()
         }

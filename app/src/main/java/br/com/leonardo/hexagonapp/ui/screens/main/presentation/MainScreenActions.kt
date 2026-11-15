@@ -1,7 +1,7 @@
 package br.com.leonardo.hexagonapp.ui.screens.main.presentation
 
 import br.com.leonardo.appcore.presentation.action.HexagonAction
-import br.com.leonardo.appcore.presentation.navigator.Route
+import br.com.leonardo.appcore.presentation.navigator.SubfeatureInnerRoute
 
 /** Actions emitted from root main container UI. */
 sealed class MainScreenActions : HexagonAction() {
@@ -22,6 +22,6 @@ sealed class MainScreenActions : HexagonAction() {
 
     /** Action when active navigation route changes. */
     class CurrencyRouteChanged(
-        val route: Route,
+        val route: SubfeatureInnerRoute,
     ) : MainScreenActions()
 }

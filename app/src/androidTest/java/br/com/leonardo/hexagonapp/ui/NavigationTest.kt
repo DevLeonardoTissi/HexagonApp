@@ -5,7 +5,7 @@ import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.performClick
 import br.com.leonardo.appcore.presentation.action.HexagonNavigationAction
-import br.com.leonardo.appcore.presentation.navigator.HexagonNavigator
+import br.com.leonardo.appcore.presentation.navigator.HexagonScreenInnerNavigator
 import br.com.leonardo.hexagonapp.ui.screens.actives.presentation.navigation.route.HomeRoute
 import br.com.leonardo.hexagonapp.ui.screens.main.presentation.MainScreen
 import br.com.leonardo.hexagonapp.ui.screens.main.presentation.MainScreenState
@@ -23,7 +23,7 @@ class NavigationTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
-    private val controller = HexagonNavigator(startDestination = HomeRoute)
+    private val controller = HexagonScreenInnerNavigator(startDestination = HomeRoute)
 
     private val testModule =
         module {

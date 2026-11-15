@@ -6,10 +6,10 @@ import org.koin.core.module.Module
 /**
  * Interface defining a screen navigator providing a screen and its navigation Koin module.
  *
- * @param R The [Route] type associated with the screen.
+ * @param R The [SubfeatureInnerRoute] type associated with the screen.
  * @param S The [HexagonScreen] type.
  */
-interface ScreenNavigator<R : Route, S : HexagonScreen<R, *, *, *, *, *>> {
+interface ScreenNavigator<R : SubfeatureInnerRoute, S : HexagonScreen<R, *, *, *, *, *>> {
     /** The screen instance associated with this navigator. */
     val screen: S
 

@@ -13,7 +13,7 @@ import br.com.leonardo.appcore.presentation.content.layout.content.HexagonBaseCo
 import br.com.leonardo.appcore.presentation.content.provider.HexagonContentProvider
 import br.com.leonardo.appcore.presentation.data.state.HexagonState
 import br.com.leonardo.appcore.presentation.data.uistate.HexagonUIState
-import br.com.leonardo.appcore.presentation.navigator.Route
+import br.com.leonardo.appcore.presentation.navigator.SubfeatureInnerRoute
 import br.com.leonardo.appcore.presentation.viewmodel.HexagonViewModel
 import org.koin.core.component.KoinScopeComponent
 import org.koin.core.scope.Scope
@@ -30,7 +30,7 @@ import org.koin.core.scope.Scope
  * @constructor Creates a new HexagonScreen
  */
 abstract class HexagonScreen<
-    R : Route,
+    R : SubfeatureInnerRoute,
     S : HexagonState,
     UIS : HexagonUIState,
     VM : HexagonViewModel<S, *, UIS, *>,

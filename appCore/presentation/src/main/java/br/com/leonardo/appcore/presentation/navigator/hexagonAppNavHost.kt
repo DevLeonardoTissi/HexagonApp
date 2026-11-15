@@ -17,11 +17,11 @@ import org.koin.core.component.KoinScopeComponent
 @OptIn(KoinExperimentalAPI::class)
 @Composable
 fun HexagonNavigator3() {
-    val entryProvider = koinEntryProvider<Route>()
+    val entryProvider = koinEntryProvider<SubfeatureInnerRoute>()
     val context = LocalContext.current
     val navigator =
-        (context as? KoinScopeComponent)?.scope?.getOrNull<HexagonNavigator>()
-            ?: koinInject<HexagonNavigator>()
+        (context as? KoinScopeComponent)?.scope?.getOrNull<HexagonScreenInnerNavigator>()
+            ?: koinInject<HexagonScreenInnerNavigator>()
 
     NavDisplay(
         backStack = navigator.backstack,

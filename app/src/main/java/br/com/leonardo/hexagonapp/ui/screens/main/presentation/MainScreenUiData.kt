@@ -1,7 +1,7 @@
 package br.com.leonardo.hexagonapp.ui.screens.main.presentation
 
 import br.com.leonardo.appcore.presentation.data.uidata.HexagonUIData
-import br.com.leonardo.appcore.presentation.navigator.Route
+import br.com.leonardo.appcore.presentation.navigator.SubfeatureInnerRoute
 
 /** UI Data holder for [MainScreenUiState]. */
 class MainScreenUiData(
@@ -18,7 +18,7 @@ class MainScreenUiData(
     }
 
     /** Updates currently displayed route in state. */
-    fun updateCurrentRoute(route: Route) {
+    fun updateCurrentRoute(route: SubfeatureInnerRoute) {
         updateUIState { it.copy(currentRoute = route) }
     }
 }

@@ -1,6 +1,6 @@
 package br.com.leonardo.appcore.presentation.action
 
-import br.com.leonardo.appcore.presentation.navigator.Route
+import br.com.leonardo.appcore.presentation.navigator.SubfeatureInnerRoute
 
 /**
  * Sealed class representing navigation actions triggered by view models or screens.
@@ -12,11 +12,11 @@ sealed class HexagonNavigationAction : HexagonAction() {
     object GoBack : HexagonNavigationAction()
 
     /**
-     * Action representing a request to navigate to a specific [Route].
+     * Action representing a request to navigate to a specific [SubfeatureInnerRoute].
      *
-     * @property route The target [Route] to navigate to.
+     * @property route The target [SubfeatureInnerRoute] to navigate to.
      */
     class NavigateTo(
-        val route: Route,
+        val route: SubfeatureInnerRoute,
     ) : HexagonNavigationAction()
 }

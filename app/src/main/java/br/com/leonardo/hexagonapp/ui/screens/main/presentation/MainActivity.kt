@@ -14,7 +14,7 @@ import br.com.leonardo.appcore.presentation.action.ActivityHandler
 import br.com.leonardo.appcore.presentation.action.HandleAction
 import br.com.leonardo.appcore.presentation.action.HexagonAction
 import br.com.leonardo.appcore.presentation.action.HexagonNavigationAction
-import br.com.leonardo.appcore.presentation.navigator.HexagonNavigator
+import br.com.leonardo.appcore.presentation.navigator.HexagonScreenInnerNavigator
 import br.com.leonardo.appcore.presentation.utils.extensions.toast
 import br.com.leonardo.hexagonapp.R
 import br.com.leonardo.hexagonapp.ui.theme.HexagonAppTheme
@@ -35,7 +35,7 @@ class MainActivity :
     override val scope: Scope by lazy { getKoin().createScope(this) }
 
     private val appViewModel: MainViewModel by viewModel()
-    private val navigator: HexagonNavigator by scope.inject()
+    private val innerNavigator: HexagonScreenInnerNavigator by scope.inject()
 
     private val requestPermissionNotificationsLauncher =
         registerForActivityResult(
@@ -50,7 +50,7 @@ class MainActivity :
 
     override fun handleScreenAction(action: HexagonAction) {
         if (action is HexagonNavigationAction) {
-            navigator.handleNavigatorAction(action)
+            innerNavigator.handleNavigatorAction(action)
         } else {
             handleAction(action)
         }
@@ -58,7 +58,7 @@ class MainActivity :
 
     override fun handleAppViewModelAction(action: HexagonAction) {
         if (action is HexagonNavigationAction) {
-            navigator.handleNavigatorAction(action)
+            innerNavigator.handleNavigatorAction(action)
         } else {
             appViewModel.handleAction(action)
         }
@@ -84,7 +84,7 @@ class MainActivity :
         )
 
         lifecycleScope.launch {
-            navigator.currentRouteFlow.collect { currentRoute ->
+            innerNavigator.currentRouteFlow.collect { currentRoute ->
                 currentRoute?.let {
                     appViewModel.handleAction(MainScreenActions.CurrencyRouteChanged(it))
                 }
