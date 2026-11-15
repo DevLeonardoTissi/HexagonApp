@@ -1,8 +1,6 @@
 package br.com.leonardo.hexagonapp.di.modules
 
-import br.com.leonardo.appcore.presentation.navigator.HexagonNavigator
 import br.com.leonardo.hexagonapp.ui.screens.actives.lib.ActivesProfilesScreenDiLibrary
-import br.com.leonardo.hexagonapp.ui.screens.actives.presentation.navigation.route.HomeRoute
 import br.com.leonardo.hexagonapp.ui.screens.devProfile.lib.DevProfileScreenDiLibrary
 import br.com.leonardo.hexagonapp.ui.screens.form.lib.PersonalProfileFormScreenDiLibrary
 import br.com.leonardo.hexagonapp.ui.screens.inactives.lib.InactivesProfilesScreenDiLibrary
@@ -19,12 +17,4 @@ val screensModules =
         includes(InactivesProfilesScreenDiLibrary().getModules())
         includes(PersonalProfileFormScreenDiLibrary().getModules())
         includes(MainScreenDiLibrary().getModules())
-    }
-
-/**
- * Koin module providing the global [HexagonNavigator] instance.
- */
-val navigatorModule =
-    module {
-        single { HexagonNavigator(startDestination = HomeRoute) }
     }

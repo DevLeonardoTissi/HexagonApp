@@ -127,6 +127,7 @@
               <option name="preferredColumnWidths">
                 <map>
                   <entry key="Duration" value="90" />
+                  <entry key="Pixel_10_Pro_Fold" value="120" />
                   <entry key="Pixel_3a_API_34_extension_level_7_x86_64" value="120" />
                   <entry key="Pixel_9_Pro_XL" value="120" />
                   <entry key="Tests" value="360" />
@@ -195,6 +196,7 @@
               <option name="preferredColumnWidths">
                 <map>
                   <entry key="Duration" value="90" />
+                  <entry key="Pixel_10_Pro_Fold" value="120" />
                   <entry key="Pixel_8" value="120" />
                   <entry key="Pixel_9_Pro_XL" value="120" />
                   <entry key="Tests" value="360" />

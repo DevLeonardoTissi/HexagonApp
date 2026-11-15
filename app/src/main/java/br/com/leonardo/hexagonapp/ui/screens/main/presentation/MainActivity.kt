@@ -19,7 +19,6 @@ import br.com.leonardo.appcore.presentation.utils.extensions.toast
 import br.com.leonardo.hexagonapp.R
 import br.com.leonardo.hexagonapp.ui.theme.HexagonAppTheme
 import kotlinx.coroutines.launch
-import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.component.KoinScopeComponent
 import org.koin.core.scope.Scope
@@ -36,7 +35,7 @@ class MainActivity :
     override val scope: Scope by lazy { getKoin().createScope(this) }
 
     private val appViewModel: MainViewModel by viewModel()
-    private val navigator: HexagonNavigator by inject()
+    private val navigator: HexagonNavigator by scope.inject()
 
     private val requestPermissionNotificationsLauncher =
         registerForActivityResult(
