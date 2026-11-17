@@ -1,0 +1,10 @@
+apply from: rootProject.file("appCore/gradleConfig/core-submodule.gradle")
+
+android {
+    namespace 'br.com.leonardo.appcore.di'
+}
+
+dependencies {
+    // Koin
+    implementation appCoreLibs.koin.androidx.compose
+}

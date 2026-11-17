@@ -1,0 +1,23 @@
+// install preCommitGitHooks
+
+tasks.register('installPreCommitGitHooks', Copy) {
+    group = 'git'
+    description = 'Install the pre-commit git hook'
+    from new File(rootProject.rootDir, 'appCore/gradleConfig/scripts/git/pre-commit')
+    into new File(rootProject.rootDir, '.git/hooks')
+    filePermissions { unix(0774) }
+}
+
+def targetModule = project.hasProperty("targetAppModule") ? project.targetAppModule : null
+
+if (targetModule != null) {
+    tasks.getByPath("${targetModule}:preBuild").dependsOn(installPreCommitGitHooks)
+} else {
+    subprojects {
+        plugins.withId('com.android.application') {
+            tasks.named('preBuild') {
+                dependsOn(installPreCommitGitHooks)
+            }
+        }
+    }
+}

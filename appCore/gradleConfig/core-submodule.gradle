@@ -1,0 +1,29 @@
+// core-submodule.gradle - Shared build script for Android library submodules
+
+apply plugin: appCoreLibs.plugins.android.library.get().pluginId
+
+apply from: rootProject.file("appCore/config/detekt/detekt.gradle")
+apply from: rootProject.file("appCore/config/ktlint/ktlint.gradle")
+
+android {
+    compileSdk 37
+
+    defaultConfig {
+        minSdk 28
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+}
+
+dependencies {
+    implementation appCoreLibs.androidx.core.ktx
+    implementation appCoreLibs.androidx.appcompat
+
+    testImplementation appCoreLibs.junit
+    androidTestImplementation appCoreLibs.androidx.espresso.core
+    androidTestImplementation appCoreLibs.androidx.junit
+}

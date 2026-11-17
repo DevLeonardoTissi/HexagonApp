@@ -1,0 +1,70 @@
+apply from: rootProject.file("appCore/gradleConfig/core-submodule.gradle")
+
+apply plugin: appCoreLibs.plugins.compose.compiler.get().pluginId
+apply plugin: appCoreLibs.plugins.kotlinSerialization.get().pluginId
+
+android {
+    namespace 'br.com.leonardo.appcore.presentation'
+
+    defaultConfig {
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    buildFeatures {
+        compose true
+    }
+}
+
+dependencies {
+    implementation project(":appCore:di")
+
+    // Compose & Lifecycle
+    implementation platform(appCoreLibs.androidx.compose.bom)
+    implementation appCoreLibs.androidx.ui
+    implementation appCoreLibs.androidx.ui.graphics
+    implementation appCoreLibs.androidx.ui.tooling.preview
+    implementation appCoreLibs.androidx.lifecycle.runtime.compose
+    implementation appCoreLibs.androidx.lifecycle.runtime.ktx
+    implementation appCoreLibs.androidx.activity.compose
+
+    // Material & Adaptive
+    implementation appCoreLibs.androidx.material3
+    implementation appCoreLibs.androidx.material.icons.extended
+    implementation appCoreLibs.androidx.adaptive
+    implementation appCoreLibs.androidx.adaptive.layout
+    implementation appCoreLibs.androidx.adaptive.navigation
+
+    // Navigation & Serialization
+    implementation appCoreLibs.androidx.navigation3.ui
+    implementation appCoreLibs.androidx.navigation3.runtime
+    implementation appCoreLibs.androidx.lifecycle.viewmodel.navigation3
+    implementation appCoreLibs.kotlinx.serialization.json
+
+    // Koin
+    implementation appCoreLibs.koin.androidx.compose
+    implementation appCoreLibs.koin.compose.navigation3
+
+    // Coil & Lottie & Fonts
+    implementation appCoreLibs.coil3.coil.compose
+    implementation appCoreLibs.coil.network.okhttp
+    implementation appCoreLibs.lottie.compose
+    implementation appCoreLibs.androidx.ui.text.google.fonts
+
+    // Core & UI Utilities
+    implementation appCoreLibs.androidx.browser
+    implementation appCoreLibs.androidx.core.splashscreen
+    implementation appCoreLibs.material
+    implementation appCoreLibs.core
+
+    androidTestImplementation platform(appCoreLibs.androidx.compose.bom)
+    androidTestImplementation appCoreLibs.androidx.ui.test.junit4
+    debugImplementation appCoreLibs.androidx.ui.tooling
+    debugImplementation appCoreLibs.androidx.ui.test.manifest
+}

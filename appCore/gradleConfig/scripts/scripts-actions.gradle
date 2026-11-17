@@ -3,7 +3,7 @@
 tasks.register('installGithubActions', Copy) {
     group = 'github'
     description = 'Install the github actions'
-    from new File(rootProject.rootDir, 'gradleConfig/scripts/github/workflows/ci.yml')
+    from new File(rootProject.rootDir, 'appCore/gradleConfig/scripts/github/workflows/ci.yml')
     into new File(rootProject.rootDir, '.github/workflows')
     filePermissions { unix(0774) }
 
@@ -15,14 +15,24 @@ tasks.register('installGithubActions', Copy) {
             "# ========================================================\n" +
                     "# ATENCAO: Este arquivo foi gerado automaticamente pelo Gradle.\n" +
                     "# NAO EDITE ESTE ARQUIVO DIRETAMENTE.\n" +
-                    "# Edite o molde em: gradleConfig/scripts/github/workflows/\n" +
+                    "# Edite o molde em: appCore/gradleConfig/scripts/github/workflows/\n" +
                     "# ========================================================\n\n" + line
         } else {
             line
         }
     }
-
 }
 
-tasks.getByPath(':app:preBuild')
-        .dependsOn(installGithubActions)
+def targetModule = project.hasProperty("targetAppModule") ? project.targetAppModule : null
+
+if (targetModule != null) {
+    tasks.getByPath("${targetModule}:preBuild").dependsOn(installGithubActions)
+} else {
+    subprojects {
+        plugins.withId('com.android.application') {
+            tasks.named('preBuild') {
+                dependsOn(installGithubActions)
+            }
+        }
+    }
+}

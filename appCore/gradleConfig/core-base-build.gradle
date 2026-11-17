@@ -1,0 +1,116 @@
+// core-base-build.gradle - Base build configuration script for app module
+
+apply plugin: appCoreLibs.plugins.androidApplication.get().pluginId
+apply plugin: appCoreLibs.plugins.compose.compiler.get().pluginId
+apply plugin: appCoreLibs.plugins.googleServices.get().pluginId
+apply plugin: appCoreLibs.plugins.crashlytics.get().pluginId
+apply plugin: appCoreLibs.plugins.kotlinSerialization.get().pluginId
+
+apply from: rootProject.file("appCore/config/detekt/detekt.gradle")
+apply from: rootProject.file("appCore/config/ktlint/ktlint.gradle")
+
+android {
+    compileSdk 37
+
+    defaultConfig {
+        minSdk 28
+        targetSdk 35
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary true
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+
+    buildFeatures {
+        compose true
+    }
+
+    packagingOptions {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
+}
+
+dependencies {
+    // Core Modules
+    implementation project(":appCore")
+    implementation project(":appCore:data")
+    implementation project(":appCore:domain")
+    implementation project(":appCore:di")
+    implementation project(":appCore:presentation")
+    implementation project(":localData")
+
+    // Core AndroidX & Material
+    implementation appCoreLibs.androidx.core.ktx
+    implementation appCoreLibs.androidx.appcompat
+    implementation appCoreLibs.material
+    implementation appCoreLibs.androidx.browser
+    implementation appCoreLibs.androidx.core.splashscreen
+
+    // Compose & Lifecycle
+    implementation platform(appCoreLibs.androidx.compose.bom)
+    implementation appCoreLibs.androidx.ui
+    implementation appCoreLibs.androidx.ui.graphics
+    implementation appCoreLibs.androidx.ui.tooling.preview
+    implementation appCoreLibs.androidx.lifecycle.runtime.compose
+    implementation appCoreLibs.androidx.lifecycle.runtime.ktx
+    implementation appCoreLibs.androidx.activity.compose
+    implementation appCoreLibs.androidx.material3
+    implementation appCoreLibs.androidx.material.icons.extended
+
+    // Material Adaptive
+    implementation appCoreLibs.androidx.adaptive
+    implementation appCoreLibs.androidx.adaptive.layout
+    implementation appCoreLibs.androidx.adaptive.navigation
+
+    // Navigation 3 & Serialization
+    implementation appCoreLibs.androidx.navigation3.ui
+    implementation appCoreLibs.androidx.navigation3.runtime
+    implementation appCoreLibs.androidx.lifecycle.viewmodel.navigation3
+    implementation appCoreLibs.kotlinx.serialization.json
+
+    // Koin
+    implementation appCoreLibs.koin.androidx.compose
+    implementation appCoreLibs.koin.compose.navigation3
+
+    // Network & Utilities
+    implementation appCoreLibs.retrofit
+    implementation appCoreLibs.converter.gson
+    implementation appCoreLibs.logging.interceptor
+    implementation appCoreLibs.coil3.coil.compose
+    implementation appCoreLibs.coil.network.okhttp
+    implementation appCoreLibs.lottie.compose
+    implementation appCoreLibs.androidx.ui.text.google.fonts
+    implementation appCoreLibs.core
+
+    // Firebase
+    implementation platform(appCoreLibs.firebase.bom)
+    implementation appCoreLibs.google.firebase.analytics
+    implementation appCoreLibs.firebase.crashlytics
+
+    // Testing
+    testImplementation appCoreLibs.junit
+    testImplementation appCoreLibs.mockk
+    testImplementation appCoreLibs.koin.test
+    testImplementation appCoreLibs.koin.test.junit4
+    testImplementation appCoreLibs.kotlinx.coroutines.test
+    androidTestImplementation appCoreLibs.androidx.junit
+    androidTestImplementation appCoreLibs.androidx.espresso.core
+    androidTestImplementation platform(appCoreLibs.androidx.compose.bom)
+    androidTestImplementation appCoreLibs.androidx.ui.test.junit4
+    debugImplementation appCoreLibs.androidx.ui.tooling
+    debugImplementation appCoreLibs.androidx.ui.test.manifest
+}

@@ -1,0 +1,8 @@
+apply plugin: rootProject.appCoreLibs.plugins.detekt.get().pluginId
+
+detekt {
+    toolVersion = rootProject.appCoreLibs.versions.detekt.get()
+    config.setFrom(files("$rootDir/appCore/config/detekt/detekt.yml"))
+    buildUponDefaultConfig = true
+    autoCorrect = true
+}

@@ -1,0 +1,41 @@
+apply from: rootProject.file("appCore/gradleConfig/core-submodule.gradle")
+
+android {
+    namespace 'br.com.leonardo.appcore.data'
+
+    buildFeatures {
+        buildConfig true
+    }
+
+    buildTypes {
+        debug {
+            buildConfigField "boolean", "ENABLE_HTTP_LOG", "true"
+        }
+        release {
+            minifyEnabled false
+            buildConfigField "boolean", "ENABLE_HTTP_LOG", "false"
+        }
+    }
+}
+
+dependencies {
+    implementation project(":appCore:di")
+    implementation project(":appCore:domain")
+
+    // Firebase
+    implementation platform(appCoreLibs.firebase.bom)
+    implementation appCoreLibs.google.firebase.analytics
+    implementation appCoreLibs.firebase.crashlytics
+
+    // Koin
+    implementation appCoreLibs.koin.androidx.compose
+
+    // Retrofit + Converter + Logging interceptor
+    implementation appCoreLibs.retrofit
+    implementation appCoreLibs.converter.gson
+    implementation appCoreLibs.logging.interceptor
+
+    // Coil
+    implementation appCoreLibs.coil3.coil.compose
+    implementation appCoreLibs.coil.network.okhttp
+}

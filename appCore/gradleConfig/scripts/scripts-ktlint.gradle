@@ -1,0 +1,32 @@
+// install installEditorConfig
+
+tasks.register('installEditorConfig') {
+    group = 'quality'
+    description = 'Install the .editorconfig file from appCore'
+
+    def configFile = new File(rootProject.rootDir, 'appCore/config/ktlint/.editorconfig')
+    def destFile = new File(rootProject.rootDir, '.editorconfig')
+
+    inputs.file(configFile)
+    outputs.file(destFile)
+
+    doLast {
+        if (configFile.exists()) {
+            destFile.text = configFile.text
+        }
+    }
+}
+
+def targetModule = project.hasProperty("targetAppModule") ? project.targetAppModule : null
+
+if (targetModule != null) {
+    tasks.getByPath("${targetModule}:preBuild").dependsOn(installEditorConfig)
+} else {
+    subprojects {
+        plugins.withId('com.android.application') {
+            tasks.named('preBuild') {
+                dependsOn(installEditorConfig)
+            }
+        }
+    }
+}

@@ -1,7 +1,7 @@
 # ========================================================
 # ATENCAO: Este arquivo foi gerado automaticamente pelo Gradle.
 # NAO EDITE ESTE ARQUIVO DIRETAMENTE.
-# Edite o molde em: gradleConfig/scripts/github/workflows/
+# Edite o molde em: appCore/gradleConfig/scripts/github/workflows/
 # ========================================================
 
 name: CI Checks

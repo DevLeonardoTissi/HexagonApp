@@ -1,0 +1,1 @@
+apply plugin: rootProject.appCoreLibs.plugins.ktlint.get().pluginId

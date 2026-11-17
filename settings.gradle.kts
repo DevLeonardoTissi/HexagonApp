@@ -19,7 +19,7 @@ dependencyResolutionManagement {
     }
     versionCatalogs {
         create("appCoreLibs") {
-            from(files("appCore/gradle/libs.versions.toml"))
+            from(files("appCore/gradle/appcoreLibs.versions.toml"))
         }
     }
 }
