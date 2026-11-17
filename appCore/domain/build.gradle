@@ -1,4 +1,5 @@
 apply from: rootProject.file("appCore/gradleConfig/core-submodule.gradle")
+apply from: rootProject.file("appCore/gradleConfig/core-publish.gradle")
 
 android {
     namespace 'br.com.leonardo.appcore.domain'

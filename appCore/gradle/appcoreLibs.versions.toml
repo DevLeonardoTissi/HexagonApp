@@ -1,5 +1,8 @@
 [versions]
 
+#AppCore Version
+appCoreVersion = "1.0.0-SNAPSHOT"
+
 #Android Gradle plugin
 agp = "9.4.1"
 

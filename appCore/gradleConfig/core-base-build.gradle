@@ -46,11 +46,8 @@ android {
 
 dependencies {
     // Core Modules
+    // implementation "br.com.leonardo.hexagon:appCore:${appCoreLibs.versions.appCoreVersion.get()}"
     implementation project(":appCore")
-    implementation project(":appCore:data")
-    implementation project(":appCore:domain")
-    implementation project(":appCore:di")
-    implementation project(":appCore:presentation")
     implementation project(":localData")
 
     // Core AndroidX & Material

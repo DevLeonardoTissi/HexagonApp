@@ -1,0 +1,25 @@
+// core-publish.gradle - Shared publishing configuration for releaseable Core submodules
+
+apply plugin: 'maven-publish'
+
+android {
+    publishing {
+        singleVariant('release') {
+            withSourcesJar()
+        }
+    }
+}
+
+publishing {
+    publications {
+        release(MavenPublication) {
+            groupId = 'br.com.leonardo.hexagon'
+            artifactId = project.name
+            version = appCoreLibs.versions.appCoreVersion.get()
+
+            afterEvaluate {
+                from components.release
+            }
+        }
+    }
+}
